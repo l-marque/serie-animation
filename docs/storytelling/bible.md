@@ -7,11 +7,11 @@ Règle de lecture : une section marquée **À DÉCIDER par Lucas et Guillaume** 
 ## 1. Public visé et plateforme
 
 - Plateforme : Instagram, format vertical 9:16, épisodes de 30 à 60 secondes.
-- Public visé : **À DÉCIDER par Lucas et Guillaume** (âge, centres d'intérêt, langue).
+- Public visé : **Jeunes 8-25 ans français et anglais pour les langues et centre d'interet : brainrot ** (âge, centres d'intérêt, langue).
 
 ## 2. Ton et registre
 
-**À DÉCIDER par Lucas et Guillaume.**
+**Comique **
 
 Trois options pour éclairer la décision (liste non exhaustive, aucune n'est recommandée ici) :
 
@@ -37,7 +37,7 @@ Le mécanisme technique **n'est pas vérifié** : ce que l'API Instagram permet 
 
 Ce qu'une idée peut dire : « l'audience choisit entre deux options », « l'audience propose un élément », formulé en termes d'effet sur l'histoire, pas de technique.
 
-Principe général (choix précis de mécanisme) : **À DÉCIDER par Lucas et Guillaume**, après l'issue #9.
+Principe général (choix précis de mécanisme) : **un like ou un abonné modifiera le contenue suivant mais c'est encore a définir**, après l'issue #9.
 
 ## 5. Personnages et décors récurrents
 
