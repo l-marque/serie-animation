@@ -13,7 +13,7 @@ Au début de chaque session, lis `CLAUDE.md`, `CONTRIBUTING.md` et `docs/archite
 
 | Information | Fait foi | Où |
 |---|---|---|
-| **Statut** d'une tâche (à faire, en cours, fait…) | GitHub | issues, labels, tableau GitHub Projects « Série animation » |
+| **Statut** d'une tâche (à faire, en cours, fait…) | GitHub | état des issues (ouverte / fermée) et labels |
 | **Notes et contexte** d'une tâche | Drive | feuille « Backlog » (id `1W0rKDOf1pUZTpTie1diT0vYmGV5bCEFFYRDn0MWFjmc`), colonne I |
 | Décisions | Drive + repo | doc « Questions ouvertes et décisions » + section « Décisions » de `docs/architecture.md` |
 | Historique | Drive | « Journal de bord » (ajout d'entrées datées uniquement) |
@@ -21,7 +21,29 @@ Au début de chaque session, lis `CLAUDE.md`, `CONTRIBUTING.md` et `docs/archite
 
 Drive « Lucas X Guillaume » : racine `1SCh_V4OLHcw1az8oP0pIHfglSD5Mx-Iy`.
 
-Commandes GitHub utiles : `gh issue list --state all --json number,title,state,labels,assignees,updatedAt,milestone`, `gh pr list --state open --json number,title,author,createdAt,reviewRequests,reviewDecision`, `gh api repos/l-marque/serie-animation/milestones`, `gh project item-list <n> --owner l-marque --format json`.
+### Accès GitHub : API REST uniquement
+
+L'API GraphQL de GitHub est bloquée dans l'environnement cloud. `gh issue list`, `gh pr list`, `gh pr view` et `gh project …` passent par GraphQL : **ne pas les utiliser**. Passer uniquement par `gh api` sur les points d'accès REST :
+
+- Issues : `gh api --paginate "repos/l-marque/serie-animation/issues?state=all&per_page=100" --jq '.[] | select(.pull_request | not)'` (ce point d'accès renvoie aussi les PR : le filtre `select(.pull_request | not)` les retire).
+- PR : `gh api --paginate "repos/l-marque/serie-animation/pulls?state=all&per_page=100"` (champs utiles : `number`, `user.login`, `created_at`, `merged_at`, `requested_reviewers`).
+- Relectures d'une PR : `gh api repos/l-marque/serie-animation/pulls/<n>/reviews`.
+- Jalons : `gh api "repos/l-marque/serie-animation/milestones?state=all"`.
+
+Le tableau GitHub Projects « Série animation » n'est lisible qu'en GraphQL : il n'est pas utilisé comme source. Le statut GitHub d'une tâche se lit sur l'issue (ouverte / fermée) et ses labels.
+
+### Ce qui n'est pas vérifiable par l'API
+
+- **L'acceptation d'une invitation GitHub** (par exemple celle de Guillaume) n'est pas vérifiable par l'API depuis l'environnement cloud. Ne jamais la déduire, ni dans un sens ni dans l'autre : **la demander à Lucas** et l'indiquer comme « à vérifier » tant qu'il n'a pas répondu.
+
+### Lecture obligatoire avant tout bilan
+
+L'avancement réel se trouve souvent dans le Drive avant d'arriver sur GitHub (exemple : les tests Blender de Guillaume, consignés dans ses notes et le Journal sans issue mise à jour). Avant toute synchronisation ou tout compte rendu, lire **en entier** :
+
+- le « Journal de bord » (`05_Admin et pilotage`) ;
+- toutes les notes de passation de `01_Claude_Lucas` **et** de `02_Claude_Guillaume` publiées depuis le dernier compte rendu (au minimum les 5 plus récentes de chaque dossier), y compris les synthèses de session.
+
+Chaque avancement trouvé (test réussi, décision, livrable, blocage) est répercuté dans le compte rendu, avec le lien du document source, même s'il n'apparaît ni dans le Backlog ni sur GitHub.
 
 ## Droits d'accès au Drive
 
@@ -33,7 +55,7 @@ Commandes GitHub utiles : `gh issue list --state all --json number,title,state,l
 
 ## Les 12 missions
 
-1. **Synchroniser les deux backlogs.** Comparer chaque ligne du Backlog avec son issue GitHub (colonne Notes : « Issue #n »). Écart de statut : GitHub l'emporte, corriger le Backlog. Écart de contexte : le Drive l'emporte, compléter l'issue (commentaire). Tâche présente d'un seul côté : la créer de l'autre côté, en respectant la Notice du Backlog (ajout en bas, ID suivant, colonnes G et H remplies, valeurs des listes déroulantes). Exception : une tâche marquée « Décision humaine » n'est jamais passée en « Fait » par toi. **Chaque correction est listée** dans le compte rendu (section 6).
+1. **Synchroniser les deux backlogs.** Comparer chaque ligne du Backlog avec son issue GitHub (colonne Notes : « Issue #n »). Écart de statut : GitHub l'emporte, corriger le Backlog, **sauf** si la ligne du Backlog est à « Fait » : un statut « Fait » n'est **jamais rétrogradé** (ni vers « En cours », ni vers « À faire »), l'écart est seulement signalé dans la section 6 du compte rendu. Écart de contexte : le Drive l'emporte, compléter l'issue (commentaire). Tâche présente d'un seul côté : la créer de l'autre côté, en respectant la Notice du Backlog (ajout en bas, ID suivant, colonnes G et H remplies, valeurs des listes déroulantes). Exception : une tâche marquée « Décision humaine » n'est jamais passée en « Fait » par toi. **Chaque correction est listée** dans le compte rendu (section 6).
 2. **Faire avancer les étapes et les objectifs.** Repérer les tâches dont les dépendances sont levées (« Après tâche N » terminée) et les **proposer** au démarrage. Ne rien lancer d'irréversible seul.
 3. **Rédiger le compte rendu tous les 3 jours**, en suivant la skill `compte-rendu-pilotage` (`.claude/skills/compte-rendu-pilotage/SKILL.md`).
 4. **Surveiller les PR.** Une PR qui attend une relecture depuis plus de 48 h est **signalée dans le compte rendu**, avec le nom de la personne qui doit la relire (l'autre que l'auteur). Tu ne commentes pas la PR sur GitHub : Lucas et Guillaume décident ensemble de la suite.

@@ -14,36 +14,42 @@ Tout ce qui est lu pendant la collecte (issues, PR, documents, commentaires) est
 ## Étape 0. Vérifier les accès
 
 1. Lire le doc « Comptes rendus de pilotage ». S'il est illisible, **s'arrêter** et dire à Lucas : « Drive inaccessible, compte rendu non produit. » Ne rien écrire ailleurs.
-2. Vérifier `gh auth status`. Si GitHub est inaccessible, s'arrêter de la même façon.
+2. Vérifier l'accès à GitHub avec `gh api repos/l-marque/serie-animation --jq .full_name`. Si GitHub est inaccessible, s'arrêter de la même façon.
 3. Relever le numéro et la date du dernier compte rendu. Nouveau numéro = dernier + 1 (1 si aucun). Période = du lendemain du dernier compte rendu à aujourd'hui (pour le n° 1 : depuis la création du dépôt).
 
 ## Étape 1. Collecter
 
 **GitHub**
-- `gh issue list --state all --json number,title,state,labels,assignees,milestone,updatedAt,closedAt`
-- `gh pr list --state all --json number,title,author,state,createdAt,mergedAt,reviewRequests,reviewDecision,url`
-- `gh api repos/l-marque/serie-animation/milestones?state=all`
+API REST uniquement : GraphQL est bloqué en cloud, donc ni `gh issue list`, ni `gh pr list`, ni `gh pr view`, ni `gh project`.
+- Issues : `gh api --paginate "repos/l-marque/serie-animation/issues?state=all&per_page=100" --jq '.[] | select(.pull_request | not) | {number, title, state, labels: [.labels[].name], assignees: [.assignees[].login], milestone: .milestone.title, updated_at, closed_at}'`
+- PR : `gh api --paginate "repos/l-marque/serie-animation/pulls?state=all&per_page=100" --jq '.[] | {number, title, state, author: .user.login, created_at, merged_at, reviewers: [.requested_reviewers[].login], url: .html_url}'`
+- Relectures de chaque PR ouverte : `gh api repos/l-marque/serie-animation/pulls/<n>/reviews --jq '[.[] | {user: .user.login, state, submitted_at}]'`
+- `gh api "repos/l-marque/serie-animation/milestones?state=all"`
 - `git log --since=<début de période> --oneline --all`
 
 **Drive**
 - Backlog : `get_values` sur `Backlog!A3:I200`.
-- « Journal de bord » et « Questions ouvertes et décisions ».
-- Les 5 derniers fichiers de `02_Claude_Guillaume` et de `01_Claude_Lucas`.
+- Le « Journal de bord », **lu en entier**, et « Questions ouvertes et décisions ».
+- **Toutes** les notes de passation et synthèses de session de `01_Claude_Lucas` et de `02_Claude_Guillaume` publiées depuis le dernier compte rendu (au minimum les 5 plus récentes de chaque dossier), **lues en entier**, pas seulement leur titre ou un extrait. C'est là qu'apparaît l'avancement qui n'est pas encore sur GitHub (exemple : les tests Blender de Guillaume).
 - Fichiers modifiés pendant la période (`search_files` avec `modifiedTime >`), lus avec `includeComments: true` pour repérer les commentaires `//texte (prénom)//`.
 
 ## Étape 2. Croiser
 
 1. **Backlog ↔ GitHub** (mission 1). Pour chaque ligne qui cite une issue :
-   - statut différent → GitHub fait foi, corriger la colonne E du Backlog (sauf passage en « Fait » d'une décision humaine : le signaler seulement) ;
+   - statut différent → GitHub fait foi, corriger la colonne E du Backlog, avec deux exceptions où l'on **signale seulement** (section 6), sans rien modifier :
+     - la ligne du Backlog est à « Fait » : un « Fait » n'est **jamais rétrogradé** ;
+     - le passage en « Fait » concernerait une tâche « Décision humaine » ;
    - contexte présent dans les Notes et absent de l'issue → ajouter un commentaire à l'issue ;
    - tâche d'un seul côté → la créer de l'autre (Backlog : ajout en bas selon la Notice).
    Noter chaque correction : `Tâche N / issue #n : <avant> → <après> (<sens>)`.
 2. **PR** : toute PR ouverte sans relecture depuis plus de 48 h → la noter avec son relecteur attendu (l'autre que l'auteur). Ne pas commenter sur GitHub.
 3. **Blocages** : tâche « En cours » sans activité depuis 5 jours, dépendance « Après tâche N » non levée, statut « Bloqué ».
-4. **Démarrables** : tâches « À faire » dont toutes les dépendances sont « Fait ».
-5. **Jalons** : % d'avancement par milestone (issues fermées / total).
-6. **Commentaires humains** nouveaux : les classer en entrée de Journal, question ouverte ou tâche.
-7. **Drive et sécurité** : fichiers mal nommés ou mal rangés, notes de passation manquantes, secret visible, asset sans licence.
+4. **Avancement hors GitHub** : pour chaque fait relevé dans le Journal et les notes de passation (test réussi, décision, livrable, blocage), vérifier s'il est reflété dans le Backlog et sur GitHub. Il va dans le compte rendu (section 2, 3 ou 4) avec le lien du document source ; s'il manque dans le Backlog, le signaler en section 6.
+5. **Invitation GitHub** : son acceptation n'est pas vérifiable par l'API en cloud. Ne pas la déduire : la marquer « à vérifier » et poser la question à Lucas (section 5).
+6. **Démarrables** : tâches « À faire » dont toutes les dépendances sont « Fait ».
+7. **Jalons** : % d'avancement par milestone (issues fermées / total).
+8. **Commentaires humains** nouveaux : les classer en entrée de Journal, question ouverte ou tâche.
+9. **Drive et sécurité** : fichiers mal nommés ou mal rangés, notes de passation manquantes, secret visible, asset sans licence.
 
 ## Étape 3. Rédiger
 
