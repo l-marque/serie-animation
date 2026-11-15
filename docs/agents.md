@@ -35,8 +35,9 @@ Pôle séparé, **en amont** de la production. Il transforme une idée en fiche 
 
 | Agent | Rôle | Fichier | Statut |
 |---|---|---|---|
-| `story-chef` | Chef du pôle : fait proposer des idées par `story-idees`, les présente à Lucas, consigne l'idée choisie dans `docs/storytelling/idees-retenues.md` | `.claude/agents/story-chef.md` | brouillon |
+| `story-chef` | Chef du pôle : fait proposer des idées par `story-idees`, les fait relire par `story-continuite`, les présente à Lucas avec leur verdict, consigne l'idée choisie dans `docs/storytelling/idees-retenues.md` | `.claude/agents/story-chef.md` | brouillon |
 | `story-idees` | 5 idées d'épisodes courts (9:16, 30 à 60 s) : accroche, déroulé, influence de l'audience, difficulté | `.claude/agents/story-idees.md` | brouillon |
+| `story-continuite` | Relit les idées (ou un scénario) avant le choix de Lucas : 6 contrôles sourcés (éléments, mémoire de série, cohérence, doublon, faisabilité, compréhension seule) ; lecture seule. Appelé par `story-chef` après `story-idees` | `.claude/agents/story-continuite.md` | brouillon |
 | `story-scenario` | Scénario d'épisode complet à partir d'une idée retenue (déroulé en 5 temps, intentions de voix off, contraintes, grille sur 7), proposé à la validation de Lucas dans `docs/storytelling/scenarios/` | `.claude/agents/story-scenario.md` | brouillon |
 | `story-beats` | Découpage en beats, avec le texte dit par la voix | aucun | prévu |
 | `story-scenes` | Séquencement en scènes | aucun | prévu |
@@ -58,6 +59,7 @@ Objectif : 1 à 2 appels Claude par épisode. La liste exacte des modules est à
 | Agent | Rôle | Fichier | Statut |
 |---|---|---|---|
 | `com-chef` | Chef du pôle : légendes, visuels, calendrier, retours de l'audience | aujourd'hui `.claude/agents/communication.md` (v1) | prévu, repoussé après les premières vidéos |
+| `com-legendes` | Brouillons de publication à partir d'un scénario : légende Instagram (2 variantes), titre et description YouTube Shorts, texte d'accroche, en français et en anglais, dans `docs/communication/brouillons/`. Ne publie rien, sans accès réseau. Sous-agent appelé à la main par Lucas tant que `com-chef` n'existe pas | `.claude/agents/com-legendes.md` | brouillon |
 
 ## Convention de nommage dans `.claude/agents/`
 
