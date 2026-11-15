@@ -301,3 +301,21 @@ def test_effets_sonores_fusionnes_et_places():
     evts = effets_sonores.evenements(timeline)
     assert [e[0] for e in evts] == ["pop", "souffle"]
     assert evts[1][1] == pytest.approx(2.88)
+
+
+def test_voix_du_pack_et_assemblage_audition(tmp_path, monkeypatch):
+    import json as _json
+    import wave as _wave
+    from engine.pipeline import voix
+    pack = _json.loads((chemins.PACKS_DA / "test_lowpoly.json").read_text(encoding="utf-8"))
+    pack["voix_off"] = {"kyutai": "cml-tts/fr/296_1028_000022-0001_enhanced.wav"}
+    (tmp_path / "p.json").write_text(_json.dumps(pack), encoding="utf-8")
+    monkeypatch.setattr(chemins, "PACKS_DA", tmp_path)
+    assert voix.voix_du_pack("p") == "cml-tts/fr/296_1028_000022-0001_enhanced.wav"
+    assert voix.voix_du_pack("absent") is None
+    for vid in ("v01", "v02"):
+        with _wave.open(str(tmp_path / f"{vid}.wav"), "wb") as w:
+            w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000); w.writeframes(b"\0\0" * 24000)
+    chemin = voix._assembler_audition(tmp_path, ["v01", "v02", "v03"])
+    with _wave.open(str(chemin)) as w:
+        assert w.getnframes() / w.getframerate() == pytest.approx(2 * (1 + 0.35 * 2 + 0.12), abs=0.01)

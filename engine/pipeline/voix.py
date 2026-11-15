@@ -118,16 +118,29 @@ def _synthese_windows(phrases: list[dict[str, str]], dossier: Path) -> dict[str,
     return sortie
 
 
+def voix_du_pack(nom_pack: str) -> str | None:
+    """Voix choisie pour la série, rangée dans le pack de DA (`voix_off.kyutai`), si elle existe."""
+    chemin = chemins.PACKS_DA / f"{nom_pack}.json"
+    if not chemin.is_file():
+        return None
+    return (json.loads(chemin.read_text(encoding="utf-8")).get("voix_off") or {}).get("kyutai")
+
+
 def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
                  interpreteur: str | None = None) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Renvoie (copie de la fiche avec voix_audio, compte rendu). Lève VoixErreur si la synthèse échoue."""
+    """Renvoie (copie de la fiche avec voix_audio, compte rendu). Lève VoixErreur si la synthèse échoue.
+
+    Voix utilisée : celle passée en argument, sinon celle du pack de DA, sinon la voix par défaut."""
     if moteur not in MOTEURS:
         raise VoixErreur(f"moteur de voix inconnu : {moteur} ({', '.join(MOTEURS)})")
     sortie = copy.deepcopy(donnees)
     compte_rendu: dict[str, Any] = {"moteur": moteur, "synthetisees": [], "depuis_cache": [], "deja_fournies": []}
     if moteur == "aucune":
         return sortie, compte_rendu
-    voix = voix or (VOIX_KYUTAI_DEFAUT if moteur == "kyutai" else "systeme")
+    if moteur == "kyutai":
+        voix = voix or voix_du_pack(donnees.get("pack_da", "")) or VOIX_KYUTAI_DEFAUT
+    else:
+        voix = voix or "systeme"
     if moteur == "kyutai":
         interpreteur = python_tts(interpreteur)
         if not interpreteur:
@@ -179,3 +192,85 @@ def copier_dans(donnees: dict[str, Any], dossier: Path) -> None:
             dest = cible / f"{b['id']}.wav"
             shutil.copyfile(audio["fichier"], dest)
             audio["fichier"] = str(dest)
+
+
+# ----- audition : écouter plusieurs voix sur la même phrase ----------------------------------
+VOIX_FR_CANDIDATES = [
+    "unmute-prod-website/fabieng-enhanced-v2.wav",
+    "unmute-prod-website/developpeuse-3.wav",
+    "unmute-prod-website/default_voice.wav",
+] + [f"cml-tts/fr/{c}_enhanced.wav" for c in (
+    "10087_11650_000028-0002", "10177_10625_000134-0003", "10179_11051_000005-0001", "12080_11650_000047-0001",
+    "12205_11650_000004-0002", "12977_10625_000037-0001", "1406_1028_000009-0003", "1591_1028_000108-0004",
+    "1770_1028_000036-0002", "2114_1656_000053-0001", "2154_2576_000020-0003", "2216_1745_000007-0001",
+    "2223_1745_000009-0002", "2465_1943_000152-0002", "296_1028_000022-0001", "3267_1902_000075-0001",
+    "4193_3103_000004-0001", "4482_3103_000063-0001", "4724_3731_000031-0001", "4937_3731_000004-0001",
+    "5207_3078_000031-0002", "5476_3103_000072-0001", "577_394_000070-0001", "5790_4893_000052-0001",
+    "579_2548_000015-0001", "5830_4703_000037-0001", "6318_7016_000027-0002", "7142_2432_000124-0003",
+    "7400_2928_000100-0001", "7591_6742_000149-0002", "7601_7727_000062-0001", "7762_8734_000048-0002",
+    "8128_7016_000047-0002", "928_486_000075-0001", "9834_9697_000150-0003")]
+
+
+def audition(texte: str, dossier: Path, voix: list[str] | None = None, interpreteur: str | None = None) -> Path:
+    """Synthétise `texte` avec chaque voix (par défaut : les voix françaises du dépôt Kyutai) dans
+    `dossier/vNN.wav`, écrit `dossier/correspondance.json` et `dossier/audition.wav` (toutes les voix
+    à la suite, séparées par un bip : 1 bip avant la voix 1, etc. ; le numéro est dans la liste)."""
+    voix = voix or VOIX_FR_CANDIDATES
+    interpreteur = python_tts(interpreteur)
+    if not interpreteur:
+        raise VoixErreur("audition : TTS_PYTHON introuvable")
+    dossier.mkdir(parents=True, exist_ok=True)
+    corr = {f"v{i:02d}": v for i, v in enumerate(voix, 1)}
+    phrases = [{"id": vid, "texte": texte, "voix": v} for vid, v in corr.items()]
+    _synthese_kyutai(phrases, voix[0], interpreteur, dossier)
+    (dossier / "correspondance.json").write_text(json.dumps(corr, ensure_ascii=False, indent=2), encoding="utf-8")
+    return _assembler_audition(dossier, list(corr))
+
+
+def _assembler_audition(dossier: Path, ids: list[str]) -> Path:
+    import math
+    import struct
+    frequence = None
+    sortie = bytearray()
+    for vid in ids:
+        f = dossier / f"{vid}.wav"
+        if not f.is_file():
+            continue
+        with wave.open(str(f), "rb") as w:
+            frequence = frequence or w.getframerate()
+            donnees = w.readframes(w.getnframes())
+        bip = b"".join(struct.pack("<h", int(8000 * math.sin(2 * math.pi * 880 * i / frequence)))
+                       for i in range(int(0.12 * frequence)))
+        silence = b"\0\0" * int(0.35 * frequence)
+        sortie += silence + bip + silence + donnees
+    chemin = dossier / "audition.wav"
+    with wave.open(str(chemin), "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(frequence or 24000)
+        w.writeframes(bytes(sortie))
+    return chemin
+
+
+def main(argv: list[str] | None = None) -> int:
+    import argparse
+    p = argparse.ArgumentParser(prog="voix", description="Outils voix off (Kyutai).")
+    sp = p.add_subparsers(dest="cmd", required=True)
+    a = sp.add_parser("audition", help="écouter plusieurs voix sur la même phrase")
+    a.add_argument("texte")
+    a.add_argument("--sortie", type=Path, default=chemins.RACINE / "renders" / "audition_voix")
+    a.add_argument("--voix", nargs="*", help="voix à comparer (défaut : toutes les voix françaises)")
+    a.add_argument("--python-tts")
+    args = p.parse_args(argv)
+    try:
+        chemin = audition(args.texte, args.sortie, args.voix, args.python_tts)
+    except VoixErreur as e:
+        print(json.dumps({"erreur": str(e)}, ensure_ascii=False))
+        return 1
+    print(json.dumps({"audition": str(chemin), "correspondance": str(args.sortie / "correspondance.json")},
+                     ensure_ascii=False))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

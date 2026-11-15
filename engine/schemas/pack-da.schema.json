@@ -301,6 +301,17 @@
     "effets_sonores": {
       "type": "boolean",
       "description": "Pop sur les apparitions et souffle aux changements de plan (défaut : oui)."
+    },
+    "voix_off": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Voix de la série, choisie par un humain après une audition (python -m engine.pipeline.voix audition).",
+      "properties": {
+        "kyutai": {
+          "type": "string",
+          "description": "Identifiant d'une voix du dépôt kyutai/tts-voices, ex. cml-tts/fr/<id>_enhanced.wav"
+        }
+      }
     }
   }
 }
