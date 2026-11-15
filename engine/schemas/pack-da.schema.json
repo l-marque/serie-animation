@@ -268,6 +268,10 @@
         },
         "couleur": {
           "$ref": "#/$defs/rgb"
+        },
+        "sur_assets_textures": {
+          "type": "boolean",
+          "description": "Contour aussi sur les modèles importés qui gardent leurs textures (défaut : non)."
         }
       }
     },

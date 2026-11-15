@@ -58,7 +58,7 @@
       ],
       "rugosite": 0.6,
       "textures": "engine/assets/textures/floor_tiles_06",
-      "echelle_texture": 0.8,
+      "echelle_texture": 0.45,
       "force_teinte": 0.35
     },
     "batiment": {

@@ -153,10 +153,14 @@ def appliquer_role(obj: bpy.types.Object, role: str, pack: dict, garder_materiau
     """
     if obj.type != "MESH":
         return
-    if not (garder_materiaux and len(obj.data.materials)):
+    garde = garder_materiaux and len(obj.data.materials)
+    if not garde:
         obj.data.materials.clear()
         obj.data.materials.append(materiau_role(pack, role))
-    ajouter_contour(obj, pack)
+    # Le contour cartoon (coque inversée) abîme les modèles texturés et détaillés : seulement si le pack
+    # le demande explicitement pour eux.
+    if not garde or pack.get("contours", {}).get("sur_assets_textures", False):
+        ajouter_contour(obj, pack)
 
 
 def _brancher_hdri(monde: bpy.types.World, fond: bpy.types.Node, chemin_rel: str) -> None:
