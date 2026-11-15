@@ -1,0 +1,55 @@
+{
+  "version": "1.0",
+  "episode_id": "pip_001",
+  "titre": "Pip, jardinier des nuages (test)",
+  "format": { "resolution": [1080, 1920], "fps": 30 },
+  "pack_da": "test_lowpoly",
+  "decor": { "kit": "primitifs", "sol": true, "taille_sol": 30 },
+  "elements": [
+    { "id": "arbre_pip", "asset": "primitif:arbre", "position": [2.5, 0, 0], "role": "vegetation", "visible_au_debut": false },
+    { "id": "phare", "asset": "primitif:tour", "position": [11, -4, 0], "echelle": 1.6, "role": "accent", "visible_au_debut": false }
+  ],
+  "personnages": [
+    { "id": "pip", "asset": "primitif:personnage", "position": [0, 0, 0], "role": "personnage" }
+  ],
+  "modules": [
+    { "id": "arbres_abonnes", "type": "disperser", "asset": "primitif:arbre", "nombre": 25, "motif": "cercle",
+      "centre": [0, 0, 0], "espacement": 2.0, "seed": 25, "role": "vegetation", "visible_au_debut": false }
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "voix": "Là-haut, au-dessus des nuages, Pip veille sur une île vide.",
+      "texte_ecran": "JOUR 1",
+      "plan": { "camera": "survol", "cible": "pip", "distance": 22, "hauteur": 12 },
+      "actions": [
+        { "type": "cycle", "cible": "pip", "debut": 0, "duree_s": 5, "params": { "nom": "flotter", "amplitude": 0.6 } }
+      ]
+    },
+    {
+      "id": "b2",
+      "voix": "Il plante une graine, et tout doucement, quelque chose pousse.",
+      "plan": { "camera": "dolly_avant", "cible": "arbre_pip", "distance": 9, "hauteur": 4 },
+      "actions": [
+        { "type": "apparaitre", "cible": "arbre_pip", "mot": "doucement", "duree_s": 1.5 }
+      ]
+    },
+    {
+      "id": "b3",
+      "voix": "Chaque abonné fait pousser un arbre autour de lui.",
+      "texte_ecran": "25 ABONNÉS",
+      "plan": { "camera": "plongee", "cible": "pip", "distance": 26, "hauteur": 22 },
+      "actions": [
+        { "type": "apparaitre", "cible": "arbres_abonnes", "mot": "abonné", "duree_s": 2.0 }
+      ]
+    },
+    {
+      "id": "b4",
+      "voix": "Et au loin, un phare s'allume pour veiller sur Pip.",
+      "plan": { "camera": "revelation", "cible": "phare", "distance": 22, "hauteur": 9 },
+      "actions": [
+        { "type": "apparaitre", "cible": "phare", "mot": "phare", "duree_s": 0.8 }
+      ]
+    }
+  ]
+}

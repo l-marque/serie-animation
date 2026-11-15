@@ -24,7 +24,7 @@ Une **fiche épisode** (JSON) entre, une **vidéo 9:16** sort. Entre les deux, u
  1 image par épisode     fiche libre/invalide    pack de DA                  engine/docs/maintenance.md)
 ```
 
-Dans ce dépôt, un sous-agent n'a pas l'outil `Agent` (test du 2026-11-15 : un sous-agent lancé avec tous les outils ne l'a pas reçu). `prod-chef` indique donc dans sa réponse (champ `SUITE`) quel agent appeler ; c'est la session principale (ou l'automatisation de Lucas) qui enchaîne. Si l'imbrication devient disponible, il suffira d'ajouter `Agent` aux outils de `prod-chef`.
+L'imbrication dépend de l'environnement : dans Claude Code en local, un agent qui a l'outil `Agent` peut lancer un sous-agent (test de Lucas, 2026-11-15, story-chef → story-scenario) ; dans l'environnement cloud de Claude, un sous-agent ne reçoit pas cet outil (test du Claude de Guillaume, même jour). `prod-chef` a donc l'outil `Agent` et enchaîne lui-même quand il le peut ; sinon il indique la suite dans le champ `SUITE`, et c'est la session principale (ou l'automatisation de Lucas) qui enchaîne.
 
 Conformément à l'organigramme (`docs/agents.md`), seuls les rôles qui demandent du jugement ont un fichier d'agent ; la bibliothèque et la maintenance n'en ont pas.
 
