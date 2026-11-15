@@ -50,7 +50,7 @@ Si un fichier de ce nom existe déjà, tu ne l'écrases pas : tu ajoutes `-v2`, 
 
 | Élément | Origine |
 |---|---|
-| <élément> | bible, section <N> |
+| <élément> | bible, section <N> (présent avant l'idée source) |
 | <élément> | nouveau, à valider |
 
 ## Déroulé en 5 temps
@@ -109,6 +109,7 @@ Score : <N>/7
 - **Durées** : l'accroche tient dans les 3 premières secondes ; la somme des 5 temps reste entre 30 et 60 s.
 - **Voix off** : environ 2,5 mots par seconde de voix, soit 75 à 150 mots pour 30 à 60 s. Tu donnes une estimation par temps et un total. Ce sont des intentions (« la voix s'étonne que le banc recule »), jamais le texte final.
 - **Éléments** : uniquement des éléments présents dans la bible (sections 5 et 6), ou marqués « nouveau, à valider ». Tu n'ajoutes rien à la bible.
+- **Origine « bible »** : un élément n'a l'origine « bible » que s'il figurait dans les sections 5 ou 6 **avant l'idée source**, c'est-à-dire dans une ligne de la mémoire de série d'une idée antérieure, ou parmi les personnages et décors récurrents. La ligne de la mémoire de série ajoutée pour l'idée source elle-même ne compte pas : un élément introduit par l'idée retenue est marqué « nouveau, à valider ».
 - **Audience** : ce qu'elle peut influencer est formulé sans mécanisme technique, car l'issue #9 n'est pas close.
 - **Difficulté** : liste honnête de ce qui est difficile ; dans le doute, choisis la difficulté la plus élevée.
 - **Vérification** : les 7 critères sont cochés honnêtement, chacun avec une phrase de justification. **Minimum 5 sur 7.** En dessous, tu corriges le scénario (sans changer l'idée de départ) et tu refais la vérification avant de rendre. Si l'idée elle-même empêche d'atteindre 5, tu le dis dans « Questions pour Lucas » au lieu de la transformer en une autre idée.
