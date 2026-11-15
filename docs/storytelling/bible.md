@@ -7,11 +7,14 @@ Règle de lecture : une section marquée **À DÉCIDER par Lucas et Guillaume** 
 ## 1. Public visé et plateforme
 
 - Plateforme : Instagram, format vertical 9:16, épisodes de 30 à 60 secondes.
-- Public visé : **Jeunes 8-25 ans français et anglais pour les langues et centre d'interet : brainrot ** (âge, centres d'intérêt, langue).
+- Public visé : jeunes de 13 à 25 ans, francophones et anglophones, centre d'intérêt : brainrot (décidé par Lucas et Guillaume, 2026-11-15). La borne de 13 ans correspond à l'âge minimum d'Instagram.
+- Précision à venir : exemples de ce que « brainrot » désigne pour la série (À DÉCIDER par Lucas, avec exemples).
 
 ## 2. Ton et registre
 
-**Comique **
+**Ton retenu : comique** (décidé par Lucas et Guillaume, 2026-11-15)
+
+Tableau des options conservé pour mémoire.
 
 Trois options pour éclairer la décision (liste non exhaustive, aucune n'est recommandée ici) :
 
@@ -37,7 +40,7 @@ Le mécanisme technique **n'est pas vérifié** : ce que l'API Instagram permet 
 
 Ce qu'une idée peut dire : « l'audience choisit entre deux options », « l'audience propose un élément », formulé en termes d'effet sur l'histoire, pas de technique.
 
-Principe général (choix précis de mécanisme) : **un like ou un abonné modifiera le contenue suivant mais c'est encore a définir**, après l'issue #9.
+Principe général (choix précis de mécanisme) : **un like ou un abonné modifiera le contenu suivant, mais c'est encore à définir**, après l'issue #9.
 
 ## 5. Personnages et décors récurrents
 
