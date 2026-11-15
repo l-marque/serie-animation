@@ -11,7 +11,7 @@ Une série d'animation dont le décor est une **ville 3D construite dans Blender
 - **Lucas** : agents, automatisation, GitHub, pilotage du projet.
 - **Guillaume** : 3D, modèles et animation dans Blender.
 
-Chacun travaille avec son propre Claude. Les deux Claude se coordonnent de façon asynchrone par le Google Drive partagé « Lucas X Guillaume », selon le document « 01 - Protocole Claude vers Claude ». Lire aussi « 00 - LISEZ-MOI - Contexte du projet » en début de session quand le Drive est accessible.
+Chacun travaille avec son propre Claude. Les deux Claude se coordonnent de façon asynchrone par le Google Drive partagé « Lucas X Guillaume », selon le document « 00 - Protocole Claude vers Claude ». Lire aussi « 00 - LISEZ-MOI - Contexte du projet » en début de session quand le Drive est accessible.
 
 ## Règles impératives
 
