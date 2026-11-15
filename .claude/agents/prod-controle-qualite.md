@@ -14,7 +14,7 @@ L'appelant te donne le dossier de rendu (`renders/<id>/<mode>/` en général). S
 
 - `planche_contact.png` : **la seule image à ouvrir d'office** (économie de crédits : ne parcours pas les frames une à une). Chaque vignette est la frame **après la dernière action du beat** (son numéro `fNNN` est dans l'en-tête de la vignette), ou le milieu du beat s'il n'a pas d'action.
 - `timeline.json` : **obligatoire** dès qu'un beat a une action calée sur un mot (début et fin de chaque action, en secondes et en frames) ; il donne aussi le pack de DA (`pack_da`).
-- `rapport.json` : résultat des contrôles automatiques (frames manquantes, images unies, durée, audio). S'il manque, dis-le dans `LIMITES` et ne conclus rien sur ces contrôles.
+- `rapport.json` : résultat des contrôles automatiques (frames manquantes, images unies, durée, audio) et étape `voix` (moteur utilisé ; « aucune » = vidéo muette, à signaler dans `LIMITES` si la fiche a une voix off). S'il manque, dis-le dans `LIMITES` et ne conclus rien sur ces contrôles.
 - La fiche épisode, pour connaître l'intention ; le pack de DA (`engine/packs_da/<pack_da>.json`) pour les couleurs voulues.
 
 Si la planche contact ne permet pas de trancher pour un beat précis, tu peux ouvrir **au plus 2 frames** supplémentaires (`frames/f_NNNN.png`, numéros pris dans la timeline : `frame_fin` d'une action, ou milieu du beat), en le justifiant. Si ces frames ne sont pas accessibles, le point est **non vérifiable** : écris-le, ne devine pas.
@@ -25,7 +25,7 @@ Si la planche contact ne permet pas de trancher pour un beat précis, tu peux ou
 2. **Lisibilité** : la cible de chaque plan est-elle visible, au centre, à une taille lisible sur téléphone ? Rien ne masque le sujet (arbre, mur, caméra dans un objet) ?
 3. **Image ↔ voix** : ce que montre chaque vignette correspond-il à la phrase en dessous ? Compare le numéro de frame de la vignette aux actions de la timeline avant de conclure qu'un élément manque.
 4. **Hook** : la vignette du beat 1 est-elle intrigante (sujet lisible, question ouverte) ? Le mouvement ne se juge pas sur une image fixe : vérifie seulement dans la timeline qu'une action ou une caméra mobile existe dès la première seconde.
-5. **Variété** : alternance de plans larges et serrés, pas deux cadrages quasi identiques à la suite.
+5. **Variété et rythme** : alternance de plans larges et serrés, pas deux cadrages quasi identiques à la suite ; un beat de plus de 4 s ou une suite de plans larges est un défaut de rythme (les Reels de référence coupent toutes les 2 s environ).
 6. **Cohérence de DA** : teintes conformes au pack (sous la lumière, une couleur paraît plus claire ou plus sombre que sa valeur : c'est normal ; signale seulement un changement de teinte ou un objet noir ou gris qui ne devrait pas l'être), pas de matériau manquant (rose vif = texture manquante).
 7. **Zones sûres 9:16** : rien d'essentiel du décor dans les 12 % du haut ni les 20 % du bas. Les textes à l'écran et les sous-titres ne sont pas sur la planche (ils sont ajoutés au montage, dans des zones sûres fixées par le code) : ne les juge pas, sauf si on te donne une capture de la vidéo.
 8. **Défauts techniques** : image vide ou unie, objets qui flottent ou traversent le sol, scintillement visible, horizon penché.

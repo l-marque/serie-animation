@@ -5,6 +5,7 @@ Transforme une fiche épisode (`contracts/fiche-episode.schema.json`) en vidéo 
 | Dossier | Contenu |
 |---|---|
 | `pipeline/` | chef d'orchestre déterministe (`run.py`) et modules hors Blender : contrat, continuité, bibliothèque, sources d'assets par API, timeline, cache, montage, contrôles |
+| `voix/` | synthèse vocale Kyutai, exécutée dans l'environnement Python qui a PyTorch (`docs/voix-et-son.md`) |
 | `blender/` | modules exécutés dans Blender : décorateur, look, animateur, caméra, rendu, kits de décor |
 | `packs_da/` | packs de direction artistique (JSON) |
 | `schemas/` | schémas internes au moteur (`pack-da.schema.json`) ; les contrats entre pôles sont dans `contracts/` |

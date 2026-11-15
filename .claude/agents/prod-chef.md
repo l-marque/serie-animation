@@ -50,6 +50,7 @@ python -m engine.pipeline.run episodes/<id>.json --valider-seulement
 python -m engine.pipeline.run episodes/<id>.json --mode animatique
 ```
 - Sur le PC de Guillaume, Blender est trouvé via la variable `BLENDER_PATH` ou l'option `--blender "C:/Program Files/Blender Foundation/Blender 5.3/blender.exe"`.
+- **Voix off** : par défaut (`--voix auto`), Kyutai TTS est utilisé si `TTS_PYTHON` est défini (dans `.env` ou l'environnement) ; sinon la vidéo est muette et un avertissement le signale. `--voix windows` = voix système de Windows, de secours. La première synthèse prend du temps (sur CPU, environ 15 s de calcul par seconde de voix) ; ensuite tout est en cache. Code 7 = échec de la voix (`suite: maintenance`). `--valider-seulement` ne synthétise pas la voix (timings estimés).
 - Options utiles : `--pourcent 25` (définition réduite, défaut 50 % en animatique), `--moteur BLENDER_WORKBENCH` (très rapide, mais ne reproduit pas le look du pack : à réserver à une machine sans GPU), `--blender python` (Blender lancé comme module Python `bpy`, quand il n'y a pas d'exécutable Blender, par exemple en environnement cloud).
 - Le cache évite de re-rendre les beats inchangés : **ne mets jamais `--forcer`** sauf si on te le demande ou si le code Blender a été modifié hors dépôt.
 - L'animatique sert à valider le **rythme** par un humain avant le rendu final. Elle est volontairement en basse définition.

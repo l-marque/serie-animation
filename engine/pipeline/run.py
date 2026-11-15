@@ -9,7 +9,8 @@ Usage (depuis la racine du dépôt) :
   1. contrat        valider la fiche (structure + cohérence)
   2. continuite     reprendre l'état de la série si demandé
   3. bibliothecaire vérifier les assets (sinon : code 3 et liste des manquants)
-  4. realisateur    construire la timeline maître
+  3b. voix          synthétiser la voix off et horodater les mots (Kyutai, voix Windows ou aucune)
+  4. realisateur    construire la timeline maître (calée sur la vraie voix si elle existe)
   5. cache          déterminer les beats à (re)rendre
   6. blender        construire la scène et rendre (sous-processus Blender)
   7. montage        sous-titres, textes, audio, MP4
@@ -17,7 +18,7 @@ Usage (depuis la racine du dépôt) :
   9. continuite     enregistrer l'état de fin (mode final uniquement)
 
 Codes de sortie : 0 succès · 2 fiche invalide · 3 assets manquants · 4 échec Blender
-                  5 échec montage · 6 contrôles qualité en échec · 1 erreur inattendue.
+                  5 échec montage · 6 contrôles qualité en échec · 7 échec de la voix · 1 erreur inattendue.
 Le rapport complet est écrit dans renders/<episode>/<mode>/rapport.json et une ligne
 de synthèse JSON est imprimée en dernier sur la sortie standard (lisible par un agent).
 """
@@ -33,7 +34,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from . import bibliothecaire, cache, chemins, continuite, contrat, montage, qa_auto, realisateur
+from . import bibliothecaire, cache, chemins, continuite, contrat, montage, qa_auto, realisateur, voix
 
 
 # Suite à donner selon le code de sortie (lue par prod-chef ou par l'automatisation de Lucas).
@@ -47,6 +48,7 @@ SUITE = {
     4: "maintenance",             # échec Blender : diagnostiquer le code ou la scène
     5: "maintenance",             # échec du montage (ffmpeg)
     6: "prod-controle-qualite",   # contrôles automatiques en échec : diagnostic visuel
+    7: "maintenance",             # échec de la synthèse vocale (installation, modèle)
     1: "maintenance",             # erreur inattendue du pipeline
 }
 
@@ -117,6 +119,28 @@ def executer(args: argparse.Namespace) -> int:
                       resume=f"{len(verif.manquants)} asset(s) manquant(s)")
         return rapport.terminer(3, etape_bloquante="bibliothecaire", assets_manquants=verif.manquants)
     rapport.etape("bibliothecaire", "OK", attributions=verif.attributions)
+
+    # 3b. Voix
+    moteur_voix = args.voix
+    if moteur_voix == "auto":
+        # La validation doit rester instantanée : pas de synthèse sauf demande explicite (--voix kyutai).
+        auto_kyutai = voix.python_tts(args.python_tts) and not args.valider_seulement
+        moteur_voix = "kyutai" if auto_kyutai else "aucune"
+    try:
+        donnees_voix, cr_voix = voix.ajouter_voix(fiche.donnees, moteur_voix, args.voix_nom, args.python_tts)
+    except voix.VoixErreur as e:
+        rapport.etape("voix", "ECHEC", erreurs=[str(e)], resume=str(e)[:200])
+        return rapport.terminer(7, etape_bloquante="voix", erreurs=[str(e)])
+    dossier.mkdir(parents=True, exist_ok=True)
+    voix.copier_dans(donnees_voix, dossier)
+    fiche = contrat.valider_donnees(donnees_voix, source=fiche.source)
+    if moteur_voix == "aucune" and not args.valider_seulement and any((b.get("voix") or "").strip() and not b.get("voix_audio")
+                                       for b in fiche.donnees["beats"]):
+        rapport.donnees["avertissements"].append(
+            "vidéo sans voix : aucun moteur de voix (indique TTS_PYTHON dans .env pour Kyutai, ou --voix windows)")
+    rapport.etape("voix", "OK", **cr_voix,
+                  resume=f"{moteur_voix} : {len(cr_voix['synthetisees'])} synthétisée(s), "
+                         f"{len(cr_voix['depuis_cache'])} en cache")
 
     # 4. Réalisateur
     try:
@@ -201,6 +225,10 @@ def analyser_arguments(argv: list[str] | None = None) -> argparse.Namespace:
     p.add_argument("--moteur", choices=["BLENDER_EEVEE", "CYCLES", "BLENDER_WORKBENCH"],
                    help="forcer un moteur de rendu (défaut : celui du pack de DA)")
     p.add_argument("--valider-seulement", action="store_true", help="contrat + timeline, sans rendu")
+    p.add_argument("--voix", choices=["auto", *voix.MOTEURS], default="auto",
+                   help="moteur de voix off ; auto = Kyutai si TTS_PYTHON est configuré, sinon aucune")
+    p.add_argument("--voix-nom", help=f"voix Kyutai (défaut : {voix.VOIX_KYUTAI_DEFAUT})")
+    p.add_argument("--python-tts", help="interpréteur Python avec torch et moshi (sinon TTS_PYTHON ou .env)")
     return p.parse_args(argv)
 
 

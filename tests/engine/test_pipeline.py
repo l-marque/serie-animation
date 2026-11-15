@@ -99,8 +99,16 @@ def test_voix_reelle_prioritaire(donnees):
     t = realisateur.construire_timeline(fiche(donnees))
     b1 = t["beats"][0]
     assert b1["origine_timing"] == "voix_reelle"
-    assert b1["duree_s"] == pytest.approx(4.0 + realisateur.MARGE_FIN_S)
-    assert b1["mots"][1]["debut"] == pytest.approx(0.3)
+    # La voix commence AVANCE_VOIX_S après le début du beat (montage) : durée et mots en tiennent compte.
+    assert b1["duree_s"] == pytest.approx(realisateur.AVANCE_VOIX_S + 4.0 + realisateur.MARGE_FIN_S)
+    assert b1["mots"][1]["debut"] == pytest.approx(0.3 + realisateur.AVANCE_VOIX_S)
+
+
+def test_duree_imposee_plus_courte_que_la_voix(donnees):
+    donnees["beats"][0]["voix_audio"] = {"fichier": "x.wav", "duree_s": 4.0}
+    donnees["beats"][0]["duree_s"] = 3
+    with pytest.raises(realisateur.TimelineInvalide, match="plus courte que la voix"):
+        realisateur.construire_timeline(fiche(donnees))
 
 
 def test_duree_imposee(donnees):
@@ -231,3 +239,65 @@ def test_planche_montre_le_beat_apres_ses_actions():
     assert qa_auto.frame_representative({"frame_debut": 0, "frame_fin": 60, "actions": []}) == 30
     tardive = {"frame_debut": 0, "frame_fin": 60, "actions": [{"type": "deplacer", "frame_debut": 50, "frame_fin": 90}]}
     assert qa_auto.frame_representative(tardive) == 30  # action qui déborde : milieu du beat
+
+
+# ----- voix, sous-titres karaoké, effets sonores -----------------------------------------------
+def test_voix_aucune_ne_change_rien(donnees):
+    from engine.pipeline import voix
+    sortie, cr = voix.ajouter_voix(donnees, "aucune")
+    assert sortie == donnees and cr["synthetisees"] == []
+
+
+def test_voix_kyutai_sans_interpreteur(donnees, monkeypatch, tmp_path):
+    from engine.pipeline import voix
+    monkeypatch.delenv("TTS_PYTHON", raising=False)
+    monkeypatch.setattr(chemins, "RACINE", tmp_path)
+    with pytest.raises(voix.VoixErreur, match="TTS_PYTHON"):
+        voix.ajouter_voix(donnees, "kyutai")
+
+
+def test_voix_cache_puis_reutilise(donnees, monkeypatch, tmp_path):
+    import wave as _wave
+    from engine.pipeline import voix
+    monkeypatch.setattr(voix, "DOSSIER_CACHE", tmp_path)
+    appels = []
+
+    def faux_kyutai(phrases, nom_voix, interpreteur, dossier):
+        sortie = {}
+        for p in phrases:
+            appels.append(p["id"])
+            with _wave.open(str(dossier / f"{p['id']}.wav"), "wb") as w:
+                w.setnchannels(1); w.setsampwidth(2); w.setframerate(24000); w.writeframes(b"\0\0" * 24000)
+            sortie[p["id"]] = {"duree_s": 1.0, "mots": [{"mot": m, "debut": 0.1 * i, "fin": 0.1 * i + 0.1}
+                                                        for i, m in enumerate(p["texte"].split())]}
+        return sortie
+
+    monkeypatch.setattr(voix, "_synthese_kyutai", faux_kyutai)
+    s1, cr1 = voix.ajouter_voix(donnees, "kyutai", interpreteur="python")
+    parles = [b for b in donnees["beats"] if (b.get("voix") or "").strip()]
+    assert len(cr1["synthetisees"]) == len(parles) and all(b.get("voix_audio") for b in s1["beats"] if b.get("voix"))
+    s2, cr2 = voix.ajouter_voix(donnees, "kyutai", interpreteur="python")
+    assert cr2["synthetisees"] == [] and len(cr2["depuis_cache"]) == len(parles)
+    assert len(appels) == len(parles)
+    t = realisateur.construire_timeline(fiche(s2))
+    assert t["beats"][0]["origine_timing"] == "voix_reelle"
+
+
+def test_karaoke_surligne_le_mot_prononce():
+    from engine.pipeline import montage
+    mots = [{"mot": "Au", "debut": 0.15, "fin": 0.3}, {"mot": "début,", "debut": 0.3, "fin": 0.8},
+            {"mot": "il", "debut": 0.9, "fin": 1.0}]
+    evts = montage.evenements_sous_titres(mots, 2.0, {})
+    assert [e[2].count("\\1c") for e in evts] == [1, 1, 1]
+    assert "DÉBUT," in evts[0][2] and "IL" not in evts[0][2]  # coupure à la ponctuation
+    assert evts[1][2].startswith("AU {\\1c")
+
+
+def test_effets_sonores_fusionnes_et_places():
+    from engine.pipeline import effets_sonores
+    timeline = {"beats": [
+        {"debut_s": 0.0, "actions": [{"type": "apparaitre", "t_debut_s": 1.0}, {"type": "apparaitre", "t_debut_s": 1.05}]},
+        {"debut_s": 3.0, "actions": [{"type": "deplacer", "t_debut_s": 3.5}]}]}
+    evts = effets_sonores.evenements(timeline)
+    assert [e[0] for e in evts] == ["pop", "souffle"]
+    assert evts[1][1] == pytest.approx(2.88)

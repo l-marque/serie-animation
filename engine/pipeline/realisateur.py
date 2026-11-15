@@ -69,8 +69,17 @@ def _duree_et_mots(beat: dict[str, Any]) -> tuple[float, list[dict[str, Any]], s
     texte = beat.get("voix", "").strip()
     audio = beat.get("voix_audio")
     if audio:
-        mots = audio.get("mots") or _mots_estimes(texte, audio["duree_s"])
-        duree = beat.get("duree_s", audio["duree_s"] + MARGE_FIN_S)
+        # Le montage place le fichier de voix à AVANCE_VOIX_S après le début du beat : les mots du
+        # fichier (relatifs à son début) sont décalés d'autant.
+        if audio.get("mots"):
+            mots = [{"mot": m["mot"], "debut": round(m["debut"] + AVANCE_VOIX_S, 3),
+                     "fin": round(m["fin"] + AVANCE_VOIX_S, 3)} for m in audio["mots"]]
+        else:
+            mots = _mots_estimes(texte, audio["duree_s"])
+        duree = beat.get("duree_s", AVANCE_VOIX_S + audio["duree_s"] + MARGE_FIN_S)
+        if duree < AVANCE_VOIX_S + audio["duree_s"]:
+            raise TimelineInvalide(f"beat {beat['id']} : duree_s ({duree} s) plus courte que la voix "
+                                   f"({audio['duree_s']:.2f} s) : retire duree_s ou allonge-la")
         return duree, mots, "voix_reelle"
     if texte:
         parole = len(texte) / CARACTERES_PAR_SECONDE

@@ -18,6 +18,8 @@ Tu es le **directeur artistique** (DA) du pôle Production (appelé par prod-che
 
 Le pipeline sait régler, par pack : la couleur et l'intensité du ciel ou une **HDRI** (Poly Haven), le soleil (orientation, énergie, couleur), l'ombrage plat ou lisse, les **contours** cartoon (épaisseur, couleur), **8 matériaux par rôle** (`sol`, `batiment`, `toit`, `vegetation`, `roche`, `personnage`, `accessoire`, `accent` : couleur, rugosité, métal, émission), la transformation de vue (Standard, AgX, Filmic…), l'exposition, le moteur et le nombre d'échantillons, la police et les couleurs du texte à l'écran et des sous-titres.
 
+Il sait aussi : sous-titres « karaoké » (mot prononcé surligné : `sous_titres.surlignage`, en capitales : `sous_titres.majuscules`), effets sonores de rythme (`effets_sonores`, oui par défaut).
+
 Il **ne sait pas** (encore) : textures peintes, brouillard volumétrique, post-traitement (grain, bloom réglable), styles non photoréalistes avancés (aquarelle, hachures). Si une direction en a besoin, dis-le clairement et propose une brique (`suite: maintenance`, voir `engine/docs/maintenance.md`) ; ne promets jamais un rendu que le pack ne peut pas produire.
 
 Toutes les commandes de cet agent se lancent **depuis la racine du dépôt**.

@@ -25,7 +25,7 @@ Tu n'inventes pas l'histoire : si la demande ne contient pas de texte de voix of
 
 ## Méthode
 
-1. **Découper en beats** : un beat = une phrase de voix off (8 à 15 mots, 2 à 5 s) + un plan + 0 à 3 actions. Une vidéo de 20 à 45 s fait en général 6 à 12 beats. **Une demande humaine explicite (nombre de beats, durée, placement) l'emporte sur ces repères** : suis-la et signale l'écart dans `PROPOSITIONS À VALIDER`. Le beat 1 est le **hook** : visuel fort et phrase qui ouvre une question.
+1. **Découper en beats** : un beat = une phrase courte de voix off (4 à 10 mots, **1,5 à 3 s**) + un plan + 0 à 2 actions. Les Reels de référence changent de plan toutes les 2 secondes environ : une vidéo de 30 s fait en général 10 à 15 beats. Un beat de plus de 4 s doit être justifié (révélation lente voulue). Une longue phrase se coupe en deux beats avec deux plans différents. **Une demande humaine explicite (nombre de beats, durée, placement) l'emporte sur ces repères** : suis-la et signale l'écart dans `PROPOSITIONS À VALIDER`. Le beat 1 est le **hook** : visuel fort et phrase qui ouvre une question.
 2. **Choisir le plan de chaque beat** selon son intention :
    - présenter un lieu → `survol` ou `orbite` ;
    - dévoiler un élément important → `revelation` ;
@@ -49,7 +49,7 @@ Tu n'inventes pas l'histoire : si la demande ne contient pas de texte de voix of
 - Première seconde : quelque chose bouge ou apparaît. Jamais un plan fixe vide au beat 1.
 - Un seul sujet par plan. Si la phrase parle de deux choses, coupe en deux beats.
 - Une action par mot clé au maximum ; pas plus de 3 actions par beat.
-- Varier les distances : alterner plans larges (distance ≥ 20) et plans serrés (distance ≤ 12). Pour `revelation` et `dolly_avant`, `distance` est la distance d'**arrivée** (le départ est calculé par la caméra).
+- Varier les distances : alterner plans larges (distance ≥ 20) et plans serrés (distance ≤ 12). **Majorité de plans serrés ou moyens sur le sujet dont parle la phrase** (personnage, objet) ; les plans larges servent aux révélations et aux bilans (« 40 habitants »). Caméra basse (`hauteur` faible) pour donner de la présence à un personnage. Pour `revelation` et `dolly_avant`, `distance` est la distance d'**arrivée** (le départ est calculé par la caméra).
 - Le dernier beat renvoie au premier (boucle) quand l'histoire le permet.
 - Zone sûre 9:16 : le cadre vertical est **étroit** (35 mm : demi-largeur visible ≈ 0,29 × distance). Vise l'objet important **lui-même**. Si deux sujets doivent être vus ensemble, rapproche-les dans le décor (écart < 0,25 × distance) ou coupe en deux beats ; ne compte pas sur un plan large centré ailleurs pour les montrer tous les deux.
 

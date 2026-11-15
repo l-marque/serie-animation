@@ -11,7 +11,7 @@ Une **fiche épisode** (JSON) entre, une **vidéo 9:16** sort. Entre les deux, u
 ┌─────────────────────────── prod-chef (sonnet) ────────────────────────────┐
 │  python -m engine.pipeline.run <fiche> [--mode animatique|final]          │
 │                                                                           │
-│  contrat → continuité → bibliothèque → réalisateur (timeline maître)      │
+│  contrat → continuité → bibliothèque → voix → réalisateur (timeline)     │
 │      → cache → Blender [décorateur → look → animateur → caméra → rendu]   │
 │      → montage (ffmpeg) → contrôles automatiques + planche contact        │
 │  code 3 : prod-chef cherche les assets par API, un humain choisit         │
@@ -36,6 +36,8 @@ Conformément à l'organigramme (`docs/agents.md`), seuls les rôles qui demande
 | Contrat | `engine/pipeline/contrat.py` | structure (JSON Schema) + cohérence (ids, cibles, paramètres) |
 | Continuité | `engine/pipeline/continuite.py` | état persistant d'une série (`series/<id>/etat.json`) |
 | Bibliothèque | `engine/pipeline/bibliothecaire.py` | assets disponibles et licites ? |
+| Voix | `engine/pipeline/voix.py` + `engine/voix/kyutai_worker.py` | voix off Kyutai, mots horodatés, cache |
+| Effets sonores | `engine/pipeline/effets_sonores.py` | pop et souffle synthétisés |
 | Sources d'assets | `engine/pipeline/sources_assets.py` | recherche et import par API (Poly Haven, Poly Pizza, Sketchfab), HDRI |
 | Packs de DA | `engine/pipeline/pack_da.py` | validation d'un pack (schéma + couleurs distinctes en Oklab) |
 | Réalisateur (script) | `engine/pipeline/realisateur.py` | **timeline maître** : durées, mots horodatés, frames des actions |
