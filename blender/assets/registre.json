@@ -1,5 +1,0 @@
-{
-  "version": "1.0",
-  "description": "Registre des assets de bibliothèque utilisables via 'bibliotheque:<id>'. Tenu par le sous-agent production-bibliothecaire. Chaque asset doit aussi avoir sa ligne dans blender/assets/licences.csv.",
-  "assets": {}
-}

@@ -16,20 +16,25 @@ Chaque étape est confiée à un agent spécialisé, avec un humain qui valide a
 
 ## Les agents
 
-| Agent | Rôle | Outils |
-|---|---|---|
-| **Pilotage** | Suivi des tâches, journal de bord, point hebdomadaire | GitHub Issues, Google Drive |
-| **Communication** | Légendes, visuels, calendrier de publication | Canva, Google Drive |
-| **Production** | Pilotage de Blender : scènes, objets, rendus | Blender MCP, scripts Python |
+La chaîne est découpée en quatre pôles, chacun dirigé par un agent chef. Carte complète et statuts : [`docs/agents.md`](docs/agents.md).
 
-Les définitions des agents sont dans [`.claude/agents/`](.claude/agents/).
+| Pôle | Agent chef | Rôle | Propriétaire | Statut |
+|---|---|---|---|---|
+| **Pilotage** | `pilotage` | Suivi GitHub et Drive, comptes rendus, registre des décisions | Lucas | brouillon |
+| **Storytelling** | `story-chef` | Idée → scénario → beats → scènes → fiche épisode JSON | Lucas | prévu |
+| **Production** | `prod-chef` | Fiche épisode → voix, Blender, rendu, montage, contrôle qualité | Guillaume | brouillon (v1) |
+| **Communication** | `com-chef` | Légendes, visuels, calendrier de publication | à définir | prévu, plus tard |
+
+Les définitions des agents sont dans [`.claude/agents/`](.claude/agents/), les contrats entre pôles dans [`contracts/`](contracts/).
 
 ## Organisation du dépôt
 
 ```
-.claude/agents/    définitions des agents Claude
-docs/              architecture, décisions, conventions
-blender/scripts/   scripts Python exécutés dans Blender
+.claude/agents/    définitions des agents Claude (préfixes pilotage, story-, prod-, com-)
+.claude/skills/    procédures réutilisables des agents
+contracts/         contrats entre pôles (fiche épisode, vocabulaire d'actions)
+docs/              architecture, carte des agents, décisions, conventions
+engine/            production : pipeline, scripts Blender, packs de DA, assets (voir engine/README.md)
 scripts/           automatisation hors Blender
 assets/            petits fichiers uniquement (les lourds sont sur le Drive)
 CLAUDE.md          contexte partagé lu par tous les agents

@@ -1,0 +1,469 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/l-marque/serie-animation/contracts/fiche-episode.schema.json",
+  "title": "Fiche épisode (contrat Storytelling -> Production)",
+  "description": "Ce que le pôle Storytelling (story-fiche) envoie au pôle Production (prod-chef). Version 1.0, proposition de Guillaume à valider par Lucas et Guillaume. Voir engine/docs/contrat-fiche-episode.md et contracts/vocabulaire-actions.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "episode_id",
+    "beats"
+  ],
+  "properties": {
+    "version": {
+      "const": "1.0"
+    },
+    "episode_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
+      "description": "Identifiant unique, minuscules, chiffres, tirets. Sert de nom de dossier de rendu."
+    },
+    "titre": {
+      "type": "string",
+      "maxLength": 120
+    },
+    "format": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resolution": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "minimum": 64,
+            "maximum": 4096
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "default": [
+            1080,
+            1920
+          ]
+        },
+        "fps": {
+          "type": "integer",
+          "enum": [
+            24,
+            25,
+            30,
+            60
+          ],
+          "default": 30
+        }
+      }
+    },
+    "pack_da": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "default": "test_lowpoly",
+      "description": "Nom d'un fichier engine/packs_da/<nom>.json."
+    },
+    "serie": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+        },
+        "continuite": {
+          "type": "boolean",
+          "default": false,
+          "description": "Si vrai, les éléments, personnages et modules de l'épisode précédent de la série sont repris (fichier series/<id>/etat.json)."
+        }
+      }
+    },
+    "decor": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kit": {
+          "type": "string",
+          "pattern": "^[a-z0-9_]+$",
+          "default": "primitifs"
+        },
+        "sol": {
+          "type": "boolean",
+          "default": true
+        },
+        "taille_sol": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1000,
+          "default": 40
+        }
+      }
+    },
+    "elements": {
+      "type": "array",
+      "description": "Objets uniques du décor (un phare, une maison précise, un rocher).",
+      "items": {
+        "$ref": "#/$defs/objet"
+      }
+    },
+    "personnages": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/objet"
+      }
+    },
+    "modules": {
+      "type": "array",
+      "description": "Modules procéduraux optionnels (foule, village, forêt, chemin).",
+      "items": {
+        "$ref": "#/$defs/module"
+      }
+    },
+    "audio": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "musique": {
+          "type": "string",
+          "description": "Chemin d'un fichier audio de musique (facultatif)."
+        },
+        "volume_musique": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "default": 0.25
+        }
+      }
+    },
+    "beats": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 60,
+      "description": "Le récit découpé en temps forts. Un beat = une phrase de voix off (ou un silence) + un plan + des actions.",
+      "items": {
+        "$ref": "#/$defs/beat"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+    },
+    "vec3": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 2,
+      "maxItems": 3,
+      "description": "[x, y] ou [x, y, z] en mètres. z vaut 0 si absent."
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "sol",
+        "batiment",
+        "toit",
+        "vegetation",
+        "roche",
+        "personnage",
+        "accessoire",
+        "accent"
+      ],
+      "description": "Rôle visuel : le pack de DA choisit la couleur et le matériau selon le rôle."
+    },
+    "asset": {
+      "type": "string",
+      "pattern": "^(primitif|bibliotheque):[a-z0-9_]+$",
+      "description": "primitif:<nom> (généré par le kit de décor) ou bibliotheque:<id> (registre engine/assets/registre.json)."
+    },
+    "objet": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "asset"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "asset": {
+          "$ref": "#/$defs/asset"
+        },
+        "position": {
+          "$ref": "#/$defs/vec3",
+          "default": [
+            0,
+            0,
+            0
+          ]
+        },
+        "rotation_z": {
+          "type": "number",
+          "default": 0,
+          "description": "Degrés."
+        },
+        "echelle": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "default": 1
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "visible_au_debut": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "module": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "type",
+        "asset",
+        "nombre"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "type": {
+          "enum": [
+            "disperser"
+          ]
+        },
+        "asset": {
+          "$ref": "#/$defs/asset"
+        },
+        "nombre": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 20000
+        },
+        "motif": {
+          "enum": [
+            "spirale",
+            "grille",
+            "aleatoire",
+            "cercle"
+          ],
+          "default": "spirale"
+        },
+        "centre": {
+          "$ref": "#/$defs/vec3",
+          "default": [
+            0,
+            0,
+            0
+          ]
+        },
+        "espacement": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 100,
+          "default": 1.6,
+          "description": "Distance entre instances (spirale, grille, cercle) ; pour 'aleatoire', rayon de la zone. Cercle : rayon = max(espacement, nombre x espacement / 2 pi)."
+        },
+        "rayon_interieur": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1000,
+          "default": 0,
+          "description": "Motif 'aleatoire' : rayon central laissé libre (ex. une forêt autour d'un village)."
+        },
+        "variation_echelle": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "minItems": 2,
+          "maxItems": 2,
+          "default": [
+            0.8,
+            1.1
+          ]
+        },
+        "seed": {
+          "type": "integer",
+          "minimum": 0,
+          "default": 42
+        },
+        "role": {
+          "$ref": "#/$defs/role"
+        },
+        "visible_au_debut": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "action": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "cible"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "apparaitre",
+            "disparaitre",
+            "deplacer",
+            "tourner",
+            "grandir",
+            "transformer",
+            "cycle"
+          ]
+        },
+        "cible": {
+          "$ref": "#/$defs/id"
+        },
+        "debut": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Secondes depuis le début du beat. Ignoré si 'mot' est donné."
+        },
+        "mot": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Déclenche l'action sur ce mot de la voix off du beat (calé sur les horodatages de la voix quand ils existent, estimé sinon)."
+        },
+        "duree_s": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 60,
+          "default": 0.6
+        },
+        "params": {
+          "type": "object",
+          "description": "Paramètres propres à l'action : voir contracts/vocabulaire-actions.md."
+        }
+      }
+    },
+    "plan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "camera"
+      ],
+      "properties": {
+        "camera": {
+          "enum": [
+            "plan_fixe",
+            "survol",
+            "revelation",
+            "dolly_avant",
+            "orbite",
+            "plongee",
+            "travelling_lateral"
+          ]
+        },
+        "cible": {
+          "$ref": "#/$defs/id"
+        },
+        "distance": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 500
+        },
+        "hauteur": {
+          "type": "number",
+          "minimum": -50,
+          "maximum": 500
+        },
+        "focale": {
+          "type": "number",
+          "minimum": 10,
+          "maximum": 200
+        }
+      }
+    },
+    "beat": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "plan"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/id"
+        },
+        "voix": {
+          "type": "string",
+          "maxLength": 400,
+          "default": ""
+        },
+        "duree_s": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 30,
+          "description": "Durée imposée. Sinon : durée réelle de la voix si elle existe, estimation à partir du texte sinon."
+        },
+        "texte_ecran": {
+          "type": "string",
+          "maxLength": 60
+        },
+        "plan": {
+          "$ref": "#/$defs/plan"
+        },
+        "actions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/action"
+          },
+          "default": []
+        },
+        "voix_audio": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Rempli par le module Voix (plus tard). Ne pas écrire à la main.",
+          "required": [
+            "fichier",
+            "duree_s"
+          ],
+          "properties": {
+            "fichier": {
+              "type": "string"
+            },
+            "duree_s": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "mots": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "mot",
+                  "debut",
+                  "fin"
+                ],
+                "properties": {
+                  "mot": {
+                    "type": "string"
+                  },
+                  "debut": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "fin": {
+                    "type": "number",
+                    "minimum": 0
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

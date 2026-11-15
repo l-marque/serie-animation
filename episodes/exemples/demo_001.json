@@ -88,13 +88,13 @@
   "beats": [
     {
       "id": "b1",
-      "voix": "Au début, il n'y avait rien.",
+      "voix": "Au début, il n'y avait que la forêt.",
       "texte_ecran": "JOUR 1",
       "plan": {
         "camera": "survol",
-        "cible": "rocher_1",
-        "distance": 22,
-        "hauteur": 14
+        "cible": "heros",
+        "distance": 11,
+        "hauteur": 5
       },
       "actions": [
         {
@@ -121,7 +121,7 @@
         {
           "type": "apparaitre",
           "cible": "phare",
-          "mot": "lumière",
+          "mot": "allumé",
           "duree_s": 0.7
         }
       ]

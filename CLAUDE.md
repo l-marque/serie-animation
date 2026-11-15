@@ -8,10 +8,17 @@ Une série d'animation dont le décor est une **ville 3D construite dans Blender
 
 ## Qui fait quoi
 
-- **Lucas** : agents, automatisation, GitHub, pilotage du projet.
-- **Guillaume** : 3D, modèles et animation dans Blender.
+- **Lucas** : agents, automatisation, GitHub, pilotage du projet, storytelling.
+- **Guillaume** : 3D, modèles et animation dans Blender, production.
 
-Chacun travaille avec son propre Claude. Les deux Claude se coordonnent de façon asynchrone par le Google Drive partagé « Lucas X Guillaume », selon le document « 00 - Protocole Claude vers Claude ». Lire aussi « 00 - LISEZ-MOI - Contexte du projet » en début de session quand le Drive est accessible.
+### Propriété des fichiers
+
+Le propriétaire écrit et maintient ; chaque PR est relue par l'autre.
+
+- **Guillaume** : `engine/` et les agents `prod-*`.
+- **Lucas** : `pilotage`, les agents `story-*`, `contracts/`, `docs/`, `scripts/`.
+
+Chacun travaille avec son propre Claude. Les deux Claude se coordonnent de façon asynchrone par le Google Drive partagé « Lucas X Guillaume », selon le document « 00 - Protocole Claude vers Claude ». **Le Drive est l'interface entre les deux Claude : reporter chaque commit, PR ou fusion dans le Journal de bord le jour même.** Lire aussi « 00 - LISEZ-MOI - Contexte du projet » en début de session quand le Drive est accessible.
 
 ## Règles impératives
 
@@ -27,12 +34,18 @@ Chacun travaille avec son propre Claude. Les deux Claude se coordonnent de faço
 - Langue : français pour la documentation, les commits et les échanges.
 - Les tâches vivent dans les issues GitHub du dépôt `l-marque/serie-animation`.
 - Fichiers lourds (rendus, vidéos) : Drive, dossier `06_Rendus et assets lourds`.
-- Scripts Blender : `blender/scripts/`. Automatisation hors Blender : `scripts/`.
-- Conventions de nommage dans Blender : `docs/conventions-blender.md` (proposées, à valider par Guillaume).
-- Pipeline de production (fiche épisode -> vidéo 9:16) : `docs/production/README.md`.
+- Production (pipeline, scripts Blender, packs de DA, assets) : `engine/` (voir `engine/README.md`). Automatisation hors production : `scripts/`.
+- Conventions de nommage dans Blender : `engine/docs/conventions-blender.md` (proposées par Guillaume).
 
-## Agents disponibles
+## Agents et pôles
 
-Définis dans `.claude/agents/` : `pilotage`, `communication`, `production`.
+Carte complète, statuts et convention de nommage : `docs/agents.md`. Contrats entre pôles : `contracts/`.
 
-L'agent `production` s'appuie sur cinq sous-agents spécialisés : `production-realisateur`, `production-directeur-artistique`, `production-bibliothecaire`, `production-controle-qualite`, `production-technicien` (voir `docs/production/architecture.md`). Un sous-agent ne pouvant pas en lancer un autre, l'appelant enchaîne selon le champ `SUITE` de la réponse de `production`.
+| Pôle | Agents | Propriétaire | Fichier actuel |
+|---|---|---|---|
+| Pilotage | `pilotage` (agent unique) | Lucas | `.claude/agents/pilotage.md` |
+| Storytelling | `story-chef` + `story-idees`, `story-scenario`, `story-beats`, `story-scenes`, `story-fiche` | Lucas | aucun (prévu) |
+| Production | `prod-chef` + `prod-realisateur`, `prod-controle-qualite`, `prod-directeur-artistique` ; modules en code dans `engine/` | Guillaume | `.claude/agents/prod-*.md` |
+| Communication | `com-chef` (plus tard) | à définir | `.claude/agents/communication.md` (v1) |
+
+Nommage dans `.claude/agents/` : dossier plat, préfixes `pilotage`, `story-`, `prod-`, `com-`. `production.md` est devenu `prod-chef.md` ; le renommage de `communication.md` reste à décider.
