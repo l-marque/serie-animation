@@ -16,9 +16,19 @@ Les sous-titres sont calés sur la **vraie voix** : chaque mot est horodaté par
 2. Dans `.env` à la racine du dépôt (jamais versionné) : `TTS_PYTHON=C:\chemin\vers\python.exe`.
 3. Test : `python -m engine.pipeline.run episodes/exemples/demo_001.json --voix kyutai`.
 
-Sur la machine de Guillaume (constaté le 2026-11-15) : PyTorch est la version **CPU** ; la synthèse fonctionne, à environ 15 s de calcul par seconde de voix (35 s pour une phrase de 2,3 s), mise en cache ensuite. Une version CUDA de PyTorch (compatible RTX 50, CUDA 12.8) la rendrait quasi temps réel, au prix d'environ 3 Go de disque : décision à prendre par Guillaume.
+Sur la machine de Guillaume (installé et vérifié le 2026-11-15) : environnement dédié `C:\Users\guill\venvs\kyutai-tts` avec PyTorch **2.9.1+cu128** (version CUDA compatible RTX 50 ; moshi 0.2.13 exige torch < 2.10) et moshi 0.2.13. Sur la RTX 5070 : 3,4 s de voix en 3,8 s de calcul (environ 1 fois le temps réel), plus 12 s de chargement du modèle par épisode. À titre de comparaison, la version CPU demandait 35 s pour 2,3 s de voix.
 
-Points techniques réglés dans `engine/voix/kyutai_worker.py` : `torch.compile` désactivé (il exige le compilateur C++ de Visual Studio sous Windows) ; calcul en float32 sur CPU.
+Installation reproductible :
+
+```powershell
+py -3.12 -m venv C:\Users\<toi>\venvs\kyutai-tts
+C:\Users\<toi>\venvs\kyutai-tts\Scripts\python.exe -m pip install "torch==2.9.1" --index-url https://download.pytorch.org/whl/cu128
+C:\Users\<toi>\venvs\kyutai-tts\Scripts\python.exe -m pip install moshi==0.2.13
+```
+
+puis `TTS_PYTHON=C:\Users\<toi>\venvs\kyutai-tts\Scripts\python.exe` dans `.env`.
+
+Points techniques réglés dans `engine/voix/kyutai_worker.py` : `torch.compile` désactivé (il exige le compilateur C++ de Visual Studio sous Windows) ; bfloat16 sur GPU, float32 sur CPU ; carte graphique choisie automatiquement si elle est disponible.
 
 ## Voix
 

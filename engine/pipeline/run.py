@@ -38,8 +38,8 @@ from . import bibliothecaire, cache, chemins, continuite, contrat, montage, qa_a
 
 
 # Suite à donner selon le code de sortie (lue par prod-chef ou par l'automatisation de Lucas).
-# Un sous-agent ne pouvant pas en lancer un autre (vérifié dans ce dépôt le 2026-11-15), c'est
-# l'appelant qui enchaîne. Valeurs possibles : un agent (prod-*), "prod-chef" (il traite lui-même)
+# prod-chef enchaîne lui-même quand l'outil Agent est disponible (Claude Code en local) ; sinon
+# (environnement cloud) c'est l'appelant qui enchaîne. Valeurs possibles : un agent (prod-*), "prod-chef" (il traite lui-même)
 # ou "maintenance" (correction du code par une session de développement, voir engine/docs/maintenance.md).
 SUITE = {
     0: "prod-controle-qualite",   # succès : vérification visuelle de la planche contact

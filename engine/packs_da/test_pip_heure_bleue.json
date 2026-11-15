@@ -1,0 +1,27 @@
+{
+  "nom": "test_pip_heure_bleue",
+  "description": "PACK DE TEST, non validé par un humain. Direction « Heure bleue » pour l'histoire de Pip : crépuscule indigo, île lisse et douce, phare en accent chaud. Ne pas utiliser dans un épisode publié.",
+  "version": "1.0",
+  "inspiration": "Ghibli (ciels de fin de journée, sans copie), Monument Valley (formes simples, ambiance calme), Alto's Odyssey (dégradés doux du crépuscule). Intention : douceur et mystère, un point de chaleur dans un monde bleu.",
+  "moteur": { "final": "BLENDER_EEVEE", "animatique": "BLENDER_EEVEE", "secours": "CYCLES" },
+  "cycles": { "echantillons_final": 64, "echantillons_animatique": 8 },
+  "eevee": { "echantillons_final": 32, "echantillons_animatique": 4 },
+  "transformation_vue": "Standard",
+  "exposition": 0.0,
+  "monde": { "couleur": [0.034, 0.041, 0.195], "intensite": 0.8 },
+  "soleil": { "rotation_deg": [78, 0, 200], "energie": 2.0, "couleur": [1.0, 0.451, 0.254] },
+  "ombrage_plat": false,
+  "contours": { "actif": false },
+  "materiaux": {
+    "sol":        { "couleur": [0.156, 0.342, 0.188], "rugosite": 0.9 },
+    "batiment":   { "couleur": [0.863, 0.791, 0.644], "rugosite": 0.8 },
+    "toit":       { "couleur": [0.27, 0.044, 0.068], "rugosite": 0.7 },
+    "vegetation": { "couleur": [0.05, 0.254, 0.168], "rugosite": 0.9 },
+    "roche":      { "couleur": [0.262, 0.254, 0.292], "rugosite": 0.95 },
+    "personnage": { "couleur": [0.784, 0.254, 0.07], "rugosite": 0.5 },
+    "accessoire": { "couleur": [0.584, 0.235, 0.076], "rugosite": 0.7 },
+    "accent":     { "couleur": [1.0, 0.644, 0.112], "rugosite": 0.4, "emission": 6.0 }
+  },
+  "texte_ecran": { "police": "Nunito", "couleur": "&H00DAEDF5", "contour": "&H003F1D1B", "taille_relative": 0.055 },
+  "sous_titres": { "police": "Nunito", "couleur": "&H00DAEDF5", "contour": "&H003F1D1B", "taille_relative": 0.042 }
+}

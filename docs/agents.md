@@ -47,10 +47,10 @@ Pôle séparé, **en amont** de la production. Il transforme une idée en fiche 
 
 | Agent ou module | Rôle | Forme | Statut |
 |---|---|---|---|
-| `prod-chef` | Chef du pôle : lance le pipeline `engine/`, traite les assets manquants (recherche par API, choix humain), indique l'agent suivant | `.claude/agents/prod-chef.md` | brouillon (testé le 2026-11-15) |
-| `prod-realisateur` | Transforme un brief libre en fiche épisode, ou corrige une fiche refusée | `.claude/agents/prod-realisateur.md` | brouillon (testé le 2026-11-15) |
-| `prod-controle-qualite` | Juge la planche contact d'un rendu (lisibilité, image et voix, défauts) | `.claude/agents/prod-controle-qualite.md` | brouillon (testé le 2026-11-15) |
-| `prod-directeur-artistique` | Ajouté à la demande de Guillaume : propose 3 directions artistiques selon l'histoire, écrit le pack de DA choisi par un humain | `.claude/agents/prod-directeur-artistique.md` | brouillon (testé le 2026-11-15) |
+| `prod-chef` | Chef du pôle : lance le pipeline `engine/`, traite les assets manquants (recherche par API, choix humain), indique l'agent suivant | `.claude/agents/prod-chef.md` | brouillon (essayé sur des cas réels par le Claude de Guillaume le 2026-11-15, résultats non vérifiés par un humain) |
+| `prod-realisateur` | Transforme un brief libre en fiche épisode, ou corrige une fiche refusée | `.claude/agents/prod-realisateur.md` | brouillon (essayé sur des cas réels par le Claude de Guillaume le 2026-11-15, résultats non vérifiés par un humain) |
+| `prod-controle-qualite` | Juge la planche contact d'un rendu (lisibilité, image et voix, défauts) | `.claude/agents/prod-controle-qualite.md` | brouillon (essayé sur des cas réels par le Claude de Guillaume le 2026-11-15, résultats non vérifiés par un humain) |
+| `prod-directeur-artistique` | Ajouté à la demande de Guillaume : propose 3 directions artistiques selon l'histoire, écrit le pack de DA choisi par un humain | `.claude/agents/prod-directeur-artistique.md` | brouillon (essayé sur des cas réels par le Claude de Guillaume le 2026-11-15, résultats non vérifiés par un humain) |
 | contrat, continuité, bibliothèque et sources d'assets, timeline, cache, décorateur, look, animateur, caméra, rendu, montage, contrôles automatiques, chef d'orchestre `run.py` | Modules de la chaîne de fabrication, sans appel à Claude | code Python dans `engine/` (voir `engine/README.md`) | testés (34 tests ; EEVEE validé sur la RTX 5070) |
 | voix (Kyutai TTS) et son | Voix off avec mots horodatés, sous-titres karaoké, effets de rythme, musique baissée sous la voix | code dans `engine/` (`engine/docs/voix-et-son.md`) | testé sur le PC de Guillaume (Kyutai sur CPU) |
 | module habillage | Sous-titres mot par mot, cartes de commentaires, compteurs | code Python | idée à confirmer par Guillaume |
