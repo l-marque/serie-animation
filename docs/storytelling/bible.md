@@ -61,3 +61,33 @@ Une ligne par idée retenue, ajoutée par `story-chef` après chaque choix de Lu
 - En attendant, la seule référence est `docs/architecture.md` (état d'avancement de la production). Dans le doute, une idée est jugée plus difficile à produire, pas moins.
 
 Cette section sera mise à jour quand la PR #20 et les contrats seront dans `main`.
+
+## 8. Enseignements du benchmark (tendances, à vérifier)
+
+**Statut : tendances, pas des faits établis.** Ces points viennent d'articles de blogs marketing cités par le benchmark, et d'**un seul Reel analysé, sans vues ni abonnés**. Rien ici n'a été mesuré sur nos propres vidéos. Ils servent à orienter les idées, pas à les garantir.
+
+Source : « 2026-11-15_claude-guillaume_benchmark-marche-et-outils » (Drive, `02_Claude_Guillaume`), rédigé par le Claude de Guillaume.
+
+### Ce que les blogs disent de l'algorithme
+
+- **Signaux de classement annoncés**, dans cet ordre : temps de visionnage et taux de complétion, puis envois en message privé, puis likes. Les **1 à 3 premières secondes** décideraient si le Reel est montré plus largement.
+- **Boucle** : une fin qui renvoie au début favoriserait les relectures.
+- **Complétion plutôt que durée** : un épisode court regardé jusqu'au bout compterait plus qu'un épisode long abandonné en route.
+- **Originalité** : le contenu original serait favorisé ; d'où l'intérêt d'un style visuel constant et identifiable.
+- **Série récurrente** : un rendez-vous régulier créerait de l'habitude.
+
+### Ce qui accroche, ce qui tue
+
+| Ce qui accroche | Ce qui tue |
+|---|---|
+| Hook visuel et texte dès la 1re seconde | Intro lente ou logo |
+| Une seule question narrative | Trop de personnages en 60 s |
+| Caméra lente et motivée | Caméra erratique |
+| Palette constante | Style qui change |
+| Plans de 2 à 4 s calés sur la voix | |
+| Sous-titres dans les zones sûres 9:16 | |
+| Chute qui relance la boucle | « Abonnez-vous pour la suite » |
+
+### Prudence
+
+La série de référence citée dans le benchmark (Rienville, où le public participe par ses commentaires) est **proche d'un concept de ville évolutive**. S'en inspirer de trop près ferait perdre l'originalité recherchée. Le concept et le nom de la série restent **À DÉCIDER par Lucas et Guillaume**.
