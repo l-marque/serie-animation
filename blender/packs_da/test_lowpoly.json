@@ -1,0 +1,26 @@
+{
+  "nom": "test_lowpoly",
+  "description": "Pack de test neutre : low-poly à facettes, couleurs douces, lumière de fin d'après-midi. Sert à valider le pipeline, pas une direction artistique définitive.",
+  "version": "1.0",
+  "moteur": { "final": "BLENDER_EEVEE", "animatique": "BLENDER_EEVEE", "secours": "CYCLES" },
+  "cycles": { "echantillons_final": 64, "echantillons_animatique": 8 },
+  "eevee": { "echantillons_final": 32, "echantillons_animatique": 4 },
+  "transformation_vue": "Standard",
+  "exposition": 0.0,
+  "monde": { "couleur": [0.62, 0.78, 0.95], "intensite": 1.0 },
+  "soleil": { "rotation_deg": [50, 0, 35], "energie": 3.5, "couleur": [1.0, 0.95, 0.88] },
+  "ombrage_plat": true,
+  "contours": { "actif": true, "epaisseur": 0.03, "couleur": [0.08, 0.07, 0.1] },
+  "materiaux": {
+    "sol":        { "couleur": [0.36, 0.58, 0.30], "rugosite": 0.9 },
+    "batiment":   { "couleur": [0.95, 0.88, 0.74], "rugosite": 0.8 },
+    "toit":       { "couleur": [0.78, 0.25, 0.18], "rugosite": 0.7 },
+    "vegetation": { "couleur": [0.22, 0.48, 0.24], "rugosite": 0.9 },
+    "roche":      { "couleur": [0.55, 0.53, 0.50], "rugosite": 0.95 },
+    "personnage": { "couleur": [0.20, 0.45, 0.85], "rugosite": 0.6 },
+    "accessoire": { "couleur": [0.70, 0.55, 0.35], "rugosite": 0.7 },
+    "accent":     { "couleur": [0.98, 0.82, 0.25], "rugosite": 0.4, "emission": 1.5 }
+  },
+  "texte_ecran": { "police": "Arial", "couleur": "&H00FFFFFF", "contour": "&H00141018", "taille_relative": 0.055 },
+  "sous_titres": { "police": "Arial", "couleur": "&H00FFFFFF", "contour": "&H00141018", "taille_relative": 0.042 }
+}

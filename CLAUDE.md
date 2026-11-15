@@ -28,8 +28,11 @@ Chacun travaille avec son propre Claude. Les deux Claude se coordonnent de faço
 - Les tâches vivent dans les issues GitHub du dépôt `l-marque/serie-animation`.
 - Fichiers lourds (rendus, vidéos) : Drive, dossier `06_Rendus et assets lourds`.
 - Scripts Blender : `blender/scripts/`. Automatisation hors Blender : `scripts/`.
-- Conventions de nommage dans Blender : à définir avec Guillaume (`docs/conventions-blender.md`, à créer).
+- Conventions de nommage dans Blender : `docs/conventions-blender.md` (proposées, à valider par Guillaume).
+- Pipeline de production (fiche épisode -> vidéo 9:16) : `docs/production/README.md`.
 
 ## Agents disponibles
 
 Définis dans `.claude/agents/` : `pilotage`, `communication`, `production`.
+
+L'agent `production` s'appuie sur quatre sous-agents spécialisés : `production-realisateur`, `production-bibliothecaire`, `production-controle-qualite`, `production-technicien` (voir `docs/production/architecture.md`). Un sous-agent ne pouvant pas en lancer un autre, l'appelant enchaîne selon le champ `SUITE` de la réponse de `production`.
