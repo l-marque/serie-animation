@@ -53,6 +53,7 @@ Pôle séparé, **en amont** de la production. Il transforme une idée en fiche 
 | `prod-directeur-artistique` | Ajouté à la demande de Guillaume : propose 3 directions artistiques selon l'histoire, écrit le pack de DA choisi par un humain | `.claude/agents/prod-directeur-artistique.md` | brouillon (testé le 2026-11-15) |
 | contrat, continuité, bibliothèque et sources d'assets, timeline, cache, décorateur, look, animateur, caméra, rendu, montage, contrôles automatiques, chef d'orchestre `run.py` | Modules de la chaîne de fabrication, sans appel à Claude | code Python dans `engine/` (voir `engine/README.md`) | testés (34 tests ; EEVEE validé sur la RTX 5070) |
 | voix (Kyutai TTS) | Voix off avec horodatage des mots | code dans `engine/` | prévu |
+| module habillage | Sous-titres mot par mot, cartes de commentaires, compteurs | code Python | idée à confirmer par Guillaume |
 
 Objectif : 1 à 2 appels Claude par épisode (prod-chef + contrôle qualité ; 1 seul si l'automatisation lance `python -m engine.pipeline.run` et lit la ligne `SYNTHESE`). La maintenance du code n'a pas d'agent : elle suit `engine/docs/maintenance.md`.
 

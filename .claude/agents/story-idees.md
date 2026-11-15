@@ -32,9 +32,22 @@ Exactement **5 idées** d'épisodes courts : **format vertical 9:16, durée de 3
 - Boucle : <comment la fin renvoie au début>          (facultatif : seulement si l'idée boucle)
 - Réutilise : <élément de la mémoire de série>        (seulement si l'idée s'appuie sur un épisode précédent)
 - Grille : N/7 — manque : <critères non cochés, ou « rien »>
+- Série : N/3 — <points présents, ou « aucun »>
 ```
 
 La ligne « Réutilise » cite un élément présent dans la section « Mémoire de série » ou « Personnages et décors récurrents » de la bible. Tu n'inventes jamais un élément qui n'y figure pas. Même quand elle réutilise un élément, l'idée doit se comprendre sans avoir vu les épisodes précédents.
+
+## Indicateur « Série » (informatif)
+
+En plus de la grille, chaque idée reçoit une ligne « Série : N/3 », qui mesure à quel point elle installe un rendez-vous récurrent, comme les Reels de référence de la bible (section 8). Un point par élément présent :
+
+| Point | L'idée le marque si… |
+|---|---|
+| Compteur ou échéance | un compteur ou une échéance reste visible à l'écran (« jour 3 », « version 2 », « encore 5 essais ») |
+| Audience visible | l'audience apparaît dans l'image, ou sa contribution est reprise dans un épisode suivant |
+| Suite annoncée | l'épisode annonce clairement une suite (question à trancher, « version suivante », « demain ») |
+
+Cet indicateur est **informatif et non bloquant** : il ne remplace pas la grille, ne compte pas dans le seuil de 5 sur 7 et ne fait jamais remplacer une idée. Une idée qui ferait apparaître des pseudos d'abonnés le signale par « pseudos : à valider par Lucas et Guillaume », car c'est une décision humaine (bible, section 8). Aucun compteur n'affiche de vrai chiffre d'audience inventé.
 
 ## Grille de qualité
 
@@ -65,6 +78,7 @@ Chaque idée est évaluée sur 7 critères. Les critères 6 et 7 viennent des te
 - Ce que l'audience peut influencer : choisir si, dans l'épisode suivant, le banc tombe dans la fontaine ou s'arrête juste avant.
 - Difficulté de production : simple — un seul décor, un objet qui se déplace, des passants qui peuvent rester très simples.
 - Grille : 5/7 — manque : boucle ; faisabilité : à confirmer par Guillaume (objet qui se déplace, passants simples)
+- Série : 1/3 — suite annoncée (le banc tombera-t-il ?)
 ```
 
 Pourquoi elle est bonne : l'image inattendue arrive tout de suite, tout se comprend sans le son, une seule idée (le banc qui fuit), une question finale claire, peu d'animation à produire, et un gag qu'on a envie de montrer. Elle ne boucle pas : la fin ne renvoie pas au début. La faisabilité n'est pas cochée : même simples, un objet qui se déplace et des passants n'ont pas encore été réalisés par la production.
@@ -78,6 +92,7 @@ Pourquoi elle est bonne : l'image inattendue arrive tout de suite, tout se compr
 - Ce que l'audience peut influencer : beaucoup de choses.
 - Difficulté de production : difficile — nombreux personnages animés, plusieurs décors, effets de pluie.
 - Grille : 1/7 — manque : accroche, une seule idée, chute, faisabilité, boucle, partageable
+- Série : 0/3 — aucun
 ```
 
 Pourquoi elle est mauvaise : l'accroche repose sur la voix off (rien de visuel en 3 s), trois intrigues se mélangent, la fin ne pose aucune question et ne relance rien, on ne voit pas à qui l'envoyer, l'influence de l'audience est floue, et la production ne sait pas encore animer autant de personnages. Elle serait à remplacer.
@@ -94,6 +109,7 @@ Ce format montre une invention en versions successives (version 1, puis 2, puis 
 - Difficulté de production : moyenne — un seul décor et un seul objet modifié à chaque version, mais plusieurs mouvements d'objets à animer.
 - Boucle : la tartine retombe dans le grille-pain de la version 1, et l'épisode peut repartir du début.
 - Grille : 6/7 — manque : faisabilité : à confirmer par Guillaume (objet modifié de version en version, tartine projetée)
+- Série : 3/3 — compteur (« Version 1, 2, 3 » à l'écran), contribution reprise (le défaut proposé devient la version 4), suite annoncée (version 4)
 ```
 
 Pourquoi elle fonctionne : chaque version est une petite chute, l'escalade se comprend sans le son, et la dernière image renvoie à la première.

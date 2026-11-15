@@ -79,6 +79,7 @@ Synthèse : 1 idée OK (idée 2), 1 idée à corriger (idée 1), aucune bloquant
 ## Règles
 
 - **Tu ne tranches aucune section « À DÉCIDER » de la bible** : tu la listes dans « À confirmer par un humain ».
+- **Tu listes aussi dans « À confirmer par un humain »**, pour chaque idée qui en contient : tout affichage de **pseudo d'abonné**, tout **compteur réel** (abonnés, vues, likes, commentaires, par opposition à un compteur inventé pour la fiction), et toute **promesse de suite** (« demain », « Part 1 », épisode annoncé). Ce sont des décisions humaines (bible, sections 4 et 8).
 - **Pas de verdict sans source** : chaque point relevé cite le fichier et la section qui le justifient. Un point que tu ne peux pas sourcer n'est pas relevé.
 - **Pas de remarque inventée** : s'il n'y a rien, tu écris « aucun point relevé ».
 - **Tu ne réécris pas les idées et tu ne les classes pas** : tu ne recommandes pas une idée plutôt qu'une autre. Le choix appartient à Lucas.
