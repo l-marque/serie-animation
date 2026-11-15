@@ -73,4 +73,10 @@ Objectif : 1 à 2 appels Claude par épisode (prod-chef + contrôle qualité ; 1
 
 ## Hiérarchie entre agents : ce que permet Claude Code
 
-D'après la documentation de Claude Code (page « sub-agents », consultée le 2026-11-15), un sous-agent **peut** lancer ses propres sous-agents, jusqu'à trois niveaux sous la conversation principale, à condition que l'outil `Agent` figure dans sa liste `tools`. La limite se règle avec `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`. Un chef de pôle peut donc piloter ses sous-agents directement. Non testé dans ce dépôt : à vérifier par un petit essai avant de figer l'arborescence.
+D'après la documentation de Claude Code (page « sub-agents », consultée le 2026-11-15), un sous-agent **peut** lancer ses propres sous-agents, jusqu'à trois niveaux sous la conversation principale, à condition que l'outil `Agent` figure dans sa liste `tools`. La limite se règle avec `CLAUDE_CODE_MAX_SUBAGENT_SPAWN_DEPTH`. Un chef de pôle peut donc piloter ses sous-agents directement.
+
+État réel dans ce dépôt :
+
+- **Fait et vérifié, en local** (Claude Code de Lucas, 2026-11-15) : `story-chef` appelle `story-idees` puis `story-scenario` ; l'imbrication fonctionne.
+- **Fait et vérifié par Guillaume, en environnement cloud** (2026-11-15) : un sous-agent ne reçoit pas l'outil `Agent`. Conséquence : `prod-chef` a l'outil `Agent`, mais prévoit un repli, le champ `SUITE` de sa sortie, pour que l'appel suivant soit fait par la conversation principale.
+- **Prévu, pas encore testé** : le lien `story-scenario` → `prod-realisateur` (pilote du canard, issue #16).
