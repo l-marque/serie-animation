@@ -94,3 +94,34 @@ Source : « 2026-11-15_claude-guillaume_benchmark-marche-et-outils » (Drive, `0
 ### Prudence
 
 La série de référence citée dans le benchmark (Rienville, où le public participe par ses commentaires) est **proche d'un concept de ville évolutive**. S'en inspirer de trop près ferait perdre l'originalité recherchée. Le concept et le nom de la série restent **À DÉCIDER par Lucas et Guillaume**.
+
+### 4 Reels de référence (analysés le 2026-11-15, sur images, sans le son)
+
+| Reel | Durée | Langue |
+|---|---|---|
+| Rienville, Jour 1 | 53 s | FR |
+| Rienville, Jour 2 | 71 s | FR |
+| chickenvscats, « 100,000 cats want to eat this chick » | 36 s | EN |
+| theoddtilt, « How you invented the trampoline » | 38 s | EN |
+
+**Constantes observées :**
+
+- une prémisse en une phrase, avec un chiffre extrême ;
+- une accroche qui associe une image et un chiffre ;
+- une échéance ou un compteur persistant à l'écran (J-7, objectif de 10 000 habitants) ;
+- la deuxième personne (« toi », « you ») ;
+- des sous-titres de 1 à 3 mots, avec un mot surligné ;
+- une fin ouverte (vote, « Part 1 », « demain ») ;
+- une contribution de l'audience reprise à l'épisode suivant.
+
+**Rythme :** coupes franches toutes les 2,4 s environ chez Rienville (Jour 1) ; plans longs en mouvement chez les deux autres comptes.
+
+**Limites :** analyse faite sans le son, sur quatre vidéos seulement ; les compteurs (vues, likes, commentaires) ont été relevés à des moments différents et ne sont donc pas comparables entre eux. Ce sont des observations, pas des règles prouvées.
+
+**À DÉCIDER par Lucas et Guillaume** (rien n'est tranché ici) :
+
+- l'univers de la série (une ville, ou autre chose) ;
+- afficher ou non des pseudos d'abonnés à l'écran ;
+- le mécanisme d'interaction avec l'audience (voir section 4).
+
+**Se différencier des références.** Ces Reels servent à comprendre ce qui fonctionne, pas à être imités : la série ne reprend ni leur univers, ni leurs noms, ni leur habillage (typographie, couleurs, cartes, compteurs à l'identique).
