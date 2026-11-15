@@ -319,3 +319,11 @@ def test_voix_du_pack_et_assemblage_audition(tmp_path, monkeypatch):
     chemin = voix._assembler_audition(tmp_path, ["v01", "v02", "v03"])
     with _wave.open(str(chemin)) as w:
         assert w.getnframes() / w.getframerate() == pytest.approx(2 * (1 + 0.35 * 2 + 0.12), abs=0.01)
+
+
+def test_fiche_completee_reste_valide_apres_revalidation(donnees):
+    """La voix revalide la fiche complétée par les valeurs par défaut : celles-ci doivent rester conformes."""
+    donnees["elements"].append({"id": "sans_role", "asset": "primitif:caisse"})
+    donnees["modules"][0].pop("role", None)
+    f = fiche(donnees)
+    assert contrat.valider_donnees(f.donnees, source="revalidation").donnees["episode_id"] == f.donnees["episode_id"]

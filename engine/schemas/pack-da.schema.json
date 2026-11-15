@@ -289,6 +289,9 @@
         },
         "accent": {
           "$ref": "#/$defs/materiau"
+        },
+        "eau": {
+          "$ref": "#/$defs/materiau"
         }
       }
     },
