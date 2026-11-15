@@ -51,6 +51,7 @@ Pôle séparé, **en amont** de la production. Il transforme une idée en fiche 
 | `prod-realisateur` | Construit la timeline à partir de la fiche épisode quand elle n'est pas assez structurée | agent | prévu |
 | `prod-controle-qualite` | Juge le contenu du rendu final | agent | prévu |
 | voix, bibliothécaire, décorateur, animateur, caméra, look, rendu et montage, chef d'orchestre déterministe | Modules de la chaîne de fabrication, sans appel à Claude | code Python dans `engine/` | prévu (architecture v0.2 de Guillaume) |
+| module habillage | Sous-titres mot par mot, cartes de commentaires, compteurs | code Python | idée à confirmer par Guillaume |
 
 Objectif : 1 à 2 appels Claude par épisode. La liste exacte des modules est à confirmer par Guillaume.
 

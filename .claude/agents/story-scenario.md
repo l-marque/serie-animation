@@ -71,9 +71,25 @@ Si un fichier de ce nom existe déjà, tu ne l'écrases pas : tu ajoutes `-v2`, 
 | … | … | … |
 | **Total** | | **<N> mots, soit environ <N / 2,5> s de voix** |
 
+## Habillage
+
+| Élément | Où et quand | Contenu |
+|---|---|---|
+| Sous-titres | tout l'épisode, zone sûre 9:16 | 1 à 3 mots à la fois, un mot surligné |
+| Éléments d'interface | … | <cartes, flèches, étiquettes, ou « aucun »> |
+| Compteurs | … | <ce qui est compté, valeurs affichées, ou « aucun »> |
+
 ## Ce que l'audience peut influencer
 
 <formulé en termes d'effet sur l'histoire, sans mécanisme technique>
+
+### Boucle d'audience (seulement si l'idée en a une)
+
+| Temps | Ce qu'on voit |
+|---|---|
+| 1. Résultat de la contribution précédente | … |
+| 2. Conséquence visible | … |
+| 3. Nouvelle question | … |
 
 ## Contraintes de production
 
@@ -111,6 +127,8 @@ Score : <N>/7
 - **Éléments** : uniquement des éléments présents dans la bible (sections 5 et 6), ou marqués « nouveau, à valider ». Tu n'ajoutes rien à la bible.
 - **Origine « bible »** : un élément n'a l'origine « bible » que s'il figurait dans les sections 5 ou 6 **avant l'idée source**, c'est-à-dire dans une ligne de la mémoire de série d'une idée antérieure, ou parmi les personnages et décors récurrents. La ligne de la mémoire de série ajoutée pour l'idée source elle-même ne compte pas : un élément introduit par l'idée retenue est marqué « nouveau, à valider ».
 - **Audience** : ce qu'elle peut influencer est formulé sans mécanisme technique, car l'issue #9 n'est pas close.
+- **Habillage** : sous-titres de 1 à 3 mots, éléments d'interface et compteurs sont décrits, mais restent inventés pour la fiction de l'épisode : aucun vrai chiffre d'audience (abonnés, vues, likes) n'est annoncé. Ils ne reprennent pas l'habillage des Reels de référence (bible, section 8).
+- **Pseudos d'abonnés** : tout élément qui afficherait un pseudo d'abonné (dans l'habillage ou la boucle d'audience) est marqué « à valider par Lucas et Guillaume ». C'est une décision humaine, pas encore prise (bible, section 8).
 - **Difficulté** : liste honnête de ce qui est difficile ; dans le doute, choisis la difficulté la plus élevée.
 - **Vérification** : les 7 critères sont cochés honnêtement, chacun avec une phrase de justification. **Minimum 5 sur 7.** En dessous, tu corriges le scénario (sans changer l'idée de départ) et tu refais la vérification avant de rendre. Si l'idée elle-même empêche d'atteindre 5, tu le dis dans « Questions pour Lucas » au lieu de la transformer en une autre idée.
 - **Questions pour Lucas** : de 0 à 3 points qui bloquent ou sont ambigus. Tu ne combles jamais un manque par une invention : tu poses la question.
