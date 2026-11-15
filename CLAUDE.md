@@ -35,4 +35,4 @@ Chacun travaille avec son propre Claude. Les deux Claude se coordonnent de faço
 
 Définis dans `.claude/agents/` : `pilotage`, `communication`, `production`.
 
-L'agent `production` s'appuie sur quatre sous-agents spécialisés : `production-realisateur`, `production-bibliothecaire`, `production-controle-qualite`, `production-technicien` (voir `docs/production/architecture.md`). Un sous-agent ne pouvant pas en lancer un autre, l'appelant enchaîne selon le champ `SUITE` de la réponse de `production`.
+L'agent `production` s'appuie sur cinq sous-agents spécialisés : `production-realisateur`, `production-directeur-artistique`, `production-bibliothecaire`, `production-controle-qualite`, `production-technicien` (voir `docs/production/architecture.md`). Un sous-agent ne pouvant pas en lancer un autre, l'appelant enchaîne selon le champ `SUITE` de la réponse de `production`.

@@ -7,7 +7,8 @@ Le registre blender/assets/registre.json décrit chaque asset :
       "echelle": 1.0,                                     # facteur appliqué à l'import
       "role_defaut": "batiment",                          # rôle des pièces non listées
       "roles": {"Lanterne": "accent"},                    # rôle par nom d'objet (facultatif)
-      "principal": "Corps"                                # pièce qui prend le rôle de la fiche
+      "principal": "Corps",                               # pièce qui prend le rôle de la fiche
+      "materiaux": "pack"                                 # "pack" (style unifié, défaut) ou "origine" (textures de l'asset)
     }
 
 ÉTAT : écrit mais non testé sur de vrais fichiers (aucun asset de bibliothèque pour l'instant).

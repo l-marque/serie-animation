@@ -183,3 +183,40 @@ def test_commande_ffmpeg_piste_audio(donnees, tmp_path):
     cmd = montage.commande_ffmpeg(t, tmp_path, 540, 960)
     assert "anullsrc=r=48000:cl=stereo" in cmd
     assert cmd[-1] == "episode.mp4"
+
+
+# ----- packs de direction artistique ------------------------------------------------------------
+def test_pack_de_test_valide_sans_avertissement():
+    from scripts.production import pack_da
+    _, avertissements = pack_da.charger(chemins.PACKS_DA / "test_lowpoly.json")
+    assert avertissements == []
+
+
+def test_pack_invalide_et_couleurs_indistinctes():
+    import copy as _copy
+    import json as _json
+    from scripts.production import pack_da
+    base = _json.loads((chemins.PACKS_DA / "test_lowpoly.json").read_text(encoding="utf-8"))
+    casse = _copy.deepcopy(base)
+    casse["materiaux"]["sol"]["couleur"] = [1.4, 0, 0]
+    del casse["sous_titres"]
+    with pytest.raises(pack_da.PackInvalide) as e:
+        pack_da.valider(casse, "test_lowpoly")
+    assert len(e.value.erreurs) == 2
+    terne = _copy.deepcopy(base)
+    terne["materiaux"]["personnage"]["couleur"] = terne["materiaux"]["sol"]["couleur"]
+    assert any("personnage et sol" in a for a in pack_da.valider(terne, "test_lowpoly"))
+
+
+def test_pack_absent_route_vers_le_directeur_artistique(tmp_path):
+    import json as _json
+    import subprocess as _sp
+    import sys as _sys
+    fiche = _json.loads((chemins.RACINE / "episodes/exemples/demo_001.json").read_text(encoding="utf-8"))
+    fiche["pack_da"] = "pack_qui_n_existe_pas"
+    chemin = tmp_path / "f.json"
+    chemin.write_text(_json.dumps(fiche), encoding="utf-8")
+    res = _sp.run([_sys.executable, "-m", "scripts.production.run", str(chemin), "--valider-seulement"],
+                  cwd=chemins.RACINE, capture_output=True, text=True)
+    synthese = _json.loads(res.stdout.strip().splitlines()[-1].removeprefix("SYNTHESE "))
+    assert res.returncode == 2 and synthese["suite"] == "production-directeur-artistique"

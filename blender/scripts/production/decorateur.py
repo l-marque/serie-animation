@@ -49,9 +49,10 @@ class Decorateur:
                 look.appliquer_role(obj, role if (principale and role) else role_piece, self.pack)
                 col.objects.link(obj)
         else:
+            garder = bibliotheque.charger_registre(self.racine).get(nom, {}).get("materiaux") == "origine"
             for obj, role_piece, principale in bibliotheque.pieces_bibliotheque(self.racine, nom):
                 if obj.type == "MESH":
-                    look.appliquer_role(obj, role if (principale and role) else role_piece, self.pack)
+                    look.appliquer_role(obj, role if (principale and role) else role_piece, self.pack, garder)
                 col.objects.link(obj)
         self.prototypes[cle] = col
         return col

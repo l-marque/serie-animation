@@ -40,6 +40,7 @@ def materiau_role(pack: dict, role: str) -> bpy.types.Material:
     couleur = (*spec["couleur"], 1.0)
     bsdf.inputs["Base Color"].default_value = couleur
     bsdf.inputs["Roughness"].default_value = spec.get("rugosite", 0.8)
+    bsdf.inputs["Metallic"].default_value = spec.get("metal", 0.0)
     if spec.get("emission"):
         e = _entree(bsdf, "Emission Color", "Emission")
         s = _entree(bsdf, "Emission Strength")
@@ -91,13 +92,31 @@ def ajouter_contour(obj: bpy.types.Object, pack: dict) -> None:
     mod.material_offset = len(obj.data.materials) - 1
 
 
-def appliquer_role(obj: bpy.types.Object, role: str, pack: dict) -> None:
-    """Remplace tous les matériaux d'un maillage par celui du rôle (surcharge de style), puis ajoute le contour."""
+def appliquer_role(obj: bpy.types.Object, role: str, pack: dict, garder_materiaux: bool = False) -> None:
+    """Remplace les matériaux d'un maillage par celui du rôle (surcharge de style), puis ajoute le contour.
+
+    garder_materiaux=True conserve les matériaux d'origine (asset texturé importé, registre :
+    "materiaux": "origine") ; seul le contour du pack est ajouté.
+    """
     if obj.type != "MESH":
         return
-    obj.data.materials.clear()
-    obj.data.materials.append(materiau_role(pack, role))
+    if not (garder_materiaux and len(obj.data.materials)):
+        obj.data.materials.clear()
+        obj.data.materials.append(materiau_role(pack, role))
     ajouter_contour(obj, pack)
+
+
+def _brancher_hdri(monde: bpy.types.World, fond: bpy.types.Node, chemin_rel: str) -> None:
+    """Éclairage par image HDRI (Poly Haven) ; chemin relatif à la racine du dépôt, ignoré s'il manque."""
+    from pathlib import Path
+    racine = Path(__file__).resolve().parents[3]
+    chemin = racine / chemin_rel
+    if not chemin.is_file():
+        journal(f"HDRI absente ({chemin_rel}) : couleur unie du pack utilisée")
+        return
+    tex = monde.node_tree.nodes.new("ShaderNodeTexEnvironment")
+    tex.image = bpy.data.images.load(str(chemin), check_existing=True)
+    monde.node_tree.links.new(tex.outputs["Color"], fond.inputs["Color"])
 
 
 def monde_et_lumiere(scene: bpy.types.Scene, pack: dict) -> None:
@@ -106,6 +125,9 @@ def monde_et_lumiere(scene: bpy.types.Scene, pack: dict) -> None:
     fond = next(n for n in monde.node_tree.nodes if n.type == "BACKGROUND")
     fond.inputs["Color"].default_value = (*pack["monde"]["couleur"], 1.0)
     fond.inputs["Strength"].default_value = pack["monde"].get("intensite", 1.0)
+    hdri = pack["monde"].get("hdri")
+    if hdri:
+        _brancher_hdri(monde, fond, hdri)
     monde.color = pack["monde"]["couleur"]  # couleur lue par Workbench et le viewport
     scene.world = monde
     s = pack["soleil"]

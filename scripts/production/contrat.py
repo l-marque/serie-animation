@@ -18,7 +18,7 @@ from typing import Any
 
 from jsonschema import Draft202012Validator
 
-from . import chemins
+from . import chemins, pack_da
 
 # Actions qui ne s'appliquent qu'à un objet unique (pas à un module entier).
 ACTIONS_OBJET_SEUL = frozenset({"deplacer", "tourner", "transformer", "cycle"})
@@ -118,6 +118,13 @@ def _verifier_coherence(d: dict[str, Any]) -> tuple[list[str], list[str]]:
     if not pack.is_file():
         dispo = sorted(p.stem for p in chemins.PACKS_DA.glob("*.json"))
         erreurs.append(f"pack de DA '{d['pack_da']}' introuvable (disponibles : {dispo})")
+    else:
+        try:
+            pack_da.charger(pack)
+        except pack_da.PackInvalide as e:
+            erreurs += [f"pack de DA '{d['pack_da']}' : {m}" for m in e.erreurs]
+        except json.JSONDecodeError as e:
+            erreurs.append(f"pack de DA '{d['pack_da']}' : JSON illisible ({e})")
 
     for b in d["beats"]:
         cible_plan = b["plan"].get("cible")

@@ -93,7 +93,10 @@ def executer(args: argparse.Namespace) -> int:
         rapport.etape("contrat", "ECHEC", erreurs=e.erreurs, resume=f"{len(e.erreurs)} erreur(s)")
         for err in e.erreurs:
             print(f"   - {err}")
-        return rapport.terminer(2, etape_bloquante="contrat", erreurs=e.erreurs)
+        # Seul le pack de DA pose problème : c'est le travail du directeur artistique, pas du réalisateur.
+        que_le_pack = all(err.startswith("pack de DA") for err in e.erreurs)
+        return rapport.terminer(2, etape_bloquante="contrat", erreurs=e.erreurs,
+                                **({"suite": "production-directeur-artistique"} if que_le_pack else {}))
     dossier = chemins.dossier_sortie(fiche.episode_id, args.mode) if not args.sortie else Path(args.sortie)
     rapport.dossier = dossier
     rapport.etape("contrat", "OK", resume=fiche.episode_id)

@@ -32,3 +32,6 @@ desktop.ini
 
 # Réglages Claude Code personnels (les réglages partagés restent versionnés)
 .claude/settings.local.json
+
+# HDRI : retéléchargeables avec scripts/production/sources_assets.py (lourdes)
+blender/assets/hdri/*.hdr

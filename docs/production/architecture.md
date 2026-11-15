@@ -16,11 +16,12 @@ Une **fiche épisode** (JSON) entre, une **vidéo 9:16** sort. Entre les deux, u
 │      → montage (ffmpeg) → contrôles automatiques + planche contact        │
 └───────────────────────────────┬───────────────────────────────────────────┘
                                 │  rapport.json, champ « suite »
-          ┌─────────────────────┼──────────────────────┬─────────────────────┐
-          ▼                     ▼                      ▼                     ▼
- production-controle-   production-realisateur  production-bibliothecaire  production-technicien
- qualite (sonnet)       (sonnet)                (haiku)                    (opus)
- 1 image par épisode    fiche invalide/libre    assets manquants           échec, nouvelle brique
+     ┌──────────────────┬───────────┼──────────────┬───────────────────┬──────────────────┐
+     ▼                  ▼           ▼              ▼                   ▼                  ▼
+ controle-qualite   realisateur   directeur-     bibliothecaire     technicien
+ (sonnet)           (sonnet)      artistique     (haiku)            (opus)
+ 1 image/épisode    fiche libre   (sonnet)       assets manquants,  échec,
+                    ou invalide   pack de DA     API de modèles 3D  nouvelle brique
 ```
 
 Dans Claude Code, un sous-agent ne peut pas en lancer un autre. L'agent `production` lance le pipeline et indique dans sa réponse (champ `SUITE`) quel spécialiste appeler ; c'est la session principale (ou l'automatisation de Lucas) qui enchaîne.
@@ -33,6 +34,8 @@ Dans Claude Code, un sous-agent ne peut pas en lancer un autre. L'agent `product
 | Contrat | `scripts/production/contrat.py` | structure (JSON Schema) + cohérence (ids, cibles, paramètres) |
 | Continuité | `scripts/production/continuite.py` | état persistant d'une série (`series/<id>/etat.json`) |
 | Bibliothécaire (script) | `scripts/production/bibliothecaire.py` | assets disponibles et licites ? |
+| Sources d'assets | `scripts/production/sources_assets.py` | recherche et import par API (Poly Haven, Poly Pizza, Sketchfab), HDRI |
+| Packs de DA | `scripts/production/pack_da.py` | validation d'un pack (schéma + couleurs distinctes en Oklab) |
 | Réalisateur (script) | `scripts/production/realisateur.py` | **timeline maître** : durées, mots horodatés, frames des actions |
 | Cache | `scripts/production/cache.py` | ne re-rend que les beats dont l'image a pu changer |
 | Décorateur | `blender/scripts/production/decorateur.py` | sol, éléments, personnages, modules (instances) |
@@ -53,6 +56,7 @@ Un seul module touche aux matériaux : Look.
 | `production` | sonnet | à chaque épisode | 1 passage |
 | `production-controle-qualite` | sonnet | après chaque rendu | 1 image |
 | `production-realisateur` | sonnet | fiche libre ou invalide | occasionnel |
+| `production-directeur-artistique` | sonnet | nouvelle histoire ou pack absent | 1 à 2 appels par série, le pack sert ensuite gratuitement |
 | `production-bibliothecaire` | haiku | asset manquant | occasionnel, tâche simple |
 | `production-technicien` | opus | échec ou nouvelle brique | rare, la brique sert ensuite à chaque épisode |
 
