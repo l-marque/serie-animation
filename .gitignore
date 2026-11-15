@@ -1,0 +1,34 @@
+# Sauvegardes automatiques de Blender
+*.blend1
+*.blend2
+*.blend@
+
+# Rendus et vidéos : ils vont sur le Drive, pas dans Git
+renders/
+*.mp4
+*.mov
+*.mkv
+*.png.tmp
+
+# Secrets : jamais dans Git
+.env
+.env.*
+*.key
+credentials*.json
+token*.json
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Systèmes et éditeurs
+.DS_Store
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/
+
+# Réglages Claude Code personnels (les réglages partagés restent versionnés)
+.claude/settings.local.json
