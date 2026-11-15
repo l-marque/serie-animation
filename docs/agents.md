@@ -37,7 +37,7 @@ Pôle séparé, **en amont** de la production. Il transforme une idée en fiche 
 |---|---|---|---|
 | `story-chef` | Chef du pôle : fait proposer des idées par `story-idees`, les présente à Lucas, consigne l'idée choisie dans `docs/storytelling/idees-retenues.md` | `.claude/agents/story-chef.md` | brouillon |
 | `story-idees` | 5 idées d'épisodes courts (9:16, 30 à 60 s) : accroche, déroulé, influence de l'audience, difficulté | `.claude/agents/story-idees.md` | brouillon |
-| `story-scenario` | Scénario | aucun | prévu |
+| `story-scenario` | Scénario d'épisode complet à partir d'une idée retenue (déroulé en 5 temps, intentions de voix off, contraintes, grille sur 7), proposé à la validation de Lucas dans `docs/storytelling/scenarios/` | `.claude/agents/story-scenario.md` | brouillon |
 | `story-beats` | Découpage en beats, avec le texte dit par la voix | aucun | prévu |
 | `story-scenes` | Séquencement en scènes | aucun | prévu |
 | `story-fiche` | Fiche épisode JSON conforme à `contracts/fiche-episode.schema.json` | aucun | prévu |
