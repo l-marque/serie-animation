@@ -327,3 +327,10 @@ def test_fiche_completee_reste_valide_apres_revalidation(donnees):
     donnees["modules"][0].pop("role", None)
     f = fiche(donnees)
     assert contrat.valider_donnees(f.donnees, source="revalidation").donnees["episode_id"] == f.donnees["episode_id"]
+
+
+def test_lint_voix():
+    assert realisateur.lint_voix("Cinq cent douze canards arrivent.", "b") and "grand nombre" in realisateur.lint_voix("Cinq cent douze canards arrivent.", "b")[0]
+    assert "mot(s)" in realisateur.lint_voix("Stop !", "b")[0]
+    assert realisateur.lint_voix("Et chaque canard devient deux canards.", "b") == []
+    assert realisateur.lint_voix("", "b") == []

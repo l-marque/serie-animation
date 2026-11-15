@@ -118,20 +118,42 @@ def canard(seed: int) -> list[Piece]:
 
 
 def baignoire(seed: int) -> list[Piece]:
-    """Baignoire creuse (2,4 × 1,2 × 0,7 m), ouverte sur le dessus."""
+    """Baignoire creuse aux bords arrondis (2,4 × 1,2 × 0,7 m), ouverte sur le dessus, sur 4 pieds."""
     def cuve(bm):
         bmesh.ops.create_cube(bm, size=1.0)
         bmesh.ops.scale(bm, vec=(2.4, 1.2, 0.7), verts=bm.verts)
         haut = [f for f in bm.faces if f.normal.z > 0.9]
-        res = bmesh.ops.inset_region(bm, faces=haut, thickness=0.1, depth=0.0)
-        interieur = haut
-        bmesh.ops.translate(bm, vec=(0, 0, -0.55), verts=list({v for f in interieur for v in f.verts}))
+        bmesh.ops.inset_region(bm, faces=haut, thickness=0.09, depth=0.0)
+        bmesh.ops.translate(bm, vec=(0, 0, -0.55), verts=list({v for f in haut for v in f.verts}))
+        # fond intérieur rétréci : parois inclinées, comme une vraie baignoire
+        bmesh.ops.scale(bm, vec=(0.9, 0.85, 1.0), verts=list({v for f in haut for v in f.verts}))
+        aretes = [e for e in bm.edges if len(e.link_faces) == 2 and e.calc_face_angle(0) > 0.5]
+        bmesh.ops.bevel(bm, geom=aretes, offset=0.05, segments=3, affect="EDGES", profile=0.5)
 
-    pied = _cube(0.12)
-    return [("cuve", _maillage("cuve", cuve), (0, 0, 0.35), 0.0, "batiment", True)] + [
-        (f"pied{i}", _maillage(f"pied{i}", pied), (x, y, 0.0), 0.0, "accessoire", False)
-        for i, (x, y) in enumerate([(-1.0, -0.45), (1.0, -0.45), (-1.0, 0.45), (1.0, 0.45)])
+    def pied(bm):
+        bmesh.ops.create_icosphere(bm, subdivisions=1, radius=0.09)
+        for v in bm.verts:
+            v.co.z *= 0.8
+
+    return [("cuve", _maillage("cuve", cuve), (0, 0, 0.42), 0.0, "batiment", True)] + [
+        (f"pied{i}", _maillage(f"pied{i}", pied), (x, y, 0.06), 0.0, "accessoire", False)
+        for i, (x, y) in enumerate([(-0.95, -0.42), (0.95, -0.42), (-0.95, 0.42), (0.95, 0.42)])
     ]
+
+
+def flaque(seed: int) -> list[Piece]:
+    """Flaque d'eau irrégulière (≈ 1 m), à poser au sol ; animée avec « grandir » pour un débordement."""
+    rng = random.Random(seed)
+
+    def disque(bm):
+        n = 24
+        centre = bm.verts.new((0, 0, 0))
+        bord = [bm.verts.new((0.5 * (0.75 + 0.35 * rng.random()) * math.cos(2 * math.pi * i / n),
+                              0.5 * (0.75 + 0.35 * rng.random()) * math.sin(2 * math.pi * i / n), 0)) for i in range(n)]
+        for i in range(n):
+            bm.faces.new((centre, bord[i], bord[(i + 1) % n]))
+
+    return [("flaque", _maillage("flaque", disque), (0, 0, 0.004), 0.0, "eau", True)]
 
 
 def eau(seed: int) -> list[Piece]:
@@ -194,6 +216,7 @@ PRIMITIVES = {
     "canard": canard,
     "baignoire": baignoire,
     "eau": eau,
+    "flaque": flaque,
     "donut": donut,
     "ballon": ballon,
 }

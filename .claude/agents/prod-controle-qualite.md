@@ -29,8 +29,11 @@ Si la planche contact ne permet pas de trancher pour un beat précis, tu peux ou
 6. **Cohérence de DA** : teintes conformes au pack (sous la lumière, une couleur paraît plus claire ou plus sombre que sa valeur : c'est normal ; signale seulement un changement de teinte ou un objet noir ou gris qui ne devrait pas l'être), pas de matériau manquant (rose vif = texture manquante).
 7. **Zones sûres 9:16** : rien d'essentiel du décor dans les 12 % du haut ni les 20 % du bas. Les textes à l'écran et les sous-titres ne sont pas sur la planche (ils sont ajoutés au montage, dans des zones sûres fixées par le code) : ne les juge pas, sauf si on te donne une capture de la vidéo.
 8. **Défauts techniques** : image vide ou unie, objets qui flottent ou traversent le sol, scintillement visible, horizon penché.
+9. **Qualité des objets** : un objet important au premier plan est-il une forme simple grossière (primitive) au lieu d'un vrai modèle ? Le rapport de prod-chef signale les `PLACEHOLDER`. Un objet mal modélisé au premier plan = défaut **À CORRIGER** → prod-chef (bibliothèque : modèle à sourcer).
+10. **Crédibilité physique et effets** : contacts justes (objets posés, pas d'interpénétration avec un bord ou un mur), effet attendu par l'histoire présent (une eau qui déborde doit se voir déborder). Absent = défaut → prod-realisateur (si l'effet existe dans le vocabulaire) ou maintenance (brique manquante).
+11. **Voix** : relis le texte de chaque beat dans la timeline : phrase de 1 ou 2 mots, grand nombre dit à voix haute, avertissements `!` du rapport non traités = défaut → prod-realisateur (la qualité sonore elle-même ne s'entend pas sur une planche : écris-le dans `LIMITES`).
 
-Rappel en animatique : la basse définition et le moteur simplifié sont **normaux**. Ne signale pas le manque de détail ; juge le cadrage, le rythme et la lisibilité.
+Rappel en animatique : la basse définition (50 %) et l'absence de lumière indirecte sont **normales** ; ne les signale pas. En revanche, des objets grossiers, des contacts faux ou un effet manquant **ne sont pas** des défauts d'animatique : ils resteront au rendu final, signale-les.
 
 ## Verdict
 

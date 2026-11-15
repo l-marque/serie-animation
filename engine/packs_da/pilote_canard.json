@@ -15,7 +15,7 @@
     "echantillons_final": 32,
     "echantillons_animatique": 4
   },
-  "transformation_vue": "Standard",
+  "transformation_vue": "AgX",
   "exposition": 0.0,
   "monde": {
     "couleur": [
@@ -23,7 +23,8 @@
       0.855,
       0.896
     ],
-    "intensite": 1.0
+    "intensite": 1.0,
+    "hdri": "engine/assets/hdri/studio_small_09_2k.hdr"
   },
   "soleil": {
     "rotation_deg": [
@@ -55,7 +56,10 @@
         0.552,
         0.672
       ],
-      "rugosite": 0.6
+      "rugosite": 0.6,
+      "textures": "engine/assets/textures/floor_tiles_06",
+      "echelle_texture": 0.8,
+      "force_teinte": 0.35
     },
     "batiment": {
       "couleur": [

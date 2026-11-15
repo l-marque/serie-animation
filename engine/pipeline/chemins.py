@@ -23,7 +23,7 @@ RENDUS = RACINE / "renders"
 # Primitives fournies par le kit de décor « primitifs » (engine/blender/kits/primitifs.py).
 # Toute nouvelle primitive doit être ajoutée aux deux endroits (un test le vérifie).
 PRIMITIVES = frozenset({"maison", "tour", "arbre", "rocher", "personnage", "caisse", "lampadaire",
-                        "canard", "baignoire", "eau", "donut", "ballon"})
+                        "canard", "baignoire", "eau", "flaque", "donut", "ballon"})
 
 KITS_DECOR = frozenset({"primitifs"})
 

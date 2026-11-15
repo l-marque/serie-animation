@@ -13,7 +13,7 @@
   "decor": {
     "kit": "primitifs",
     "sol": true,
-    "taille_sol": 40
+    "taille_sol": 60
   },
   "elements": [
     {
@@ -37,15 +37,16 @@
     },
     {
       "id": "canard_envers",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "role": "personnage",
       "position": [
-        -0.8,
+        -0.5,
         -1.9,
-        0.3
+        0.08
       ],
       "rotation_z": 180,
-      "visible_au_debut": false
+      "visible_au_debut": false,
+      "echelle": 1.3
     },
     {
       "id": "donut",
@@ -53,10 +54,11 @@
       "role": "accessoire",
       "position": [
         -0.6,
-        -0.6,
-        0.85
+        -0.54,
+        0.77
       ],
-      "visible_au_debut": false
+      "visible_au_debut": false,
+      "echelle": 0.7
     },
     {
       "id": "ballon",
@@ -64,8 +66,28 @@
       "role": "accent",
       "position": [
         0.7,
-        -0.6,
-        0.7
+        -0.54,
+        0.77
+      ],
+      "visible_au_debut": false
+    },
+    {
+      "id": "flaque_a",
+      "asset": "primitif:flaque",
+      "position": [
+        0.3,
+        -1.4,
+        0
+      ],
+      "visible_au_debut": false
+    },
+    {
+      "id": "flaque_b",
+      "asset": "primitif:flaque",
+      "position": [
+        1.9,
+        0.5,
+        0
       ],
       "visible_au_debut": false
     }
@@ -73,7 +95,7 @@
   "personnages": [
     {
       "id": "canard_0",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "position": [
         0,
         0,
@@ -85,227 +107,193 @@
     {
       "id": "pop01",
       "type": "disperser",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "nombre": 1,
       "motif": "spirale",
       "centre": [
-        0.55,
-        0.05,
+        0.1,
+        0,
         0.45
       ],
-      "espacement": 0.4,
+      "espacement": 0.6,
       "seed": 101,
       "visible_au_debut": false
     },
     {
       "id": "pop02",
       "type": "disperser",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "nombre": 2,
-      "motif": "spirale",
+      "motif": "grille",
       "centre": [
-        -0.6,
-        0.0,
+        -0.575,
+        0.175,
         0.45
       ],
-      "espacement": 0.45,
+      "espacement": 0.35,
       "seed": 102,
       "visible_au_debut": false
     },
     {
       "id": "pop03",
       "type": "disperser",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "nombre": 4,
-      "motif": "aleatoire",
-      "centre": [
-        0,
-        0,
-        0.45
-      ],
-      "espacement": 0.6,
-      "seed": 103,
-      "visible_au_debut": false,
-      "rayon_interieur": 0.2
-    },
-    {
-      "id": "pop04",
-      "type": "disperser",
-      "asset": "primitif:canard",
-      "nombre": 8,
-      "motif": "aleatoire",
-      "centre": [
-        0,
-        0,
-        0.46
-      ],
-      "espacement": 0.6,
-      "seed": 104,
-      "visible_au_debut": false,
-      "rayon_interieur": 0.15
-    },
-    {
-      "id": "pop05",
-      "type": "disperser",
-      "asset": "primitif:canard",
-      "nombre": 16,
-      "motif": "aleatoire",
+      "motif": "grille",
       "centre": [
         0,
         0,
         0.5
       ],
-      "espacement": 0.9,
+      "espacement": 0.4,
+      "seed": 103,
+      "visible_au_debut": false
+    },
+    {
+      "id": "pop04",
+      "type": "disperser",
+      "asset": "bibliotheque:canard_caoutchouc",
+      "nombre": 8,
+      "motif": "grille",
+      "centre": [
+        0,
+        0,
+        0.56
+      ],
+      "espacement": 0.22,
+      "seed": 104,
+      "visible_au_debut": false
+    },
+    {
+      "id": "pop05",
+      "type": "disperser",
+      "asset": "bibliotheque:canard_caoutchouc",
+      "nombre": 16,
+      "motif": "grille",
+      "centre": [
+        0,
+        0,
+        0.66
+      ],
+      "espacement": 0.17,
       "seed": 105,
-      "visible_au_debut": false,
-      "rayon_interieur": 0.35
+      "visible_au_debut": false
     },
     {
       "id": "pop06",
       "type": "disperser",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "nombre": 32,
-      "motif": "aleatoire",
+      "motif": "grille",
       "centre": [
         0,
         0,
-        0.55
+        0.88
       ],
-      "espacement": 1.0,
+      "espacement": 0.2,
       "seed": 106,
-      "visible_au_debut": false,
-      "rayon_interieur": 0.3
+      "visible_au_debut": false
     },
     {
       "id": "pop07",
       "type": "disperser",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "nombre": 64,
-      "motif": "aleatoire",
+      "motif": "grille",
       "centre": [
         0,
         0,
-        0.75
+        1.02
       ],
-      "espacement": 1.0,
+      "espacement": 0.2,
       "seed": 107,
       "visible_au_debut": false
     },
     {
       "id": "pop08",
       "type": "disperser",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "nombre": 128,
       "motif": "aleatoire",
       "centre": [
         0,
         0,
-        1.0
+        0.01
       ],
-      "espacement": 1.2,
+      "espacement": 4.5,
       "seed": 108,
-      "visible_au_debut": false
+      "visible_au_debut": false,
+      "rayon_interieur": 1.5
     },
     {
       "id": "pop09",
       "type": "disperser",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "nombre": 256,
       "motif": "aleatoire",
       "centre": [
         0,
         0,
-        0.12
+        0.01
       ],
-      "espacement": 2.6,
+      "espacement": 7.6,
       "seed": 109,
       "visible_au_debut": false,
-      "rayon_interieur": 1.3
+      "rayon_interieur": 4.5
     },
     {
       "id": "pop10",
       "type": "disperser",
-      "asset": "primitif:canard",
+      "asset": "bibliotheque:canard_caoutchouc",
       "nombre": 512,
       "motif": "aleatoire",
       "centre": [
         0,
         0,
-        0.12
+        0.01
       ],
-      "espacement": 4.0,
+      "espacement": 11.4,
       "seed": 110,
       "visible_au_debut": false,
-      "rayon_interieur": 2.5
+      "rayon_interieur": 7.6
     },
     {
-      "id": "pop11a",
+      "id": "pop11",
       "type": "disperser",
-      "asset": "primitif:canard",
-      "nombre": 700,
+      "asset": "bibliotheque:canard_caoutchouc",
+      "nombre": 1024,
       "motif": "aleatoire",
       "centre": [
         0,
         0,
-        0.12
+        0.01
       ],
-      "espacement": 6.0,
+      "espacement": 16.7,
       "seed": 111,
       "visible_au_debut": false,
-      "rayon_interieur": 4.0
+      "rayon_interieur": 11.4
     },
     {
-      "id": "pop11b",
+      "id": "pop12",
       "type": "disperser",
-      "asset": "primitif:canard",
-      "nombre": 324,
+      "asset": "bibliotheque:canard_caoutchouc",
+      "nombre": 2048,
       "motif": "aleatoire",
       "centre": [
         0,
         0,
-        1.3
+        0.01
       ],
-      "espacement": 3.0,
+      "espacement": 23.9,
       "seed": 112,
       "visible_au_debut": false,
-      "rayon_interieur": 0.8
-    },
-    {
-      "id": "pop12a",
-      "type": "disperser",
-      "asset": "primitif:canard",
-      "nombre": 1450,
-      "motif": "aleatoire",
-      "centre": [
-        0,
-        0,
-        0.12
-      ],
-      "espacement": 8.5,
-      "seed": 113,
-      "visible_au_debut": false,
-      "rayon_interieur": 5.8
-    },
-    {
-      "id": "pop12b",
-      "type": "disperser",
-      "asset": "primitif:canard",
-      "nombre": 598,
-      "motif": "aleatoire",
-      "centre": [
-        0,
-        0,
-        1.7
-      ],
-      "espacement": 3.5,
-      "seed": 114,
-      "visible_au_debut": false
+      "rayon_interieur": 16.7
     }
   ],
   "beats": [
     {
       "id": "b1_accroche",
-      "voix": "Regarde ce canard.",
+      "duree_s": 1.0,
       "texte_ecran": "1",
       "plan": {
         "camera": "plan_fixe",
@@ -328,7 +316,7 @@
     },
     {
       "id": "b2_pop",
-      "voix": "Il se dédouble.",
+      "voix": "Regarde, il vient de se dédoubler.",
       "texte_ecran": "2",
       "plan": {
         "camera": "plan_fixe",
@@ -341,7 +329,7 @@
           "type": "apparaitre",
           "cible": "pop01",
           "duree_s": 0.4,
-          "mot": "Il"
+          "debut": 0
         }
       ]
     },
@@ -380,12 +368,38 @@
           "cible": "pop03",
           "duree_s": 0.4,
           "mot": "Et"
+        },
+        {
+          "type": "deplacer",
+          "cible": "eau",
+          "debut": 0.3,
+          "duree_s": 0.8,
+          "params": {
+            "vers": [
+              0,
+              0,
+              0.5
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "canard_0",
+          "debut": 0.3,
+          "duree_s": 0.8,
+          "params": {
+            "vers": [
+              0,
+              0,
+              0.5
+            ]
+          }
         }
       ]
     },
     {
       "id": "e1_16",
-      "voix": "Seize.",
+      "voix": "Ça s'emballe, ça va déborder !",
       "texte_ecran": "16",
       "plan": {
         "camera": "plan_fixe",
@@ -399,12 +413,38 @@
           "cible": "pop04",
           "duree_s": 0.4,
           "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "eau",
+          "debut": 0.2,
+          "duree_s": 0.8,
+          "params": {
+            "vers": [
+              0,
+              0,
+              0.56
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "canard_0",
+          "debut": 0.2,
+          "duree_s": 0.8,
+          "params": {
+            "vers": [
+              0,
+              0,
+              0.56
+            ]
+          }
         }
       ]
     },
     {
       "id": "e2_32",
-      "voix": "Trente-deux.",
+      "duree_s": 1.6,
       "texte_ecran": "32",
       "plan": {
         "camera": "plan_fixe",
@@ -416,14 +456,40 @@
         {
           "type": "apparaitre",
           "cible": "pop05",
-          "duree_s": 0.4,
+          "duree_s": 0.25,
           "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "eau",
+          "debut": 0,
+          "duree_s": 0.5,
+          "params": {
+            "vers": [
+              0,
+              0,
+              0.7
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "canard_0",
+          "debut": 0,
+          "duree_s": 0.5,
+          "params": {
+            "vers": [
+              0,
+              0,
+              0.7
+            ]
+          }
         }
       ]
     },
     {
       "id": "e3_64",
-      "voix": "Soixante-quatre.",
+      "duree_s": 1.3,
       "texte_ecran": "64",
       "plan": {
         "camera": "plan_fixe",
@@ -435,14 +501,14 @@
         {
           "type": "apparaitre",
           "cible": "pop06",
-          "duree_s": 0.4,
+          "duree_s": 0.25,
           "debut": 0
         }
       ]
     },
     {
       "id": "e4_128",
-      "voix": "Cent vingt-huit.",
+      "duree_s": 1.05,
       "texte_ecran": "128",
       "plan": {
         "camera": "plan_fixe",
@@ -461,7 +527,7 @@
     },
     {
       "id": "e5_256",
-      "voix": "Deux cent cinquante-six.",
+      "duree_s": 0.85,
       "texte_ecran": "256",
       "plan": {
         "camera": "plan_fixe",
@@ -481,12 +547,18 @@
           "cible": "canard_envers",
           "duree_s": 0.4,
           "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "flaque_a",
+          "duree_s": 0.4,
+          "debut": 0.1
         }
       ]
     },
     {
       "id": "e6_512",
-      "voix": "Cinq cent douze.",
+      "duree_s": 0.7,
       "texte_ecran": "512",
       "plan": {
         "camera": "plan_fixe",
@@ -500,12 +572,27 @@
           "cible": "pop09",
           "duree_s": 0.4,
           "debut": 0
+        },
+        {
+          "type": "grandir",
+          "cible": "flaque_a",
+          "debut": 0,
+          "duree_s": 0.8,
+          "params": {
+            "facteur": 2.5
+          }
+        },
+        {
+          "type": "apparaitre",
+          "cible": "flaque_b",
+          "duree_s": 0.4,
+          "debut": 0.1
         }
       ]
     },
     {
       "id": "e7_1024",
-      "voix": "Ça déborde !",
+      "duree_s": 0.6,
       "texte_ecran": "1 024",
       "plan": {
         "camera": "plan_fixe",
@@ -524,7 +611,7 @@
     },
     {
       "id": "e8_2048",
-      "voix": "Arrêtez !",
+      "duree_s": 0.5,
       "texte_ecran": "2 048",
       "plan": {
         "camera": "plan_fixe",
@@ -535,13 +622,7 @@
       "actions": [
         {
           "type": "apparaitre",
-          "cible": "pop11a",
-          "duree_s": 0.4,
-          "debut": 0
-        },
-        {
-          "type": "apparaitre",
-          "cible": "pop11b",
+          "cible": "pop11",
           "duree_s": 0.4,
           "debut": 0
         }
@@ -549,32 +630,7 @@
     },
     {
       "id": "e9_4096",
-      "voix": "Stop !",
-      "texte_ecran": "4 096",
-      "plan": {
-        "camera": "revelation",
-        "cible": "baignoire",
-        "distance": 28,
-        "hauteur": 17
-      },
-      "actions": [
-        {
-          "type": "apparaitre",
-          "cible": "pop12a",
-          "duree_s": 0.4,
-          "debut": 0
-        },
-        {
-          "type": "apparaitre",
-          "cible": "pop12b",
-          "duree_s": 0.4,
-          "debut": 0
-        }
-      ]
-    },
-    {
-      "id": "a1_arret",
-      "voix": "Un seul regarde ailleurs. Trouve-le.",
+      "duree_s": 0.5,
       "texte_ecran": "4 096",
       "plan": {
         "camera": "plan_fixe",
@@ -582,7 +638,45 @@
         "distance": 28,
         "hauteur": 17
       },
-      "actions": []
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "pop12",
+          "duree_s": 0.4,
+          "debut": 0
+        }
+      ]
+    },
+    {
+      "id": "a1_arret",
+      "voix": "Un seul canard regarde ailleurs, trouve-le.",
+      "texte_ecran": "4 096",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "baignoire",
+        "distance": 28,
+        "hauteur": 17
+      },
+      "actions": [
+        {
+          "type": "grandir",
+          "cible": "flaque_a",
+          "debut": 0,
+          "duree_s": 0.8,
+          "params": {
+            "facteur": 1.5
+          }
+        },
+        {
+          "type": "grandir",
+          "cible": "flaque_b",
+          "debut": 0,
+          "duree_s": 0.8,
+          "params": {
+            "facteur": 3.5
+          }
+        }
+      ]
     },
     {
       "id": "c1_silence",
@@ -603,8 +697,8 @@
       "plan": {
         "camera": "plan_fixe",
         "cible": "baignoire",
-        "distance": 28,
-        "hauteur": 17
+        "distance": 15,
+        "hauteur": 9
       },
       "actions": [
         {
@@ -669,25 +763,13 @@
         },
         {
           "type": "disparaitre",
-          "cible": "pop11a",
+          "cible": "pop11",
           "debut": 0,
           "duree_s": 0.3
         },
         {
           "type": "disparaitre",
-          "cible": "pop11b",
-          "debut": 0,
-          "duree_s": 0.3
-        },
-        {
-          "type": "disparaitre",
-          "cible": "pop12a",
-          "debut": 0,
-          "duree_s": 0.3
-        },
-        {
-          "type": "disparaitre",
-          "cible": "pop12b",
+          "cible": "pop12",
           "debut": 0,
           "duree_s": 0.3
         },
@@ -696,6 +778,44 @@
           "cible": "canard_envers",
           "debut": 0,
           "duree_s": 0.3
+        },
+        {
+          "type": "disparaitre",
+          "cible": "flaque_a",
+          "debut": 0,
+          "duree_s": 0.3
+        },
+        {
+          "type": "disparaitre",
+          "cible": "flaque_b",
+          "debut": 0,
+          "duree_s": 0.3
+        },
+        {
+          "type": "deplacer",
+          "cible": "eau",
+          "debut": 0,
+          "duree_s": 0.6,
+          "params": {
+            "vers": [
+              0,
+              0,
+              0.45
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "canard_0",
+          "debut": 0,
+          "duree_s": 0.6,
+          "params": {
+            "vers": [
+              0,
+              0,
+              0.45
+            ]
+          }
         }
       ]
     },
@@ -705,16 +825,16 @@
       "texte_ecran": "1",
       "plan": {
         "camera": "plan_fixe",
-        "cible": "baignoire",
-        "distance": 28,
-        "hauteur": 17
+        "cible": "canard_0",
+        "distance": 5,
+        "hauteur": 2.6
       },
       "actions": []
     },
     {
       "id": "d1_question",
-      "voix": "Et après ? Un donut ? Un ballon ?",
-      "duree_s": 4.0,
+      "voix": "Un donut ou un ballon, et après ?",
+      "duree_s": 3.6,
       "texte_ecran": "1 · ET APRÈS ?",
       "plan": {
         "camera": "plan_fixe",

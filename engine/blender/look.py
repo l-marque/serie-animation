@@ -48,8 +48,61 @@ def materiau_role(pack: dict, role: str) -> bpy.types.Material:
             e.default_value = couleur
         if s is not None:
             s.default_value = spec["emission"]
+    if spec.get("textures"):
+        _brancher_textures(mat, bsdf, spec)
     mat.diffuse_color = couleur  # couleur utilisée par le moteur Workbench et le viewport
     return mat
+
+
+def _brancher_textures(mat: bpy.types.Material, bsdf: bpy.types.Node, spec: dict) -> None:
+    """Matériau PBR (Poly Haven, 3DTexel) : dossier avec cartes.json {couleur, normale, rugosite}.
+    Projection « boîte » en coordonnées objet, une tuile tous les `echelle_texture` mètres ; la couleur
+    du pack est multipliée par la texture (teinte), ce qui garde la palette de la DA."""
+    import json as _json
+    from pathlib import Path
+    racine = Path(__file__).resolve().parents[2]
+    dossier = racine / spec["textures"]
+    fichier_cartes = dossier / "cartes.json"
+    if not fichier_cartes.is_file():
+        journal(f"textures absentes ({spec['textures']}) : couleur unie du pack utilisée")
+        return
+    cartes = _json.loads(fichier_cartes.read_text(encoding="utf-8"))
+    nt = mat.node_tree
+    coord = nt.nodes.new("ShaderNodeTexCoord")
+    mapping = nt.nodes.new("ShaderNodeMapping")
+    echelle = 1.0 / max(spec.get("echelle_texture", 1.0), 0.01)
+    mapping.inputs["Scale"].default_value = (echelle, echelle, echelle)
+    nt.links.new(coord.outputs["Object"], mapping.inputs["Vector"])
+
+    def image(nom_carte: str, non_couleur: bool):
+        if nom_carte not in cartes:
+            return None
+        tex = nt.nodes.new("ShaderNodeTexImage")
+        tex.image = bpy.data.images.load(str(dossier / cartes[nom_carte]), check_existing=True)
+        tex.projection = "BOX"
+        tex.projection_blend = 0.2
+        if non_couleur:
+            tex.image.colorspace_settings.name = "Non-Color"
+        nt.links.new(mapping.outputs["Vector"], tex.inputs["Vector"])
+        return tex
+
+    t_couleur = image("couleur", False)
+    if t_couleur is not None:
+        teinte = nt.nodes.new("ShaderNodeMix")
+        teinte.data_type = "RGBA"
+        teinte.blend_type = "MULTIPLY"
+        teinte.inputs["Factor"].default_value = spec.get("force_teinte", 0.6)
+        nt.links.new(t_couleur.outputs["Color"], teinte.inputs["A"])
+        teinte.inputs["B"].default_value = (*spec["couleur"], 1.0)
+        nt.links.new(teinte.outputs["Result"], bsdf.inputs["Base Color"])
+    t_rug = image("rugosite", True)
+    if t_rug is not None:
+        nt.links.new(t_rug.outputs["Color"], bsdf.inputs["Roughness"])
+    t_nor = image("normale", True)
+    if t_nor is not None:
+        carte_normale = nt.nodes.new("ShaderNodeNormalMap")
+        nt.links.new(t_nor.outputs["Color"], carte_normale.inputs["Color"])
+        nt.links.new(carte_normale.outputs["Normal"], bsdf.inputs["Normal"])
 
 
 def materiau_contour(pack: dict) -> bpy.types.Material | None:
@@ -169,7 +222,15 @@ def moteur(scene: bpy.types.Scene, pack: dict, mode: str, forcer: str | None = N
         scene.cycles.use_denoising = True
         _activer_gpu_cycles(scene)
     elif retenu.startswith("BLENDER_EEVEE"):
-        scene.eevee.taa_render_samples = pack.get("eevee", {}).get(f"echantillons_{mode}", 16)
+        reglages = pack.get("eevee", {})
+        scene.eevee.taa_render_samples = reglages.get(f"echantillons_{mode}", 16)
+        # Lumière indirecte, reflets et ombres de contact : grosse différence de qualité perçue,
+        # activée par défaut au rendu final (coût modéré sur une RTX), désactivable dans le pack.
+        rt = reglages.get("lancer_de_rayons", mode == "final")
+        if hasattr(scene.eevee, "use_raytracing"):
+            scene.eevee.use_raytracing = bool(rt)
+        if hasattr(scene.eevee, "use_shadows"):
+            scene.eevee.use_shadows = True
     journal(f"moteur de rendu : {retenu}")
     return retenu
 

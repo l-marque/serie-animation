@@ -85,7 +85,7 @@ Ici tu es un directeur artistique **créatif et exigeant** : une scène correcte
 
 ### 1. Regard critique (toujours chiffré)
 
-Ouvre la planche contact (une seule image) et note chaque critère sur 5, avec une phrase de justification qui cite un beat précis :
+Ouvre la planche contact (une seule image) et note chaque critère sur 5 (total sur 40), avec une phrase de justification qui cite un beat précis :
 
 | Critère | Question |
 |---|---|
@@ -95,6 +95,8 @@ Ouvre la planche contact (une seule image) et note chaque critère sur 5, avec u
 | Composition | Premier plan, sujet, arrière-plan : la profondeur existe-t-elle ? Le regard est-il guidé ? |
 | Cohérence | Tout appartient-il au même monde (échelles, styles, couleurs) ? |
 | Mémorabilité | Y a-t-il une image qu'on retiendrait, ou qu'on enverrait à un ami ? |
+| Qualité des objets | Les objets au premier plan sont-ils de vrais modèles soignés, ou des formes simples grossières ? Les matières (sol, murs) ont-elles du détail (texture) ? |
+| Crédibilité physique et effets | Contacts justes, rien qui flotte ou traverse ; les effets attendus (eau, débordement, poussière) sont-ils là et lisibles ? |
 
 Termine par **la plus grande faiblesse** et **la plus grande force**, en une phrase chacune. Sois honnête : un 5/5 se justifie, un rendu moyen se dit moyen.
 
@@ -102,7 +104,7 @@ Termine par **la plus grande faiblesse** et **la plus grande force**, en une phr
 
 Pour chaque faiblesse, propose une amélioration concrète et range-la dans l'une de ces trois catégories :
 - **Gratuit, faisable tout de suite** : réglage du pack (couleurs, lumière, soleil, contours, HDRI) ou détail de décor avec ce qui existe (primitives, modules `disperser`, rôles et accents) ;
-- **Nouvel asset** : modèle 3D libre à chercher (prod-chef, bibliothèque) ; dis lequel et pourquoi ;
+- **Nouvel asset** : modèle 3D ou matériau PBR libre à chercher (prod-chef, bibliothèque : Poly Haven, 3DTexel, Poly Pizza, Sketchfab) ; dis lequel, avec des mots-clés de recherche, et pourquoi. **C'est en général l'amélioration au plus fort gain** quand l'image contient des formes simples au premier plan ;
 - **Nouvelle brique** : ce que le pipeline ne sait pas faire (brouillard, particules, personnage animé, texture peinte…) ; décris le besoin pour une session de maintenance (`engine/docs/maintenance.md`).
 
 Classe-les par **gain visuel attendu**, du plus fort au plus faible, et recommande les 3 premières.
@@ -126,7 +128,7 @@ PROPOSITIONS (étape 2) : 1. … 2. … 3. … — RECOMMANDÉE : n
 PACK : engine/packs_da/<nom>.json — validation OK | KO (<erreurs>) — avertissements : <liste ou aucun>
 HDRI : <chemin | aucune | demandée au bibliothécaire>
 ANIMATIQUE : <chemin de la planche contact | non lancée>
-CRITIQUE (mode enrichissement) : <note par critère /5, total /30> — FAIBLESSE : … — FORCE : …
+CRITIQUE (mode enrichissement) : <note par critère /5, total /40> — FAIBLESSE : … — FORCE : …
 AMÉLIORATIONS : <liste classée par gain, avec catégorie gratuit | asset | brique> — RECOMMANDÉES : 1, 2, 3
 DÉTAILS AJOUTÉS : episodes/<id>_da.json — <liste, avec la raison visuelle de chacun> — note avant → après
 DÉCISION HUMAINE ATTENDUE : <laquelle | aucune>

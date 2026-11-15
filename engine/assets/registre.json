@@ -1,5 +1,17 @@
 {
   "version": "1.0",
   "description": "Registre des assets de bibliothèque utilisables via 'bibliotheque:<id>'. Tenu par engine/pipeline/sources_assets.py (intégration après choix humain), à la demande de prod-chef. Chaque asset doit aussi avoir sa ligne dans engine/assets/licences.csv.",
-  "assets": {}
+  "assets": {
+    "canard_caoutchouc": {
+      "fichier": "engine/assets/modeles/canard_caoutchouc/rubber_duck_toy_1k.gltf",
+      "echelle": 1.3,
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://polyhaven.com/a/rubber_duck_toy",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": true
+    }
+  }
 }
