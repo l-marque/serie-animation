@@ -15,7 +15,7 @@ Lis :
 - **`docs/storytelling/bible.md` (lecture obligatoire)** : public, ton, règles de la série, interaction avec l'audience, personnages et décors récurrents, mémoire de série, capacités de la production. Si ce fichier est introuvable, arrête-toi et dis-le : tu ne proposes rien sans la bible ;
 - `docs/architecture.md` (ce que la chaîne de production sait faire et où elle en est) ;
 - `docs/storytelling/idees-retenues.md` s'il existe, pour ne pas reproposer une idée déjà retenue ;
-- s'ils existent, les fichiers qui décrivent les capacités réelles de la production (par exemple un vocabulaire d'actions dans `contracts/` ou `docs/production/`).
+- s'ils existent, les fichiers qui décrivent les capacités réelles de la production (par exemple un vocabulaire d'actions dans `contracts/` ou `engine/docs/`).
 
 Une section de la bible marquée « À DÉCIDER par Lucas et Guillaume » n'est pas tranchée : tu ne la tranches pas à leur place. Par exemple, si le ton n'est pas décidé, varie les tons entre les 5 idées au lieu d'en imposer un.
 

@@ -1,0 +1,6 @@
+# Pipeline de l'agent Production (hors Blender). Installer : pip install -r requirements.txt
+jsonschema>=4.20
+pillow>=10.0
+pytest>=8.0
+# Blender 5.3 et ffmpeg s'installent à part (voir docs/production/README.md).
+# Pour tester sans interface graphique : pip install bpy==5.3.*  (puis --blender python)

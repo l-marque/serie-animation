@@ -47,13 +47,15 @@ Pôle séparé, **en amont** de la production. Il transforme une idée en fiche 
 
 | Agent ou module | Rôle | Forme | Statut |
 |---|---|---|---|
-| `prod-chef` | Chef du pôle : pilote les modules et les deux agents ci-dessous | agent ; aujourd'hui `.claude/agents/production.md` (v1) | brouillon (v1, renommage à décider) |
-| `prod-realisateur` | Construit la timeline à partir de la fiche épisode quand elle n'est pas assez structurée | agent | prévu |
-| `prod-controle-qualite` | Juge le contenu du rendu final | agent | prévu |
-| voix, bibliothécaire, décorateur, animateur, caméra, look, rendu et montage, chef d'orchestre déterministe | Modules de la chaîne de fabrication, sans appel à Claude | code Python dans `engine/` | prévu (architecture v0.2 de Guillaume) |
+| `prod-chef` | Chef du pôle : lance le pipeline `engine/`, traite les assets manquants (recherche par API, choix humain), indique l'agent suivant | `.claude/agents/prod-chef.md` | brouillon (testé le 2026-11-15) |
+| `prod-realisateur` | Transforme un brief libre en fiche épisode, ou corrige une fiche refusée | `.claude/agents/prod-realisateur.md` | brouillon (testé le 2026-11-15) |
+| `prod-controle-qualite` | Juge la planche contact d'un rendu (lisibilité, image et voix, défauts) | `.claude/agents/prod-controle-qualite.md` | brouillon (testé le 2026-11-15) |
+| `prod-directeur-artistique` | Ajouté à la demande de Guillaume : propose 3 directions artistiques selon l'histoire, écrit le pack de DA choisi par un humain | `.claude/agents/prod-directeur-artistique.md` | brouillon (testé le 2026-11-15) |
+| contrat, continuité, bibliothèque et sources d'assets, timeline, cache, décorateur, look, animateur, caméra, rendu, montage, contrôles automatiques, chef d'orchestre `run.py` | Modules de la chaîne de fabrication, sans appel à Claude | code Python dans `engine/` (voir `engine/README.md`) | testés (34 tests ; EEVEE validé sur la RTX 5070) |
+| voix (Kyutai TTS) et son | Voix off avec mots horodatés, sous-titres karaoké, effets de rythme, musique baissée sous la voix | code dans `engine/` (`engine/docs/voix-et-son.md`) | testé sur le PC de Guillaume (Kyutai sur CPU) |
 | module habillage | Sous-titres mot par mot, cartes de commentaires, compteurs | code Python | idée à confirmer par Guillaume |
 
-Objectif : 1 à 2 appels Claude par épisode. La liste exacte des modules est à confirmer par Guillaume.
+Objectif : 1 à 2 appels Claude par épisode (prod-chef + contrôle qualité ; 1 seul si l'automatisation lance `python -m engine.pipeline.run` et lit la ligne `SYNTHESE`). La maintenance du code n'a pas d'agent : elle suit `engine/docs/maintenance.md`.
 
 ### Communication — propriétaire : à définir
 
@@ -67,7 +69,7 @@ Objectif : 1 à 2 appels Claude par épisode. La liste exacte des modules est à
 - Dossier **plat** : pas de sous-dossiers.
 - Un préfixe par pôle : `pilotage`, `story-`, `prod-`, `com-`.
 - Nom de fichier = champ `name` de l'en-tête, en minuscules, mots séparés par des tirets, sans accent (exemple : `prod-controle-qualite.md`).
-- Les fichiers v1 `production.md` et `communication.md` gardent leur nom tant que Lucas et Guillaume n'ont pas décidé du renommage en `prod-chef` et `com-chef`.
+- `production.md` est devenu `prod-chef.md` (décision de Guillaume, 2026-11-15). `communication.md` garde son nom tant que le renommage en `com-chef` n'est pas décidé.
 
 ## Hiérarchie entre agents : ce que permet Claude Code
 

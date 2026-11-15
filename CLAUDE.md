@@ -34,8 +34,8 @@ Chacun travaille avec son propre Claude. Les deux Claude se coordonnent de faço
 - Langue : français pour la documentation, les commits et les échanges.
 - Les tâches vivent dans les issues GitHub du dépôt `l-marque/serie-animation`.
 - Fichiers lourds (rendus, vidéos) : Drive, dossier `06_Rendus et assets lourds`.
-- Scripts Blender : `blender/scripts/`. Automatisation hors Blender : `scripts/`.
-- Conventions de nommage dans Blender : à définir avec Guillaume (`docs/conventions-blender.md`, à créer).
+- Production (pipeline, scripts Blender, packs de DA, assets) : `engine/` (voir `engine/README.md`). Automatisation hors production : `scripts/`.
+- Conventions de nommage dans Blender : `engine/docs/conventions-blender.md` (proposées par Guillaume).
 
 ## Agents et pôles
 
@@ -45,7 +45,7 @@ Carte complète, statuts et convention de nommage : `docs/agents.md`. Contrats e
 |---|---|---|---|
 | Pilotage | `pilotage` (agent unique) | Lucas | `.claude/agents/pilotage.md` |
 | Storytelling | `story-chef` + `story-idees`, `story-scenario`, `story-beats`, `story-scenes`, `story-fiche` | Lucas | aucun (prévu) |
-| Production | `prod-chef` + `prod-realisateur`, `prod-controle-qualite` ; modules en code dans `engine/` | Guillaume | `.claude/agents/production.md` (v1) |
+| Production | `prod-chef` + `prod-realisateur`, `prod-controle-qualite`, `prod-directeur-artistique` ; modules en code dans `engine/` | Guillaume | `.claude/agents/prod-*.md` |
 | Communication | `com-chef` (plus tard) | à définir | `.claude/agents/communication.md` (v1) |
 
-Nommage dans `.claude/agents/` : dossier plat, préfixes `pilotage`, `story-`, `prod-`, `com-`. Le renommage de `production.md` et `communication.md` sera décidé par Lucas et Guillaume.
+Nommage dans `.claude/agents/` : dossier plat, préfixes `pilotage`, `story-`, `prod-`, `com-`. `production.md` est devenu `prod-chef.md` ; le renommage de `communication.md` reste à décider.

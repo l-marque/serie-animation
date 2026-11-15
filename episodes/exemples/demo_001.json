@@ -1,0 +1,162 @@
+{
+  "version": "1.0",
+  "episode_id": "demo_001",
+  "titre": "Démo technique : la lumière du phare",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 30
+  },
+  "pack_da": "test_lowpoly",
+  "decor": {
+    "kit": "primitifs",
+    "sol": true,
+    "taille_sol": 40
+  },
+  "elements": [
+    {
+      "id": "phare",
+      "asset": "primitif:tour",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "echelle": 1.4,
+      "role": "accent",
+      "visible_au_debut": false
+    },
+    {
+      "id": "rocher_1",
+      "asset": "primitif:rocher",
+      "position": [
+        3,
+        -2
+      ],
+      "echelle": 1.2,
+      "role": "roche"
+    }
+  ],
+  "personnages": [
+    {
+      "id": "heros",
+      "asset": "primitif:personnage",
+      "position": [
+        -6,
+        -6,
+        0
+      ],
+      "role": "personnage"
+    }
+  ],
+  "modules": [
+    {
+      "id": "village",
+      "type": "disperser",
+      "asset": "primitif:maison",
+      "nombre": 40,
+      "motif": "spirale",
+      "centre": [
+        0,
+        0,
+        0
+      ],
+      "espacement": 1.9,
+      "seed": 42,
+      "role": "batiment",
+      "visible_au_debut": false
+    },
+    {
+      "id": "foret",
+      "type": "disperser",
+      "asset": "primitif:arbre",
+      "nombre": 70,
+      "motif": "aleatoire",
+      "centre": [
+        0,
+        0,
+        0
+      ],
+      "espacement": 20,
+      "seed": 7,
+      "role": "vegetation",
+      "rayon_interieur": 12
+    }
+  ],
+  "beats": [
+    {
+      "id": "b1",
+      "voix": "Au début, il n'y avait que la forêt.",
+      "texte_ecran": "JOUR 1",
+      "plan": {
+        "camera": "survol",
+        "cible": "heros",
+        "distance": 11,
+        "hauteur": 5
+      },
+      "actions": [
+        {
+          "type": "cycle",
+          "cible": "heros",
+          "debut": 0,
+          "duree_s": 3,
+          "params": {
+            "nom": "flotter"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b2",
+      "voix": "Puis quelqu'un a allumé une lumière.",
+      "plan": {
+        "camera": "revelation",
+        "cible": "phare",
+        "distance": 14,
+        "hauteur": 6
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "phare",
+          "mot": "allumé",
+          "duree_s": 0.7
+        }
+      ]
+    },
+    {
+      "id": "b3",
+      "voix": "Et chaque nouvel abonné a construit sa maison autour.",
+      "texte_ecran": "40 HABITANTS",
+      "plan": {
+        "camera": "orbite",
+        "cible": "phare",
+        "distance": 26,
+        "hauteur": 18
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "village",
+          "mot": "abonné",
+          "duree_s": 2.0
+        },
+        {
+          "type": "deplacer",
+          "cible": "heros",
+          "debut": 0.3,
+          "duree_s": 3.0,
+          "params": {
+            "vers": [
+              -2,
+              -3,
+              0
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

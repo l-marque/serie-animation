@@ -34,8 +34,7 @@ Les définitions des agents sont dans [`.claude/agents/`](.claude/agents/), les 
 .claude/skills/    procédures réutilisables des agents
 contracts/         contrats entre pôles (fiche épisode, vocabulaire d'actions)
 docs/              architecture, carte des agents, décisions, conventions
-engine/            modules de production en Python (à venir)
-blender/scripts/   scripts Python exécutés dans Blender
+engine/            production : pipeline, scripts Blender, packs de DA, assets (voir engine/README.md)
 scripts/           automatisation hors Blender
 assets/            petits fichiers uniquement (les lourds sont sur le Drive)
 CLAUDE.md          contexte partagé lu par tous les agents

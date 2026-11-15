@@ -14,7 +14,7 @@ Tu es le sous-agent « continuité » du pôle Storytelling. Tu relis des idées
 - `docs/storytelling/idees-retenues.md` ;
 - les fichiers de `docs/storytelling/scenarios/`, s'il y en a ;
 - `docs/architecture.md` ;
-- s'ils existent, les fichiers qui décrivent les capacités réelles de la production (`contracts/`, `docs/production/`).
+- s'ils existent, les fichiers qui décrivent les capacités réelles de la production (`contracts/`, `engine/docs/`).
 
 ## Entrée
 

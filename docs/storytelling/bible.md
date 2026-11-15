@@ -60,10 +60,8 @@ Une ligne par idée retenue, ajoutée par `story-chef` après chaque choix de Lu
 ## 7. Ce que la production sait faire
 
 - **Contrats** (`contracts/`) : aucun contrat n'est encore rédigé ; voir `contracts/README.md`.
-- **Documentation de la production** (`docs/production/`) : **en attente de la PR #20 de Guillaume**, pas encore fusionnée dans `main`.
-- En attendant, la seule référence est `docs/architecture.md` (état d'avancement de la production). Dans le doute, une idée est jugée plus difficile à produire, pas moins.
-
-Cette section sera mise à jour quand la PR #20 et les contrats seront dans `main`.
+- **Documentation de la production** : `engine/docs/` (PR #20). Ce que la production sait faire aujourd'hui : le vocabulaire fermé `contracts/vocabulaire-actions.md` (apparaître, disparaître, déplacer, tourner, grandir, transformer, cycles ; 7 mouvements de caméra), les primitives (maison, tour, arbre, rocher, personnage, caisse, lampadaire), les modules de foule (`disperser` en spirale, grille, cercle, aléatoire) et les modèles 3D libres importés par API.
+- Dans le doute, une idée est jugée plus difficile à produire, pas moins.
 
 ## 8. Enseignements du benchmark (tendances, à vérifier)
 
