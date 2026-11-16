@@ -413,3 +413,23 @@ def test_cles_env_tolerantes(tmp_path, monkeypatch):
     assert sources_assets._env("POLY_PIZZA_KEY") == "abc"
     assert sources_assets._env("TEXEL_API_KEY") == "tx_live_123"
     assert sources_assets._env("SKETCHFAB_TOKEN") is None
+
+
+def test_sons_resolus_avec_repetition_et_ambiance():
+    from engine.pipeline import sons
+    tl = _timeline_hud()
+    r = sons.resoudre({"ambiance": {"son": "ambiance_village"},
+                       "sons": [{"son": "marteau", "beat": "b1", "mot": "like", "repeter": 3, "intervalle": 0.5}]}, tl)
+    assert [e["t"] for e in r["evenements"]] == [1.0, 1.5, 2.0]
+    assert r["ambiance"]["son"] == "ambiance_village" and r["ambiance"]["volume"] > 0
+    with pytest.raises(sons.SonInvalide, match="inconnu"):
+        sons.resoudre({"sons": [{"son": "dragon", "beat": "b1"}]}, tl)
+
+
+def test_ambiance_synthetisee(tmp_path, monkeypatch):
+    import wave
+    from engine.pipeline import sons
+    monkeypatch.setattr(sons, "CACHE", tmp_path)
+    f = sons.ambiance("village", 2.2)
+    with wave.open(str(f)) as w:
+        assert w.getnframes() / w.getframerate() >= 2.2

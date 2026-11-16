@@ -51,3 +51,15 @@ Voix par défaut (si le pack n'en indique pas) : `unmute-prod-website/fabieng-en
 ## Son de pièce (HUD)
 
 `piece` : deux notes aiguës en onde carrée adoucie (si 5 puis mi 6, ≈ 0,4 s), synthétisées comme les autres effets (aucune licence). Joué à chaque gain « +10 » et quand un compteur de pièces commence à défiler (`engine/pipeline/hud.py`).
+
+## Bibliothèque de sons (bruitages et ambiances)
+
+- Registre versionné : `engine/assets/sons/registre.json` (26 sons : marteau, planches, gravats, pas, portes, pièces, cartes, clics, bonus, jingles, ambiances…). `python -m engine.pipeline.sons liste` les affiche.
+- Fichiers : packs audio **Kenney (CC0)**, téléchargés par `python -m engine.pipeline.sons telecharger` dans `engine/assets/sons/kenney/` (non versionné) ; `python -m engine.pipeline.sons verifier` signale ce qui manque.
+- Ambiances (`ambiance_village` : vent et oiseaux ; `ambiance_vent`) : **synthétisées** par le code, sans fichier ni licence.
+- Placement dans `<fiche>.habillage.json` :
+  - `"ambiance": {"son": "ambiance_village"}` : sous tout l'épisode, à bas volume ;
+  - `"sons": [{"son": "marteau", "beat": "p2_vous", "debut": 0.2, "repeter": 4, "intervalle": 0.38}]` : sur un mot (`mot`) ou un instant (`debut`) du beat.
+- Automatique : chaque gain « +10 » joue aussi une poignée de pièces (`pieces`) en plus du son de pièce synthétisé.
+- Un son absent de la machine n'arrête pas le montage : il est ignoré et signalé dans le rapport.
+- Plus tard : Freesound (clé gratuite `FREESOUND_KEY`, sons CC0 à l'unité) pour les besoins précis.

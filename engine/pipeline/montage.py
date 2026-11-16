@@ -15,7 +15,7 @@ from typing import Any
 
 from PIL import Image
 
-from . import chemins, effets_sonores, hud
+from . import chemins, effets_sonores, hud, sons
 from .realisateur import AVANCE_VOIX_S
 
 MOTS_PAR_SOUS_TITRE = 3
@@ -163,15 +163,41 @@ def commande_ffmpeg(timeline: dict[str, Any], dossier: Path, largeur: int, haute
             index += 1
     voix_presentes = list(entrees_audio)
     if timeline["pack_da"].get("effets_sonores", True):
-        sons = effets_sonores.fichiers()
+        synthes = effets_sonores.fichiers()
         evenements = effets_sonores.evenements(timeline) + [
             (nom, t, effets_sonores.VOLUME_PIECE) for nom, t in hud.sons(timeline.get("hud", []))]
         for nom, instant, volume in sorted(evenements, key=lambda e: e[1]):
-            cmd += ["-i", str(sons[nom])]
+            cmd += ["-i", str(synthes[nom])]
             ms = int(round(instant * 1000))
             filtres.append(f"[{index}:a]aresample=48000,volume={volume},adelay={ms}|{ms}[a{index}]")
             entrees_audio.append(f"[a{index}]")
             index += 1
+    manquants: set[str] = set()
+    bruitages = list(timeline.get("sons", {}).get("evenements", []))
+    if "pieces" in sons.registre():
+        bruitages += [{"son": "pieces", "t": t, "volume": sons.registre()["pieces"]["volume"], "variante": k}
+                      for k, (nom, t) in enumerate(hud.sons(timeline.get("hud", []))) if nom == "piece"]
+    for ev in sorted(bruitages, key=lambda e: e["t"]):
+        f = sons.fichier(ev["son"], ev["variante"])
+        if f is None:
+            manquants.add(ev["son"])
+            continue
+        cmd += ["-i", str(f)]
+        ms = int(round(ev["t"] * 1000))
+        filtres.append(f"[{index}:a]aresample=48000,volume={ev['volume']},adelay={ms}|{ms}[a{index}]")
+        entrees_audio.append(f"[a{index}]")
+        index += 1
+    amb = timeline.get("sons", {}).get("ambiance")
+    if amb:
+        f = sons.fichier(amb["son"], 0, duree)
+        if f is None:
+            manquants.add(amb["son"])
+        else:
+            cmd += ["-i", str(f)]
+            filtres.append(f"[{index}:a]aresample=48000,atrim=0:{duree:.3f},volume={amb['volume']}[a{index}]")
+            entrees_audio.append(f"[a{index}]")
+            index += 1
+    timeline["_sons_manquants"] = sorted(manquants)
     musique = timeline.get("audio", {}).get("musique")
     if musique:
         chemin = Path(musique) if Path(musique).is_absolute() else chemins.RACINE / musique
