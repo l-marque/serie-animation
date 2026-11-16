@@ -7,7 +7,7 @@
   "fichiers": {
     "idee": "docs/storytelling/idees-retenues.md — entrée « 2026-11-16 — La visite guidée »",
     "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md",
-    "beats": null,
+    "beats": "docs/storytelling/beats/2026-11-16-la-visite-guidee.md",
     "decoupage": null,
     "fiche": null,
     "animatique": null,
@@ -160,6 +160,16 @@
       "date": "2026-11-16T21:15:00+01:00",
       "etape": "voix",
       "evenement": "Appel de story-chef, passage 3 (statut du scénario, voix par story-beats)."
+    },
+    {
+      "date": "2026-11-16T21:40:00+01:00",
+      "etape": "voix",
+      "evenement": "story-chef passage 3 terminé : statut du scénario v2 passé à « validé par Lucas (avec réserves) » ; beats docs/storytelling/beats/2026-11-16-la-visite-guidee.md (16 beats dont 4 muets, 40,0 s, 69 mots, 2,5 mots/s de référence, débit réel de la voix n° 12 non mesuré). Réserves a à d appliquées ou transmises à story-decoupage. 5 questions pour Lucas."
+    },
+    {
+      "date": "2026-11-16T21:40:00+01:00",
+      "etape": "arret_3",
+      "evenement": "ARRÊT 3 : en attente de la validation du texte de la voix par Lucas."
     }
   ]
 }

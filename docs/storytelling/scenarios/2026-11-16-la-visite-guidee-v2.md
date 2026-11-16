@@ -1,6 +1,6 @@
 # La visite guidée (v2)
 
-- Statut : proposé par l'agent (à valider par Lucas)
+- Statut : validé par Lucas le 2026-11-16 (avec réserves : plan d'ouverture et de fin en plan moyen, Kevin en pied, bras ouverts entièrement dans le cadre 9:16, même cadrage à 0,0 s et à 40,0 s ; Kevin en « parle avec gestes » de 22,5 à 27,0 s ; liste des moments sans sous-titres à corriger par story-beats ; aucune marge de voix à l'accroche, à la chute et à la phrase finale, phrases à raccourcir si la voix n° 12 est plus lente que 2,5 mots par seconde ; réponses aux questions : pose bras ouverts = pose de départ et de fin de « parle avec gestes », panneau « ON RÉPARE QUOI ? » jusqu'à 40,0 s hors du cadre du plan final, sol en terre sèche avec lignes blanches sommaires et une seule touffe verte, à confirmer par Guillaume)
 - Idée source : [La visite guidée](../idees-retenues.md) — entrée du 2026-11-16
 - Épisode : `lancement-du-club`, premier épisode de La Revanche du Miteux
 - Version précédente : [v1](2026-11-16-la-visite-guidee.md), conservée telle quelle
