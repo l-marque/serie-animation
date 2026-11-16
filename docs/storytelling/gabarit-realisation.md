@@ -39,6 +39,7 @@ Aucun agent ne remplit ce niveau : il est décidé par les humains. Un agent qui
 | Pack de DA | nom du pack | à choisir | `pack_da` |
 | Décor | lieu, primitives, sol, fond | baignoire, sol simple, mur neutre | `decor` |
 | Éléments et quantités | id, asset, nombre, position x/y/z, échelle, visible au début | canard × 1 → × 4 096 | `elements` / `modules` |
+| État nommé (exigences Production § 1) | un état par élément ; deux états nommés s'il change, avec l'instant du passage | `mairie_ruine` → `mairie_reparee_1` à 12 s | absent du contrat (dans la fiche : deux éléments distincts, l'un disparaît, l'autre apparaît, ou `transformer`) |
 | Assets externes | id, source, licence, vérifié par | baignoire, canard, donut, ballon | asset `bibliotheque:…` |
 | Ambiance lumière | moment de la journée, intention | salle de bain, lumière douce | pack de DA (pas par épisode) |
 | Musique de l'épisode | début, montées, coupure, volume sous la voix | silence à 28 s | `audio` (à préciser) |
@@ -57,7 +58,7 @@ Aucun agent ne remplit ce niveau : il est décidé par les humains. Un agent qui
 | Pauses et silences | avant / après, en secondes | 0,5 s de silence avant | `beat.duree_s` (beat muet) |
 | Sous-titre | découpage en groupes de 1 à 3 mots, mot surligné | TOI AUSSI / tu vois / DEUX canards | absent → v1.1 (montage mot à mot aujourd'hui) |
 | Texte à l'écran | 1 à 4 mots, majuscules, ou rien | « 2 » | `beat.texte_ecran` |
-| Compteur | valeur affichée à chaque instant | 1 → 2 à 1,0 s | absent → v1.1 |
+| Compteur | valeur affichée à chaque instant ; valeurs en lettres dans la voix | 1 → 2 à 1,0 s | `<fiche>.habillage.json`, clé `hud` (type `compteur`) |
 
 ## D. Chaque plan (rempli par `story-decoupage`)
 
@@ -75,6 +76,12 @@ Aucun agent ne remplit ce niveau : il est décidé par les humains. Un agent qui
 | Effets sonores | son, instant (mot ou seconde), volume | pop sur « deux » | `audio` / effets (à préciser) |
 | Volume de la musique sous la voix | dB ou niveau | −18 dB | `audio` (à préciser) |
 | Lisible sans le son ? | oui / non + ce qui porte le sens à l'image | oui : le compteur | contrôle (pas un champ) |
+| Ce qu'on voit, ce qu'on ne voit pas (§ 2) | premier plan, fond ; ce qui doit rester hors champ | « rien d'autre de la ville n'est visible » | absent du contrat (consigne pour la caméra et la plaquette Figma) |
+| Attitude et orientation des personnages (§ 4) | attitude (immobile, parle, travaille, salue, marche, saute) ; orientation (face, trois quarts, profil) ; jamais de dos quand il parle au public | maire : parle, face caméra | orientation : `rotation_z` de l'objet ; attitude : absent du contrat (une entrée du registre par attitude, échangée sur une coupe) |
+| Mots-clés de sourcing (§ 5) | 2 ou 3 mots-clés anglais + style + ce qui est indispensable, par élément « à sourcer » | « town hall », low-poly, 2 étages | absent du contrat (consigne pour `prod-chef`, `sources_assets chercher`) |
+| Compteur à apparition (§ 6) | ressource, valeur de départ et d'arrivée, mot qui le fait apparaître, dernier plan affiché ; jamais en même temps qu'un texte à l'écran | pièces 990 → 1 000 sur « like », jusqu'à p05 | `<fiche>.habillage.json`, clé `hud` (`compteur` : `beat`, `mot`, `valeur`, `vers`, `jusqu_au_beat`, `icone`) |
+| Gain (§ 6) | texte, icône, mot déclencheur, endroit de l'image | « +10 », pièce, sur « like », au-dessus de la mairie | `<fiche>.habillage.json`, clé `hud` (`gain` : `texte`, `icone`, `beat`, `mot`, `position`) |
+| Bandeau titre (§ 6) | texte, plan(s) | « À VOUS DE CHOISIR ! » | absent du contrat et de `habillage.json` (à confirmer par Guillaume) |
 
 ## Questions ouvertes (reprises de la note Drive)
 

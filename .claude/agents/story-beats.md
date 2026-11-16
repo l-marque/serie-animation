@@ -69,8 +69,9 @@ Un seul fichier nouveau : `docs/storytelling/beats/<AAAA-MM-JJ>-<titre-court>.md
 | Voix totale ≤ 85 % de la durée | <N> s / <N> s = <N> % | OK / ÉCART |
 | Chaque temps du scénario couvert | <liste> | OK / ÉCART |
 | Phrases de 5 à 12 mots | <beats hors règle ou « toutes »> | OK / ÉCART |
-| Aucune phrase de 1 ou 2 mots | … | OK / ÉCART |
-| Aucun grand nombre dit à voix haute | … | OK / ÉCART |
+| Aucune phrase de moins de 3 mots | … | OK / ÉCART |
+| Nombres en lettres, aucun nombre composé dit, chaque nombre dit montré par un compteur | … | OK / ÉCART |
+| Mot déclencheur dans la première moitié de sa phrase | <beats hors règle> | OK / ÉCART |
 | Beats de 1,5 à 3 s (4 s maximum) | <beats hors règle et justification> | OK / ÉCART |
 | Au plus 2 beats muets d'affilée | … | OK / ÉCART |
 | Deuxième personne | … | OK / ÉCART |
@@ -95,8 +96,8 @@ Un seul fichier nouveau : `docs/storytelling/beats/<AAAA-MM-JJ>-<titre-court>.md
 ## Règles de voix (synthèse Kyutai, reprises de `prod-realisateur`)
 
 - **Phrases de 5 à 12 mots**, naturelles à dire, avec une respiration (virgule) au milieu dès 8 mots.
-- **Jamais de phrase de 1 ou 2 mots** (« Seize. », « Stop ! ») : l'intonation est plate ou coupée. Regroupe avec la phrase voisine, ou laisse le beat muet.
-- **Aucun grand nombre dit à voix haute** (au-delà de dix, et tout nombre composé comme « cinq cent douze ») : il s'affiche (compteur ou texte à l'écran) ; la voix dit autre chose : « encore le double », « des centaines », « des milliers ».
+- **Aucune phrase de moins de 3 mots** (« Seize. », « Stop ! », « Et voilà ! ») : l'intonation est plate ou coupée. Regroupe avec la phrase voisine, ou laisse le beat muet.
+- **Nombres** (exigences de la Production, `engine/docs/exigences-production-pour-storytelling.md`, § 7) : un nombre dit par la voix est **toujours écrit en lettres** (« mille pièces », jamais « 1000 ») et **toujours montré à l'écran par un compteur** (colonne « Compteur » du beat). Un nombre composé de plusieurs mots (« cinq cent douze », « quatre mille quatre-vingt-seize ») n'est jamais dit : il s'affiche au compteur, et la voix dit autre chose (« encore le double », « des centaines », « des milliers »). Valeurs fictives : aucun vrai chiffre d'audience.
 - **Deuxième personne** : la voix s'adresse au spectateur (« tu », « toi »).
 - **Beat de 1,5 à 3 s ; 4 s maximum**, sauf temps fort justifié (révélation lente, silence dramatique) écrit dans « Écarts justifiés ». À 2,5 mots/s, 5 mots = 2 s et 7 mots = 2,8 s : vise 5 à 7 mots par beat parlé ; une phrase de plus de 10 mots se coupe en deux beats.
 - **Beat muet** permis s'il est porté par l'image et le son (pop, compteur qui change, silence voulu) : dis ce qui le porte dans le champ « Voix » (« muet : le compteur passe à 4 »). **Jamais plus de 2 beats muets d'affilée.** Un enchaînement rapide d'événements (pops sous 1 s) ne se découpe pas en beats muets successifs : un beat parlé peut porter plusieurs changements de compteur, sur plusieurs mots.

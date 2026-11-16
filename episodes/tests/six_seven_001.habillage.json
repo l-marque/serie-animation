@@ -40,5 +40,35 @@
       "epaisseur": 0.02,
       "role": "tissu"
     }
+  ],
+  "hud": [
+    {
+      "type": "compteur",
+      "icone": "habitant",
+      "beat": "p2_abonnement",
+      "mot": "abonnement",
+      "valeur": 12,
+      "vers": 13
+    },
+    {
+      "type": "compteur",
+      "icone": "piece",
+      "beat": "p2_like",
+      "mot": "like",
+      "valeur": 990,
+      "vers": 1000,
+      "jusqu_au_beat": "p2_mille"
+    },
+    {
+      "type": "gain",
+      "texte": "+10",
+      "icone": "piece",
+      "beat": "p2_like",
+      "mot": "like",
+      "position": [
+        0.5,
+        0.6
+      ]
+    }
   ]
 }
