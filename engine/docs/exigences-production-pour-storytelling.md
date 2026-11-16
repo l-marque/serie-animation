@@ -35,13 +35,13 @@ La Production sait désormais faire, au style du kit Figma « Outils d'affichage
 
 | Élément | Ce qu'il faut écrire dans le découpage |
 |---|---|
-| **Compteur** (pièces, habitants…) | la ressource, la valeur de départ, la valeur d'arrivée s'il défile, le **mot de la voix** qui le fait apparaître et le plan après lequel il disparaît. Règle de Guillaume : un compteur **apparaît quand on en parle et disparaît ensuite** ; il n'est pas affiché en permanence. |
+| **Compteur** (pièces, habitants…) | la ressource, la valeur de départ, la valeur d'arrivée s'il défile, le **mot de la voix** qui le fait apparaître et le plan après lequel il disparaît. **Permanent ou ponctuel selon ce que demande l'histoire** : un compteur permanent reste affiché tout l'épisode (écrire « permanent ») ; un compteur ponctuel apparaît quand on en parle et disparaît ensuite (écrire le plan après lequel il disparaît). Sans précision, la Production le traite comme ponctuel. **Position** : là où le découpage le demande (en haut à gauche, au centre, à droite, en bas…) ; par défaut en haut à gauche. |
 | **Gain** (« +10 » qui monte, son de pièce) | le texte (« +10 »), l'icône, le mot déclencheur, l'endroit de l'image (au-dessus de quel objet). |
 | **Cartes de choix** (vote de fin) | le nombre de cartes, pour chacune l'objet montré (rendu 3D sur fond blanc), le libellé (« LA FONTAINE »), un pictogramme éventuel, et la phrase qui les fait apparaître. |
 | **Texte dans le décor** | le texte exact et son support (« panneau d'entrée de ville : SIX SEVEN »). |
 | **Bandeau titre** | le texte (« À VOUS DE CHOISIR ! »). |
 
-Pas de texte à l'écran en même temps qu'un compteur : ils tombent au même endroit, en haut de l'image. Les valeurs restent fictives (aucun vrai chiffre d'audience, comme le dit déjà la bible). Un élément d'habillage qui n'est pas dans ce tableau est écrit tel quel et listé comme **brique manquante**.
+Texte à l'écran et compteurs peuvent être affichés ensemble : le texte se place automatiquement sous les compteurs du haut de l'image. Éviter le bas à droite (boutons d'Instagram). Les valeurs viennent de l'état de la série (`episodes/serie/etat.json`, chiffres fournis par un humain) ; à défaut, elles sont marquées fictives. Tout texte affiché ou lu (voix, textes 3D, HUD, pseudos) passe le filtre de modération de la Production (`engine/pipeline/textes_ecran.py`) : un texte refusé arrête la production (code 8), et chaque pseudo est relu par Guillaume dans la plaquette. Un élément d'habillage qui n'est pas dans ce tableau est écrit tel quel et listé comme **brique manquante**.
 
 ## 7. La voix
 

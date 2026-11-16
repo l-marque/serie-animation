@@ -113,6 +113,13 @@ AUDIENCE_RECUE = {
     "mise_a_jour_etat": {"statut": "acceptee", "par": "Lucas", "date": "2026-11-18T09:05:00+01:00", "reponse": "ok"},
 }
 
+FILTRE = {
+    "commentaires_transmis": ["Construisez des filets !"],
+    "pseudos_transmis": ["@kevin_75"],
+    "refuses": ["commentaire 2 : mot refusé (liste de modération : « connard »)"],
+    "pseudos_a_valider": ["@kevin_75"],
+}
+
 PREMIER_EPISODE = {
     "premier_episode": True,
     "statut": "sans_objet",
@@ -129,6 +136,7 @@ PREMIER_EPISODE = {
     {**AUDIENCE_RECUE, "mise_a_jour_etat": {"statut": "en_attente", "par": None, "date": None, "reponse": None}},
     {**AUDIENCE_RECUE, "statut": "en_attente", "par": None, "date": None, "reponse": None,
      "mise_a_jour_etat": {"statut": "en_attente", "par": None, "date": None, "reponse": None}},
+    {**AUDIENCE_RECUE, "filtre": FILTRE},
 ])
 def test_audience_valide(audience):
     s = copy.deepcopy(SUIVI)
@@ -145,6 +153,9 @@ def test_audience_valide(audience):
     {"premier_episode": True},                               # premier épisode : on ne demande rien
     {"mise_a_jour_etat": {"statut": "acceptee", "par": None, "date": None, "reponse": None}},   # accord sans réponse
     {"mise_a_jour_etat": {"statut": "acceptee", "par": "story-chef", "date": "2026-11-18", "reponse": "ok"}},
+    {"filtre": {k: v for k, v in FILTRE.items() if k != "refuses"}},              # trace incomplète
+    {"filtre": {**FILTRE, "pseudos_transmis": ["kevin_75"]}},                     # pseudo sans @
+    {"filtre": {**FILTRE, "pseudos_a_valider": ["@kévin 75"]}},                   # hors format Instagram
 ])
 def test_audience_refusee(modif):
     s = copy.deepcopy(SUIVI)

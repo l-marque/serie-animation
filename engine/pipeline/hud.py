@@ -27,6 +27,19 @@ HAUTEUR_REF = 1920  # tailles du kit Figma, pour une vidéo 1080 × 1920
 BLANC, NUIT, OR, OR_FONCE, OR_CLAIR, BLEU = (255, 255, 255), (20, 33, 61), (255, 201, 60), (176, 120, 0), (255, 243, 196), (46, 134, 222)
 DUREE_POP_S, DUREE_SORTIE_S, DUREE_COMPTAGE_S, DUREE_GAIN_S = 0.18, 0.15, 0.6, 0.9
 MARGE_HAUT = 0.13  # sous la zone masquée par l'interface Instagram (≈ 11,5 % du haut)
+MARGE_BAS = 0.30   # au-dessus des sous-titres (≈ 70 %) et de la légende Instagram
+MARGE_COTE = 0.045
+# Ancres des compteurs : (x relatif, y relatif, alignement horizontal, sens d'empilement).
+# Défaut : haut_gauche. À droite, l'interface Instagram masque le bas (boutons) : préférer haut_droite.
+ANCRES: dict[str, tuple[float, float, str, int]] = {
+    "haut_gauche": (MARGE_COTE, MARGE_HAUT, "gauche", 1),
+    "haut_centre": (0.5, MARGE_HAUT, "centre", 1),
+    "haut_droite": (1 - MARGE_COTE, MARGE_HAUT, "droite", 1),
+    "bas_gauche": (MARGE_COTE, 1 - MARGE_BAS, "gauche", -1),
+    "bas_centre": (0.5, 1 - MARGE_BAS, "centre", -1),
+    "bas_droite": (1 - MARGE_COTE, 1 - MARGE_BAS, "droite", -1),
+}
+ANCRE_DEFAUT = "haut_gauche"
 
 
 class HudInvalide(Exception):
@@ -42,6 +55,8 @@ class Sequence:
     x: int
     y: int
     nb_images: int
+    largeur: int = 0
+    hauteur: int = 0
 
 
 # ----- résolution des instants ---------------------------------------------------------------------
@@ -210,31 +225,54 @@ def _sequence_gain(e: dict[str, Any], fps: int, echelle: float, hauteur: int, do
 
 
 def preparer(hud: list[dict[str, Any]], fps: int, largeur: int, hauteur: int, dossier: Path) -> list[Sequence]:
-    """Rend chaque élément du HUD en séquence PNG ; les compteurs simultanés s'empilent en haut à gauche."""
+    """Rend chaque élément du HUD en séquence PNG.
+
+    Compteurs : posés à leur `position` (une ancre de ANCRES, ou [x, y] relatifs = centre), par défaut
+    en haut à gauche ; les compteurs simultanés sur une même ancre s'empilent (vers le bas en haut de
+    l'image, vers le haut en bas). Gains : centrés sur `position` [x, y] (défaut [0.5, 0.55])."""
     echelle = hauteur / HAUTEUR_REF
     racine = dossier / "hud"
     sequences: list[Sequence] = []
-    actifs: list[tuple[float, int]] = []  # (fin, emplacement) des compteurs affichés
+    actifs: list[tuple[float, int, str]] = []  # (fin, emplacement, ancre) des compteurs affichés
     for i, e in enumerate(sorted(hud, key=lambda x: x["debut_s"])):
         d = racine / f"{i:02d}_{e['type']}"
         d.mkdir(parents=True, exist_ok=True)
         for ancien in d.glob("*.png"):
             ancien.unlink()
         if e["type"] == "compteur":
-            actifs = [a for a in actifs if a[0] > e["debut_s"]]
-            libres = sorted({0, 1, 2, 3} - {a[1] for a in actifs})
-            emplacement = libres[0] if libres else 0
-            actifs.append((e["fin_s"], emplacement))
             n, l, h = _sequence_compteur(e, fps, echelle, d)
-            x = round(largeur * 0.045) - round(l * 0.08)
-            y = round(hauteur * MARGE_HAUT) + emplacement * round(120 * echelle) - round(h * 0.12)
+            pos = e.get("position", ANCRE_DEFAUT)
+            if isinstance(pos, str):
+                actifs = [a for a in actifs if a[0] > e["debut_s"]]
+                libres = sorted({0, 1, 2, 3} - {a[1] for a in actifs if a[2] == pos})
+                emplacement = libres[0] if libres else 0
+                actifs.append((e["fin_s"], emplacement, pos))
+                fx, fy, aligne, sens = ANCRES[pos]
+                ax = round(largeur * fx)
+                # La toile du compteur a une marge (ombre, rebond) : ~8 % à gauche, ~12 % en haut.
+                x = {"gauche": ax - round(l * 0.08), "centre": ax - l // 2, "droite": ax - round(l * 0.92)}[aligne]
+                pas = emplacement * round(120 * echelle)
+                y = (round(hauteur * fy) + pas - round(h * 0.12)) if sens > 0 else (round(hauteur * fy) - pas - round(h * 0.88))
+            else:
+                fx, fy = pos
+                x, y = round(largeur * fx - l / 2), round(hauteur * fy - h / 2)
         else:
             n, l, h = _sequence_gain(e, fps, echelle, hauteur, d)
             fx, fy = e.get("position", [0.5, 0.55])
             x, y = round(largeur * fx - l / 2), round(hauteur * fy - h / 2)
         x, y = min(max(x, 0), largeur - l), min(max(y, 0), hauteur - h)
-        sequences.append(Sequence(d, e["debut_s"], e["debut_s"] + n / fps, x, y, n))
+        sequences.append(Sequence(d, e["debut_s"], e["debut_s"] + n / fps, x, y, n, l, h))
     return sequences
+
+
+def bas_occupe_en_haut(sequences: list[Sequence], debut_s: float, fin_s: float, hauteur: int) -> int:
+    """Ordonnée (px) du bas des éléments du HUD posés dans le tiers haut de l'image et visibles
+    entre debut_s et fin_s ; 0 s'il n'y en a pas. Sert à placer le texte à l'écran juste dessous."""
+    bas = 0
+    for s in sequences:
+        if s.debut_s < fin_s and s.fin_s > debut_s and s.y < hauteur / 3:
+            bas = max(bas, s.y + s.hauteur)
+    return bas
 
 
 def sons(hud: list[dict[str, Any]]) -> list[tuple[str, float]]:

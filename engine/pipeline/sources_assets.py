@@ -96,19 +96,25 @@ ALIAS_CLES = {"POLY_PIZZA_KEY": ("API_Poly_Pizza", "POLYPIZZA_KEY"),
               "SKETCHFAB_TOKEN": ("API_Sketchfab", "SKETCHFAB_KEY")}
 
 
+def _nom_cle(nom: str) -> str:
+    """Forme comparable d'un nom de clé : casse, « _ », « - » et espaces ignorés (API_Sketch_Fab = API_Sketchfab)."""
+    return re.sub(r"[^a-z0-9]", "", nom.lower())
+
+
 def _env(cle: str) -> str | None:
     """Lit une clé dans l'environnement ou dans le fichier .env local (jamais versionné).
 
-    Tolère « NOM=valeur », « NOM = valeur » et « NOM : valeur » (fautes de frappe fréquentes)."""
-    noms = (cle, *ALIAS_CLES.get(cle, ()))
-    for nom in noms:
-        if os.environ.get(nom):
-            return os.environ[nom]
+    Tolère « NOM=valeur », « NOM = valeur » et « NOM : valeur » (fautes de frappe fréquentes), et
+    compare les noms sans tenir compte de la casse ni des séparateurs."""
+    noms = {_nom_cle(n) for n in (cle, *ALIAS_CLES.get(cle, ()))}
+    for nom, valeur in os.environ.items():
+        if valeur and _nom_cle(nom) in noms:
+            return valeur
     env = chemins.RACINE / ".env"
     if env.is_file():
-        for ligne in env.read_text(encoding="utf-8").splitlines():
-            m = re.match(r"\s*([A-Za-z0-9_]+)\s*[=:]\s*(.*)$", ligne)
-            if m and m.group(1) in noms:
+        for ligne in env.read_text(encoding="utf-8-sig").splitlines():
+            m = re.match(r"\s*([A-Za-z0-9_ -]+?)\s*[=:]\s*(.*)$", ligne)
+            if m and _nom_cle(m.group(1)) in noms:
                 valeur = m.group(2).strip().strip('"').strip("'")
                 if valeur:
                     return valeur

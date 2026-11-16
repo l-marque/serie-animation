@@ -89,7 +89,10 @@ def evenements_sous_titres(mots: list[dict[str, Any]], fin_beat: float,
     return sortie
 
 
-def ecrire_ass(timeline: dict[str, Any], largeur: int, hauteur: int, chemin: Path) -> None:
+def ecrire_ass(timeline: dict[str, Any], largeur: int, hauteur: int, chemin: Path,
+               sequences_hud: list[hud.Sequence] | None = None) -> None:
+    """Sous-titres et texte à l'écran. Le texte à l'écran peut coexister avec des compteurs : s'il
+    y en a dans le haut de l'image pendant le beat, il descend juste sous eux."""
     pack = timeline["pack_da"]
     st, te = pack.get("sous_titres", {}), pack.get("texte_ecran", {})
     taille_st = max(12, int(hauteur * st.get("taille_relative", 0.042)))
@@ -118,7 +121,9 @@ def ecrire_ass(timeline: dict[str, Any], largeur: int, hauteur: int, chemin: Pat
     ]
     for b in timeline["beats"]:
         if b.get("texte_ecran"):
-            lignes.append(f"Dialogue: 1,{_ass_temps(b['debut_s'])},{_ass_temps(b['fin_s'])},TexteEcran,,0,0,0,,"
+            bas_hud = hud.bas_occupe_en_haut(sequences_hud or [], b["debut_s"], b["fin_s"], hauteur)
+            marge = max(marge_te, bas_hud + int(hauteur * 0.01)) if bas_hud else 0  # 0 = marge du style
+            lignes.append(f"Dialogue: 1,{_ass_temps(b['debut_s'])},{_ass_temps(b['fin_s'])},TexteEcran,,0,0,{marge},,"
                           f"{{\\fad(150,150)}}{_echapper_ass(b['texte_ecran'])}")
         for evt in evenements_sous_titres(b["mots"], b["fin_s"], st):
             lignes.append(f"Dialogue: 0,{_ass_temps(evt[0])},{_ass_temps(evt[1])},SousTitre,,0,0,0,,{evt[2]}")
@@ -231,11 +236,11 @@ def commande_ffmpeg(timeline: dict[str, Any], dossier: Path, largeur: int, haute
 
 def monter(timeline: dict[str, Any], dossier: Path) -> Path:
     largeur, hauteur = taille_frames(dossier / "frames")
-    ecrire_ass(timeline, largeur, hauteur, dossier / "sous_titres.ass")
     try:
         sequences = hud.preparer(timeline.get("hud", []), timeline["fps"], largeur, hauteur, dossier)
     except hud.HudInvalide as e:
         raise MontageErreur(str(e)) from e
+    ecrire_ass(timeline, largeur, hauteur, dossier / "sous_titres.ass", sequences_hud=sequences)
     cmd = commande_ffmpeg(timeline, dossier, largeur, hauteur, sequences_hud=sequences)
     res = subprocess.run(cmd, cwd=dossier, capture_output=True, text=True)
     if res.returncode != 0:
