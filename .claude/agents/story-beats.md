@@ -100,6 +100,7 @@ Un seul fichier nouveau : `docs/storytelling/beats/<AAAA-MM-JJ>-<titre-court>.md
 - **Deuxième personne** : la voix s'adresse au spectateur (« tu », « toi »).
 - **Beat de 1,5 à 3 s ; 4 s maximum**, sauf temps fort justifié (révélation lente, silence dramatique) écrit dans « Écarts justifiés ». À 2,5 mots/s, 5 mots = 2 s et 7 mots = 2,8 s : vise 5 à 7 mots par beat parlé ; une phrase de plus de 10 mots se coupe en deux beats.
 - **Beat muet** permis s'il est porté par l'image et le son (pop, compteur qui change, silence voulu) : dis ce qui le porte dans le champ « Voix » (« muet : le compteur passe à 4 »). **Jamais plus de 2 beats muets d'affilée.** Un enchaînement rapide d'événements (pops sous 1 s) ne se découpe pas en beats muets successifs : un beat parlé peut porter plusieurs changements de compteur, sur plusieurs mots.
+- **Un mot qui déclenche une action** (pop, apparition, changement de compteur) **se place dans la première moitié de la phrase ; sinon, coupe la phrase.** L'action doit finir au moins 1 s avant la fin du beat pour être vue (règle de `story-decoupage` et de `prod-realisateur`).
 - **Voix totale ≤ 85 % de la durée** : il reste du silence pour l'image, les sons et la chute.
 - **Le texte sert l'image, ne la décrit pas** : la voix ne dit pas « on voit un canard » ; elle commente, s'étonne, pose la règle, relance.
 
