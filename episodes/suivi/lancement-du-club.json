@@ -6,7 +6,7 @@
   "etape_courante": "scenario",
   "fichiers": {
     "idee": "docs/storytelling/idees-retenues.md — entrée « 2026-11-16 — La visite guidée »",
-    "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee.md",
+    "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md",
     "beats": null,
     "decoupage": null,
     "fiche": null,
@@ -140,6 +140,16 @@
       "date": "2026-11-16T20:35:00+01:00",
       "etape": "scenario",
       "evenement": "Lucas, mot pour mot : « Option 1, PR séparée pour la bible après l'épisode ». Ajouts au § 5 reportés à une PR séparée après l'épisode."
+    },
+    {
+      "date": "2026-11-16T21:05:00+01:00",
+      "etape": "scenario",
+      "evenement": "story-chef passage 2 (v2) terminé : scénario v2 docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md (40 s, environ 75 mots, 6/7, difficulté moyenne ; v1 conservée). Continuité : À corriger, rien de bloquant (consigne a à f et 1 à 3 respectée, (c) partiellement ; plan rapproché impossible en 9:16, Kevin sans attitude de 22,5 à 27,0 s, moments sans sous-titres incomplets, plan final de 1,0 s non signalé, terre battue contre pelouse de la bible). 3 questions pour Lucas. Avis de story-chef : une v3 courte."
+    },
+    {
+      "date": "2026-11-16T21:05:00+01:00",
+      "etape": "arret_2",
+      "evenement": "ARRÊT 2 : en attente de la validation du scénario v2 (ou d'une demande de v3) par Lucas."
     }
   ]
 }
