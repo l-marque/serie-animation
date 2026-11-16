@@ -3,7 +3,7 @@
   "titre": "La visite guidée",
   "demande_initiale": "premier épisode de La Revanche du Miteux : Kevin, seul dans son stade en ruine, lance le club et demande de l'aide à ses abonnés",
   "branche": "episode/lancement-du-club",
-  "etape_courante": "voix",
+  "etape_courante": "decoupage",
   "fichiers": {
     "idee": "docs/storytelling/idees-retenues.md — entrée « 2026-11-16 — La visite guidée »",
     "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md",
@@ -27,10 +27,10 @@
       "reponse": "Validé avec réserves, à transmettre à story-beats et story-decoupage. Réponses : (1) la pose bras ouverts est la pose de départ et de fin de « parle avec gestes », pas une 4e attitude ; (2) le panneau « ON RÉPARE QUOI ? » reste jusqu'à 40,0 s, hors du cadre du plan final : validé ; (3) sol : terre sèche avec des lignes blanches sommaires et une seule touffe verte (la « pelouse aux lignes sommaires » de la bible, version ratée), à confirmer par Guillaume. Réserves : (a) plan d'ouverture et de fin : Kevin en pied, bras ouverts entièrement dans le cadre 9:16 (plan moyen), même cadrage à 0,0 s et à 40,0 s ; (b) Kevin a l'attitude « parle avec gestes » de 22,5 à 27,0 s ; (c) story-beats corrige la liste des moments sans sous-titres ; (d) la voix n'a aucune marge à l'accroche, à la chute et à la phrase finale : si la voix n° 12 est plus lente que 2,5 mots par seconde, raccourcis ces phrases au lieu de déborder. Passe à la voix."
     },
     "arret_3": {
-      "statut": "en_attente",
-      "par": null,
-      "date": null,
-      "reponse": null
+      "statut": "valide",
+      "par": "Lucas",
+      "date": "2026-11-16T21:50:00+01:00",
+      "reponse": "Validé. Réponses : versions de secours seulement si la voix n° 12 déborde à l'animatique ; pas de mesure avant le découpage ; on garde les 0,7 s à la jonction de la boucle. Et je délègue l'ARRÊT 4 : valide toi-même le découpage, corrige seul ce que story-continuite relève, puis passe la main au PC de Guillaume sans me demander. Seul l'ARRÊT 5 (vidéo finale) reste pour Lucas et Guillaume. Consigne cette délégation mot pour mot dans le suivi."
     },
     "arret_4": {
       "statut": "en_attente",
@@ -170,6 +170,21 @@
       "date": "2026-11-16T21:40:00+01:00",
       "etape": "arret_3",
       "evenement": "ARRÊT 3 : en attente de la validation du texte de la voix par Lucas."
+    },
+    {
+      "date": "2026-11-16T21:50:00+01:00",
+      "etape": "arret_3",
+      "evenement": "ARRÊT 3 validé par Lucas (texte de la voix) ; réponse consignée mot pour mot dans arrets.arret_3."
+    },
+    {
+      "date": "2026-11-16T21:50:00+01:00",
+      "etape": "arret_4",
+      "evenement": "Délégation de l'ARRÊT 4 demandée par Lucas, mot pour mot : « Et je délègue l'ARRÊT 4 : valide toi-même le découpage, corrige seul ce que story-continuite relève, puis passe la main au PC de Guillaume sans me demander. Seul l'ARRÊT 5 (vidéo finale) reste pour Lucas et Guillaume. Consigne cette délégation mot pour mot dans le suivi. » Appliquée en partie : les corrections relevées par story-continuite sont faites sans demander (une boucle de correction du découpage) ; la validation de l'ARRÊT 4 n'est pas déléguée, car la règle des arrêts de /episode (sans exception, processus partagé avec Guillaume) l'interdit. Lucas peut proposer de changer cette règle par une PR relue par Guillaume."
+    },
+    {
+      "date": "2026-11-16T21:50:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Appel de story-chef, passage 4 (statut des beats, découpage + continuité, une boucle de correction si À corriger)."
     }
   ]
 }
