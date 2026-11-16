@@ -1,7 +1,7 @@
 # Bible de la série
 
 - **Nom de la série (français) : La Revanche du Miteux** (décidé par Lucas et Guillaume, 2026-11-16).
-- Nom anglais : **À DÉCIDER par Lucas et Guillaume**.
+- **Nom de la série (anglais) : Revenge of the Scrub** (décidé le 2026-11-16 par le Claude de Lucas, à la demande explicite de Lucas). Jeu de mots : « scrub » désigne le nul, et le remplaçant qui ne joue jamais.
 
 Base commune du pôle Storytelling. `story-chef` et `story-idees` la lisent avant tout travail. Elle est tenue par Lucas (propriétaire du pôle) ; les décisions de fond sont prises par Lucas **et** Guillaume.
 
@@ -65,8 +65,33 @@ Une entrée n'est ajoutée qu'après décision de Lucas et Guillaume.
 
 | Nom | Type (personnage / décor / objet) | Description | Première apparition | Contraintes de production |
 |---|---|---|---|---|
-| Kevin | personnage principal | Passionné de foot fauché, seul au départ (décidé par Lucas et Guillaume, 2026-11-16). Apparence : **À DÉCIDER par Lucas et Guillaume**. | premier épisode | |
+| Kevin | personnage principal | Passionné de foot fauché, seul au départ (décidé par Lucas et Guillaume, 2026-11-16). Apparence : un mec un peu bête qui s'embellit avec les abonnés (voir « Kevin : apparence et paliers » ci-dessous ; décidé le 2026-11-16 par le Claude de Lucas, à la demande explicite de Lucas). | premier épisode | Un seul modèle animé CC0 ; variantes par textures, couleurs et petits objets. |
 | Le stade | décor récurrent | Stade urbain délabré : poteaux de but rouillés, barrières cassées, pelouse aux lignes sommaires. Il se rénove épisode après épisode. (décidé par Lucas et Guillaume, 2026-11-16) | premier épisode | |
+
+### Kevin : apparence et paliers
+
+Décidé le 2026-11-16 par le Claude de Lucas, à la demande explicite de Lucas.
+
+Kevin est un mec un peu bête qui s'embellit avec les abonnés.
+
+- **Départ** : maillot de foot deux tailles trop grand avec une tache de ketchup, short trop court, chaussettes dépareillées, tongs, coupe au bol ratée, casquette à l'envers, sourire niais.
+
+| Abonnés | Ce qui change |
+|---|---|
+| 10 | crampons d'occasion usés |
+| 50 | maillot du club neuf, à sa taille |
+| 100 | coupe propre, plus de tache |
+| 500 | survêtement du club et brassard de capitaine |
+| 1 000 | veste de président et chaîne dorée |
+
+| Cagnotte (bonus) | Ce qui s'ajoute |
+|---|---|
+| 100 € | lunettes de soleil |
+| 500 € | montre clinquante |
+
+- Le palier se lit dans `episodes/serie/etat.json` (champs `abonnes` et `cagnotte_euros`).
+- Un changement de palier est un moment à montrer dans l'épisode : Kevin découvre sa nouvelle tenue.
+- Production : un seul modèle animé CC0 ; les variantes passent par les textures, les couleurs et de petits objets.
 
 ## 6. Mémoire de série
 
@@ -109,7 +134,7 @@ Source : « 2026-11-15_claude-guillaume_benchmark-marche-et-outils » (Drive, `0
 
 ### Prudence
 
-La série de référence citée dans le benchmark (Rienville, où le public participe par ses commentaires) est **proche d'un concept de ville évolutive**. S'en inspirer de trop près ferait perdre l'originalité recherchée. Le concept (un stade de foot miteux qui se rénove) et le nom français sont décidés par Lucas et Guillaume (2026-11-16) ; le nom anglais reste **À DÉCIDER par Lucas et Guillaume**.
+La série de référence citée dans le benchmark (Rienville, où le public participe par ses commentaires) est **proche d'un concept de ville évolutive**. S'en inspirer de trop près ferait perdre l'originalité recherchée. Le concept (un stade de foot miteux qui se rénove) et le nom français sont décidés par Lucas et Guillaume (2026-11-16) . Le nom anglais, « Revenge of the Scrub », est décidé le 2026-11-16 par le Claude de Lucas, à la demande explicite de Lucas.
 
 ### 4 Reels de référence (analysés le 2026-11-15, sur images, sans le son)
 
