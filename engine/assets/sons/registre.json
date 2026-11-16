@@ -217,11 +217,11 @@
     },
     "clic": {
       "fichiers": [
-        "engine/assets/sons/kenney/interface-sounds/click_000.ogg",
         "engine/assets/sons/kenney/interface-sounds/click_001.ogg",
         "engine/assets/sons/kenney/interface-sounds/click_002.ogg",
         "engine/assets/sons/kenney/interface-sounds/click_003.ogg",
-        "engine/assets/sons/kenney/interface-sounds/click_004.ogg"
+        "engine/assets/sons/kenney/interface-sounds/click_004.ogg",
+        "engine/assets/sons/kenney/interface-sounds/click_005.ogg"
       ],
       "volume": 0.45,
       "categorie": "interface",
