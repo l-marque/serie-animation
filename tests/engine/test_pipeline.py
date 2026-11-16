@@ -438,3 +438,28 @@ def test_versions_du_contrat_alignees_sur_le_schema():
     from engine.pipeline import chemins, contrat
     schema = _json.loads(chemins.SCHEMA_FICHE.read_text(encoding="utf-8"))
     assert tuple(schema["properties"]["version"]["enum"]) == contrat.VERSIONS_ACCEPTEES
+
+
+def test_toutes_les_cameras_du_contrat_sont_implementees():
+    import json as _json
+    from engine.pipeline import chemins
+    schema = _json.loads(chemins.SCHEMA_FICHE.read_text(encoding="utf-8"))
+
+    def trouver_enum(o):
+        if isinstance(o, dict):
+            if "camera" in o.get("properties", {}) and "enum" in o["properties"]["camera"]:
+                return o["properties"]["camera"]["enum"]
+            for v in o.values():
+                r = trouver_enum(v)
+                if r:
+                    return r
+        if isinstance(o, list):
+            for v in o:
+                r = trouver_enum(v)
+                if r:
+                    return r
+        return None
+
+    source = (chemins.SCRIPTS_BLENDER / "camera.py").read_text(encoding="utf-8")
+    for mvt in trouver_enum(schema):
+        assert f'preset == "{mvt}"' in source, f"caméra {mvt} absente de engine/blender/camera.py"

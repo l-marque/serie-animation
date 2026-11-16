@@ -39,7 +39,7 @@ Visibilité : un objet ou module déclaré avec `"visible_au_debut": false` rest
 | `orbite` | Tourne d'un tiers de tour autour de la cible | mettre en valeur, transformation |
 | `plongee` | Vue presque verticale qui descend | vue d'ensemble, effet carte |
 | `travelling_lateral` | Translation latérale face à la cible | suivre un déplacement |
-| `descente` (v1.1) | Part haut au-dessus de la cible et descend en continu jusqu'à elle (zoom continu du ciel jusqu'au personnage) | ouverture, situer un personnage dans son monde. **Prévu : à implémenter dans `engine/` par la production** |
+| `descente` (v1.1) | Part haut au-dessus de la cible et descend en continu jusqu'à elle (zoom continu du ciel jusqu'au personnage) | ouverture, situer un personnage dans son monde. Implémenté dans `engine/blender/camera.py` : départ à au moins 40 m (ou 8 × distance), arrivée à `distance` et `hauteur` du plan, sans coupe ; prévoir un beat d'au moins 2,5 s |
 
 Paramètres facultatifs : `cible` (id visé ; sinon le centre du décor), `distance` (défaut 20 m), `hauteur` (défaut 10 m), `focale` (défaut 35 mm). La caméra vise un point situé 1,2 m au-dessus de la cible.
 
