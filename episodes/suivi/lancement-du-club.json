@@ -59,7 +59,7 @@
     }
   },
   "machine_requise": "n'importe laquelle",
-  "blocage": null,
+  "blocage": "Agent story-decoupage introuvable dans cette session (« Agent type 'story-decoupage' not found ») alors que .claude/agents/story-decoupage.md existe : Claude Code charge les agents au démarrage. Quoi faire : quitter et relancer Claude Code dans le dépôt, puis /episode reprendre lancement-du-club (le passage 4 reprend au découpage ; statut des beats déjà à jour).",
   "historique": [
     {
       "date": "2026-11-16T14:45:00+01:00",
@@ -185,6 +185,16 @@
       "date": "2026-11-16T21:50:00+01:00",
       "etape": "decoupage",
       "evenement": "Appel de story-chef, passage 4 (statut des beats, découpage + continuité, une boucle de correction si À corriger)."
+    },
+    {
+      "date": "2026-11-16T22:00:00+01:00",
+      "etape": "decoupage",
+      "evenement": "story-chef passage 4 arrêté : statut des beats passé à « validé par Lucas » ; story-decoupage introuvable (agent non chargé dans la session), aucun découpage écrit, story-continuite non lancé. L'orchestrateur n'a pas non plus cet agent : il n'écrit pas le découpage à sa place."
+    },
+    {
+      "date": "2026-11-16T22:00:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Blocage : Agent story-decoupage introuvable dans cette session (« Agent type 'story-decoupage' not found ») alors que .claude/agents/story-decoupage.md existe : Claude Code charge les agents au démarrage. Quoi faire : quitter et relancer Claude Code dans le dépôt, puis /episode reprendre lancement-du-club (le passage 4 reprend au découpage ; statut des beats déjà à jour)."
     }
   ]
 }

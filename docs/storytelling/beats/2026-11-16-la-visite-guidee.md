@@ -1,6 +1,6 @@
 # La visite guidée — beats et voix off
 
-- Statut : proposé, voix à valider par Lucas
+- Statut : validé par Lucas le 2026-11-16 (versions de secours seulement si la voix n° 12 déborde à l'animatique ; pas de mesure avant le découpage ; on garde les 0,7 s à la jonction de la boucle)
 - Scénario source : `docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md` (statut : validé par Lucas le 2026-11-16, avec réserves ; la v1 n'est pas retenue)
 - Épisode : `lancement-du-club` ; état de la série : `episodes/serie/etat.json` (0 abonné, 0 €, 0 supporter)
 - Durée du scénario : 40 s · Beats : 16 (dont 4 muets) · Voix : 69 mots, 27,6 s, soit 69 % de la durée
