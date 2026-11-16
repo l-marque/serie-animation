@@ -220,6 +220,11 @@
       "date": "2026-11-16T21:10:00+01:00",
       "etape": "decoupage",
       "evenement": "Reprise après interruption de la session (Guillaume : « continue le projet »). Le passage 4 a produit le découpage docs/storytelling/decoupage/2026-11-16-la-visite-guidee.md (16 plans, 40,0 s, statut « proposé »), non commité ; aucun verdict de story-continuite conservé. Découpage commité tel quel ; story-chef relancé pour la seule fin du passage 4 (continuité sur le découpage existant, une boucle de correction si À corriger)."
+    },
+    {
+      "date": "2026-11-16T21:25:00+01:00",
+      "etape": "decoupage",
+      "evenement": "story-continuite sur le découpage : À corriger, rien de bloquant. 5 points : (1) p06 : le lampadaire sort du cadre vers 15,2 s ; (2) p05 : bout de tribune et main de Kevin dans le cadre alors qu'ils sont dans « ce qu'on ne doit pas voir » ; (3) bord du sol visible en p03, p15 (et p07, p08) : fond ou horizon manquant ; (4) « 6 types d'action » contredit « 5 types » dans les vérifications ; (5) mentions de cadrage inexactes (p04, p07, p09, p11). Boucle de correction par story-decoupage lancée puis interrompue par l'arrêt de l'agent : fichier non modifié, corrections non faites."
     }
   ]
 }
