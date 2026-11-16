@@ -130,6 +130,16 @@
       "date": "2026-11-16T20:20:00+01:00",
       "etape": "scenario",
       "evenement": "Appel de story-chef, passage 2 relancé pour la v2 du scénario, avec la consigne de Lucas mot pour mot."
+    },
+    {
+      "date": "2026-11-16T20:35:00+01:00",
+      "etape": "scenario",
+      "evenement": "story-chef rend un état intermédiaire : story-scenario écrit la v2 en arrière-plan ; ajouts à la bible § 5 (Kevin âge et couleurs, FC Miteux, tribune) non faits, hors du cadre de story-chef et de l'orchestrateur."
+    },
+    {
+      "date": "2026-11-16T20:35:00+01:00",
+      "etape": "scenario",
+      "evenement": "Lucas, mot pour mot : « Option 1, PR séparée pour la bible après l'épisode ». Ajouts au § 5 reportés à une PR séparée après l'épisode."
     }
   ]
 }
