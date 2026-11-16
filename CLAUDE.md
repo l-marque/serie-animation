@@ -4,7 +4,7 @@ Ce fichier est lu par Claude (et par chaque agent) au début de toute session da
 
 ## Le projet
 
-Une série d'animation dont le décor est une **ville 3D construite dans Blender**. Les actions de l'audience Instagram font évoluer la ville, et ces évolutions apparaissent dans les épisodes. Le but n'est pas d'abord lucratif : Lucas et Guillaume, deux étudiants ingénieurs, veulent **apprendre à orchestrer des agents IA** sur toute une chaîne (production, pilotage, communication) et en faire un projet visible sur leur CV.
+Une série d'animation dont le décor est un **environnement 3D évolutif construit dans Blender (aujourd'hui : un stade de foot, série La Revanche du Miteux)**. Les actions de l'audience Instagram font évoluer cet environnement, et ces évolutions apparaissent dans les épisodes. Le but n'est pas d'abord lucratif : Lucas et Guillaume, deux étudiants ingénieurs, veulent **apprendre à orchestrer des agents IA** sur toute une chaîne (production, pilotage, communication) et en faire un projet visible sur leur CV.
 
 ## Qui fait quoi
 
