@@ -362,3 +362,12 @@ def test_habillage_valide_et_controle_les_parents():
 def test_habillage_absent_ne_change_rien(tmp_path):
     from engine.pipeline import habillage
     assert habillage.charger(tmp_path / "ep.json", {}) == []
+
+
+@pytest.mark.parametrize("licence,ok", [("CC0", True), ("CC0 1.0 Universal", True), ("CC-BY 3.0", True),
+                                        ("CREATIVE_COMMONS_BY", True), ("Public Domain", True), ("CC-BY-NC", False),
+                                        ("CC BY-SA 4.0", False), ("CC-BY-ND 4.0", False), ("Editorial", False),
+                                        ("inconnue", False)])
+def test_licences_acceptees(licence, ok):
+    from engine.pipeline.sources_assets import licence_acceptee
+    assert licence_acceptee(licence) is ok
