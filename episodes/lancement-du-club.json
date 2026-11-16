@@ -9,7 +9,7 @@
     ],
     "fps": 30
   },
-  "pack_da": "test_lowpoly",
+  "pack_da": "stade",
   "serie": {
     "id": "serie",
     "continuite": false
@@ -136,7 +136,7 @@
         9,
         0
       ],
-      "rotation_z": 0,
+      "rotation_z": 180,
       "echelle": 1,
       "role": "batiment"
     },
@@ -571,6 +571,32 @@
       "echelle": 1,
       "role": "personnage",
       "visible_au_debut": false
+    },
+    {
+      "id": "kevin_k0_parle_b14",
+      "asset": "bibliotheque:kevin_parle",
+      "position": [
+        0,
+        6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_k0_parle_b16",
+      "asset": "bibliotheque:kevin_parle",
+      "position": [
+        0,
+        6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
     }
   ],
   "habillage": {
@@ -662,7 +688,7 @@
     {
       "id": "b02",
       "voix": "Je suis président du FC Miteux,",
-      "duree_s": 2.6,
+      "duree_s": 2.3,
       "plan": {
         "camera": "revelation",
         "cible": "visee_k0",
@@ -688,7 +714,7 @@
     {
       "id": "b04",
       "voix": "On commence par l'espace VIP.",
-      "duree_s": 2.5,
+      "duree_s": 2.15,
       "plan": {
         "camera": "survol",
         "cible": "visee_k1",
@@ -714,7 +740,7 @@
     {
       "id": "b05",
       "voix": "Tribune VIP, places limitées, tout le confort moderne.",
-      "duree_s": 3.5,
+      "duree_s": 3.7,
       "plan": {
         "camera": "dolly_avant",
         "cible": "visee_vip",
@@ -744,7 +770,7 @@
     {
       "id": "b06",
       "voix": "Et ici, l'éclairage dernier cri.",
-      "duree_s": 2.0,
+      "duree_s": 2.45,
       "plan": {
         "camera": "travelling_lateral",
         "cible": "visee_k2",
@@ -804,7 +830,7 @@
     {
       "id": "b08",
       "voix": "Ambiance tamisée, très tendance.",
-      "duree_s": 1.6,
+      "duree_s": 2.35,
       "plan": {
         "camera": "dolly_avant",
         "cible": "visee_eclairage",
@@ -817,7 +843,7 @@
     {
       "id": "b09",
       "voix": "Gazon entretenu brin par brin.",
-      "duree_s": 2.0,
+      "duree_s": 2.15,
       "plan": {
         "camera": "survol",
         "cible": "visee_k3",
@@ -896,7 +922,7 @@
     {
       "id": "b12",
       "voix": "Et là, mes supporters déchaînés.",
-      "duree_s": 3.0,
+      "duree_s": 2.4,
       "plan": {
         "camera": "orbite",
         "cible": "visee_k0",
@@ -934,7 +960,7 @@
     {
       "id": "b14",
       "voix": "On répare quoi d'abord ? Dis-le en commentaire.",
-      "duree_s": 4.0,
+      "duree_s": 3.7,
       "plan": {
         "camera": "dolly_avant",
         "cible": "panneau_question",
@@ -951,7 +977,7 @@
         },
         {
           "type": "apparaitre",
-          "cible": "kevin_k0_parle",
+          "cible": "kevin_k0_parle_b14",
           "debut": 0.0,
           "duree_s": 0.05
         },
@@ -976,7 +1002,7 @@
       "actions": [
         {
           "type": "disparaitre",
-          "cible": "kevin_k0_parle",
+          "cible": "kevin_k0_parle_b14",
           "debut": 0.0,
           "duree_s": 0.05
         },
@@ -1026,7 +1052,7 @@
         },
         {
           "type": "apparaitre",
-          "cible": "kevin_k0_parle",
+          "cible": "kevin_k0_parle_b16",
           "debut": 0.0,
           "duree_s": 0.05
         }

@@ -3,15 +3,15 @@
   "titre": "La visite guidée",
   "demande_initiale": "premier épisode de La Revanche du Miteux : Kevin, seul dans son stade en ruine, lance le club et demande de l'aide à ses abonnés",
   "branche": "episode/lancement-du-club",
-  "etape_courante": "fiche",
+  "etape_courante": "final",
   "fichiers": {
     "idee": "docs/storytelling/idees-retenues.md — entrée « 2026-11-16 — La visite guidée »",
     "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md",
     "beats": "docs/storytelling/beats/2026-11-16-la-visite-guidee.md",
     "decoupage": "docs/storytelling/decoupage/2026-11-16-la-visite-guidee.md",
     "fiche": "episodes/lancement-du-club.json",
-    "animatique": null,
-    "video": null
+    "animatique": "renders/lancement-du-club/animatique/episode.mp4",
+    "video": "renders/lancement-du-club/final/episode.mp4"
   },
   "arrets": {
     "arret_1": {
@@ -59,11 +59,7 @@
     }
   },
   "machine_requise": "PC de Guillaume (Blender + GPU)",
-  "blocage": {
-    "date": "2026-11-16T23:05:00+01:00",
-    "raison": "Connecteur Figma absent dans cette session (« MCP server \"claude.ai Figma\" is not connected ») : la plaquette ne peut pas être créée. En parallèle, assets en cours d'intégration par prod-chef (code 3).",
-    "quoi_faire": "Connecter Figma (commande /mcp, serveur claude.ai Figma), puis demander la création de la plaquette (ou /episode reprendre lancement-du-club)."
-  },
+  "blocage": null,
   "historique": [
     {
       "date": "2026-11-16T14:45:00+01:00",
@@ -279,6 +275,26 @@
       "date": "2026-11-16T23:05:00+01:00",
       "etape": "plaquette",
       "evenement": "Guillaume demande où est la plaquette Figma : elle n'était pas créée. Tentative de création : connecteur Figma non connecté dans cette session. Blocage consigné ; aucune autre plaquette de remplacement."
+    },
+    {
+      "date": "2026-11-16T23:12:00+01:00",
+      "etape": "plaquette",
+      "evenement": "Guillaume, mot pour mot : « ensuite je valide la plaquette avec lucas enchaine direct et finis la viéo direct on autorise tout », puis « juste adapte le hud à la vidéo ». Plaquette créée dans Figma : page « lancement-du-club — plaquette » du fichier HUD (https://www.figma.com/design/4jgvjoxBzwQDQfoXgwW0Fs, node 11:40), HUD du Kit adapté sur b01, b05, b14 (2 compteurs à 0, aucun gain, carte ni bandeau). Validation donnée d'avance par Guillaume et Lucas."
+    },
+    {
+      "date": "2026-11-16T23:20:00+01:00",
+      "etape": "fiche",
+      "evenement": "Assets complétés : kevin_parle (Idle_Neutral), kevin_montre_g et kevin_montre_d (Interact), kevin_immobile (Idle) sur kevin_base (Quaternius, CC0) ; terrain_miteux et touffe_herbe créés par engine/outils/creer_assets_stade.py. Pack de DA « stade » dérivé de village_six_seven (voix n° 12, HDRI nuageux CC0, asphalte gris). Validation : code 0. Lancement de l'animatique."
+    },
+    {
+      "date": "2026-11-16T23:25:00+01:00",
+      "etape": "animatique",
+      "evenement": "Animatique 1 : code 2, voix n° 12 plus longue que b05, b06, b08, b09. Durées redistribuées sans changer le total (40,0 s) ni le texte : b02 2,3 ; b04 2,15 ; b05 3,7 ; b06 2,45 ; b08 2,35 ; b09 2,15 ; b12 2,4 ; b14 3,7. Animatique 2 : tribune géante (modèle de 22 m, hauteur fixée à 4,5 m), but à 2,4 m, Kevin absent en b01 (élément réapparu : copies kevin_k0_parle_b14 et _b16). Animatique 3 : tribune tournée de 180°, asphalte foncé ; code 0, QA automatique sans problème."
+    },
+    {
+      "date": "2026-11-16T23:40:00+01:00",
+      "etape": "final",
+      "evenement": "Rendu final : code 0, QA automatique sans problème. Vidéo : renders/lancement-du-club/final/episode.mp4. ARRÊT 5 (vidéo finale) en attente de Lucas et Guillaume. Rien n'est publié."
     }
   ]
 }

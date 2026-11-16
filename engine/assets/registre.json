@@ -358,6 +358,126 @@
       "echelle_verifiee": false,
       "hauteur": 2.2,
       "licence": "polypizza_puits"
+    },
+    "but_rouille": {
+      "fichier": "engine/assets/modeles/but_rouille/but_rouille.glb",
+      "echelle": 1.0,
+      "role_defaut": "accessoire",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://poly.pizza/m/7t4hmicGHV4",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": false,
+      "hauteur": 2.4
+    },
+    "tribune_beton": {
+      "fichier": "engine/assets/modeles/tribune_beton/tribune_beton.glb",
+      "echelle": 1.0,
+      "role_defaut": "batiment",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://poly.pizza/m/wtYoArecHj",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": false,
+      "hauteur": 4.5
+    },
+    "caisse_carton": {
+      "fichier": "engine/assets/modeles/caisse_carton/cardboard_box_01_1k.gltf",
+      "echelle": 1.0,
+      "role_defaut": "accessoire",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://polyhaven.com/a/cardboard_box_01",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": false
+    },
+    "kevin_base": {
+      "fichier": "engine/assets/modeles/kevin_base/kevin_base.glb",
+      "echelle": 1.0,
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://poly.pizza/m/kZ3DmIoGip",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": false
+    },
+    "kevin_parle": {
+      "fichier": "engine/assets/modeles/kevin_base/kevin_base.glb",
+      "materiaux": "origine",
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "source": "https://poly.pizza/m/kZ3DmIoGip",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": false,
+      "hauteur": 1.75,
+      "licence": "kevin_base",
+      "animation": "Idle_Neutral"
+    },
+    "kevin_montre_g": {
+      "fichier": "engine/assets/modeles/kevin_base/kevin_base.glb",
+      "materiaux": "origine",
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "source": "https://poly.pizza/m/kZ3DmIoGip",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": false,
+      "hauteur": 1.75,
+      "licence": "kevin_base",
+      "animation": "Interact"
+    },
+    "kevin_montre_d": {
+      "fichier": "engine/assets/modeles/kevin_base/kevin_base.glb",
+      "materiaux": "origine",
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "source": "https://poly.pizza/m/kZ3DmIoGip",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": false,
+      "hauteur": 1.75,
+      "licence": "kevin_base",
+      "animation": "Interact"
+    },
+    "kevin_immobile": {
+      "fichier": "engine/assets/modeles/kevin_base/kevin_base.glb",
+      "materiaux": "origine",
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "source": "https://poly.pizza/m/kZ3DmIoGip",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": false,
+      "hauteur": 1.75,
+      "licence": "kevin_base",
+      "animation": "Idle"
+    },
+    "terrain_miteux": {
+      "fichier": "engine/assets/modeles/terrain_miteux/terrain_miteux.glb",
+      "echelle": 1.0,
+      "role_defaut": "sol",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "création du projet (engine/outils/creer_assets_stade.py)",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": true
+    },
+    "touffe_herbe": {
+      "fichier": "engine/assets/modeles/touffe_herbe/touffe_herbe.glb",
+      "echelle": 1.0,
+      "role_defaut": "vegetation",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "création du projet (engine/outils/creer_assets_stade.py)",
+      "ajoute_le": "2026-11-16",
+      "echelle_verifiee": true
     }
   }
 }
