@@ -70,5 +70,56 @@
         0.6
       ]
     }
+  ],
+  "ambiance": {
+    "son": "ambiance_village"
+  },
+  "sons": [
+    {
+      "son": "gravats",
+      "beat": "p1_aide",
+      "debut": 0.3,
+      "volume": 0.35
+    },
+    {
+      "son": "marteau",
+      "beat": "p2_vous",
+      "debut": 0.15,
+      "repeter": 4,
+      "intervalle": 0.38
+    },
+    {
+      "son": "planches",
+      "beat": "p2_vous",
+      "mot": "aider"
+    },
+    {
+      "son": "marteau",
+      "beat": "p2_compte",
+      "debut": 0.3,
+      "repeter": 3,
+      "intervalle": 0.45,
+      "volume": 0.4
+    },
+    {
+      "son": "bonus",
+      "beat": "p2_repare",
+      "mot": "répare"
+    },
+    {
+      "son": "carte",
+      "beat": "fin_choix",
+      "debut": 0.05
+    },
+    {
+      "son": "carte",
+      "beat": "fin_choix",
+      "debut": 0.35
+    },
+    {
+      "son": "jingle_victoire",
+      "beat": "fin_episode",
+      "mot": "épisode"
+    }
   ]
 }

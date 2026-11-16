@@ -82,6 +82,10 @@ Quand la voix parle d'une ressource du jeu (pièces, habitants), affiche-la avec
 - `gain` (`texte` « +10 », `beat`, `mot`, `position` [x, y] en fraction d'image) : le « +10 » doré monte et s'efface, avec le son de pièce.
 Le style suit le kit Figma « Série animation — Outils d'affichage (HUD) ». Pas de `texte_ecran` en même temps qu'un compteur (ils se chevauchent en haut de l'image).
 
+## Sons (bruitages et ambiance)
+
+Dans le même fichier d'habillage : une `ambiance` de fond (`ambiance_village` pour un extérieur) et des `sons` calés sur les actions (marteau pendant une réparation, `carte` quand une carte de choix apparaît, `jingle_victoire` sur la dernière phrase…). Noms disponibles : `python -m engine.pipeline.sons liste`. Pas plus d'un bruitage marquant par seconde : la voix reste prioritaire.
+
 ## Personnages face à la caméra
 
 Un personnage qui parle à l'audience est **tourné vers la caméra** (de face ou de trois quarts, jamais de dos), même quand il travaille : oriente-le avec `rotation_z` selon la position de la caméra du beat (caméra par défaut au sud, en -y : `rotation_z` 0 = face caméra). Vérifie-le sur la planche contact. Erreur relevée par Guillaume sur Six Seven : le maire réparait la mairie de dos pendant qu'il parlait.

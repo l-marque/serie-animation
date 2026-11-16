@@ -34,7 +34,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from . import bibliothecaire, cache, chemins, continuite, contrat, habillage, hud, montage, qa_auto, realisateur, voix
+from . import bibliothecaire, cache, chemins, continuite, contrat, habillage, hud, montage, qa_auto, realisateur, sons, voix
 
 
 # Suite à donner selon le code de sortie (lue par prod-chef ou par l'automatisation de Lucas).
@@ -153,6 +153,10 @@ def executer(args: argparse.Namespace) -> int:
         rapport.donnees["avertissements"].extend(avert_habillage)
         timeline["textes_3d"] = habillage.charger(donnees_habillage, fiche.donnees)
         timeline["hud"] = hud.resoudre(habillage.charger_hud(donnees_habillage), timeline)
+        timeline["sons"] = sons.resoudre(donnees_habillage, timeline)
+    except sons.SonInvalide as e:
+        rapport.etape("realisateur", "ECHEC", erreurs=[str(e)], resume="sons de l'habillage invalides")
+        return rapport.terminer(2, etape_bloquante="realisateur", erreurs=[str(e)])
     except hud.HudInvalide as e:
         rapport.etape("realisateur", "ECHEC", erreurs=[str(e)], resume="habillage HUD invalide")
         return rapport.terminer(2, etape_bloquante="realisateur", erreurs=[str(e)])
@@ -202,6 +206,10 @@ def executer(args: argparse.Namespace) -> int:
     except montage.MontageErreur as e:
         rapport.etape("montage", "ECHEC", erreurs=[str(e)], resume=str(e))
         return rapport.terminer(5, etape_bloquante="montage", erreurs=[str(e)])
+    if timeline.get("_sons_manquants"):
+        rapport.donnees["avertissements"].append(
+            "sons absents de cette machine (ignorés) : " + ", ".join(timeline["_sons_manquants"])
+            + " — lance python -m engine.pipeline.sons telecharger")
     rapport.etape("montage", "OK", video=str(video))
 
     # 8. Contrôle qualité automatique + planche contact

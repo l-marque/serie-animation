@@ -38,3 +38,6 @@ engine/assets/hdri/*.hdr
 # Modèles et textures téléchargés : retéléchargeables avec engine/pipeline/sources_assets.py (registre et licences, eux, sont versionnés)
 engine/assets/modeles/
 engine/assets/textures/
+
+# Sons téléchargés (Kenney, CC0) : retéléchargeables avec python -m engine.pipeline.sons telecharger
+engine/assets/sons/kenney/
