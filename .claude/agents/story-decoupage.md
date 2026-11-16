@@ -91,12 +91,13 @@ Ce qui s'affiche par-dessus l'image 3D. Valeurs **tirées de l'état de la séri
 
 ### Compteurs (champ v1.1 `habillage.hud`, type `compteur`)
 
-Permanent (premier au dernier beat) ou ponctuel (apparaît quand on en parle, disparaît après un plan donné), **selon ce que demande l'histoire** ; abonnés et cagnotte en € (charte, bible § 9). Position : propriété `position` du schéma, `haut_gauche` par défaut, **jamais `bas_droite`**.
+Décision n° 9 de la réunion du 2026-11-16 (bible, § 9) : **les compteurs d'abonnés et de cagnotte en € sont toujours permanents, du premier au dernier beat.** Tout autre compteur est permanent ou ponctuel (apparaît quand on en parle, disparaît après un plan donné) **selon ce que demande l'histoire**. Position : propriété `position` du schéma, `haut_gauche` par défaut, **jamais `bas_droite`**.
 
 | id | Ressource (icône) | Valeur de départ (état de la série) | Valeur d'arrivée (s'il défile) | Permanent / ponctuel | Premier beat (mot déclencheur) | Dernier beat (`jusqu_au_beat`) | Position (`position`) |
 |---|---|---|---|---|---|---|---|
-| cpt_abonnes | abonnés (<icône du schéma>) | <abonnes de etat.json> | <ou rien> | <permanent / ponctuel : pourquoi> | <b01 ou bNN, « mot »> | <dernier beat, ou beat de fin> | <haut_gauche> |
-| cpt_cagnotte | cagnotte en € (<icône du schéma>) | <cagnotte_euros de etat.json> | <après ajout ou paiement> | <permanent / ponctuel : pourquoi> | <…> | <…> | <haut_gauche> |
+| cpt_abonnes | abonnés (<icône du schéma>) | <abonnes de etat.json> | <ou rien> | permanent (décision n° 9) | b01 | <dernier beat de l'épisode> | <haut_gauche> |
+| cpt_cagnotte | cagnotte en € (<icône du schéma>) | <cagnotte_euros de etat.json> | <après ajout ou paiement> | permanent (décision n° 9) | b01 | <dernier beat de l'épisode> | <haut_gauche> |
+| <autre compteur, s'il y en a> | <ressource (icône)> | <valeur de etat.json> | <ou rien> | <permanent / ponctuel : pourquoi> | <bNN, « mot »> | <dernier beat ou beat de fin> | <haut_gauche> |
 
 ### Gains (champ v1.1 `habillage.hud`, type `gain`)
 
@@ -154,7 +155,7 @@ Uniquement des identifiants du registre. Un son qui n'y est pas est écrit tel q
 | Sujet dans le cadre (demi-largeur ≈ 0,29 × distance) | … | OK / ÉCART |
 | Crédibilité physique (appuis, rien ne traverse, effets attendus) | … | OK / ÉCART |
 | Uniquement le vocabulaire v1.1 (dont `descente`) ; textes 3D au format du schéma | … | OK / ÉCART |
-| Chaque compteur : permanent ou ponctuel justifié par l'histoire, `position` écrite (jamais `bas_droite`), valeurs de l'état de la série | … | OK / ÉCART |
+| Abonnés et cagnotte affichés du premier au dernier beat ; autres compteurs permanents ou ponctuels justifiés par l'histoire ; `position` écrite (jamais `bas_droite`) ; valeurs de l'état de la série | … | OK / ÉCART |
 | Un gain à chaque ajout ; cartes de choix finales avec leur coût | … | OK / ÉCART |
 | Sons : identifiants du registre seulement, une ambiance par lieu, chaque effet sur un mot de la voix | <sons absents du registre> | OK / ÉCART |
 
@@ -181,7 +182,7 @@ Uniquement des identifiants du registre. Un son qui n'y est pas est écrit tel q
 - [ ] Au moins 5 détails d'ambiance par lieu (§ 3).
 - [ ] Chaque personnage a son apparence, son attitude et son orientation par plan ; jamais de dos quand il parle (§ 4).
 - [ ] Chaque élément « à sourcer » a ses mots-clés anglais (§ 5).
-- [ ] Compteurs, gains, cartes, textes du décor et bandeaux sont décrits selon le § 6 ; chaque compteur a sa `position` (jamais en bas à droite) et est permanent ou ponctuel selon l'histoire.
+- [ ] Compteurs, gains, cartes, textes du décor et bandeaux sont décrits selon le § 6 ; abonnés et cagnotte permanents (décision n° 9 du 2026-11-16), autres compteurs permanents ou ponctuels selon l'histoire ; chaque compteur a sa `position` (jamais en bas à droite).
 - [ ] Voix : nombres en lettres, phrases d'au moins 3 mots (§ 7).
 - [ ] Les briques manquantes sont listées.
 
@@ -209,7 +210,8 @@ Uniquement des identifiants du registre. Un son qui n'y est pas est écrit tel q
 - **Ce qu'on voit, ce qu'on ne voit pas** : chaque plan liste ce qui est au premier plan et au fond (ids, états nommés du scénario), et ce qui ne doit pas apparaître. C'est ce qui permet à la Production de placer la caméra et de remplir la plaquette Figma.
 - **Personnages** : pour chaque personnage présent, son attitude et son orientation dans le plan. **Un personnage qui s'adresse au public est face caméra ou de trois quarts, jamais de dos** (règle de Guillaume), même s'il travaille. Un changement d'attitude d'un plan à l'autre se fait sur une coupe.
 - **Habillage** : compteurs, gains, cartes de choix, texte dans le décor et bandeau titre sont décrits dans la section « Habillage (v1.1) ».
-  - **Compteurs d'abonnés et de cagnotte, permanents ou ponctuels selon l'histoire** (§ 6 des exigences) : permanent s'il doit rester lisible tout l'épisode (écris « permanent », dernier beat = dernier beat de l'épisode) ; ponctuel s'il n'a de sens que quand on en parle (mot déclencheur, plan après lequel il disparaît). Le choix est écrit et justifié dans le tableau des compteurs ; sans précision, la Production le traite comme ponctuel.
+  - **Compteurs d'abonnés et de cagnotte toujours permanents**, du premier au dernier beat (décision n° 9 de la réunion du 2026-11-16, bible § 9) : écris « permanent », premier beat = b01, dernier beat = dernier beat de l'épisode. Aucune histoire ne les rend ponctuels.
+  - **Autres compteurs, permanents ou ponctuels selon l'histoire** (§ 6 des exigences) : permanent s'il doit rester lisible tout l'épisode (écris « permanent ») ; ponctuel s'il n'a de sens que quand on en parle (mot déclencheur, plan après lequel il disparaît). Le choix est écrit et justifié dans le tableau des compteurs ; sans précision, la Production le traite comme ponctuel : écris donc toujours « permanent » quand c'est le cas.
   - **Position de chaque compteur** : écris toujours la propriété `position` du schéma (`haut_gauche` par défaut ; `haut_centre`, `haut_droite`, `bas_gauche`, `bas_centre` ou `[x, y]` relatifs à l'image si l'histoire le demande). **Jamais `bas_droite`** ni un `[x, y]` dans le coin bas droit : l'interface d'Instagram le masque. Des compteurs simultanés sur la même ancre s'empilent.
   - **Un gain animé à chaque ajout** (likes versés dans la cagnotte, supporters), sur le mot qui en parle.
   - **Cartes de choix finales** : les 2 choix en cours de l'état de la série, chacun avec son coût en €.
