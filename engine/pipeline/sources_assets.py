@@ -27,6 +27,7 @@ import argparse
 import csv
 import json
 import os
+import re
 import sys
 import urllib.parse
 import urllib.request
@@ -48,6 +49,16 @@ class SourceErreur(Exception):
     pass
 
 
+def licence_acceptee(licence: str) -> bool:
+    """CC0, domaine public ou CC-BY simple (toutes versions). Refus : NC, ND, SA, Editorial, inconnue."""
+    l = re.sub(r"[\s_]+", "-", licence.strip().lower()).replace("creative-commons", "cc")
+    if l in LICENCES_ACCEPTEES:
+        return True
+    if set(l.split("-")) & {"nc", "nd", "sa", "editorial"}:
+        return False
+    return bool(re.fullmatch(r"(cc0|cc-0|cc-zero|public-domain|cc-by|by)(-?\d(\.\d)?)?(-universal)?", l))
+
+
 @dataclass
 class Candidat:
     source: str
@@ -64,7 +75,7 @@ class Candidat:
 
     @property
     def licence_ok(self) -> bool:
-        return self.licence.strip().lower() in LICENCES_ACCEPTEES
+        return licence_acceptee(self.licence)
 
     @property
     def attribution_requise(self) -> bool:
@@ -291,8 +302,107 @@ def url_glb_sketchfab(uid: str) -> str:
 
 
 # ----- recherche et intégration ---------------------------------------------------------------
+# ----- 3DAssets.dev (CC0, GLB, sans clé) -------------------------------------------------------
+TROIS_D_ASSETS_API = "https://3dassets.dev/api/v1"
+
+
+def chercher_3dassets(requete: str, limite: int = 10) -> list[Candidat]:
+    donnees = _get_json(f"{TROIS_D_ASSETS_API}/assets?{urllib.parse.urlencode({'q': requete})}")
+    sortie = []
+    for r in donnees.get("data", [])[:limite]:
+        stats, lic = r.get("stats") or {}, r.get("license") or {}
+        sortie.append(Candidat(
+            source="3dassets", id_source=r["slug"], nom=r.get("title", r["slug"]),
+            auteur=(r.get("contributor") or {}).get("name", "3DAssets.dev"), licence=lic.get("name", "inconnue"),
+            url_page=r.get("url", ""), apercu=r.get("thumbnailUrl", ""), triangles=stats.get("triangles"),
+            anime=bool(stats.get("animations")), url_telechargement=r.get("cdnUrl") or r.get("downloadUrl", "")))
+    return sortie
+
+
+# ----- Icosa Gallery (archive Google Poly, ~150 000 modèles CC-BY, sans clé) ----------------------
+ICOSA_API = "https://api.icosa.gallery/v1"
+_LICENCES_ICOSA = {"CREATIVE_COMMONS_BY": "CC-BY", "CREATIVE_COMMONS_0": "CC0", "CC0": "CC0"}
+
+
+def _format_icosa(asset: dict) -> dict | None:
+    """Meilleur format téléchargeable : GLB, puis glTF 2 hébergé par Icosa (pas l'archive web)."""
+    formats = [f for f in asset.get("formats", []) if f.get("formatType") in ("GLB", "GLTF2")
+               and "web.archive.org" not in f["root"]["url"]]
+    formats.sort(key=lambda f: (f["formatType"] != "GLB", not f.get("isPreferredForDownload")))
+    return formats[0] if formats else None
+
+
+def chercher_icosa(requete: str, limite: int = 10) -> list[Candidat]:
+    q = {"keywords": requete, "pageSize": max(limite * 2, 10), "curated": "true"}
+    donnees = _get_json(f"{ICOSA_API}/assets?{urllib.parse.urlencode(q)}")
+    sortie = []
+    for r in donnees.get("assets", []):
+        fmt = _format_icosa(r)
+        if fmt is None:
+            continue
+        sortie.append(Candidat(
+            source="icosa", id_source=r["assetId"], nom=r.get("displayName", r["assetId"]),
+            auteur=r.get("authorName", ""), licence=_LICENCES_ICOSA.get(r.get("license", ""), r.get("license", "inconnue")),
+            url_page=f"https://icosa.gallery/view/{r['assetId']}", apercu=(r.get("thumbnail") or {}).get("url", ""),
+            triangles=r.get("triangleCount"), url_telechargement=fmt["root"]["url"]))
+        if len(sortie) >= limite:
+            break
+    return sortie
+
+
+def telecharger_icosa(id_source: str, dossier: Path) -> Path:
+    asset = _get_json(f"{ICOSA_API}/assets/{urllib.parse.quote(id_source)}")
+    fmt = _format_icosa(asset)
+    if fmt is None:
+        raise SourceErreur(f"Icosa : aucun format glTF 2 / GLB téléchargeable pour '{id_source}'")
+    principal = _telecharger(fmt["root"]["url"], dossier / fmt["root"]["relativePath"])
+    for res in fmt.get("resources", []):  # .bin et textures d'un .gltf
+        _telecharger(res["url"], dossier / res["relativePath"])
+    return principal
+
+
+# ----- ambientCG (textures, HDRI ; CC0, sans clé) ---------------------------------------------------
+AMBIENTCG_API = "https://ambientcg.com/api/v3/assets"
+
+
+def chercher_ambientcg(requete: str, limite: int = 10, type_asset: str = "material") -> list[Candidat]:
+    q = {"q": requete, "type": type_asset, "limit": limite, "sort": "popular"}
+    donnees = _get_json(f"{AMBIENTCG_API}?{urllib.parse.urlencode(q)}")
+    return [Candidat(source="ambientcg", id_source=a["id"], nom=a.get("title") or a["id"], auteur="ambientCG (Lennart Demes)",
+                     licence="CC0", url_page=f"https://ambientcg.com/view?id={a['id']}")
+            for a in donnees.get("assets", [])]
+
+
+def telecharger_texture_ambientcg(id_source: str, resolution: str = "1K-JPG") -> Path:
+    """Textures PBR ambientCG dans engine/assets/textures/<id>/ (même format que Poly Haven : cartes.json)."""
+    import io
+    import zipfile
+    donnees = _get_json(f"{AMBIENTCG_API}?{urllib.parse.urlencode({'id': id_source, 'include': 'downloads'})}")
+    assets = donnees.get("assets", [])
+    if not assets:
+        raise SourceErreur(f"ambientCG : asset '{id_source}' introuvable")
+    lien = next((d["url"] for d in assets[0].get("downloads", []) if d.get("attributes") == resolution), None)
+    if lien is None:
+        raise SourceErreur(f"ambientCG : pas de fichier {resolution} pour '{id_source}'")
+    with urllib.request.urlopen(_requete(lien), timeout=120) as r:
+        archive = zipfile.ZipFile(io.BytesIO(r.read()))
+    dossier = DOSSIER_TEXTURES / id_source
+    dossier.mkdir(parents=True, exist_ok=True)
+    cartes, suffixes = {}, {"couleur": "_Color.", "normale": "_NormalGL.", "rugosite": "_Roughness."}
+    for nom in archive.namelist():
+        for carte, suffixe in suffixes.items():
+            if suffixe in nom and "/" not in nom:  # pas de chemin dans l'archive : rien n'est écrit hors du dossier
+                (dossier / nom).write_bytes(archive.read(nom))
+                cartes[carte] = nom
+    if "couleur" not in cartes:
+        raise SourceErreur(f"ambientCG : pas de carte de couleur dans l'archive de '{id_source}'")
+    (dossier / "cartes.json").write_text(json.dumps(cartes, ensure_ascii=False, indent=2), encoding="utf-8")
+    return dossier
+
+
 CHERCHEURS = {"polyhaven": chercher_polyhaven, "polypizza": chercher_polypizza, "sketchfab": chercher_sketchfab,
-              "3dtexel": chercher_3dtexel}
+              "3dtexel": chercher_3dtexel, "3dassets": chercher_3dassets, "icosa": chercher_icosa,
+              "ambientcg": chercher_ambientcg}
 
 
 def chercher(requete: str, sources: list[str], limite: int = 5) -> dict[str, Any]:
@@ -335,7 +445,7 @@ def integrer(source: str, id_source: str, id_local: str, role_defaut: str = "acc
             c = Candidat("polyhaven", id_source, id_source, auteur, "CC0", f"https://polyhaven.com/a/{id_source}")
     elif source == "3dtexel":
         c = candidat or Candidat("3dtexel", id_source, id_source, "3DTexel", "CC0", f"https://3dtexel.com/?p={id_source}")
-    elif source in ("sketchfab", "polypizza"):
+    elif source in ("sketchfab", "polypizza", "3dassets", "icosa"):
         if candidat is None:
             raise SourceErreur(f"{source} : passe par 'chercher' (licence et lien de téléchargement en dépendent)")
         c = candidat
@@ -361,9 +471,11 @@ def integrer(source: str, id_source: str, id_local: str, role_defaut: str = "acc
         principal = modeles[0]
     elif source == "sketchfab":
         principal = _telecharger(url_glb_sketchfab(id_source), dossier / f"{id_local}.glb")
+    elif source == "icosa":
+        principal = telecharger_icosa(id_source, dossier)
     else:
         if not c.url_telechargement:
-            raise SourceErreur("Poly Pizza : pas de lien de téléchargement dans le candidat")
+            raise SourceErreur(f"{source} : pas de lien de téléchargement dans le candidat")
         principal = _telecharger(c.url_telechargement, dossier / f"{id_local}.glb")
     entree = {"fichier": principal.relative_to(chemins.RACINE).as_posix(), "echelle": echelle,
               "role_defaut": role_defaut, "roles": {}, "principal": None, "materiaux": materiaux, "source": c.url_page,
@@ -378,7 +490,7 @@ def main(argv: list[str] | None = None) -> int:
     sp = p.add_subparsers(dest="cmd", required=True)
     a = sp.add_parser("chercher")
     a.add_argument("requete")
-    a.add_argument("--sources", default="polyhaven,3dtexel,polypizza,sketchfab")
+    a.add_argument("--sources", default="polyhaven,polypizza,3dassets,icosa,sketchfab,3dtexel")
     a.add_argument("--limite", type=int, default=5)
     b = sp.add_parser("integrer", help="intègre un asset choisi par un humain")
     b.add_argument("source", choices=sorted(CHERCHEURS))
@@ -389,8 +501,9 @@ def main(argv: list[str] | None = None) -> int:
     b.add_argument("--echelle", type=float, default=1.0)
     b.add_argument("--materiaux", choices=["pack", "origine"], default="pack",
                    help="pack : style unifié de la DA ; origine : textures de l'asset")
-    t = sp.add_parser("texture", help="textures PBR Poly Haven (sol, murs, carrelage…)")
+    t = sp.add_parser("texture", help="textures PBR Poly Haven ou ambientCG (sol, murs, carrelage…)")
     t.add_argument("id_source")
+    t.add_argument("--source", choices=["polyhaven", "ambientcg"], default="polyhaven")
     t.add_argument("--resolution", default="1k")
     h = sp.add_parser("hdri")
     h.add_argument("id_source")
@@ -410,7 +523,11 @@ def main(argv: list[str] | None = None) -> int:
                 cand = Candidat(**d)
             sortie = integrer(args.source, args.id_source, args.id_local, args.role_defaut, args.echelle, cand, args.materiaux)
         elif args.cmd == "texture":
-            dossier = telecharger_texture_polyhaven(args.id_source, args.resolution)
+            if args.source == "ambientcg":
+                dossier = telecharger_texture_ambientcg(args.id_source, args.resolution if "-" in args.resolution
+                                                        else f"{args.resolution.upper()}-JPG")
+            else:
+                dossier = telecharger_texture_polyhaven(args.id_source, args.resolution)
             sortie = {"textures": dossier.relative_to(chemins.RACINE).as_posix()}
         else:
             sortie = {"hdri": str(telecharger_hdri_polyhaven(args.id_source, args.resolution).relative_to(chemins.RACINE))}
