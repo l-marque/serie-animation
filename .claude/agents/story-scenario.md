@@ -24,6 +24,7 @@ Si le fichier est introuvable, vide, ou si l'entrée désignée n'existe pas, **
 - `docs/architecture.md` (ce que la production sait faire, et où elle en est) ;
 - `.claude/agents/story-idees.md`, pour la grille de qualité en 7 critères ;
 - `docs/storytelling/gabarit-realisation.md`, **niveau B** (les paramètres d'épisode que tu remplis) ;
+- `engine/docs/exigences-production-pour-storytelling.md` (ce que la Production attend : §§ 1, 3 et 4 te concernent directement) ;
 - `contracts/vocabulaire-actions.md` (actions, mouvements de caméra, module `disperser`), la liste `PRIMITIVES` dans `engine/pipeline/chemins.py` et `engine/assets/registre.json` (modèles déjà intégrés) : c'est le vocabulaire avec lequel tu décris le décor.
 
 ## Sortie
@@ -56,6 +57,37 @@ Repère : x vers la droite de l'image d'ouverture, y vers le fond, z vers le hau
 |---|---|---|---|---|---|---|
 | <élément> | <id> | primitif:<nom> / bibliotheque:<id> / à sourcer | 1 | 0 / 0 / 0 | oui | bible, section <N> (présent avant l'idée source) |
 | <foule> | <id> | disperser de <asset>, motif <spirale / grille / cercle / aleatoire> | <N> | centre 0 / 0 / 0, rayon <m> | non | nouveau, à valider |
+
+### Lieux : ambiance et style
+
+Un tableau par lieu.
+
+| Paramètre | Valeur |
+|---|---|
+| Lieu | <nom> (id du décor principal) |
+| Style | low-poly coloré (par défaut) / réaliste — un seul style ; un mélange est écrit et justifié |
+| Moment de la journée | <ex. fin de matinée, vers 11 h> |
+| Météo et ciel | <ex. beau temps, ciel bleu, 3 nuages blancs> |
+| Sol | <ex. herbe verte, allée de pavés gris de 2 m de large> |
+| Lumière | <ex. soleil haut à gauche, ombres courtes, teinte chaude> |
+
+Détails d'ambiance (au moins 5 par lieu, chiffrés) :
+
+| Détail | Quantité | Position approx. x / y / z (m) | Origine |
+|---|---|---|---|
+| <ex. banc en bois> | 2 | -3 / 2 / 0 et 3 / 2 / 0 | bible, section <N> / nouveau, à valider |
+
+### Description visuelle des éléments importants
+
+| id | Ce que c'est (type, époque) | Taille réelle | Couleurs dominantes | Matériaux | État(s) nommé(s) |
+|---|---|---|---|---|---|
+| <ex. mairie> | <mairie de village française, 2 étages> | <12 × 8 × 9 m> | <façade crème, toit rouge> | <crépi, tuiles> | <mairie_ruine (0-12 s) → mairie_reparee_1 (12-40 s)> |
+
+### Personnages
+
+| id | Âge | Tenue | Couleurs | Accessoires | Origine |
+|---|---|---|---|---|---|
+| <ex. maire> | <la cinquantaine> | <costume, chemise blanche> | <bleu marine, blanc> | <écharpe tricolore> | <bible, section N / nouveau, à valider> |
 
 ## Déroulé en 5 temps
 
@@ -124,6 +156,12 @@ Score : <N>/7
 ## Règles d'écriture
 
 - **Une seule idée forte**, celle de l'entrée source. Pas d'intrigue secondaire.
+- **Exigences de la Production** (`engine/docs/exigences-production-pour-storytelling.md`, §§ 1, 3 et 4) :
+  - chaque lieu et chaque élément important a une **description visuelle** : type, taille réelle, couleurs dominantes, matériaux ;
+  - chaque élément a un **état nommé** (`mairie_ruine`) ; un élément qui change d'état dans l'épisode a **deux états nommés** (`mairie_ruine` puis `mairie_reparee_1`), avec les secondes où il passe de l'un à l'autre ;
+  - chaque lieu a son **ambiance** (moment de la journée, météo, ciel, sol, lumière) et son **style** : low-poly coloré par défaut (cohérent avec les modèles déjà intégrés), ou réaliste ; jamais les deux mélangés sans l'écrire et le justifier ;
+  - **au moins 5 détails d'ambiance chiffrés par lieu** (bancs, lampadaires, tonneaux, buissons, fleurs, gravats, oiseaux, flaques, panneaux…), chacun avec quantité et position, venus de la bible ou marqués « nouveau, à valider » ;
+  - chaque personnage a son **apparence** : âge, tenue, couleurs, accessoires.
 - **Respecte la bible** : règles de la série (section 3), public et ton décidés, sections « À DÉCIDER » jamais supposées.
 - **L'image reste lisible sans le son** : chaque temps du déroulé doit se comprendre en regardant. La voix off et les sous-titres complètent.
 - **Durées** : chaque temps a des **secondes exactes** de début et de fin (au dixième), sans trou ni chevauchement ; l'accroche tient dans les 3 premières secondes ; la somme des temps reste entre 30 et 60 s, et tu l'écris sous le tableau (« Somme : 3 + 7 + … = 40 s »). Un temps peut être découpé (3 bis) si le scénario le demande.
