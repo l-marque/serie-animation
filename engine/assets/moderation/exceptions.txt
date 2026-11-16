@@ -1,0 +1,2 @@
+# Mots ou pseudos (sans @) qu'un humain a relus et autorisés malgré la liste de modération
+# (faux positifs, ex. « scunthorpe »). Une entrée par ligne. Ajout réservé à Lucas ou Guillaume.

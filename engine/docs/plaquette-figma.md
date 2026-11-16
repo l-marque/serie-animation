@@ -23,7 +23,8 @@ Fichier Figma « Série animation — Outils d'affichage (HUD) » (https://www.f
 3. **Modèles 3D** : pour chaque objet important, les candidats avec aperçu, source, auteur, licence, triangles ; le choix recommandé est marqué.
 4. **Direction artistique** : palette, ciel/HDRI, textures de sol, références d'ambiance.
 5. **Habillage** : compteurs, gains « +10 », cartes de choix, bandeaux, placés sur une vignette 9:16 avec les zones masquées par Instagram.
-6. **Points à trancher** : questions ouvertes pour Guillaume (une ligne chacune).
+6. **Textes venus de l'audience** : chaque pseudo et chaque proposition d'abonné qui sera montré ou dit, tel qu'il apparaîtra (liste `pseudos_a_valider` de l'étape `textes` du rapport). La validation de la plaquette vaut validation de ces textes ; un pseudo douteux est retiré, jamais réécrit.
+7. **Points à trancher** : questions ouvertes pour Guillaume (une ligne chacune).
 
 ## Après la validation
 
