@@ -1,9 +1,9 @@
 {
   "id": "lancement-du-club",
-  "titre": null,
+  "titre": "La visite guidée",
   "demande_initiale": "premier épisode de La Revanche du Miteux : Kevin, seul dans son stade en ruine, lance le club et demande de l'aide à ses abonnés",
   "branche": "episode/lancement-du-club",
-  "etape_courante": "arret_1",
+  "etape_courante": "scenario",
   "fichiers": {
     "idee": null,
     "scenario": null,
@@ -15,10 +15,10 @@
   },
   "arrets": {
     "arret_1": {
-      "statut": "en_attente",
-      "par": null,
-      "date": null,
-      "reponse": null
+      "statut": "valide",
+      "par": "Lucas",
+      "date": "2026-11-16T15:20:00+01:00",
+      "reponse": "Idée 1, La visite guidée, telle quelle. Points ouverts : (1) épisode 1 : Kevin pose la question « qu'est-ce qu'on répare en premier ? », les abonnés proposent en commentaire ; les 2 commentaires les plus likés deviendront les 2 cartes de choix avec leur coût à l'épisode 2. (2) Compteurs : la bible fait foi (compteurs permanents, vraies valeurs de etat.json), décidé en réunion le 2026-11-16 (points 6 et 9) ; le document de Guillaume sera mis à jour. (3) Kevin parle lui-même face caméra avec la voix n° 12, sans synchronisation des lèvres, avec des gestes (animation qui parle, bras, tête). Continue vers le scénario."
     },
     "arret_2": {
       "statut": "en_attente",
@@ -85,6 +85,16 @@
       "date": "2026-11-16T15:05:00+01:00",
       "etape": "arret_1",
       "evenement": "ARRÊT 1 : en attente du choix de l'idée par Lucas."
+    },
+    {
+      "date": "2026-11-16T15:20:00+01:00",
+      "etape": "arret_1",
+      "evenement": "ARRÊT 1 validé par Lucas : idée 1 « La visite guidée », telle quelle ; réponse consignée mot pour mot (mécanisme des choix à l'épisode 2, compteurs selon la bible, Kevin parle face caméra voix n° 12 sans synchro des lèvres)."
+    },
+    {
+      "date": "2026-11-16T15:20:00+01:00",
+      "etape": "scenario",
+      "evenement": "Appel de story-chef, passage 2 (consigne l'idée, scénario + continuité)."
     }
   ]
 }
