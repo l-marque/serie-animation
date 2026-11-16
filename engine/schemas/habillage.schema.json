@@ -2,40 +2,196 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/l-marque/serie-animation/engine/schemas/habillage.schema.json",
   "title": "Habillage d'un épisode (fichier interne au pôle Production)",
-  "description": "Fichier facultatif <fiche>.habillage.json posé à côté d'une fiche épisode. Ajoute ce que le contrat v1.0 ne sait pas encore décrire : textes en 3D dans le décor (nom de ville sur un panneau, légendes des cartes de choix). Écrit par prod-realisateur ou prod-directeur-artistique ; n'entre pas dans le contrat Storytelling -> Production.",
+  "description": "Fichier facultatif <fiche>.habillage.json posé à côté d'une fiche épisode. Ajoute ce que le contrat v1.0 ne sait pas encore décrire : textes en 3D dans le décor (nom de ville sur un panneau, légendes des cartes de choix) et habillage 2D animé (compteurs, gains « +10 »). Écrit par prod-realisateur ou prod-directeur-artistique ; n'entre pas dans le contrat Storytelling -> Production.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["version"],
+  "required": [
+    "version"
+  ],
   "properties": {
-    "version": {"const": "1.0"},
+    "version": {
+      "const": "1.0"
+    },
     "textes_3d": {
       "type": "array",
       "maxItems": 40,
       "items": {
         "type": "object",
         "additionalProperties": false,
-        "required": ["id", "texte"],
+        "required": [
+          "id",
+          "texte"
+        ],
         "properties": {
-          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"},
-          "texte": {"type": "string", "minLength": 1, "maxLength": 40},
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+          },
+          "texte": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 40
+          },
           "parent": {
             "type": "string",
             "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
             "description": "Id d'un élément ou personnage de la fiche. Le texte le suit (position, apparition, disparition). Sans parent, le texte est fixe dans le décor."
           },
           "position": {
-            "type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3,
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "minItems": 3,
+            "maxItems": 3,
             "description": "Centre du texte en mètres ; dans le repère du parent s'il y en a un."
           },
-          "rotation_z": {"type": "number", "default": 0, "description": "Degrés. 0 = lisible depuis -y (caméra par défaut)."},
-          "taille": {"type": "number", "exclusiveMinimum": 0, "maximum": 20, "default": 0.3, "description": "Hauteur des lettres en mètres."},
-          "epaisseur": {"type": "number", "minimum": 0, "maximum": 1, "default": 0.02},
+          "rotation_z": {
+            "type": "number",
+            "default": 0,
+            "description": "Degrés. 0 = lisible depuis -y (caméra par défaut)."
+          },
+          "taille": {
+            "type": "number",
+            "exclusiveMinimum": 0,
+            "maximum": 20,
+            "default": 0.3,
+            "description": "Hauteur des lettres en mètres."
+          },
+          "epaisseur": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "default": 0.02
+          },
           "role": {
-            "enum": ["sol", "batiment", "toit", "vegetation", "roche", "personnage", "accessoire", "accent", "eau", "peau", "tissu", "blanc", "or", "pierre"],
+            "enum": [
+              "sol",
+              "batiment",
+              "toit",
+              "vegetation",
+              "roche",
+              "personnage",
+              "accessoire",
+              "accent",
+              "eau",
+              "peau",
+              "tissu",
+              "blanc",
+              "or",
+              "pierre"
+            ],
             "default": "accent"
           },
-          "visible_au_debut": {"type": "boolean", "default": true}
+          "visible_au_debut": {
+            "type": "boolean",
+            "default": true
+          }
         }
+      }
+    },
+    "hud": {
+      "type": "array",
+      "maxItems": 40,
+      "description": "Habillage 2D incrusté au montage (style du kit Figma « Outils d'affichage »).",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "beat",
+              "valeur"
+            ],
+            "properties": {
+              "type": {
+                "const": "compteur"
+              },
+              "icone": {
+                "enum": [
+                  "piece",
+                  "habitant"
+                ],
+                "default": "piece"
+              },
+              "beat": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+              },
+              "mot": {
+                "type": "string",
+                "minLength": 1
+              },
+              "debut": {
+                "type": "number",
+                "minimum": 0
+              },
+              "jusqu_au_beat": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
+                "description": "Dernier beat où le compteur reste affiché (défaut : le beat de départ). Il apparaît quand on en parle et disparaît ensuite."
+              },
+              "valeur": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "vers": {
+                "type": "integer",
+                "minimum": 0,
+                "description": "Valeur finale : le compteur défile de « valeur » à « vers »."
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "beat"
+            ],
+            "properties": {
+              "type": {
+                "const": "gain"
+              },
+              "texte": {
+                "type": "string",
+                "maxLength": 12,
+                "default": "+10"
+              },
+              "icone": {
+                "enum": [
+                  "piece",
+                  "habitant"
+                ],
+                "default": "piece"
+              },
+              "beat": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+              },
+              "mot": {
+                "type": "string",
+                "minLength": 1
+              },
+              "debut": {
+                "type": "number",
+                "minimum": 0
+              },
+              "position": {
+                "type": "array",
+                "items": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "minItems": 2,
+                "maxItems": 2,
+                "description": "Centre en fraction de l'image [x, y] (défaut [0,5 ; 0,55])."
+              }
+            }
+          }
+        ]
       }
     }
   }

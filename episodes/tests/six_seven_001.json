@@ -551,7 +551,6 @@
     {
       "id": "p2_like",
       "voix": "et chaque like, ça fait dix pièces en plus.",
-      "texte_ecran": "1 LIKE = 10 PIÈCES",
       "plan": {
         "camera": "dolly_avant",
         "cible": "tas_pieces",
@@ -569,7 +568,6 @@
     {
       "id": "p2_mille",
       "voix": "On est actuellement à mille pièces.",
-      "texte_ecran": "1000 PIÈCES",
       "plan": {
         "camera": "orbite",
         "cible": "tas_pieces",
