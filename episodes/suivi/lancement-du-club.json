@@ -115,6 +115,11 @@
       "date": "2026-11-16T15:55:00+01:00",
       "etape": "scenario",
       "evenement": "Appel de story-chef, passage 2 relancé pour la v2 du scénario."
+    },
+    {
+      "date": "2026-11-16T20:10:00+01:00",
+      "etape": "scenario",
+      "evenement": "Reprise par /episode reprendre : le passage 2 relancé pour la v2 n'a rien produit (aucun fichier -v2 dans docs/storytelling/scenarios/, bible § 5 inchangée ; session précédente interrompue). ARRÊT 2 toujours en attente ; consigne v2 de Lucas non conservée mot pour mot (seul le résumé de l'historique existe) : demande à Lucas avant relance."
     }
   ]
 }
