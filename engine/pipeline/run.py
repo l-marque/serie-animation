@@ -149,8 +149,10 @@ def executer(args: argparse.Namespace) -> int:
         rapport.etape("realisateur", "ECHEC", erreurs=[str(e)], resume=str(e))
         return rapport.terminer(2, etape_bloquante="realisateur", erreurs=[str(e)])
     try:
-        timeline["textes_3d"] = habillage.charger(fiche.source, fiche.donnees)
-        timeline["hud"] = hud.resoudre(habillage.charger_hud(fiche.source), timeline)
+        donnees_habillage, avert_habillage = habillage.assembler(fiche.source, fiche.donnees)
+        rapport.donnees["avertissements"].extend(avert_habillage)
+        timeline["textes_3d"] = habillage.charger(donnees_habillage, fiche.donnees)
+        timeline["hud"] = hud.resoudre(habillage.charger_hud(donnees_habillage), timeline)
     except hud.HudInvalide as e:
         rapport.etape("realisateur", "ECHEC", erreurs=[str(e)], resume="habillage HUD invalide")
         return rapport.terminer(2, etape_bloquante="realisateur", erreurs=[str(e)])

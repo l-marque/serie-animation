@@ -8,7 +8,7 @@
 
 `story-scenario` écrivait des intentions de voix off et des temps de 6 à 15 s ; `prod-realisateur` a besoin du texte exact et l'inventait sinon (pilote canard, `engine/docs/pilotes/2026-11-15-canard.md`). Ce gabarit liste environ 40 paramètres, rangés en 4 niveaux, avec pour chacun le champ du contrat fiche épisode v1.0 qui le porte, ou « absent → v1.1 ».
 
-**Conséquence tant que la v1.1 n'existe pas** : les paramètres « absent → v1.1 » sont écrits par les agents, mais ne passent pas dans la fiche JSON. Ils servent de consigne lisible par un humain et par `prod-realisateur`, et sont listés dans la section « Non porté par le contrat v1.0 (v1.1) » du découpage.
+**Contrat v1.1 (2026-11-16, décidé par Lucas)** : les textes 3D, les cartes de choix et la caméra `descente` ont désormais leur champ (voir `contracts/README.md`). **Pour les autres paramètres « absent → v1.1 »** : ils sont écrits par les agents, mais ne passent pas dans la fiche JSON. Ils servent de consigne lisible par un humain et par `prod-realisateur`, et sont listés dans la section « Non porté par le contrat v1.0 (v1.1) » du découpage.
 
 Les exemples illustrent le format avec le scénario du canard ou les valeurs du pack de test : **ce ne sont pas des décisions**. « à fixer » = aucune valeur n'existe encore.
 
@@ -64,12 +64,14 @@ Aucun agent ne remplit ce niveau : il est décidé par les humains. Un agent qui
 
 | Paramètre | Format attendu | Exemple | Champ du contrat v1.0 |
 |---|---|---|---|
-| Mouvement de caméra | un des 7 mouvements du vocabulaire | `plan_fixe` | `beat.plan.camera` |
+| Mouvement de caméra | un des 8 mouvements du vocabulaire, dont `descente` (v1.1 : du ciel jusqu'au personnage) | `plan_fixe` | `beat.plan.camera` (`descente` : v1.1) |
 | Cible | id de l'élément visé | `canard_1` | `beat.plan.cible` |
 | Distance, hauteur, focale | mètres, mètres, mm | 6 ; 1,5 ; 35 | `beat.plan.distance` / `hauteur` / `focale` |
 | Angle et cadrage | face, trois quarts, plongée ; place du sujet dans l'image | trois quarts, sujet au centre | absent → v1.1 |
 | Coupe ou transition vers le plan suivant | coupe / fondu / raccord | coupe | absent → v1.1 |
 | Actions | type, cible, mot déclencheur, durée, paramètres | `apparaitre` `canards_2` sur « deux », 0,4 s | `beat.actions` |
+| Textes 3D dans le décor | id, texte (1 à 40 car.), parent, position, taille, rôle, visible au début | « SIX SEVEN » sur le panneau d'entrée | `habillage.textes_3d` (v1.1) |
+| Cartes de choix | élément `carte_choix` + texte 3D qui l'a pour parent (légende) | carte « FONTAINE » | `elements` + `habillage.textes_3d` (v1.1) |
 | Position dans l'image (zone sûre) | haut / centre / bas, marges | compteur en haut | absent → v1.1 |
 | Effets sonores | son, instant (mot ou seconde), volume | pop sur « deux » | `audio` / effets (à préciser) |
 | Volume de la musique sous la voix | dB ou niveau | −18 dB | `audio` (à préciser) |

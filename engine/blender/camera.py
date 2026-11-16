@@ -12,6 +12,8 @@ Mouvements disponibles (fiche : plan.camera) :
     orbite               tourne d'un tiers de tour autour de la cible
     plongee              vue presque verticale qui descend doucement
     travelling_lateral   translation latérale face à la cible
+    descente (v1.1)      part très haut au-dessus de la cible et descend en continu jusqu'à elle
+                         (zoom continu du ciel jusqu'au personnage), arrivée à distance/hauteur du plan
 """
 
 from __future__ import annotations
@@ -28,6 +30,8 @@ HAUTEUR_DEFAUT = 10.0
 FOCALE_DEFAUT = 35.0
 HAUTEUR_VISEE = 1.2
 PAS_ARC = 4  # frames entre deux clés sur les trajectoires courbes
+DESCENTE_HAUTEUR_MIN = 40.0  # départ de la descente : au moins 40 m au-dessus de la cible
+DESCENTE_FACTEUR = 8.0  # ou 8 fois la distance d'arrivée, si c'est plus haut
 
 
 def _lisser(u: float) -> float:
@@ -60,7 +64,26 @@ def trajectoire(preset: str, c: Vector, d: float, h: float):
     if preset == "travelling_lateral":
         a, b = c + Vector((-d * 0.4, -d, h)), c + Vector((d * 0.4, -d, h))
         return (lambda u: a.lerp(b, u)), False
+    if preset == "descente":
+        return _descente(c, d, h), True
     raise ValueError(f"mouvement de caméra inconnu : {preset}")
+
+
+def _descente(c: Vector, d: float, h: float):
+    """Du ciel jusqu'au plan d'arrivée, sans coupe.
+
+    La hauteur décroît vite au début puis ralentit (le regard « tombe » puis se pose) ; le recul
+    horizontal part de 15 % de la distance (jamais à la verticale exacte, pour que la visée reste
+    stable) et atteint la distance du plan à l'arrivée, à la même position que plan_fixe."""
+    depart = max(DESCENTE_HAUTEUR_MIN, DESCENTE_FACTEUR * d, h * 3)
+
+    def position(u: float) -> Vector:
+        e = 1 - (1 - u) ** 3  # décélération en fin de descente
+        z = depart + (h - depart) * e
+        rayon = d * (0.15 + 0.85 * e ** 0.7)
+        return _polaire(c, -90, rayon, z)
+
+    return position
 
 
 class Cameraman:

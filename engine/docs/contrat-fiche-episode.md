@@ -1,4 +1,4 @@
-# Contrat d'entrée du pôle Production : la fiche épisode (v1.0)
+# Contrat d'entrée du pôle Production : la fiche épisode (v1.1)
 
 Le pôle Storytelling (agent `story-fiche`) ou un humain envoie au pôle Production une **fiche épisode** au format JSON. C'est la seule interface : tant qu'une fiche respecte ce contrat, la production sait la transformer en vidéo, sans connaître l'histoire.
 
@@ -10,7 +10,7 @@ Le pôle Storytelling (agent `story-fiche`) ou un humain envoie au pôle Product
 
 | Champ | Obligatoire | Rôle |
 |---|---|---|
-| `version` | oui | `"1.0"` |
+| `version` | oui | `"1.0"` ou `"1.1"` (la v1.1 ajoute `habillage` et la caméra `descente` ; une fiche 1.0 se comporte comme avant) |
 | `episode_id` | oui | minuscules, chiffres, `-`, `_` ; nom du dossier de rendu |
 | `titre` | non | titre lisible |
 | `format` | non | `resolution` (défaut `[1080, 1920]`), `fps` (24, 25, 30 ou 60 ; défaut 30) |
@@ -21,6 +21,7 @@ Le pôle Storytelling (agent `story-fiche`) ou un humain envoie au pôle Product
 | `personnages` | non | mêmes champs que les éléments |
 | `modules` | non | modules procéduraux (`disperser`) |
 | `audio` | non | `musique` (chemin) et `volume_musique` |
+| `habillage` | non, v1.1 | `textes_3d` (textes posés dans le décor, parentés à un élément : nom de lieu, légendes des cartes de choix) et `hud` (compteurs, gains « +10 ») ; mêmes champs que `engine/schemas/habillage.schema.json` |
 | `beats` | oui | le récit découpé (1 à 60 beats) |
 
 Un **asset** s'écrit `primitif:<nom>` (généré par code) ou `bibliotheque:<id>` (modèle 3D du registre `engine/assets/registre.json`).
@@ -58,6 +59,13 @@ Une action déclenchée sur un `mot` tombe à l'instant où ce mot est prononcé
 - `rapport.json` : chaque étape, ses durées, les avertissements, et le champ `suite` (sous-agent à appeler ensuite) ;
 - `timeline.json` et `scene.blend` : pour inspecter ou retoucher.
 
+## Habillage : fiche ou fichier à part
+
+- Fiche **1.1** avec `habillage` : il fait foi. Si `<fiche>.habillage.json` existe aussi, ses clés déjà présentes dans la fiche sont ignorées, ses autres clés (ex. `sons`, `ambiance`, hors contrat) sont gardées ; les deux cas sont signalés par un avertissement « ! » dans le rapport.
+- Fiche **1.0** (ou 1.1 sans `habillage`) : seul `<fiche>.habillage.json` est lu, comme avant.
+
 ## Évolution du contrat
+
+- **v1.1** (2026-11-16, décidée par Lucas ; moteur prêt dans la même PR) : champ `habillage` (`textes_3d`, puis `hud`), caméra `descente`. Rétrocompatible.
 
 Toute modification passe par une PR qui met à jour **en même temps** le schéma, ce document, l'exemple et les tests. On ajoute des champs facultatifs plutôt que de changer le sens des champs existants ; un changement incompatible fait passer `version` à `2.0`.
