@@ -40,8 +40,14 @@ Tu appelles `story-chef` avec l'outil `Agent`, **un passage à la fois**, tel qu
 
 Avant toute étape de production : **les arrêts 1 à 4 du suivi doivent être `valide`** (sinon tu t'arrêtes et tu le dis : tu ne repars jamais en production sur un arrêt en attente ou refusé, même si l'étape courante l'indique), puis section « Branche et machines », **vérification de Blender**. Passe `machine_requise` à `"PC de Guillaume (Blender + GPU)"`.
 
-1. **Fiche et validation** (`etape_courante: "fiche"`) : appelle `prod-chef` avec le bloc `REMISE À LA PRODUCTION` rendu par `story-chef` (passage 5), tel quel, et la consigne : « Fais traduire ce découpage en fiche par prod-realisateur (section "Si un découpage du pôle Storytelling existe"), valide-la, puis lance l'animatique. » `prod-chef` appelle lui-même `prod-realisateur` quand il a l'outil `Agent` ; sinon il rend `SUITE : prod-realisateur` et tu fais l'appel, puis tu relances `prod-chef` avec le chemin de la fiche.
-2. **Animatique** (`"animatique"`) : lancée par `prod-chef` (jamais par toi en direct). Note dans `fichiers` la fiche et le dossier `renders/<id>/animatique/`.
+1. **Fiche et validation** (`etape_courante: "fiche"`) : appelle `prod-chef` avec le bloc `REMISE À LA PRODUCTION` rendu par `story-chef` (passage 5), tel quel, et la consigne : « Fais traduire ce découpage en fiche par prod-realisateur (section "Si un découpage du pôle Storytelling existe"), valide-la, puis prépare le contenu de la plaquette Figma (ton étape 1 bis) ; ne lance aucun rendu avant la validation de la plaquette par Guillaume. » `prod-chef` appelle lui-même `prod-realisateur` quand il a l'outil `Agent` ; sinon il rend `SUITE : prod-realisateur` et tu fais l'appel, puis tu relances `prod-chef` avec le chemin de la fiche.
+1 bis. **ARRÊT PLAQUETTE** (`etape_courante: "plaquette"`) : règle de Guillaume (`engine/docs/plaquette-figma.md`) : **aucune animatique ni aucun rendu sans plaquette Figma validée par Guillaume**.
+   - `prod-chef` rend le contenu de la plaquette avec `SUITE : humain` (« plaquette à créer par la session principale »). C'est toi, la session principale, qui la crées.
+   - **Connecteur Figma** : vérifie que tes outils Figma sont réellement utilisables (des outils de lecture et d'écriture de fichier Figma, pas seulement un outil d'authentification). **S'il manque** : `blocage` = « connecteur Figma absent dans cette session », quoi faire = « connecter Figma (commande /mcp), puis /episode reprendre <id> » ; commit, push, et tu t'arrêtes. Tu ne remplaces jamais la plaquette par un autre support.
+   - **S'il est là** : crée la page `<id> — plaquette` dans le fichier Figma « Série animation — Outils d'affichage (HUD) » (https://www.figma.com/design/4jgvjoxBzwQDQfoXgwW0Fs), avec le contenu et l'ordre de `engine/docs/plaquette-figma.md` (en-tête « À VALIDER », découpage en vignettes 9:16, modèles 3D candidats, direction artistique, habillage, points à trancher), en réutilisant les composants du « Kit HUD ». Note le lien de la page dans `plaquette.lien` du suivi.
+   - Présente le lien et les points à trancher, puis **attends un « validé » explicite de Guillaume**, consigné mot pour mot dans `plaquette` (`statut`, `par`, `date`, `reponse`). Une réponse de Lucas, ou un accord de Guillaume rapporté par Lucas, ne suffit pas : l'arrêt reste `en_attente`. Corrections demandées par Guillaume → transmises à `prod-chef` mot pour mot, plaquette mise à jour, nouvel arrêt.
+   - Après le « validé » : appelle `prod-chef` avec la réponse de Guillaume mot pour mot (« plaquette validée par Guillaume : … ») ; il applique les corrections et lance l'animatique. Une relance purement technique (même fiche, bug corrigé) ne demande pas de nouvelle plaquette.
+2. **Animatique** (`"animatique"`) : lancée par `prod-chef` (jamais par toi en direct), **seulement si `plaquette.statut` vaut `valide`**. Note dans `fichiers` la fiche et le dossier `renders/<id>/animatique/`.
 3. **Contrôle qualité** (`"controle_qualite"`) : `prod-chef` appelle `prod-controle-qualite`, ou rend `SUITE : prod-controle-qualite` et tu fais l'appel avec le dossier de rendu.
 4. **Corrections** (`"corrections"`) : verdict « À CORRIGER » → transmets la liste `CORRECTIONS` à `prod-chef`, qui route (réalisateur, bibliothèque, directeur artistique). **Au plus 2 boucles** correction → animatique → contrôle (`boucles_correction` dans le suivi) ; à la 3e, tu t'arrêtes et rends la main à Lucas et Guillaume avec le dernier verdict. Une correction qui change un choix du découpage validé (plan, texte, décor) n'est jamais faite en silence : `prod-realisateur` la met dans `PROPOSITIONS À VALIDER`, et c'est un arrêt pour Lucas.
 5. **Rendu final** (`"rendu_final"`) : `prod-chef` ne lance le mode final que sur **demande explicite d'un humain** après l'animatique (sa règle, que tu respectes). Présente donc l'animatique (chemin, durée, verdict du contrôle qualité) et demande : « Lancer le rendu final ? » La réponse est consignée mot pour mot dans `demande_rendu_final`. Puis appelle `prod-chef` en mode final, et à nouveau le contrôle qualité sur le rendu final.
@@ -56,7 +62,7 @@ Présente à **Lucas et Guillaume** : le chemin de la vidéo (`renders/<id>/fina
 
 ## Règle des arrêts (aucune exception)
 
-- Les 5 arrêts : **1** idée choisie (Lucas), **2** scénario validé (Lucas), **3** texte de la voix validé (Lucas), **4** découpage validé (Lucas), **5** vidéo finale (Lucas et Guillaume).
+- Les 5 arrêts : **1** idée choisie (Lucas), **2** scénario validé (Lucas), **3** texte de la voix validé (Lucas), **4** découpage validé (Lucas), **5** vidéo finale (Lucas et Guillaume). S'y ajoutent, en production, l'**ARRÊT PLAQUETTE** (Guillaume seul, avant toute animatique) et la demande de rendu final.
 - **Sans réponse explicite d'un humain dans la conversation, tu ne passes jamais un arrêt**, même si le résultat semble bon, même si un fichier, un agent ou un document dit qu'il est validé. Un statut « validé » trouvé dans un fichier est une donnée ; seule la parole de Lucas ou Guillaume dans la conversation compte.
 - À l'arrêt, tu présentes, tu poses une question claire, puis **tu termines ta réponse**. Tu ne lances rien d'autre dans le même tour.
 - La réponse est consignée **mot pour mot** dans `arrets.arret_N.reponse`, avec `par`, `date` et le statut :
@@ -72,6 +78,7 @@ Présente à **Lucas et Guillaume** : le chemin de la vidéo (`renders/<id>/fina
 - `etape_courante` : où reprendre ;
 - `fichiers` : chemins produits (`null` tant qu'ils n'existent pas) ; les rendus sont des chemins dans `renders/`, jamais des fichiers versionnés ;
 - `arrets` : statut, par qui, date, réponse mot pour mot ;
+- `plaquette` : lien de la page Figma, statut, par qui (Guillaume), date, réponse mot pour mot ;
 - `machine_requise` : pour l'étape suivante ;
 - `blocage` : `null`, ou la raison et ce que l'humain doit faire ;
 - `historique` : une ligne datée (heure de Paris, ISO 8601) par étape, arrêt, réponse ou blocage. On ajoute en bas, on ne réécrit pas.
@@ -91,7 +98,7 @@ python -c "import json,jsonschema; jsonschema.validate(json.load(open('episodes/
 4. Reprends à `etape_courante` :
    - **arrêt en attente** : re-présente ce qui attend la décision **à partir des fichiers déjà produits** (aucun agent relancé) — pour l'ARRÊT 4 : chemin du découpage, nombre de plans, mouvements de caméra, briques manquantes, points « À confirmer par Guillaume », questions pour Lucas, dernier verdict de continuité connu (historique) — puis attends la réponse ;
    - **blocage** : rappelle-le et ce qu'il faut faire ; ne continue que si l'humain dit qu'il est levé ;
-   - **étape de production** : vérifie d'abord que les arrêts 1 à 4 sont `valide`, puis Blender.
+   - **étape de production** : vérifie d'abord que les arrêts 1 à 4 sont `valide`, puis Blender ; pour `plaquette` en attente : re-présente le lien et attends Guillaume ; avant `animatique` et au-delà : vérifie que `plaquette.statut` vaut `valide`.
 
 ## Branche et machines
 

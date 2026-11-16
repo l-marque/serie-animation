@@ -13,7 +13,7 @@
     "branche": {"type": "string", "pattern": "^episode/[a-z0-9][a-z0-9_-]{0,63}$"},
     "etape_courante": {
       "enum": ["idee", "arret_1", "scenario", "arret_2", "voix", "arret_3", "decoupage", "arret_4",
-               "fiche", "animatique", "controle_qualite", "corrections", "rendu_final", "arret_5", "termine"],
+               "fiche", "plaquette", "animatique", "controle_qualite", "corrections", "rendu_final", "arret_5", "termine"],
       "description": "Où reprendre. Un arret_N signifie : en attente de la réponse humaine."
     },
     "fichiers": {
@@ -43,6 +43,25 @@
         "arret_4": {"$ref": "#/$defs/arret"},
         "arret_5": {"$ref": "#/$defs/arret"}
       }
+    },
+    "plaquette": {
+      "description": "ARRÊT PLAQUETTE : plaquette Figma validée par Guillaume avant toute animatique (engine/docs/plaquette-figma.md). Facultatif tant que la production n'a pas commencé.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lien", "statut", "par", "date", "reponse"],
+      "properties": {
+        "lien": {"type": ["string", "null"], "description": "Lien de la page Figma « <id> — plaquette » ; null tant qu'elle n'est pas créée."},
+        "statut": {"enum": ["en_attente", "valide", "refuse"]},
+        "par": {"type": ["string", "null"], "description": "Guillaume, seul habilité à valider la plaquette."},
+        "date": {"oneOf": [{"type": "null"}, {"$ref": "#/$defs/date"}]},
+        "reponse": {"type": ["string", "null"], "description": "Réponse de Guillaume, mot pour mot."}
+      },
+      "allOf": [
+        {"if": {"properties": {"statut": {"enum": ["valide", "refuse"]}}},
+         "then": {"properties": {"lien": {"type": "string"}, "par": {"type": "string"}, "date": {"type": "string"}, "reponse": {"type": "string"}}}},
+        {"if": {"properties": {"statut": {"const": "valide"}}},
+         "then": {"properties": {"par": {"const": "Guillaume"}}}}
+      ]
     },
     "demande_rendu_final": {
       "$ref": "#/$defs/arret",
