@@ -8,7 +8,7 @@
     "idee": "docs/storytelling/idees-retenues.md — entrée « 2026-11-16 — La visite guidée »",
     "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md",
     "beats": "docs/storytelling/beats/2026-11-16-la-visite-guidee.md",
-    "decoupage": null,
+    "decoupage": "docs/storytelling/decoupage/2026-11-16-la-visite-guidee.md",
     "fiche": null,
     "animatique": null,
     "video": null
@@ -210,6 +210,16 @@
       "date": "2026-11-16T20:50:00+01:00",
       "etape": "decoupage",
       "evenement": "Appel de story-chef, passage 4 relancé (statut des beats déjà à jour ; découpage + continuité, une boucle de correction si À corriger)."
+    },
+    {
+      "date": "2026-11-16T20:58:00+01:00",
+      "etape": "arret_4",
+      "evenement": "Guillaume, dans la conversation, pendant que le passage 4 tourne (découpage pas encore rendu), mot pour mot : « Lucas est d'acoord avec tout il est avec change ce qu'il faut pour avancer ». Consigné comme accord de principe donné avant présentation du découpage ; l'ARRÊT 4 reste en attente : il sera présenté dès le retour de story-chef et la réponse sera demandée sur le découpage réel."
+    },
+    {
+      "date": "2026-11-16T21:10:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Reprise après interruption de la session (Guillaume : « continue le projet »). Le passage 4 a produit le découpage docs/storytelling/decoupage/2026-11-16-la-visite-guidee.md (16 plans, 40,0 s, statut « proposé »), non commité ; aucun verdict de story-continuite conservé. Découpage commité tel quel ; story-chef relancé pour la seule fin du passage 4 (continuité sur le découpage existant, une boucle de correction si À corriger)."
     }
   ]
 }
