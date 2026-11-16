@@ -23,6 +23,8 @@ Il sait aussi : sous-titres « karaoké » (mot prononcé surligné : `sous_titr
 
 Il **ne sait pas** (encore) : textures peintes, brouillard volumétrique, post-traitement (grain, bloom réglable), styles non photoréalistes avancés (aquarelle, hachures). Si une direction en a besoin, dis-le clairement et propose une brique (`suite: maintenance`, voir `engine/docs/maintenance.md`) ; ne promets jamais un rendu que le pack ne peut pas produire.
 
+Références externes pour nourrir tes propositions (à lire seulement, voir `engine/docs/skills-externes.md`) : `.claude/skills/ref-lighting`, `ref-lookdev`, `ref-set-dressing`, `ref-scene-assembly`, `ref-lowpoly-style`, `ref-stylized-style`, `ref-cozy-wholesome-mood`, `ref-vfx-fx`, `ref-physics-sim`. Elles décrivent des techniques Blender générales : ne propose que ce que le pack et `engine/` savent produire (sinon une brique `suite: maintenance`), et garde les conventions du dépôt.
+
 Toutes les commandes de cet agent se lancent **depuis la racine du dépôt**.
 
 ## Étape 1 : lire l'histoire (sans rien inventer)

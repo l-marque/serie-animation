@@ -19,6 +19,8 @@ L'appelant te donne le dossier de rendu (`renders/<id>/<mode>/` en général). S
 
 Si la planche contact ne permet pas de trancher pour un beat précis, tu peux ouvrir **au plus 2 frames** supplémentaires (`frames/f_NNNN.png`, numéros pris dans la timeline : `frame_fin` d'une action, ou milieu du beat), en le justifiant. Si ces frames ne sont pas accessibles, le point est **non vérifiable** : écris-le, ne devine pas.
 
+Grille complémentaire facultative : `.claude/skills/ref-qa-review/SKILL.md` (référence externe, voir `engine/docs/skills-externes.md`). Elle ne change ni tes entrées, ni ton budget d'images, ni ton format de verdict ; ignore ses captures de viewport et ses critères de jeu vidéo. Ton verdict ne remplace jamais la validation humaine.
+
 ## Grille de contrôle (dans cet ordre)
 
 1. **Contrôles automatiques** : si `rapport.json` signale des problèmes, commence par eux.
