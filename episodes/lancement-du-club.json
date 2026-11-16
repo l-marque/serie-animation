@@ -1,0 +1,1036 @@
+{
+  "version": "1.1",
+  "episode_id": "lancement-du-club",
+  "titre": "La visite guidée (lancement du club)",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 30
+  },
+  "pack_da": "test_lowpoly",
+  "serie": {
+    "id": "serie",
+    "continuite": false
+  },
+  "decor": {
+    "kit": "primitifs",
+    "sol": true,
+    "taille_sol": 1000
+  },
+  "elements": [
+    {
+      "id": "terrain",
+      "asset": "bibliotheque:terrain_miteux",
+      "position": [
+        0,
+        0,
+        0.01
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "sol"
+    },
+    {
+      "id": "but_gauche",
+      "asset": "bibliotheque:but_rouille",
+      "position": [
+        -10,
+        0,
+        0
+      ],
+      "rotation_z": -90,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "but_droit",
+      "asset": "bibliotheque:but_rouille",
+      "position": [
+        10,
+        0,
+        180
+      ],
+      "rotation_z": 90,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "barriere_1",
+      "asset": "bibliotheque:barriere",
+      "position": [
+        -7.5,
+        -7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "barriere_2",
+      "asset": "bibliotheque:barriere",
+      "position": [
+        -4.5,
+        -7,
+        0
+      ],
+      "rotation_z": 30,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "barriere_3",
+      "asset": "bibliotheque:barriere",
+      "position": [
+        -1.5,
+        -7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "barriere_4",
+      "asset": "bibliotheque:barriere",
+      "position": [
+        1.5,
+        -7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "barriere_5",
+      "asset": "bibliotheque:barriere",
+      "position": [
+        4.5,
+        -7,
+        0
+      ],
+      "rotation_z": -30,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "barriere_6",
+      "asset": "bibliotheque:barriere",
+      "position": [
+        7.5,
+        -7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "tribune_supporters",
+      "asset": "bibliotheque:tribune_beton",
+      "position": [
+        0,
+        9,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "batiment"
+    },
+    {
+      "id": "caisse_vip",
+      "asset": "primitif:caisse",
+      "position": [
+        -9,
+        7,
+        0
+      ],
+      "rotation_z": 15,
+      "echelle": 0.75,
+      "role": "accessoire"
+    },
+    {
+      "id": "panneau_vip",
+      "asset": "primitif:panneau_entree",
+      "position": [
+        -9,
+        7.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accent",
+      "visible_au_debut": false
+    },
+    {
+      "id": "lampadaire_eclairage",
+      "asset": "bibliotheque:lampadaire_rue",
+      "position": [
+        7.5,
+        7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "panneau_eclairage",
+      "asset": "primitif:panneau_entree",
+      "position": [
+        9.1,
+        7.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accent",
+      "visible_au_debut": false
+    },
+    {
+      "id": "touffe_herbe",
+      "asset": "bibliotheque:touffe_herbe",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "panneau_pelouse",
+      "asset": "primitif:panneau_entree",
+      "position": [
+        -1.4,
+        0.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accent",
+      "visible_au_debut": false
+    },
+    {
+      "id": "panneau_question",
+      "asset": "primitif:panneau_entree",
+      "position": [
+        3,
+        6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accent",
+      "visible_au_debut": false
+    },
+    {
+      "id": "gravat_1",
+      "asset": "bibliotheque:rochers",
+      "position": [
+        -3,
+        7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "roche"
+    },
+    {
+      "id": "gravat_2",
+      "asset": "bibliotheque:rochers",
+      "position": [
+        3.5,
+        7,
+        0
+      ],
+      "rotation_z": 40,
+      "echelle": 1,
+      "role": "roche"
+    },
+    {
+      "id": "gravat_3",
+      "asset": "bibliotheque:rochers",
+      "position": [
+        5,
+        -6.5,
+        0
+      ],
+      "rotation_z": 80,
+      "echelle": 1,
+      "role": "roche"
+    },
+    {
+      "id": "gravat_4",
+      "asset": "bibliotheque:rochers",
+      "position": [
+        -9,
+        -5,
+        0
+      ],
+      "rotation_z": 120,
+      "echelle": 1,
+      "role": "roche"
+    },
+    {
+      "id": "flaque_1",
+      "asset": "primitif:flaque",
+      "position": [
+        -4,
+        -2,
+        0.02
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "flaque_2",
+      "asset": "primitif:flaque",
+      "position": [
+        6,
+        -3,
+        0.02
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "tonneau_1",
+      "asset": "bibliotheque:tonneau",
+      "position": [
+        11,
+        -4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "tonneau_2",
+      "asset": "bibliotheque:tonneau",
+      "position": [
+        11,
+        -3,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "drapeau_coin",
+      "asset": "bibliotheque:drapeau",
+      "position": [
+        -10,
+        -6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accent"
+    },
+    {
+      "id": "planches",
+      "asset": "bibliotheque:planches",
+      "position": [
+        -11,
+        7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "arbre_mort",
+      "asset": "bibliotheque:arbre_mort",
+      "position": [
+        4,
+        12,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "visee_k0",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        6,
+        -0.6
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_k1",
+      "asset": "primitif:repere",
+      "position": [
+        -6.5,
+        5,
+        -0.6
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_k2",
+      "asset": "primitif:repere",
+      "position": [
+        6.5,
+        6,
+        -0.6
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_k3",
+      "asset": "primitif:repere",
+      "position": [
+        0.8,
+        -0.3,
+        -0.6
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_vip",
+      "asset": "primitif:repere",
+      "position": [
+        -9,
+        7.3,
+        -0.5
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_eclairage",
+      "asset": "primitif:repere",
+      "position": [
+        8.9,
+        7.4,
+        0.8
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_pelouse",
+      "asset": "primitif:repere",
+      "position": [
+        -1.05,
+        0.25,
+        -0.7
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_touffe",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        0,
+        -1.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_tribune_d",
+      "asset": "primitif:repere",
+      "position": [
+        3.5,
+        9,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    },
+    {
+      "id": "visee_tribune",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        9,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "accessoire"
+    }
+  ],
+  "personnages": [
+    {
+      "id": "kevin_k0_parle",
+      "asset": "bibliotheque:kevin_parle",
+      "position": [
+        0,
+        6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "kevin_k1_montre",
+      "asset": "bibliotheque:kevin_montre_g",
+      "position": [
+        -6,
+        5,
+        0
+      ],
+      "rotation_z": -25,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_k2_montre",
+      "asset": "bibliotheque:kevin_montre_d",
+      "position": [
+        5.5,
+        5,
+        0
+      ],
+      "rotation_z": 30,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_k3_montre",
+      "asset": "bibliotheque:kevin_montre_g",
+      "position": [
+        1.6,
+        -0.6,
+        0
+      ],
+      "rotation_z": -20,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_k3_parle",
+      "asset": "bibliotheque:kevin_parle",
+      "position": [
+        1.6,
+        -0.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_k0_montre",
+      "asset": "bibliotheque:kevin_montre_d",
+      "position": [
+        0,
+        6,
+        0
+      ],
+      "rotation_z": 35,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_k0_immobile",
+      "asset": "bibliotheque:kevin_immobile",
+      "position": [
+        0,
+        6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    }
+  ],
+  "habillage": {
+    "textes_3d": [
+      {
+        "id": "txt_vip",
+        "texte": "TRIBUNE VIP",
+        "parent": "panneau_vip",
+        "position": [
+          0,
+          -0.07,
+          1.85
+        ],
+        "taille": 0.32,
+        "role": "tissu"
+      },
+      {
+        "id": "txt_eclairage",
+        "texte": "ÉCLAIRAGE",
+        "parent": "panneau_eclairage",
+        "position": [
+          0,
+          -0.07,
+          1.85
+        ],
+        "taille": 0.38,
+        "role": "tissu"
+      },
+      {
+        "id": "txt_pelouse",
+        "texte": "PELOUSE",
+        "parent": "panneau_pelouse",
+        "position": [
+          0,
+          -0.07,
+          1.85
+        ],
+        "taille": 0.44,
+        "role": "tissu"
+      },
+      {
+        "id": "txt_question",
+        "texte": "ON RÉPARE QUOI ?",
+        "parent": "panneau_question",
+        "position": [
+          0,
+          -0.07,
+          1.85
+        ],
+        "taille": 0.22,
+        "role": "tissu"
+      }
+    ],
+    "hud": [
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b16",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b16",
+        "position": "haut_gauche"
+      }
+    ]
+  },
+  "beats": [
+    {
+      "id": "b01",
+      "voix": "Bienvenue au plus grand stade du monde.",
+      "duree_s": 3.0,
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k0",
+        "distance": 4.5,
+        "hauteur": 0.6,
+        "focale": 35
+      },
+      "actions": []
+    },
+    {
+      "id": "b02",
+      "voix": "Je suis président du FC Miteux,",
+      "duree_s": 2.6,
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_k0",
+        "distance": 10,
+        "hauteur": 2.5,
+        "focale": 35
+      },
+      "actions": []
+    },
+    {
+      "id": "b03",
+      "voix": "Entraîneur, et le seul joueur.",
+      "duree_s": 2.4,
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_k0",
+        "distance": 22,
+        "hauteur": 10,
+        "focale": 35
+      },
+      "actions": []
+    },
+    {
+      "id": "b04",
+      "voix": "On commence par l'espace VIP.",
+      "duree_s": 2.5,
+      "plan": {
+        "camera": "survol",
+        "cible": "visee_k1",
+        "distance": 6,
+        "hauteur": 0.8,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_k0_parle",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_k1_montre",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    },
+    {
+      "id": "b05",
+      "voix": "Tribune VIP, places limitées, tout le confort moderne.",
+      "duree_s": 3.5,
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_vip",
+        "distance": 5,
+        "hauteur": 0.5,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "panneau_vip",
+          "debut": 0.0,
+          "duree_s": 0.6
+        },
+        {
+          "type": "cycle",
+          "cible": "caisse_vip",
+          "mot": "places",
+          "duree_s": 2.5,
+          "params": {
+            "nom": "osciller",
+            "amplitude": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "b06",
+      "voix": "Et ici, l'éclairage dernier cri.",
+      "duree_s": 2.0,
+      "plan": {
+        "camera": "travelling_lateral",
+        "cible": "visee_k2",
+        "distance": 7,
+        "hauteur": 0.8,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_k1_montre",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_k2_montre",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    },
+    {
+      "id": "b07",
+      "duree_s": 2.9,
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_eclairage",
+        "distance": 8,
+        "hauteur": 0,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "panneau_eclairage",
+          "debut": 0.0,
+          "duree_s": 0.6
+        },
+        {
+          "type": "grandir",
+          "cible": "lampadaire_eclairage",
+          "debut": 1.0,
+          "duree_s": 0.8,
+          "params": {
+            "facteur": 0.3
+          }
+        },
+        {
+          "type": "disparaitre",
+          "cible": "lampadaire_eclairage",
+          "debut": 2.5,
+          "duree_s": 0.4
+        }
+      ]
+    },
+    {
+      "id": "b08",
+      "voix": "Ambiance tamisée, très tendance.",
+      "duree_s": 1.6,
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_eclairage",
+        "distance": 6.2,
+        "hauteur": 0,
+        "focale": 35
+      },
+      "actions": []
+    },
+    {
+      "id": "b09",
+      "voix": "Gazon entretenu brin par brin.",
+      "duree_s": 2.0,
+      "plan": {
+        "camera": "survol",
+        "cible": "visee_k3",
+        "distance": 6.5,
+        "hauteur": 0.8,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_k2_montre",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_k3_montre",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "duree_s": 2.5,
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_pelouse",
+        "distance": 5.7,
+        "hauteur": 0,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "panneau_pelouse",
+          "debut": 0.0,
+          "duree_s": 0.6
+        },
+        {
+          "type": "grandir",
+          "cible": "touffe_herbe",
+          "debut": 1.0,
+          "duree_s": 0.5,
+          "params": {
+            "facteur": 1.3
+          }
+        },
+        {
+          "type": "disparaitre",
+          "cible": "kevin_k3_montre",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_k3_parle",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    },
+    {
+      "id": "b11",
+      "voix": "Pièce unique, rien que ça.",
+      "duree_s": 2.0,
+      "plan": {
+        "camera": "plongee",
+        "cible": "visee_touffe",
+        "distance": 8,
+        "hauteur": 8.5,
+        "focale": 35
+      },
+      "actions": []
+    },
+    {
+      "id": "b12",
+      "voix": "Et là, mes supporters déchaînés.",
+      "duree_s": 3.0,
+      "plan": {
+        "camera": "orbite",
+        "cible": "visee_k0",
+        "distance": 5,
+        "hauteur": 0.8,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_k3_parle",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_k0_montre",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    },
+    {
+      "id": "b13",
+      "duree_s": 1.5,
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_tribune_d",
+        "distance": 8,
+        "hauteur": 1.0,
+        "focale": 35
+      },
+      "actions": []
+    },
+    {
+      "id": "b14",
+      "voix": "On répare quoi d'abord ? Dis-le en commentaire.",
+      "duree_s": 4.0,
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "panneau_question",
+        "distance": 11,
+        "hauteur": 1.0,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_k0_montre",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_k0_parle",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "panneau_question",
+          "mot": "répare",
+          "duree_s": 0.6
+        }
+      ]
+    },
+    {
+      "id": "b15",
+      "duree_s": 1.0,
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_tribune",
+        "distance": 21,
+        "hauteur": 4,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_k0_parle",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_k0_immobile",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "tourner",
+          "cible": "kevin_k0_immobile",
+          "debut": 0.0,
+          "duree_s": 0.5,
+          "params": {
+            "degres": 180
+          }
+        },
+        {
+          "type": "tourner",
+          "cible": "kevin_k0_immobile",
+          "debut": 0.5,
+          "duree_s": 0.5,
+          "params": {
+            "degres": -180
+          }
+        }
+      ]
+    },
+    {
+      "id": "b16",
+      "voix": "Bienvenue au plus grand stade du monde.",
+      "duree_s": 3.5,
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k0",
+        "distance": 4.5,
+        "hauteur": 0.6,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_k0_immobile",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_k0_parle",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    }
+  ]
+}

@@ -9,7 +9,7 @@
     "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md",
     "beats": "docs/storytelling/beats/2026-11-16-la-visite-guidee.md",
     "decoupage": "docs/storytelling/decoupage/2026-11-16-la-visite-guidee.md",
-    "fiche": null,
+    "fiche": "episodes/lancement-du-club.json",
     "animatique": null,
     "video": null
   },
@@ -59,7 +59,11 @@
     }
   },
   "machine_requise": "PC de Guillaume (Blender + GPU)",
-  "blocage": null,
+  "blocage": {
+    "date": "2026-11-16T22:50:00+01:00",
+    "raison": "Code 3 à la validation de la fiche (--valider-seulement) : 8 assets manquants (Kevin × 4 attitudes, terrain_miteux, but_rouille, tribune_beton, touffe_herbe ; caisse sourcée souhaitée). Contrat et modération OK. Pack de DA « stade » absent (test_lowpoly provisoire).",
+    "quoi_faire": "Guillaume choisit les assets parmi les candidats de prod-chef (rien n'est téléchargé avant), puis la session principale crée la plaquette Figma à valider par Guillaume ; prod-directeur-artistique écrit le pack « stade »."
+  },
   "historique": [
     {
       "date": "2026-11-16T14:45:00+01:00",
@@ -255,6 +259,16 @@
       "date": "2026-11-16T22:15:00+01:00",
       "etape": "fiche",
       "evenement": "Appel de prod-chef : fiche par prod-realisateur, validation, puis contenu de la plaquette Figma ; aucun rendu avant validation de la plaquette par Guillaume."
+    },
+    {
+      "date": "2026-11-16T22:50:00+01:00",
+      "etape": "fiche",
+      "evenement": "Fiche episodes/lancement-du-club.json écrite par prod-realisateur (v1.1, durées imposées, Kevin échangé sur les coupes). 9 propositions à valider (pack_da test_lowpoly provisoire, rotation des buts, id de série, habillage.json non écrit, etc.)."
+    },
+    {
+      "date": "2026-11-16T22:50:00+01:00",
+      "etape": "fiche",
+      "evenement": "Validation --valider-seulement : code 3 (bibliothécaire), 8 assets manquants ; candidats proposés par prod-chef, rien téléchargé. Contenu de la plaquette Figma préparé, plaquette non créée. Blocage : choix des assets par Guillaume."
     }
   ]
 }
