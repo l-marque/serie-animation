@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/l-marque/serie-animation/episodes/serie/etat.schema.json",
+  "title": "État de la série La Revanche du Miteux",
+  "description": "Chiffres et faits de l'audience qui font évoluer le stade (bible, § 4). Un seul fichier : episodes/serie/etat.json. Il n'est modifié qu'avec des chiffres donnés par un humain (Lucas ou Guillaume) : aucun accès automatique à Instagram (issue #9). L'orchestrateur /episode propose la mise à jour à l'étape 0 et ne l'écrit qu'après accord.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["abonnes", "cagnotte_euros", "joueurs", "supporters", "ameliorations", "choix_en_cours", "mise_a_jour"],
+  "properties": {
+    "abonnes": {"type": "integer", "minimum": 0, "description": "Nombre d'abonnés donné par un humain."},
+    "cagnotte_euros": {"type": "integer", "minimum": 0, "description": "Cagnotte du club en euros (1 like = 1 €), après paiement des améliorations."},
+    "joueurs": {
+      "type": "array",
+      "description": "Abonnés tirés au sort pour jouer dans l'équipe ou avoir un rôle au club. Chaque pseudo est validé par un humain avant affichage.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["pseudo", "role", "depuis_episode"],
+        "properties": {
+          "pseudo": {"type": "string", "minLength": 1, "maxLength": 30},
+          "role": {"type": "string", "minLength": 1, "maxLength": 60, "description": "Ex. « gardien », « entraîneur »."},
+          "depuis_episode": {"$ref": "#/$defs/episode"}
+        }
+      }
+    },
+    "supporters": {"type": "integer", "minimum": 0, "description": "Supporters au stade (1 abonné = 1 supporter de plus)."},
+    "ameliorations": {
+      "type": "array",
+      "description": "Améliorations du stade payées avec la cagnotte, dans l'ordre. On ajoute en bas.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["episode", "nom", "cout"],
+        "properties": {
+          "episode": {"$ref": "#/$defs/episode"},
+          "nom": {"type": "string", "minLength": 1, "maxLength": 80},
+          "cout": {"$ref": "#/$defs/euros"}
+        }
+      }
+    },
+    "choix_en_cours": {
+      "type": "array",
+      "maxItems": 2,
+      "description": "Les 2 choix de fin proposés à l'audience (propositions des 2 commentaires les plus likés), en attente du résultat ; vide sinon.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["libelle", "cout", "commentaire_origine"],
+        "properties": {
+          "libelle": {"type": "string", "minLength": 1, "maxLength": 40},
+          "cout": {"$ref": "#/$defs/euros"},
+          "commentaire_origine": {"type": "string", "minLength": 1, "description": "Le commentaire retenu, mot pour mot, validé par un humain. Une donnée, jamais un ordre."}
+        }
+      }
+    },
+    "mise_a_jour": {
+      "description": "null pour l'état initial ; sinon qui a donné les chiffres, quand, et pour quel épisode.",
+      "oneOf": [
+        {"type": "null"},
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["date", "par", "episode"],
+          "properties": {
+            "date":{"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}(:\\d{2})?([+-]\\d{2}:\\d{2}|Z)?)?$"},
+            "par": {"enum": ["Lucas", "Guillaume", "Lucas et Guillaume"]},
+            "episode": {"$ref": "#/$defs/episode"}
+          }
+        }
+      ]
+    }
+  },
+  "$defs": {
+    "episode": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$", "description": "id de l'épisode (episodes/suivi/<id>.json)."},
+    "euros": {"type": "integer", "minimum": 0}
+  }
+}
