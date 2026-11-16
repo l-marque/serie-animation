@@ -58,13 +58,23 @@ def valider(donnees: dict[str, Any], fiche: dict[str, Any]) -> list[dict[str, An
     return textes
 
 
-def charger(fiche_source: Path | None, fiche: dict[str, Any]) -> list[dict[str, Any]]:
-    """Textes 3D de l'habillage de la fiche, ou [] s'il n'y a pas de fichier d'habillage."""
+def lire(fiche_source: Path | None) -> dict[str, Any] | None:
     chemin = chemin_pour(fiche_source)
     if chemin is None or not chemin.is_file():
-        return []
+        return None
     try:
-        donnees = json.loads(chemin.read_text(encoding="utf-8"))
+        return json.loads(chemin.read_text(encoding="utf-8"))
     except json.JSONDecodeError as e:
         raise HabillageInvalide([f"{chemin.name} : JSON illisible ({e})"]) from e
-    return valider(donnees, fiche)
+
+
+def charger(fiche_source: Path | None, fiche: dict[str, Any]) -> list[dict[str, Any]]:
+    """Textes 3D de l'habillage de la fiche, ou [] s'il n'y a pas de fichier d'habillage."""
+    donnees = lire(fiche_source)
+    return [] if donnees is None else valider(donnees, fiche)
+
+
+def charger_hud(fiche_source: Path | None) -> list[dict[str, Any]]:
+    """Éléments du HUD (déjà validés par le schéma lors de charger()), ou [] sans habillage."""
+    donnees = lire(fiche_source)
+    return [] if donnees is None else list(donnees.get("hud", []))

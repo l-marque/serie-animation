@@ -1,8 +1,9 @@
 """Effets sonores synthétisés (aucun fichier externe, donc aucune licence à gérer).
 
-Deux sons, générés une fois puis mis en cache :
+Trois sons, générés une fois puis mis en cache :
     pop     apparition d'un objet (actions 'apparaitre' et 'grandir')
     souffle transition entre deux plans (début de chaque beat, sauf le premier)
+    piece   gain de pièces (habillage HUD) : deux notes aiguës rapides, façon jeu vidéo
 
 Les Reels de référence ponctuent chaque apparition et chaque coupe d'un son court : c'est ce qui
 donne le rythme, même avec une voix calme. Le volume reste bas pour ne jamais couvrir la voix.
@@ -63,8 +64,23 @@ def _souffle() -> list[float]:
     return sortie
 
 
+def _piece() -> list[float]:
+    """Deux notes en onde carrée adoucie (si 5 puis mi 6), la seconde tenue et décroissante (≈ 0,4 s)."""
+    sortie = []
+    for f, duree, decroissance in ((987.77, 0.075, 6.0), (1318.51, 0.33, 9.0)):
+        n = int(duree * FREQUENCE)
+        for i in range(n):
+            t = i / FREQUENCE
+            carre = sum(math.sin(2 * math.pi * f * k * t) / k for k in (1, 3, 5))  # carré « doux » (3 harmoniques)
+            sortie.append(0.55 * carre * math.exp(-t * decroissance) * min(1.0, i / 60))
+    return sortie
+
+
+VOLUME_PIECE = 0.3
+
+
 def fichiers() -> dict[str, Path]:
-    sons = {"pop": _pop, "souffle": _souffle}
+    sons = {"pop": _pop, "souffle": _souffle, "piece": _piece}
     return {nom: (DOSSIER / f"{nom}.wav") if (DOSSIER / f"{nom}.wav").is_file() else _ecrire(DOSSIER / f"{nom}.wav", f())
             for nom, f in sons.items()}
 

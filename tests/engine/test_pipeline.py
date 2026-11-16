@@ -362,3 +362,54 @@ def test_habillage_valide_et_controle_les_parents():
 def test_habillage_absent_ne_change_rien(tmp_path):
     from engine.pipeline import habillage
     assert habillage.charger(tmp_path / "ep.json", {}) == []
+
+
+@pytest.mark.parametrize("licence,ok", [("CC0", True), ("CC0 1.0 Universal", True), ("CC-BY 3.0", True),
+                                        ("CREATIVE_COMMONS_BY", True), ("Public Domain", True), ("CC-BY-NC", False),
+                                        ("CC BY-SA 4.0", False), ("CC-BY-ND 4.0", False), ("Editorial", False),
+                                        ("inconnue", False), ("CC Attribution", True), ("CC Attribution-NonCommercial", False), ("CC Attribution-ShareAlike", False), ("CC0 Public Domain", True)])
+def test_licences_acceptees(licence, ok):
+    from engine.pipeline.sources_assets import licence_acceptee
+    assert licence_acceptee(licence) is ok
+
+
+def _timeline_hud():
+    return {"duree_totale_s": 10.0, "fps": 30, "beats": [
+        {"id": "b1", "debut_s": 0.0, "fin_s": 4.0, "mots": [{"mot": "chaque", "debut": 0.5, "fin": 0.9},
+                                                          {"mot": "like,", "debut": 1.0, "fin": 1.3}]},
+        {"id": "b2", "debut_s": 4.0, "fin_s": 8.0, "mots": []}]}
+
+
+def test_hud_resout_les_instants_et_refuse_un_mot_absent():
+    from engine.pipeline import hud
+    tl = _timeline_hud()
+    r = hud.resoudre([{"type": "compteur", "beat": "b1", "mot": "like", "valeur": 990, "vers": 1000, "jusqu_au_beat": "b2"},
+                      {"type": "gain", "beat": "b1", "mot": "like"}], tl)
+    assert (r[0]["debut_s"], r[0]["fin_s"]) == (1.0, 8.0)
+    assert r[1]["fin_s"] == pytest.approx(1.0 + hud.DUREE_GAIN_S)
+    assert hud.sons(r) == [("piece", 1.0 + hud.DUREE_POP_S), ("piece", 1.0)]
+    with pytest.raises(hud.HudInvalide, match="apparaît pas"):
+        hud.resoudre([{"type": "gain", "beat": "b1", "mot": "abonnement"}], tl)
+
+
+def test_hud_rend_des_sequences_transparentes(tmp_path):
+    from PIL import Image
+    from engine.pipeline import hud
+    r = hud.resoudre([{"type": "compteur", "icone": "habitant", "beat": "b1", "debut": 0.0, "valeur": 12, "vers": 13},
+                      {"type": "gain", "beat": "b1", "mot": "like", "position": [0.5, 0.6]}], _timeline_hud())
+    seqs = hud.preparer(r, 30, 540, 960, tmp_path)
+    assert len(seqs) == 2 and all(s.nb_images > 0 for s in seqs)
+    for s in seqs:
+        with Image.open(s.dossier / "0010.png") as im:
+            assert im.mode == "RGBA" and s.x + im.width <= 540 and s.y + im.height <= 960
+
+
+def test_cles_env_tolerantes(tmp_path, monkeypatch):
+    from engine.pipeline import chemins, sources_assets
+    (tmp_path / ".env").write_text("API_Poly_Pizza=abc\nAPI_3D_Texel :tx_live_123\n", encoding="utf-8")
+    monkeypatch.setattr(chemins, "RACINE", tmp_path)
+    for nom in ("POLY_PIZZA_KEY", "TEXEL_API_KEY", "SKETCHFAB_TOKEN"):
+        monkeypatch.delenv(nom, raising=False)
+    assert sources_assets._env("POLY_PIZZA_KEY") == "abc"
+    assert sources_assets._env("TEXEL_API_KEY") == "tx_live_123"
+    assert sources_assets._env("SKETCHFAB_TOKEN") is None

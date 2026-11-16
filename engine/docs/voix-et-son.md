@@ -47,3 +47,7 @@ Voix par défaut (si le pack n'en indique pas) : `unmute-prod-website/fabieng-en
 - Horodatage des mots : précision d'environ ±0,2 s (pas de 80 ms du modèle). Si le découpage du modèle ne correspond pas aux mots du texte, le module revient à une répartition au prorata des lettres (`origine_mots: estimation` dans le rapport).
 - Une phrase inchangée n'est jamais resynthétisée (cache `renders/_cache_voix`, clé = moteur + voix + texte) ; les fichiers sont recopiés dans `renders/<épisode>/<mode>/voix/`.
 - `--valider-seulement` ne synthétise rien (timings estimés), pour rester instantané.
+
+## Son de pièce (HUD)
+
+`piece` : deux notes aiguës en onde carrée adoucie (si 5 puis mi 6, ≈ 0,4 s), synthétisées comme les autres effets (aucune licence). Joué à chaque gain « +10 » et quand un compteur de pièces commence à défiler (`engine/pipeline/hud.py`).

@@ -15,7 +15,7 @@ from typing import Any
 
 from PIL import Image
 
-from . import chemins, effets_sonores
+from . import chemins, effets_sonores, hud
 from .realisateur import AVANCE_VOIX_S
 
 MOTS_PAR_SOUS_TITRE = 3
@@ -135,12 +135,21 @@ def taille_frames(dossier_frames: Path) -> tuple[int, int]:
 
 
 def commande_ffmpeg(timeline: dict[str, Any], dossier: Path, largeur: int, hauteur: int,
-                    nom_sortie: str = "episode.mp4") -> list[str]:
+                    nom_sortie: str = "episode.mp4", sequences_hud: list[hud.Sequence] | None = None) -> list[str]:
     fps, duree = timeline["fps"], timeline["duree_totale_s"]
     cmd = [ffmpeg_disponible(), "-y", "-hide_banner", "-loglevel", "error",
            "-framerate", str(fps), "-start_number", "1", "-i", "frames/f_%04d.png"]
     entrees_audio, filtres = [], []
     index = 1
+    # Habillage 2D (HUD) : chaque séquence PNG est décalée à son instant puis superposée.
+    chaine_video, etiquette = [f"[0:v]scale={largeur}:{hauteur}:flags=lanczos,format=rgba[b0]"], "b0"
+    for k, seq in enumerate(sequences_hud or []):
+        cmd += ["-framerate", str(fps), "-start_number", "0", "-i", (seq.dossier / "%04d.png").relative_to(dossier).as_posix()]
+        chaine_video.append(f"[{index}:v]format=rgba,setpts=PTS-STARTPTS+{seq.debut_s:.3f}/TB[h{k}]")
+        chaine_video.append(f"[{etiquette}][h{k}]overlay=x={seq.x}:y={seq.y}:eof_action=pass:"
+                            f"enable='between(t,{seq.debut_s:.3f},{seq.fin_s:.3f})'[b{k + 1}]")
+        etiquette = f"b{k + 1}"
+        index += 1
     for b in timeline["beats"]:
         f = b.get("voix_fichier")
         if f:
@@ -155,7 +164,9 @@ def commande_ffmpeg(timeline: dict[str, Any], dossier: Path, largeur: int, haute
     voix_presentes = list(entrees_audio)
     if timeline["pack_da"].get("effets_sonores", True):
         sons = effets_sonores.fichiers()
-        for nom, instant, volume in effets_sonores.evenements(timeline):
+        evenements = effets_sonores.evenements(timeline) + [
+            (nom, t, effets_sonores.VOLUME_PIECE) for nom, t in hud.sons(timeline.get("hud", []))]
+        for nom, instant, volume in sorted(evenements, key=lambda e: e[1]):
             cmd += ["-i", str(sons[nom])]
             ms = int(round(instant * 1000))
             filtres.append(f"[{index}:a]aresample=48000,volume={volume},adelay={ms}|{ms}[a{index}]")
@@ -181,7 +192,8 @@ def commande_ffmpeg(timeline: dict[str, Any], dossier: Path, largeur: int, haute
     # Piste silencieuse : garantit une piste audio de la bonne durée (exigée par certaines plateformes).
     cmd += ["-f", "lavfi", "-t", f"{duree:.3f}", "-i", "anullsrc=r=48000:cl=stereo"]
     entrees_audio.append(f"[{index}:a]")
-    filtres.insert(0, f"[0:v]scale={largeur}:{hauteur}:flags=lanczos,ass=sous_titres.ass,format=yuv420p[v]")
+    chaine_video.append(f"[{etiquette}]ass=sous_titres.ass,format=yuv420p[v]")
+    filtres = chaine_video + filtres
     # Volume final normalisé à -14 LUFS (niveau visé par Instagram, TikTok et YouTube), crêtes à -1,5 dBTP.
     filtres.append(f"{''.join(entrees_audio)}amix=inputs={len(entrees_audio)}:duration=longest:normalize=0,"
                    f"loudnorm=I=-14:TP=-1.5:LRA=11,aresample=48000[a]")
@@ -194,7 +206,11 @@ def commande_ffmpeg(timeline: dict[str, Any], dossier: Path, largeur: int, haute
 def monter(timeline: dict[str, Any], dossier: Path) -> Path:
     largeur, hauteur = taille_frames(dossier / "frames")
     ecrire_ass(timeline, largeur, hauteur, dossier / "sous_titres.ass")
-    cmd = commande_ffmpeg(timeline, dossier, largeur, hauteur)
+    try:
+        sequences = hud.preparer(timeline.get("hud", []), timeline["fps"], largeur, hauteur, dossier)
+    except hud.HudInvalide as e:
+        raise MontageErreur(str(e)) from e
+    cmd = commande_ffmpeg(timeline, dossier, largeur, hauteur, sequences_hud=sequences)
     res = subprocess.run(cmd, cwd=dossier, capture_output=True, text=True)
     if res.returncode != 0:
         raise MontageErreur(f"ffmpeg a échoué (code {res.returncode}) : {res.stderr.strip()[-1500:]}")

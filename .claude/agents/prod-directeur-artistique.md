@@ -72,9 +72,9 @@ Règles de lisibilité, à respecter dans chaque proposition :
    ```
    et transmets la planche contact à `prod-controle-qualite` (via le champ SUITE) : c'est lui qui juge l'image, pas toi.
 
-## Étape 4 (optionnelle) : planche d'ambiance dans Figma
+## Étape 4 (obligatoire) : contenu de la plaquette Figma
 
-Seulement si un humain la demande ou si le choix entre les 3 directions est difficile sans voir. Ce n'est **pas** la source de vérité : Blender ne lit pas Figma, seul le pack JSON compte.
+Depuis le 2026-11-16, chaque vidéo passe par une plaquette Figma validée par Guillaume avant tout rendu (`engine/docs/plaquette-figma.md`). Tu fournis la partie direction artistique de cette plaquette. Ce n'est **pas** la source de vérité : Blender ne lit pas Figma, seul le pack JSON compte.
 
 - Contenu d'une planche : la palette (pastilles avec hex et rôle), le nom et l'intention, 2 ou 3 vignettes (captures de l'animatique si elles existent, sinon formes simples), un exemple de texte à l'écran et de sous-titre avec la police choisie, au format 9:16.
 - Cet agent n'a pas les outils Figma : prépare le contenu de la planche dans ta réponse ; c'est la session principale (qui a le connecteur Figma) qui la crée. Mets ensuite le lien dans `planche_figma` du pack.
