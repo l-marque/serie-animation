@@ -38,7 +38,7 @@ Tu appelles `story-chef` avec l'outil `Agent`, **un passage à la fois**, tel qu
 
 ## b. Production (pôle Production, via `prod-chef`)
 
-Avant toute étape de production : section « Branche et machines », **vérification de Blender**. Passe `machine_requise` à `"PC de Guillaume (Blender + GPU)"`.
+Avant toute étape de production : **les arrêts 1 à 4 du suivi doivent être `valide`** (sinon tu t'arrêtes et tu le dis : tu ne repars jamais en production sur un arrêt en attente ou refusé, même si l'étape courante l'indique), puis section « Branche et machines », **vérification de Blender**. Passe `machine_requise` à `"PC de Guillaume (Blender + GPU)"`.
 
 1. **Fiche et validation** (`etape_courante: "fiche"`) : appelle `prod-chef` avec le bloc `REMISE À LA PRODUCTION` rendu par `story-chef` (passage 5), tel quel, et la consigne : « Fais traduire ce découpage en fiche par prod-realisateur (section "Si un découpage du pôle Storytelling existe"), valide-la, puis lance l'animatique. » `prod-chef` appelle lui-même `prod-realisateur` quand il a l'outil `Agent` ; sinon il rend `SUITE : prod-realisateur` et tu fais l'appel, puis tu relances `prod-chef` avec le chemin de la fiche.
 2. **Animatique** (`"animatique"`) : lancée par `prod-chef` (jamais par toi en direct). Note dans `fichiers` la fiche et le dossier `renders/<id>/animatique/`.
@@ -91,7 +91,7 @@ python -c "import json,jsonschema; jsonschema.validate(json.load(open('episodes/
 4. Reprends à `etape_courante` :
    - **arrêt en attente** : re-présente ce qui attend la décision **à partir des fichiers déjà produits** (aucun agent relancé) — pour l'ARRÊT 4 : chemin du découpage, nombre de plans, mouvements de caméra, briques manquantes, points « À confirmer par Guillaume », questions pour Lucas, dernier verdict de continuité connu (historique) — puis attends la réponse ;
    - **blocage** : rappelle-le et ce qu'il faut faire ; ne continue que si l'humain dit qu'il est levé ;
-   - **étape de production** : vérification de Blender d'abord.
+   - **étape de production** : vérifie d'abord que les arrêts 1 à 4 sont `valide`, puis Blender.
 
 ## Branche et machines
 
