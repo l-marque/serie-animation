@@ -18,7 +18,8 @@ Usage (depuis la racine du dépôt) :
   9. continuite     enregistrer l'état de fin (mode final uniquement)
 
 Codes de sortie : 0 succès · 2 fiche invalide · 3 assets manquants · 4 échec Blender
-                  5 échec montage · 6 contrôles qualité en échec · 7 échec de la voix · 1 erreur inattendue.
+                  5 échec montage · 6 contrôles qualité en échec · 7 échec de la voix
+                  8 texte refusé par la modération · 1 erreur inattendue.
 Le rapport complet est écrit dans renders/<episode>/<mode>/rapport.json et une ligne
 de synthèse JSON est imprimée en dernier sur la sortie standard (lisible par un agent).
 """
@@ -34,7 +35,8 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from . import bibliothecaire, cache, chemins, continuite, contrat, habillage, hud, montage, qa_auto, realisateur, sons, voix
+from . import (bibliothecaire, cache, chemins, continuite, contrat, habillage, hud, montage, qa_auto, realisateur, sons,
+               textes_ecran, voix)
 
 
 # Suite à donner selon le code de sortie (lue par prod-chef ou par l'automatisation de Lucas).
@@ -111,6 +113,25 @@ def executer(args: argparse.Namespace) -> int:
     if notes:
         fiche = contrat.valider_donnees(donnees, source=fiche.source)
     rapport.etape("continuite", "OK", notes=notes, resume="; ".join(notes) or "sans objet")
+
+    # 2b. Textes affichés ou lus (avant la synthèse vocale : un texte refusé n'est jamais dit)
+    try:
+        habillage_brut, _ = habillage.assembler(fiche.source, fiche.donnees)
+    except habillage.HabillageInvalide as e:
+        rapport.etape("textes", "ECHEC", erreurs=e.erreurs, resume="habillage illisible")
+        return rapport.terminer(2, etape_bloquante="textes", erreurs=e.erreurs)
+    moderation = textes_ecran.verifier_episode(fiche.donnees, habillage_brut)
+    if not moderation.ok:
+        rapport.etape("textes", "ECHEC", erreurs=moderation.refus, resume=f"{len(moderation.refus)} texte(s) refusé(s)")
+        for err in moderation.refus:
+            print(f"   - {err}")
+        return rapport.terminer(8, etape_bloquante="textes", erreurs=moderation.refus, suite="humain")
+    if moderation.pseudos:
+        rapport.donnees["avertissements"].append(
+            f"{len(moderation.pseudos)} pseudo(s) à faire valider par un humain dans la plaquette : "
+            + ", ".join(sorted({p['pseudo'] for p in moderation.pseudos})))
+    rapport.etape("textes", "OK", pseudos_a_valider=moderation.pseudos,
+                  resume=f"{len(moderation.pseudos)} pseudo(s) à valider" if moderation.pseudos else "aucun pseudo")
 
     # 3. Bibliothécaire
     verif = bibliothecaire.verifier(fiche.donnees)

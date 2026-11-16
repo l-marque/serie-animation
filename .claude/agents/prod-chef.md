@@ -51,6 +51,7 @@ python -m engine.pipeline.run episodes/<id>.json --valider-seulement
 ```
 - Lis la dernière ligne `SYNTHESE {...}`. Code 2 → arrête-toi, renvoie la liste exacte des erreurs et la `suite` indiquée par la synthèse (`prod-realisateur`, ou `prod-directeur-artistique` si seul le pack de DA pose problème).
 - Code 3 → assets manquants : applique la section « Assets manquants » ci-dessous.
+- Code 8 → un texte affiché ou lu a été refusé par la modération (`engine/pipeline/textes_ecran.py`) : arrête-toi et rends la main à un humain. Si le rapport liste des **pseudos à valider**, ils doivent figurer dans la plaquette Figma (rubrique « Textes venus de l'audience »).
 
 ### 3. Animatique (par défaut, sauf demande explicite de final)
 ```bash
@@ -74,6 +75,7 @@ python -m engine.pipeline.run episodes/<id>.json --mode animatique
 | 4 | échec Blender | Chemin de `blender.log` + 25 dernières lignes + `suite: maintenance` |
 | 5 | échec montage (ffmpeg) | Message d'erreur + `suite: maintenance` |
 | 6 | contrôles automatiques en échec | Liste des problèmes + `suite: prod-controle-qualite` |
+| 8 | texte refusé par la modération (insulte, lien, caractère invisible, pseudo douteux) | Liste exacte des textes refusés + `suite: humain`. **Ne réécris jamais toi-même un texte ou un pseudo d'abonné** pour passer le filtre : c'est à Lucas ou Guillaume de le remplacer, ou d'ajouter une exception relue dans `engine/assets/moderation/exceptions.txt`. |
 | 1 | erreur inattendue | Trace complète + `suite: maintenance` |
 
 ### 5. Rendu final (seulement si un humain l'a explicitement demandé, après validation de l'animatique)

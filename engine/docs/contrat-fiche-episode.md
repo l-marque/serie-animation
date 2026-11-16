@@ -21,7 +21,7 @@ Le pôle Storytelling (agent `story-fiche`) ou un humain envoie au pôle Product
 | `personnages` | non | mêmes champs que les éléments |
 | `modules` | non | modules procéduraux (`disperser`) |
 | `audio` | non | `musique` (chemin) et `volume_musique` |
-| `habillage` | non, v1.1 | `textes_3d` (textes posés dans le décor, parentés à un élément : nom de lieu, légendes des cartes de choix) et `hud` (compteurs, gains « +10 ») ; mêmes champs que `engine/schemas/habillage.schema.json` |
+| `habillage` | non, v1.1 | `textes_3d` (textes posés dans le décor, parentés à un élément : nom de lieu, légendes des cartes de choix) et `hud` (compteurs, avec `position` facultative : ancre ou [x, y], défaut en haut à gauche ; gains « +10 ») ; mêmes champs que `engine/schemas/habillage.schema.json` |
 | `beats` | oui | le récit découpé (1 à 60 beats) |
 
 Un **asset** s'écrit `primitif:<nom>` (généré par code) ou `bibliotheque:<id>` (modèle 3D du registre `engine/assets/registre.json`).

@@ -1,0 +1,44 @@
+# Mots refusés dans tout texte affiché ou lu (voix, sous-titres, textes 3D, HUD).
+# Une entrée par ligne, en minuscules, sans accents. « mot* » = refuse aussi tout mot qui commence par « mot ».
+# La comparaison ignore les accents, la casse, les lettres répétées (« fuuuck ») et le leet (0→o, 1→i, 3→e, 4→a, 5→s, @→a, $→s).
+# Liste de départ, à compléter par Lucas et Guillaume. Ce filtre ne remplace pas la relecture humaine.
+# Français
+connard*
+connasse*
+salope*
+pute
+putes
+putain*
+encule*
+enfoire*
+batard*
+fdp
+ntm
+nique*
+niquer*
+merde*
+pd
+pede
+pedes
+tapette
+negre*
+bougnoul*
+youpin*
+bicot*
+# Anglais
+fuck*
+fck
+shit*
+bitch*
+cunt*
+whore*
+slut*
+nigg*
+fag
+fags
+faggot*
+# Haine
+nazi*
+hitler*
+heil
+kkk
