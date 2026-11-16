@@ -60,9 +60,9 @@
   },
   "machine_requise": "PC de Guillaume (Blender + GPU)",
   "blocage": {
-    "date": "2026-11-16T22:50:00+01:00",
-    "raison": "Code 3 à la validation de la fiche (--valider-seulement) : 8 assets manquants (Kevin × 4 attitudes, terrain_miteux, but_rouille, tribune_beton, touffe_herbe ; caisse sourcée souhaitée). Contrat et modération OK. Pack de DA « stade » absent (test_lowpoly provisoire).",
-    "quoi_faire": "Guillaume choisit les assets parmi les candidats de prod-chef (rien n'est téléchargé avant), puis la session principale crée la plaquette Figma à valider par Guillaume ; prod-directeur-artistique écrit le pack « stade »."
+    "date": "2026-11-16T23:05:00+01:00",
+    "raison": "Connecteur Figma absent dans cette session (« MCP server \"claude.ai Figma\" is not connected ») : la plaquette ne peut pas être créée. En parallèle, assets en cours d'intégration par prod-chef (code 3).",
+    "quoi_faire": "Connecter Figma (commande /mcp, serveur claude.ai Figma), puis demander la création de la plaquette (ou /episode reprendre lancement-du-club)."
   },
   "historique": [
     {
@@ -269,6 +269,16 @@
       "date": "2026-11-16T22:50:00+01:00",
       "etape": "fiche",
       "evenement": "Validation --valider-seulement : code 3 (bibliothécaire), 8 assets manquants ; candidats proposés par prod-chef, rien téléchargé. Contenu de la plaquette Figma préparé, plaquette non créée. Blocage : choix des assets par Guillaume."
+    },
+    {
+      "date": "2026-11-16T22:55:00+01:00",
+      "etape": "fiche",
+      "evenement": "Guillaume, mot pour mot : « je valide et ce qu'il te manque crée le ou fouille plus dans les api ». Interprété : candidats proposés acceptés (tribune, but, caisse, touffe en primitive, texture de terre), recherche approfondie par API ou création pour ce qui manque (Kevin en priorité). Appel de prod-chef pour l'intégration des assets."
+    },
+    {
+      "date": "2026-11-16T23:05:00+01:00",
+      "etape": "plaquette",
+      "evenement": "Guillaume demande où est la plaquette Figma : elle n'était pas créée. Tentative de création : connecteur Figma non connecté dans cette session. Blocage consigné ; aucune autre plaquette de remplacement."
     }
   ]
 }
