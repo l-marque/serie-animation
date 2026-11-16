@@ -4,15 +4,15 @@
 - Beats source : `docs/storytelling/beats/2026-11-16-la-visite-guidee.md` (statut : validé par Lucas le 2026-11-16 ; versions de secours seulement si la voix n° 12 déborde à l'animatique ; pas de mesure avant le découpage ; on garde les 0,7 s à la jonction de la boucle)
 - Scénario source : `docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md` (statut : validé par Lucas le 2026-11-16, avec réserves)
 - Épisode : `lancement-du-club` ; état de la série lu dans `episodes/serie/etat.json` (0 abonné, 0 €, 0 supporter, aucun choix en cours ; il n'a pas été transmis avec la demande, je l'ai lu dans le dépôt)
-- Durée : 40,0 s · Plans : 16 · Mouvements utilisés : plan_fixe × 6, dolly_avant × 3, revelation × 2, survol × 2, travelling_lateral × 1, plongee × 1, orbite × 1 (`descente` non utilisée : ni le scénario ni un humain ne la demande)
-- État réel : document écrit à partir des fichiers du dépôt ; **rien n'a été testé** (aucune validation par le pipeline, aucune animatique). Tous les cadrages sont calculés, pas vus.
+- Durée : 40,0 s · Plans : 16 · Mouvements utilisés : plan_fixe × 6, dolly_avant × 3, revelation × 2, survol × 2, travelling_lateral × 1, plongee × 1, orbite × 1 (`descente` non utilisée : ni le scénario ni un humain ne la demande ; décompte inchangé après les corrections de continuité)
+- État réel : document écrit à partir des fichiers du dépôt, corrigé après le verdict de `story-continuite` (voir la dernière section) ; **rien n'a été testé** (aucune validation par le pipeline, aucune animatique). Tous les cadrages sont calculés, pas vus.
 
 **Lecture importante pour `prod-realisateur`** :
 
 1. **Durées imposées.** Chaque beat reçoit `duree_s` égale à la durée du fichier de beats : 3,0 ; 2,6 ; 2,4 ; 2,5 ; 3,5 ; 2,0 ; 2,9 ; 1,6 ; 2,0 ; 2,5 ; 2,0 ; 3,0 ; 1,5 ; 4,0 ; 1,0 ; 3,5 (total 40,0 s). Sans cela, le moteur recalcule la durée depuis la voix (+ 0,45 s) et la boucle ne tombe plus à 40,0 s.
 2. **La caméra est toujours du côté −y de sa cible** (`engine/blender/camera.py` : `plan_fixe`, `revelation`, `dolly_avant`, `plongee` et `travelling_lateral` partent de l'angle −90° ; `survol` va de −110° à −70°, `orbite` de −120° à −60°). Aucune vue de côté n'est possible : les « trois quarts » s'obtiennent en tournant Kevin (`rotation_z`), pas la caméra.
 3. **La caméra vise 1,2 m au-dessus de sa cible** et sa position est lue à la première image du beat. Pour cadrer Kevin en pied au-dessus des sous-titres, je vise 0,6 m au-dessus du sol avec des **repères de visée** (`primitif:repere`, sans géométrie). Altitude de la caméra = z du repère + 1,2 + `hauteur`.
-4. **`dolly_avant` va de 1,3 × `distance` à 0,8 × `distance`** ; **`revelation` va de 0,45 × `distance` à `distance`** (hauteur de départ : max(1,0 ; 0,25 × `hauteur`)) ; **`plongee` va de (0,25 × distance ; 1,7 × hauteur) à (0,15 × distance ; 1,2 × hauteur)**. Les plans ci-dessous donnent le paramètre et les distances réelles de départ et d'arrivée.
+4. **`dolly_avant` va de 1,3 × `distance` à 0,8 × `distance`** ; **`revelation` va de 0,45 × `distance` à `distance`** (hauteur de départ : max(1,0 ; 0,25 × `hauteur`)) ; **`plongee` va de (0,25 × distance ; 1,7 × hauteur) à (0,15 × distance ; 1,2 × hauteur)** ; **`travelling_lateral` va de x − 0,4 × `distance` à x + 0,4 × `distance`**, à `distance` devant la cible. Les plans ci-dessous donnent le paramètre et les distances réelles de départ et d'arrivée.
 5. **Kevin change d'attitude et de place sur les coupes** : un élément par station et par attitude, échangé au début du beat (`disparaitre` l'ancien, `apparaitre` le nouveau, `debut` 0,0, durée 0,05 s), méthode décrite dans `.claude/agents/prod-realisateur.md`. Aucun `deplacer` de Kevin.
 6. **Hypothèses de taille** (à confirmer, le modèle n'est pas sourcé) : Kevin mesure 1,75 m, bras ouverts ≈ 1,8 m d'envergure (± 0,9 m), il regarde vers −y à `rotation_z` 0 ; une rotation positive le tourne vers la droite de l'image (sens à vérifier sur la planche contact).
 
@@ -20,7 +20,7 @@
 
 Repère : x vers la droite de l'image d'ouverture, y vers le fond, z vers le haut, en mètres ; origine au centre du décor principal (centre du terrain, où pousse la touffe).
 
-- Sol : oui, taille 120 m (asphalte gris, rôle `sol` du pack ; le plan p03 voit l'horizon, le bord du sol doit rester loin) · Pack de DA proposé : à choisir (aucun pack « stade » n'existe dans `engine/packs_da/` ; à créer)
+- Sol : oui, taille 120 m (asphalte gris, rôle `sol` du pack). **Le bord du sol est visible** dans les plans hauts (p03, p15) et, en ligne fine, dans p07 et p08 : aucun fond ni décor d'horizon ne le cache (voir « Briques manquantes »). Réglage d'atténuation proposé : `taille_sol` 1000 (maximum du schéma), qui réduit la bande sans la supprimer (chiffres en p03 et p15) · Pack de DA proposé : à choisir (aucun pack « stade » n'existe dans `engine/packs_da/` ; à créer)
 
 ### Lieu, ambiance et style (repris du scénario, § « Lieux »)
 
@@ -35,17 +35,17 @@ Dimensions utilisées : `primitif:panneau_entree` 2,4 × 0,9 m, panneau centré 
 | id | Asset | Position x / y / z (m) | Rotation z (°) | Échelle | Rôle | Visible au début | Note (appui, contact) |
 |---|---|---|---|---|---|---|---|
 | terrain | à sourcer ou à construire : « dirt soccer field » / « football pitch lines » / « dry cracked ground texture » ; style low-poly coloré ; indispensable : rectangle de 20 × 12 m en terre sèche ocre, lignes blanches à moitié effacées (touche, ligne médiane, rond central), aucune herbe ; id proposé `bibliotheque:terrain_miteux` ; aucune primitive de repli | 0 / 0 / 0,01 | 0 | 1 | sol | oui | posé à plat sur le sol, 1 cm au-dessus pour éviter le scintillement ; état `terrain_ruine` |
-| but_gauche | à sourcer : « soccer goal » / « football goal low poly » / « rusty goal post » ; low-poly ; indispensable : cage de foot à 7 de 5 × 2 × 1,5 m, rouille orange-brun, filet blanc grisé déchiré ; id proposé `bibliotheque:but_rouille` ; aucune primitive de repli | −10 / 0 / 0 | à régler : ouverture vers +x | 1 | accessoire | oui | posé au sol sur la ligne de but, ouverture vers le centre du terrain. **Visible dans aucun plan** (voir « Écarts ») |
-| but_droit | même modèle ; indispensable en plus : filet absent | 10 / 0 / 0 | à régler : ouverture vers −x | 1 | accessoire | oui | posé au sol. Visible dans aucun plan ; son poteau avant (10 / 2,5) passe à 0,2 m du bord du cadre de p07 |
+| but_gauche | à sourcer : « soccer goal » / « football goal low poly » / « rusty goal post » ; low-poly ; indispensable : cage de foot à 7 de 5 × 2 × 1,5 m, rouille orange-brun, filet blanc grisé déchiré ; id proposé `bibliotheque:but_rouille` ; aucune primitive de repli | −10 / 0 / 0 | à régler : ouverture vers +x | 1 | accessoire | oui | posé au sol sur la ligne de but, ouverture vers le centre du terrain. **Visible dans aucun plan** (voir « Écarts ») ; il reste 0,5 m hors du bord gauche au départ de p05 |
+| but_droit | même modèle ; indispensable en plus : filet absent | 10 / 0 / 0 | à régler : ouverture vers −x | 1 | accessoire | oui | posé au sol. Visible dans aucun plan ; son poteau avant (10 / 2,5) passe à 0,2 m du bord du cadre de p07 ; la caméra de p06 finit à 0,7 m de sa face avant, sans le voir |
 | barriere_1 | bibliotheque:barriere | −7,5 / −7 / 0 | 0 | 1 | accessoire | oui | debout, au sol |
 | barriere_2 | bibliotheque:barriere | −4,5 / −7 / 0 | 30 | 1 | accessoire | oui | scénario : couchée au sol. Le contrat n'a que `rotation_z` : impossible de la coucher (brique manquante). Repli : debout, de travers |
-| barriere_3 | bibliotheque:barriere | −1,5 / −7 / 0 | 0 | 1 | accessoire | oui | debout |
-| barriere_4 | bibliotheque:barriere | 1,5 / −7 / 0 | 0 | 1 | accessoire | oui | debout ; la caméra de p09 passe 0,2 à 0,9 m devant elle |
+| barriere_3 | bibliotheque:barriere | −1,5 / −7 / 0 | 0 | 1 | accessoire | oui | debout ; la caméra de p09 passe 0,6 m devant elle au départ |
+| barriere_4 | bibliotheque:barriere | 1,5 / −7 / 0 | 0 | 1 | accessoire | oui | debout ; la caméra de p09 passe à 0,35 m de la ligne des barrières à mi-plan (y = −6,65), puis à 0,9 m à la fin |
 | barriere_5 | bibliotheque:barriere | 4,5 / −7 / 0 | −30 | 1 | accessoire | oui | scénario : couchée ; même repli que barriere_2 |
 | barriere_6 | bibliotheque:barriere | 7,5 / −7 / 0 | 0 | 1 | accessoire | oui | debout |
 | tribune_supporters | à sourcer : « bleachers » / « concrete grandstand low poly » / « stadium stand » ; low-poly ; indispensable : gradins de quartier en béton gris, 3 rangs, 12 × 3 × 2,5 m, rebords en peinture bleue écaillée, **aucun personnage** ; id proposé `bibliotheque:tribune_beton` ; aucune primitive de repli | 0 / 9 / 0 | 0 | à régler pour 12 m de long | batiment | oui | posée au sol, x de −6 à 6, y de 7,5 à 10,5 ; face vers −y ; état `tribune_vide`, 0 supporter (`etat.json`) |
-| caisse_vip | primitif:caisse (repli) ; mieux, à sourcer : « wooden crate » / « old wood box » / « broken crate low poly » ; indispensable : bois clair, une planche fendue ; id proposé `bibliotheque:caisse_bois` | −8 / 7 / 0 | 15 | 0,75 (côté 0,6 m) | accessoire | oui | posée au sol (la primitive est centrée à 0,4 m × 0,75 = 0,3 m) ; état `caisse_vip_bancale` |
-| panneau_vip | primitif:panneau_entree | −8 / 7,8 / 0 | 0 | 1 | accent | non | 0,8 m derrière la caisse ; x de −9,2 à −6,8, hors de la tribune (qui finit à x = −6) et à 0,8 m du tas de planches |
+| caisse_vip | primitif:caisse (repli) ; mieux, à sourcer : « wooden crate » / « old wood box » / « broken crate low poly » ; indispensable : bois clair, une planche fendue ; id proposé `bibliotheque:caisse_bois` | −9 / 7 / 0 | 15 | 0,75 (côté 0,6 m) | accessoire | oui | posée au sol (la primitive est centrée à 0,4 m × 0,75 = 0,3 m) ; état `caisse_vip_bancale` ; décalée de 1 m vers la gauche par rapport au scénario (correction de p05) |
+| panneau_vip | primitif:panneau_entree | −9 / 7,8 / 0 | 0 | 1 | accent | non | 0,8 m derrière la caisse ; x de −10,2 à −7,8, à 1,8 m de la tribune (qui finit à x = −6) et à 0,8 m du tas de planches |
 | lampadaire_eclairage | bibliotheque:lampadaire_rue (intégré) | 7,5 / 7 / 0 | 0 | 1 | accessoire | oui | au sol, au coin droit de la tribune (1,5 m de son extrémité) ; `lampadaire_debout` → `lampadaire_retreci` (17,0 s) → absent (18,9 s) |
 | panneau_eclairage | primitif:panneau_entree | 9,1 / 7,8 / 0 | 0 | 1 | accent | non | x de 7,9 à 10,3 : le lampadaire (x = 7,5) reste à 0,4 m à sa gauche, sans le cacher |
 | touffe_herbe | à sourcer : « grass tuft » / « grass clump low poly » / « tall grass patch » ; low-poly ; indispensable : vert vif, 0,3 m de haut et de large, base plate ; id proposé `bibliotheque:touffe_herbe` ; aucune primitive de repli | 0 / 0 / 0 | 0 | à régler pour 0,3 m | vegetation | oui | posée sur le terrain, au centre ; `touffe_normale` → `touffe_fiere` (× 1,3 à 23,5 s) |
@@ -55,18 +55,18 @@ Dimensions utilisées : `primitif:panneau_entree` 2,4 × 0,9 m, panneau centré 
 | gravat_2 | bibliotheque:rochers | 3,5 / 7 / 0 | 40 | 1 | roche | oui | au pied de la tribune (premier plan de p13) |
 | gravat_3 | bibliotheque:rochers | 5 / −6,5 / 0 | 80 | 1 | roche | oui | visible dans aucun plan |
 | gravat_4 | bibliotheque:rochers | −9 / −5 / 0 | 120 | 1 | roche | oui | visible dans aucun plan |
-| flaque_1 | primitif:flaque | −4 / −2 / 0,02 | 0 | 1 | (celui de la pièce) | oui | à plat sur le terrain ; vue en p03 |
+| flaque_1 | primitif:flaque | −4 / −2 / 0,02 | 0 | 1 | (celui de la pièce) | oui | à plat sur le terrain ; vue en p03, et en partie au bord gauche au début de p11 |
 | flaque_2 | primitif:flaque | 6 / −3 / 0,02 | 0 | 1 | (celui de la pièce) | oui | visible dans aucun plan |
 | tonneau_1 | bibliotheque:tonneau | 11 / −4 / 0 | 0 | 1 | accessoire | oui | visible dans aucun plan |
 | tonneau_2 | bibliotheque:tonneau | 11 / −3 / 0 | 0 | 1 | accessoire | oui | visible dans aucun plan |
 | drapeau_coin | bibliotheque:drapeau | −10 / −6 / 0 | 0 | 1 | accent | oui | scénario : penché à 20° ; impossible avec `rotation_z` seul (brique manquante), planté droit. Visible dans aucun plan |
-| planches | bibliotheque:planches | −10 / 7 / 0 | 0 | 1 | accessoire | oui | au sol ; bord gauche de p05 au début du plan |
+| planches | bibliotheque:planches | −11 / 7 / 0 | 0 | 1 | accessoire | oui | au sol ; bord gauche de p05 au début du plan ; décalées de 1 m vers la gauche avec la caisse |
 | arbre_mort | bibliotheque:arbre_mort | 4 / 12 / 0 | 0 | 1 | vegetation | oui | 1,5 m derrière la tribune ; sa cime (5 m) dépasse de 2,5 m ; brun, sans feuilles |
 | visee_k0 | primitif:repere | 0 / 6 / −0,6 | 0 | 1 | accessoire | oui | repère de visée sans géométrie. Point visé : Kevin à K0, 0,6 m au-dessus du sol |
-| visee_k1 | primitif:repere | −6 / 5 / −0,6 | 0 | 1 | accessoire | oui | point visé : Kevin à K1, z = 0,6 |
-| visee_k2 | primitif:repere | 5,5 / 5 / −0,6 | 0 | 1 | accessoire | oui | point visé : Kevin à K2, z = 0,6 |
+| visee_k1 | primitif:repere | −6,5 / 5 / −0,6 | 0 | 1 | accessoire | oui | point visé : 0,5 m à gauche de Kevin à K1, z = 0,6 (laisse entrer la caisse en p04) |
+| visee_k2 | primitif:repere | 6,5 / 6 / −0,6 | 0 | 1 | accessoire | oui | point visé : entre Kevin à K2 et le lampadaire, z = 0,6 (garde les deux dans le cadre en p06) |
 | visee_k3 | primitif:repere | 0,8 / −0,3 / −0,6 | 0 | 1 | accessoire | oui | point visé : milieu entre Kevin (K3) et la touffe, z = 0,6 |
-| visee_vip | primitif:repere | −8 / 7,3 / −0,3 | 0 | 1 | accessoire | oui | point visé : entre la caisse et son panneau, z = 0,9 |
+| visee_vip | primitif:repere | −9 / 7,3 / −0,5 | 0 | 1 | accessoire | oui | point visé : entre la caisse et son panneau, z = 0,7 |
 | visee_eclairage | primitif:repere | 8,9 / 7,4 / 0,8 | 0 | 1 | accessoire | oui | point visé : entre le lampadaire et son panneau, z = 2,0 |
 | visee_pelouse | primitif:repere | −1,05 / 0,25 / −0,7 | 0 | 1 | accessoire | oui | point visé : entre la touffe et son panneau, z = 0,5 |
 | visee_touffe | primitif:repere | 0 / 0 / −1,2 | 0 | 1 | accessoire | oui | point visé : la touffe, au sol (z = 0) |
@@ -78,7 +78,7 @@ Personnages (à déclarer dans `personnages`). Kevin est **à sourcer** : « car
 | id | Asset (entrée du registre proposée) | Position x / y / z (m) | Rotation z (°) | Échelle | Rôle | Visible au début | Note |
 |---|---|---|---|---|---|---|---|
 | kevin_k0_parle | bibliotheque:kevin_parle (« parle avec gestes », départ et fin bras grands ouverts) | 0 / 6 / 0 | 0 | 1 | personnage | oui | K0, face caméra ; b01-b03, b14, b16 |
-| kevin_k1_montre | bibliotheque:kevin_montre_g (« montre du bras », bras tendu vers la gauche de l'image) | −6 / 5 / 0 | −25 | 1 | personnage | non | K1 ; bras vers la caisse (à 2,8 m, à gauche et derrière lui) ; b04 |
+| kevin_k1_montre | bibliotheque:kevin_montre_g (« montre du bras », bras tendu vers la gauche de l'image) | −6 / 5 / 0 | −25 | 1 | personnage | non | K1 ; bras vers la caisse (à 3,6 m, à gauche et derrière lui) ; b04 |
 | kevin_k2_montre | bibliotheque:kevin_montre_d (même attitude en miroir, bras vers la droite de l'image) | 5,5 / 5 / 0 | 30 | 1 | personnage | non | K2 ; bras vers le lampadaire (à 2,8 m, à droite et derrière lui) ; b06 |
 | kevin_k3_montre | bibliotheque:kevin_montre_g | 1,6 / −0,6 / 0 | −20 | 1 | personnage | non | K3 ; bras vers la touffe (à 1,7 m, à gauche) ; b09 |
 | kevin_k3_parle | bibliotheque:kevin_parle | 1,6 / −0,6 / 0 | 0 | 1 | personnage | non | K3, face caméra ; b10-b11 (réserve b) |
@@ -97,7 +97,7 @@ Aucune : la tribune a 0 supporter (`etat.json`, `supporters` : 0).
 
 ## Plans
 
-Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visible = 0,29 × distance réelle ; demi-hauteur = 0,51 × distance réelle. Zone des sous-titres : de 67 à 80 % de la hauteur ; les pieds de Kevin et les objets importants restent au-dessus de 65 %.
+Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visible = 0,29 × distance réelle ; demi-hauteur = 0,51 × distance réelle. Zone des sous-titres : de 67 à 80 % de la hauteur ; les pieds de Kevin et les objets importants restent au-dessus de 65 %. Les instants d'entrée et de sortie de champ tiennent compte du lissage des trajectoires (départ et arrivée en douceur).
 
 ### p01 → beat b01 (0,0 → 3,0 s)
 
@@ -141,9 +141,9 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 |---|---|
 | Voix (rappel) | « Entraîneur, et le seul joueur. » |
 | Caméra | revelation · cible visee_k0 · distance 22 m · hauteur 10 m · focale 35 mm (de 9,9 m et 2,5 m de haut à 22 m et 10 m ; arrivée en 0 / −16 / 10,6, distance réelle 24,2 m) |
-| Angle et cadrage | face, plongée de 24° à l'arrivée ; plan large, Kevin petit au centre (7 % de la hauteur) ; demi-largeur visible ≈ 0,29 × 24,2 = 7,0 m à la profondeur de Kevin |
-| Ce qu'on voit | premier plan : barriere_3 et barriere_4, terre ocre, lignes, touffe_herbe, flaque_1 ; centre : kevin_k0_parle seul sur le terrain ; fond : toute la tribune vide (± 6 m), gravat_1, gravat_2, arbre_mort |
-| Ce qu'on ne doit pas voir | pas le bord du sol ; les panneaux (invisibles). Hors cadre malgré le scénario : les 2 buts, la caisse, les tonneaux ; le lampadaire est à la limite droite du cadre |
+| Angle et cadrage | face, plongée de 23° à l'arrivée ; plan large, Kevin petit au centre (7 % de la hauteur) ; demi-largeur visible ≈ 0,29 × 24,2 = 7,0 m à la profondeur de Kevin |
+| Ce qu'on voit | premier plan : barriere_3 et barriere_4, terre ocre, lignes, touffe_herbe, flaque_1 ; centre : kevin_k0_parle seul sur le terrain ; fond : toute la tribune vide (± 6 m), gravat_1, gravat_2, arbre_mort, asphalte jusqu'au bord du sol |
+| Ce qu'on ne doit pas voir | les panneaux (invisibles). Hors cadre malgré le scénario : les 2 buts, la caisse, les tonneaux ; le lampadaire est à la limite droite du cadre. **Non tenu : le bord du sol est visible** à l'arrivée (il est à 7,9° sous l'horizontale ; entre ≈ 9 % et ≈ 24 % de la hauteur de l'image, sur toute la largeur, le fond du monde remplace l'asphalte). Avec `taille_sol` 1000, la bande tombe à ≈ 2,5 % de la hauteur (de 9 à 11 %), juste sous l'horizon : atténuée, pas cachée (voir « Briques manquantes ») |
 | Personnages | kevin_k0_parle : parle avec gestes ; face caméra |
 | Transition vers le plan suivant | coupe |
 | Actions | aucune |
@@ -158,10 +158,10 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Champ | Valeur |
 |---|---|
 | Voix (rappel) | « On commence par l'espace VIP. » |
-| Caméra | survol · cible visee_k1 · distance 6 m · hauteur 0,8 m · focale 35 mm (arc de −110° à −70°, rayon de 6 à 5,7 m, caméra vers z = 1,4) |
-| Angle et cadrage | de face à trois quarts en glissant (Kevin à 5° puis 45° de l'axe) ; plan moyen, Kevin en pied au centre ; demi-largeur visible ≈ 0,29 × 6,05 = 1,75 m |
-| Ce qu'on voit | premier plan : kevin_k1_montre, bras tendu vers la gauche de l'image ; fond : caisse_vip, petite, au bord gauche ; extrémité gauche de la tribune |
-| Ce qu'on ne doit pas voir | panneau_vip (invisible) ; le but gauche |
+| Caméra | survol · cible visee_k1 · distance 6 m · hauteur 0,8 m · focale 35 mm (arc de −110° à −70°, rayon de 6 à 5,7 m ; caméra de −8,55 / −0,64 / 1,4 à −4,55 / −0,36 / 1,3) |
+| Angle et cadrage | de face à trois quarts en glissant (Kevin à 1° puis 40° de l'axe) ; plan moyen, Kevin en pied un peu à droite du centre (≈ 65 % de la largeur tout le plan), son bras tendu vers la gauche de l'image ; demi-largeur visible ≈ 0,29 × 6,05 = 1,75 m à la cible |
+| Ce qu'on voit | premier plan : kevin_k1_montre, bras tendu vers la gauche de l'image ; fond : extrémité gauche de la tribune (tout le plan) ; caisse_vip, petite, **hors cadre au début** : elle entre par le bord gauche vers 9,5 s (dans le dernier tiers du plan) et finit à ≈ 16 % de la largeur |
+| Ce qu'on ne doit pas voir | panneau_vip (invisible) ; le but gauche (hors cadre à gauche tout le plan) |
 | Personnages | kevin_k1_montre : montre du bras ; trois quarts gauche |
 | Transition vers le plan suivant | coupe |
 | Actions | 1. disparaitre kevin_k0_parle, `debut` 0,0, durée 0,05 s → fin à 0,05 s. 2. apparaitre kevin_k1_montre, `debut` 0,0, durée 0,05 s → fin à 0,05 s (marge 2,45 s) |
@@ -169,22 +169,22 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Habillage | cpt_abonnes, cpt_cagnotte |
 | Effets sonores | aucun |
 | Musique | très légère sous la voix |
-| Lisible sans le son | oui — Kevin désigne fièrement quelque chose hors champ |
+| Lisible sans le son | oui — Kevin désigne fièrement quelque chose sur la gauche ; la caisse n'apparaît qu'à la fin du plan, ce qui prépare la chute de p05 |
 
 ### p05 → beat b05 (10,5 → 14,0 s)
 
 | Champ | Valeur |
 |---|---|
 | Voix (rappel) | « Tribune VIP, places limitées, tout le confort moderne. » |
-| Caméra | dolly_avant · cible visee_vip · distance 5,5 m · hauteur 0,5 m · focale 35 mm (de 7,15 m à 4,4 m ; caméra de −8 / 0,15 / 1,5 à −8 / 2,9 / 1,3) |
-| Angle et cadrage | face ; la caisse au centre, à 63 % de la hauteur, le texte du panneau à 28 % ; demi-largeur visible à l'arrivée ≈ 0,29 × 4,9 = 1,42 m à la profondeur du panneau (large de ± 1,2 m) |
-| Ce qu'on voit | premier plan : caisse_vip (`caisse_vip_bancale`) qui vacille ; juste derrière, panneau_vip et txt_vip « TRIBUNE VIP » ; fond : planches au bord gauche (début du plan), ciel |
-| Ce qu'on ne doit pas voir | Kevin (à K1, hors cadre) ; la tribune des supporters ; le but gauche |
+| Caméra | dolly_avant · cible visee_vip · distance 5 m · hauteur 0,5 m · focale 35 mm (de 6,5 m à 4,0 m ; caméra de −9 / 0,8 / 1,3 à −9 / 3,3 / 1,1) |
+| Angle et cadrage | face ; à l'arrivée, la caisse un peu sous le centre (61 % de la hauteur, base à 69 %, au ras du haut de la zone des sous-titres), le texte du panneau à 24 %, le haut du panneau à 14 % ; demi-largeur visible à l'arrivée ≈ 0,29 × 4,5 = 1,30 m à la profondeur du panneau (large de ± 1,2 m : poteaux à 0,1 m des bords ; texte à ± 0,97 m, soit de 12 à 88 % de la largeur) |
+| Ce qu'on voit | premier plan : caisse_vip (`caisse_vip_bancale`) qui vacille ; juste derrière, panneau_vip et txt_vip « TRIBUNE VIP » ; fond : planches au bord gauche (début du plan), asphalte, ciel |
+| Ce qu'on ne doit pas voir | Kevin (à K1 : sa main tendue, vers −6,9 / 5,2, reste ≈ 0,8 m hors du bord droit au départ, et plus loin ensuite) ; la tribune des supporters (son coin arrière, x = −6 et y = 10,5, reste 0,2 m hors du bord droit au départ, 0,9 m à l'arrivée) ; le but gauche (0,5 m hors du bord gauche au départ, derrière la caméra ensuite) |
 | Personnages | aucun à l'image (kevin_k1_montre reste à K1, hors cadre) |
 | Transition vers le plan suivant | coupe |
 | Actions | 1. apparaitre panneau_vip, `debut` 0,0 (sur la coupe, juste avant « Tribune »), durée 0,6 s → fin à 0,6 s (marge 2,9 s). 2. cycle caisse_vip sur « places » (≈ 1,0 s), durée 2,5 s, params nom osciller, amplitude 0,5 → fin à 3,5 s (marge 0 s : mouvement continu jusqu'à la coupe, voulu par le scénario) |
 | Texte à l'écran | rien (texte du décor : txt_vip) |
-| Habillage | cpt_abonnes, cpt_cagnotte, txt_vip |
+| Habillage | cpt_abonnes, cpt_cagnotte, txt_vip (le coin haut gauche du panneau, à 14 % de la hauteur et 4 % de la largeur, peut passer sous les compteurs : à vérifier à l'animatique ; le texte, à 24 %, reste dessous) |
 | Effets sonores | pop automatique à 0,0 s (panneau) ; grincement sur « places » |
 | Musique | très légère sous la voix |
 | Lisible sans le son | oui — un grand panneau « TRIBUNE VIP » au-dessus d'une caisse qui vacille |
@@ -194,10 +194,10 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Champ | Valeur |
 |---|---|
 | Voix (rappel) | « Et ici, l'éclairage dernier cri. » |
-| Caméra | travelling_lateral · cible visee_k2 · distance 6 m · hauteur 0,8 m · focale 35 mm (caméra de 3,1 / −1 / 1,4 à 7,9 / −1 / 1,4, soit 2,4 m/s) |
-| Angle et cadrage | de profil trois quarts à face (Kevin à 52° puis 8° de l'axe) ; plan moyen, Kevin en pied au centre ; demi-largeur visible ≈ 0,29 × 6,0 à 6,5 = 1,75 à 1,9 m |
-| Ce qu'on voit | premier plan : kevin_k2_montre, bras tendu vers la droite de l'image ; fond : lampadaire_eclairage (`lampadaire_debout`, 4 m) à droite, extrémité droite de la tribune |
-| Ce qu'on ne doit pas voir | panneau_eclairage (invisible) ; le but droit |
+| Caméra | travelling_lateral · cible visee_k2 (point entre Kevin et le lampadaire) · distance 7 m · hauteur 0,8 m · focale 35 mm (caméra de 3,7 / −1 / 1,4 à 9,3 / −1 / 1,4, soit 2,8 m/s) |
+| Angle et cadrage | de trois quarts à face (Kevin à 47° puis 2° de l'axe) ; plan moyen ; Kevin en pied passe de 35 % à 18 % de la largeur (pieds à 62 %, tête à 33 % de la hauteur), le lampadaire de 61 % à 78 % de la largeur (pied à 56 %, tête à 7 % de la hauteur) : **les deux restent dans le cadre tout le plan**, le lampadaire hors des 10 % du bord droit ; demi-largeur visible ≈ 0,29 × 7,0 à 7,5 = 2,0 à 2,2 m à la cible |
+| Ce qu'on voit | premier plan : kevin_k2_montre, bras tendu vers la droite de l'image ; fond : lampadaire_eclairage (`lampadaire_debout`, 4 m) à droite, extrémité droite de la tribune ; arbre_mort, qui entre par la gauche vers 14,7 s et finit au centre, derrière la tribune |
+| Ce qu'on ne doit pas voir | panneau_eclairage (invisible) ; le but droit (hors cadre à droite : au moins 33° de l'axe, pour 16° de demi-champ) |
 | Personnages | kevin_k2_montre : montre du bras ; trois quarts droite |
 | Transition vers le plan suivant | coupe |
 | Actions | 1. disparaitre kevin_k1_montre, `debut` 0,0, durée 0,05 s. 2. apparaitre kevin_k2_montre, `debut` 0,0, durée 0,05 s → fin à 0,05 s (marge 1,95 s) |
@@ -205,7 +205,7 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Habillage | cpt_abonnes, cpt_cagnotte |
 | Effets sonores | aucun |
 | Musique | très légère sous la voix |
-| Lisible sans le son | oui — Kevin désigne un lampadaire, la caméra suit son bras |
+| Lisible sans le son | oui — Kevin désigne un lampadaire, la caméra glisse le long de son bras sans perdre ni l'un ni l'autre |
 
 ### p07 → beat b07 (16,0 → 18,9 s)
 
@@ -214,8 +214,8 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Voix (rappel) | muet |
 | Caméra | plan_fixe · cible visee_eclairage · distance 8 m · hauteur 0 m · focale 35 mm (caméra en 8,9 / −0,6 / 2,0) |
 | Angle et cadrage | face, à hauteur du panneau ; lampadaire sur le tiers gauche (pied à 73 % de la hauteur, tête à 27 %), panneau au centre droit ; demi-largeur visible ≈ 0,29 × 8,0 = 2,3 m (lampadaire à −1,4 m, panneau de −1,0 à +1,4 m) |
-| Ce qu'on voit | premier plan : lampadaire_eclairage, qui rétrécit puis disparaît ; panneau_eclairage et txt_eclairage « ÉCLAIRAGE » ; fond : bout droit des derniers rangs de la tribune, arbre_mort au bord gauche |
-| Ce qu'on ne doit pas voir | Kevin (à K2, hors cadre à gauche) ; le poteau du but droit (à 0,2 m du bord droit : à vérifier à l'animatique) |
+| Ce qu'on voit | premier plan : lampadaire_eclairage, qui rétrécit puis disparaît ; panneau_eclairage et txt_eclairage « ÉCLAIRAGE » ; fond : bout droit des derniers rangs de la tribune (0,3 m de large au bord gauche), asphalte, ciel |
+| Ce qu'on ne doit pas voir | Kevin (à K2, hors cadre à gauche) ; l'arbre mort (hors cadre à gauche : tronc à 4,9 m de l'axe pour une demi-largeur de 3,6 m à sa profondeur ; une branche peut toucher le bord gauche, à vérifier) ; le poteau du but droit (à 0,2 m du bord droit : à vérifier à l'animatique). **Non tenu : le bord du sol**, ligne fine à 1,9° sous l'horizon (≈ 53 % de la hauteur), à droite de la tribune (voir « Briques manquantes ») |
 | Personnages | aucun à l'image |
 | Transition vers le plan suivant | raccord dans l'axe : p08 démarre à la même distance (8,06 m) |
 | Actions | 1. apparaitre panneau_eclairage, `debut` 0,0, durée 0,6 s → fin à 0,6 s. 2. grandir lampadaire_eclairage, `debut` 1,0, durée 0,8 s, params facteur 0,3 → fin à 1,8 s. 3. disparaitre lampadaire_eclairage, `debut` 2,5, durée 0,4 s → fin à 2,9 s (marge 0 s : instants fixés par le beat validé ; le résultat reste à l'image 1,6 s dans p08) |
@@ -232,8 +232,8 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Voix (rappel) | « Ambiance tamisée, très tendance. » |
 | Caméra | dolly_avant · cible visee_eclairage · distance 6,2 m · hauteur 0 m · focale 35 mm (de 8,06 m à 4,96 m ; caméra de 8,9 / −0,66 / 2,0 à 8,9 / 2,44 / 2,0) |
 | Angle et cadrage | face ; le panneau seul au centre (texte à 52 % de la hauteur), la place vide du lampadaire à gauche ; demi-largeur visible à l'arrivée ≈ 0,29 × 5,36 = 1,55 m à la profondeur du panneau |
-| Ce qu'on voit | premier plan : panneau_eclairage et txt_eclairage, la place vide du lampadaire (absent) ; fond : ciel, bout de tribune au début du plan |
-| Ce qu'on ne doit pas voir | Kevin ; le lampadaire (disparu) ; le but droit |
+| Ce qu'on voit | premier plan : panneau_eclairage et txt_eclairage, la place vide du lampadaire (absent) ; fond : asphalte, ciel, bout de tribune au début du plan |
+| Ce qu'on ne doit pas voir | Kevin ; le lampadaire (disparu) ; le but droit. **Non tenu : le bord du sol**, même ligne fine qu'en p07 (2° sous l'horizon), visible tant que la tribune ne remplit pas le fond |
 | Personnages | aucun à l'image |
 | Transition vers le plan suivant | coupe |
 | Actions | aucune (la caméra avance dès la première image) |
@@ -248,10 +248,10 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Champ | Valeur |
 |---|---|
 | Voix (rappel) | « Gazon entretenu brin par brin. » |
-| Caméra | survol · cible visee_k3 · distance 6,5 m · hauteur 0,8 m · focale 35 mm (arc de −110° à −70°, rayon de 6,5 à 6,2 m, caméra vers z = 1,4, entre y = −6,8 et −6,1) |
+| Caméra | survol · cible visee_k3 · distance 6,5 m · hauteur 0,8 m · focale 35 mm (arc de −110° à −70°, rayon de 6,5 à 6,2 m ; caméra de −1,4 / −6,4 / 1,4 à 2,9 / −6,1 / 1,3, en passant par y ≈ −6,65 à mi-plan) |
 | Angle et cadrage | de face à trois quarts en glissant (Kevin à 0° puis 40° de l'axe) ; plan moyen, Kevin en pied sur le tiers droit, la touffe sur le tiers gauche ; demi-largeur visible ≈ 0,29 × 6,55 = 1,9 m ; écart Kevin-touffe 1,6 m < 0,25 × 6,5 = 1,63 m |
 | Ce qu'on voit | premier plan : kevin_k3_montre, bras tendu vers la touffe ; touffe_herbe (`touffe_normale`), seule tache verte ; terre ocre, ligne médiane ; fond : tribune vide au loin |
-| Ce qu'on ne doit pas voir | panneau_pelouse (invisible) ; aucune autre végétation verte ; barriere_4 (derrière la caméra) |
+| Ce qu'on ne doit pas voir | panneau_pelouse (invisible) ; aucune autre végétation verte ; barriere_3 et barriere_4 (derrière la caméra, qui reste 0,35 à 0,9 m devant la ligne des barrières, y = −7) |
 | Personnages | kevin_k3_montre : montre du bras ; trois quarts gauche |
 | Transition vers le plan suivant | coupe |
 | Actions | 1. disparaitre kevin_k2_montre, `debut` 0,0, durée 0,05 s. 2. apparaitre kevin_k3_montre, `debut` 0,0, durée 0,05 s → fin à 0,05 s (marge 1,95 s) |
@@ -286,7 +286,7 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Voix (rappel) | « Pièce unique, rien que ça. » |
 | Caméra | plongee · cible visee_touffe · distance 8 m · hauteur 8,5 m · focale 35 mm (caméra de 0 / −2 / 14,45 à 0 / −1,2 / 10,2) |
 | Angle et cadrage | plongée presque verticale (à 8° de la verticale), le haut de l'image vers +y ; la touffe au centre (2,6 puis 3,7 % de la hauteur) ; demi-largeur visible de 0,29 × 14,6 = 4,2 m à 0,29 × 10,3 = 3,0 m ; hauteur visible de 14,8 m à 10,4 m |
-| Ce qu'on voit | premier plan : touffe_herbe (`touffe_fiere`), seule tache verte sur la terre ocre, ligne médiane et rond central à moitié effacés ; kevin_k3_parle vu d'en haut à droite ; panneau_pelouse vu par la tranche à gauche ; au début du plan : flaque hors cadre, barrières tout en bas, premier rang de la tribune tout en haut |
+| Ce qu'on voit | premier plan : touffe_herbe (`touffe_fiere`), seule tache verte sur la terre ocre, ligne médiane et rond central à moitié effacés ; kevin_k3_parle vu d'en haut à droite ; panneau_pelouse vu par la tranche à gauche ; au début du plan : flaque_1 **en partie dans le cadre** au bord gauche (environ 0,7 m de ses ≈ 1 m ; elle sort par la gauche vers 26,1 s), barrières tout en bas, premier rang de la tribune tout en haut |
 | Ce qu'on ne doit pas voir | aucune autre végétation verte ; les buts |
 | Personnages | kevin_k3_parle : parle avec gestes ; face caméra (tourné vers le bas de l'image) |
 | Transition vers le plan suivant | coupe |
@@ -358,8 +358,8 @@ Instants des mots : pause avant + (rang du mot − 1) / 2,5 s. Demi-largeur visi
 | Voix (rappel) | muet |
 | Caméra | plan_fixe · cible visee_tribune · distance 21 m · hauteur 4 m · focale 35 mm (caméra en 0 / −12 / 5,2, distance réelle 21,4 m) |
 | Angle et cadrage | face, plongée de 11° ; plan large ; Kevin au centre (9 % de la hauteur), devant la tribune entière ; demi-largeur visible ≈ 0,29 × 21,4 = 6,2 m à la tribune, 5,3 m à Kevin |
-| Ce qu'on voit | premier plan : terre ocre, touffe_herbe et panneau_pelouse à gauche ; centre : kevin_k0_immobile qui se tourne vers la tribune puis revient, panneau_question à sa droite ; fond : toute la tribune vide, gravats, arbre_mort |
-| Ce qu'on ne doit pas voir | panneau_vip et panneau_eclairage (hors cadre) ; les barrières (sous le cadre) ; pas le bord du sol |
+| Ce qu'on voit | premier plan : terre ocre, touffe_herbe et panneau_pelouse à gauche ; centre : kevin_k0_immobile qui se tourne vers la tribune puis revient, panneau_question à sa droite ; fond : toute la tribune vide, gravats, arbre_mort, bande d'asphalte au-dessus de la tribune |
+| Ce qu'on ne doit pas voir | panneau_vip et panneau_eclairage (hors cadre) ; les barrières (sous le cadre). **Non tenu : le bord du sol est visible** (4,1° sous l'horizontale ; entre ≈ 31 % et ≈ 39 % de la hauteur de l'image, au-dessus de la tribune et de part et d'autre de l'arbre, le fond du monde remplace l'asphalte). Avec `taille_sol` 1000, la bande tombe à ≈ 1 % de la hauteur : atténuée, pas cachée (voir « Briques manquantes ») |
 | Personnages | kevin_k0_immobile : immobile, tourne sur lui-même ; face caméra → dos (0,5 s environ, muet) → face caméra |
 | Transition vers le plan suivant | coupe |
 | Actions | 1. disparaitre kevin_k0_parle, `debut` 0,0, durée 0,05 s. 2. apparaitre kevin_k0_immobile, `debut` 0,0, durée 0,05 s. 3. tourner kevin_k0_immobile, `debut` 0,0, durée 0,5 s, params degres 180 → fin à 0,5 s (marge 0,5 s). 4. tourner kevin_k0_immobile, `debut` 0,5, durée 0,5 s, params degres −180 → fin à 1,0 s (marge 0 s : beat de 1,0 s imposé) |
@@ -467,22 +467,20 @@ Sons automatiques du moteur (`engine/pipeline/effets_sonores.py`), sans rien éc
 | Chaque action finit ≥ 1 s avant la fin de son beat | hors règle : b05 `cycle` de la caisse (marge 0 s, mouvement continu jusqu'à la coupe) ; b07 `disparaitre` du lampadaire (marge 0 s, instant fixé par le beat validé, résultat visible 1,6 s en p08) ; b15 les 2 `tourner` (marges 0,5 et 0 s, beat de 1,0 s) | ÉCART justifié |
 | Chaque mot déclencheur figure dans la voix du beat | « places » (b05, 3e mot sur 8) ; « répare » (b14, 2e mot sur 7) ; toutes les autres actions sont calées par `debut` (beats muets ou échanges sur une coupe) | OK |
 | Au plus 3 actions par beat (hors disparitions groupées justifiées) | b10 : 4, dont 2 hors champ (échange de Kevin, réserve b) ; b15 : 4, dont 2 pour l'échange sur la coupe ; tous les autres ≤ 3 | ÉCART justifié |
-| Sujet dans le cadre (demi-largeur ≈ 0,29 × distance) | tenu dans les 16 plans (valeurs dans chaque tableau). Marges inférieures à 0,4 m, à vérifier à l'animatique : p07 (poteau du but droit, 0,2 m), p09 (barrière à 0,2 m derrière la caméra, écart Kevin-touffe 1,60 pour 1,63 m), p10 (bras de Kevin, 0,3 m), p14 (main gauche de Kevin à 0,25 m du bord au départ) | OK |
-| Crédibilité physique (appuis, rien ne traverse, effets attendus) | tout repose au sol ; aucun objet n'en traverse un autre (positions vérifiées avec les dimensions des primitives et du registre). Non tenu : 2 barrières couchées et drapeau penché, impossibles avec `rotation_z` seul | ÉCART |
-| Uniquement le vocabulaire v1.1 (dont `descente`) ; textes 3D au format du schéma | 6 types d'action sur 7 utilisés (`apparaitre`, `disparaitre`, `grandir`, `tourner`, `cycle` ; pas de `deplacer` ni de `transformer`), 7 mouvements sur 8 ; 4 textes 3D de 7 à 16 caractères | OK |
+| Sujet dans le cadre (demi-largeur ≈ 0,29 × distance) | tenu dans les 16 plans (valeurs dans chaque tableau) ; en p06, Kevin et le lampadaire restent tous deux dans le cadre de 14,0 à 16,0 s. Marges inférieures à 0,4 m, à vérifier à l'animatique : p05 (poteaux du panneau à 0,1 m des bords à l'arrivée ; coin arrière de la tribune à 0,2 m du bord droit au départ), p07 (poteau du but droit, 0,2 m ; une branche de l'arbre mort possible au bord gauche), p09 (caméra à 0,35 m de la ligne des barrières à mi-plan, écart Kevin-touffe 1,60 pour 1,63 m), p10 (bras de Kevin, 0,3 m), p14 (main gauche de Kevin à 0,25 m du bord au départ). Bord du sol visible en p03, p07, p08 et p15 (aucun fond ni décor d'horizon) | OK pour les sujets ; ÉCART pour le bord du sol (brique manquante) |
+| Crédibilité physique (appuis, rien ne traverse, effets attendus) | tout repose au sol ; aucun objet n'en traverse un autre (positions vérifiées avec les dimensions des primitives et du registre) ; la caméra de p06 finit à 0,7 m du but droit et celle de p09 à 0,35 m des barrières, sans les traverser. Non tenu : 2 barrières couchées et drapeau penché, impossibles avec `rotation_z` seul | ÉCART |
+| Uniquement le vocabulaire v1.1 (dont `descente`) ; textes 3D au format du schéma | 5 types d'action sur 7 utilisés (`apparaitre`, `disparaitre`, `grandir`, `tourner`, `cycle` ; pas de `deplacer` ni de `transformer`), 7 mouvements sur 8 ; 4 textes 3D de 7 à 16 caractères | OK |
 | Abonnés et cagnotte affichés du premier au dernier beat ; autres compteurs permanents ou ponctuels justifiés par l'histoire ; `position` écrite (jamais `bas_droite`) ; valeurs de l'état de la série | 2 compteurs permanents b01 → b16, `haut_gauche`, valeurs 0 et 0 de `etat.json` ; aucun autre compteur | OK |
 | Un gain à chaque ajout ; cartes de choix finales avec leur coût | aucun ajout, donc aucun gain ; aucune carte (`choix_en_cours` vide, décision de Lucas) | OK (sans objet) |
 | Sons : identifiants du registre seulement, une ambiance par lieu, chaque effet sur un mot de la voix | 4 identifiants, tous dans le registre (ambiance_vent, grincement, erreur, bonus) ; 1 ambiance pour 1 lieu ; 1 effet sur un mot, 2 effets calés sur un instant dans des beats muets | ÉCART justifié |
-
-Correction d'une ligne ci-dessus : 5 types d'action sont utilisés, pas 6 (`apparaitre`, `disparaitre`, `grandir`, `tourner`, `cycle`).
 
 ## Écarts au scénario
 
 1. **p01 et p16, cadrage** : le scénario demande un plan rapproché (3,5 m) ; le découpage fait un plan moyen en pied (4,5 m). Demandé par Lucas (réserve a).
 2. **p01 à p03, recul** : le scénario fait reculer la caméra de 2,0 à 8,0 s en un seul mouvement. Ici p01 reste fixe jusqu'à 3,0 s (la boucle exige la même image fixe en p01 et p16), puis deux `revelation` s'enchaînent dans l'axe (4,5 → 10 → 22 m). Un léger ralentissement est possible à 5,6 s, à la jonction.
-3. **p03, « tout le stade apparaît »** : impossible en 9:16 à 22 m (7 m visibles de chaque côté pour un terrain de 20 m). Les 2 buts, la caisse et les tonneaux sont hors cadre. **Les 2 buts ne sont visibles dans aucun plan**, comme le drapeau, les tonneaux, 2 gravats et 1 flaque.
+3. **p03, « tout le stade apparaît »** : impossible en 9:16 à 22 m (7 m visibles de chaque côté pour un terrain de 20 m). Les 2 buts, la caisse et les tonneaux sont hors cadre. **Les 2 buts ne sont visibles dans aucun plan**, comme le drapeau, les tonneaux, 2 gravats et 1 flaque. Le bord du sol y est visible (voir « Briques manquantes »).
 4. **Panneaux** : le scénario décrit 1,2 × 0,6 m sur un poteau de 1,5 m ; la primitive `panneau_entree` fait 2,4 × 0,9 m sur deux poteaux (haut à 2,3 m). Gardée à l'échelle 1 : à 0,5, le texte « ON RÉPARE QUOI ? » serait illisible sur un téléphone.
-5. **Positions déplacées** (la caméra reste toujours côté −y, et les panneaux sont deux fois plus larges) : lampadaire 8 / 7 → 7,5 / 7 ; panneau « ÉCLAIRAGE » 9 / 7,8 → 9,1 / 7,8 ; K2 6 / 5 → 5,5 / 5 (le but droit et le panneau sortent ainsi des cadres de p07, p13 et p14) ; panneau « PELOUSE » −1,5 / 0,5 → −1,4 / 0,5 ; **K3 −1,5 / −1 → 1,6 / −0,6** (Kevin passe à droite de la touffe, sinon il masque le panneau en p10) ; panneau « ON RÉPARE QUOI ? » 2 / 6 → 3 / 6 (hors du cadre de p16, plus large depuis la réserve a).
+5. **Positions déplacées** (la caméra reste toujours côté −y, et les panneaux sont deux fois plus larges) : lampadaire 8 / 7 → 7,5 / 7 ; panneau « ÉCLAIRAGE » 9 / 7,8 → 9,1 / 7,8 ; K2 6 / 5 → 5,5 / 5 (le but droit et le panneau sortent ainsi des cadres de p07, p13 et p14) ; panneau « PELOUSE » −1,5 / 0,5 → −1,4 / 0,5 ; **K3 −1,5 / −1 → 1,6 / −0,6** (Kevin passe à droite de la touffe, sinon il masque le panneau en p10) ; panneau « ON RÉPARE QUOI ? » 2 / 6 → 3 / 6 (hors du cadre de p16, plus large depuis la réserve a) ; **caisse −8 / 7 → −9 / 7, panneau « TRIBUNE VIP » → −9 / 7,8 et planches −10 / 7 → −11 / 7** (correction de continuité : en p05, le bout de la tribune et la main de Kevin sortent ainsi du cadre).
 6. **Déplacements de Kevin** : le scénario prévoit 4 `deplacer` de 0,1 s sur les coupes ; le découpage utilise 7 éléments Kevin échangés sur les coupes (aucun glissement visible, méthode déjà décrite par la Production).
 7. **« Montre du bras » en deux sens** : le scénario compte une attitude ; viser la gauche de l'image (p04, p09) puis la droite (p06, p12) sans tourner le dos demande l'attitude et son miroir. Le bras est le même partout : en p09 il ne vise pas précisément le sol.
 8. **p07 et p08** : un seul plan de 16,0 à 20,5 s dans le scénario ; deux plans ici (un par beat), raccordés dans l'axe.
@@ -497,6 +495,8 @@ Correction d'une ligne ci-dessus : 5 types d'action sont utilisés, pas 6 (`appa
 17. **Barrières couchées et drapeau penché** : non réalisables ; repli écrit dans le tableau des éléments.
 18. **Caisse** : la primitive fait 0,8 m ; échelle 0,75 pour les 0,6 m du scénario.
 19. **Sons** : ambiance de vent et 3 effets ajoutés ; le vent continue pendant le silence de 30,0 à 31,5 s.
+20. **p04, cadrage** : le scénario cadre Kevin à K1 ; la visée est ici décalée de 0,5 m à sa gauche (Kevin à ≈ 65 % de la largeur) pour que la caisse, déplacée en −9 / 7, entre dans le cadre en fin de plan. Elle n'est pas visible au début du plan.
+21. **p06, cadrage** : le scénario cadre Kevin qui montre le lampadaire ; la caméra vise ici un point entre les deux et recule de 6 à 7 m, pour garder le lampadaire dans le cadre jusqu'à la fin du travelling (il en sortait vers 15,2 s, sur « dernier cri »).
 
 ## Briques manquantes
 
@@ -504,6 +504,7 @@ Correction d'une ligne ci-dessus : 5 types d'action sont utilisés, pas 6 (`appa
 - **Coucher ou pencher un objet** : le contrat n'a que `rotation_z` (2 barrières couchées, drapeau penché à 20°).
 - **Terrain avec lignes peintes** : aucune primitive ; à construire ou à sourcer.
 - **Nuages** : aucune primitive ni asset.
+- **Fond ou décor d'horizon** : rien ne cache le bord du sol de 120 m. Il est visible en p03 (bande d'environ 15 % de la hauteur, sous l'horizon), en p15 (environ 7 %) et en ligne fine en p07 et p08 (environ 2° sous l'horizon) ; dans les autres plans bas, il reste à moins de 2° sous l'horizon et la tribune le masque presque toujours. `taille_sol` 1000 (maximum du schéma) ramène la bande à ≈ 2,5 % en p03 et ≈ 1 % en p15, sans la supprimer. Il faudrait un fond qui prolonge le sol jusqu'à l'horizon (brume ou dégradé de couleur du monde, ou anneau de décor : immeubles, palissade, arbres lointains).
 - **Silence** : le souffle automatique de chaque coupe et le pop automatique de chaque `apparaitre` ne se désactivent pas (souffle vers 29,9 s et 31,4 s, pops à chaque échange de Kevin) ; l'ambiance ne se coupe pas sur un beat ; `audio` ne sait ni couper la musique de 30,0 à 31,5 s ni la faire boucler.
 - **Musique** : aucune piste rythmée dans le registre (seulement des jingles).
 - **Icônes** : pas d'icône « abonné » ni de symbole « € » dans le schéma (seulement `piece` et `habitant`) ; le compteur affiche un entier, sans « € ».
@@ -533,11 +534,13 @@ Correction d'une ligne ci-dessus : 5 types d'action sont utilisés, pas 6 (`appa
 5. **Jamais testé** : `tourner` sur un personnage animé (b15), `degres` négatif (sinon 180 puis 180, même orientation finale), `hauteur` 0 (p07, p08, p10), calage de la pose bras ouverts, attitude en miroir.
 6. **Sol** : terre sèche, lignes sommaires, une seule touffe verte (réponse 3 de Lucas). Si le sol change, b09 et b11 sont à revoir (fichier de beats).
 7. **Largeur des textes** des panneaux avec la police réelle (tailles 0,22 à 0,44 m).
-8. **Marges de cadre faibles** : p07, p09, p10, p14 (voir « Vérifications »).
+8. **Marges de cadre faibles** : p05, p07, p09, p10, p14 (voir « Vérifications ») ; en p05, le coin haut gauche du panneau « TRIBUNE VIP » peut passer sous les compteurs.
 9. **Éléments jamais à l'image** : buts, drapeau, tonneaux, gravat_3, gravat_4, flaque_2. Le stade est récurrent : les garder ou les repousser à un épisode qui les montre.
 10. **Avertissements attendus à la validation** : beat de 1,0 s (b15), actions qui finissent avec leur beat (b05, b07, b15).
 11. **Musique** : piste à choisir ; coupure et boucle à faire au montage.
 12. **Temps de rendu** : faible (aucune foule, une trentaine d'objets).
+13. **Bord du sol et horizon** : choisir entre `taille_sol` 1000 (atténue seulement), un fond du monde qui se confond avec le sol à l'horizon, ou un décor d'horizon (anneau d'immeubles ou de palissade, à sourcer). Plans concernés : p03, p15, et dans une moindre mesure p07 et p08.
+14. **Décalage de la zone VIP** : caisse, panneau « TRIBUNE VIP » et planches déplacés de 1 m vers la gauche (x = −9 et −11) ; le stade étant récurrent, ces positions valent pour les épisodes suivants si la caisse revient.
 
 ## Liste de contrôle de la Production (§ 9 de engine/docs/exigences-production-pour-storytelling.md)
 
@@ -552,10 +555,28 @@ Correction d'une ligne ci-dessus : 5 types d'action sont utilisés, pas 6 (`appa
 
 Précisions sur les cases cochées :
 
+- § 2 : chaque plan liste ce qu'on ne doit pas voir ; quand un élément de cette liste reste visible faute de brique (bord du sol en p03, p07, p08 et p15), c'est écrit « non tenu » dans le plan.
 - § 3 : 7 détails d'ambiance sont décrits (barrières, gravats, flaques, tonneaux, drapeau, planches, arbre mort), mais seuls 5 passent à l'image (barrières, gravats, 1 flaque, planches, arbre mort).
 - § 4 : Kevin est de dos 0,5 s environ en p15, muet ; il ne parle jamais de dos.
 - § 6 : aucun gain, aucune carte, aucun bandeau dans cet épisode, par décision de Lucas et d'après `etat.json`.
 - § 7 : vérifié par le fichier de beats (aucun nombre dit ; phrase la plus courte : 3 mots).
+
+## Corrections après continuité (2026-11-16)
+
+Verdict de `story-continuite` : « À corriger », rien de bloquant. Corrections faites seul, à la demande de Lucas (ARRÊT 3). Aucun texte de voix, aucune durée de beat, aucun compteur ni aucun texte à l'écran n'a changé ; les réserves (a) et (b) restent tenues (p01 et p16 identiques, Kevin en pied, bras ouverts dans le cadre).
+
+1. **p06, le lampadaire sortait du cadre vers 15,2 s.** Le `travelling_lateral` est gardé (aucune suite de mouvements identiques ajoutée) mais vise un point entre Kevin et le lampadaire : `visee_k2` passe de 5,5 / 5 à 6,5 / 6, la distance de 6 à 7 m. Caméra de 3,7 / −1 / 1,4 à 9,3 / −1 / 1,4. Kevin reste entre 35 et 18 % de la largeur, le lampadaire entre 61 et 78 %, tête à 7 % de la hauteur : les deux restent dans le cadre de 14,0 à 16,0 s. Kevin passe de 47° à 2° de l'axe (au lieu de 52° à 8°). Écart n° 21 ajouté.
+2. **p05, bout de tribune et main de Kevin dans le cadre.** La caisse, son panneau, `visee_vip` et les planches sont décalés de 1 m vers la gauche (x = −9, planches x = −11) ; distance 5,5 → 5 m ; visée à z = 0,7 au lieu de 0,9. Au départ, le coin arrière de la tribune reste 0,2 m hors du bord droit, la main de Kevin ≈ 0,8 m et le but gauche 0,5 m hors cadre. p05 est compté parmi les marges faibles (tribune 0,2 m ; poteaux du panneau à 0,1 m des bords à l'arrivée). Pour que la caisse reste visible en p04, `visee_k1` est décalé de 0,5 m (−6,5 / 5). Écarts n° 5 et 20 mis à jour ou ajoutés.
+3. **Bord du sol visible.** Les mentions « pas le bord du sol » de p03 et p15 sont remplacées par « non tenu », avec la position de la bande dans l'image ; même mention ajoutée en p07 et p08. Réglage chiffré proposé : `taille_sol` 1000, qui atténue (≈ 2,5 % de la hauteur en p03, ≈ 1 % en p15) sans cacher. Besoin d'un fond ou d'un décor d'horizon ajouté aux « Briques manquantes » et aux « À confirmer par Guillaume » (point 13).
+4. **« 6 types d'action sur 7 ».** La cellule indique maintenant 5 types ; la ligne de correction en dessous du tableau est supprimée.
+5. **Mentions de cadrage inexactes**, recalculées avec `engine/blender/camera.py` :
+   - p04 : la caisse n'est pas visible au début ; elle entre par la gauche vers 9,5 s et finit à ≈ 16 % de la largeur. Positions de la caméra écrites.
+   - p07 : l'arbre mort est hors cadre à gauche (tronc à 4,9 m de l'axe pour 3,6 m de demi-largeur), et non « au bord gauche ».
+   - p11 : flaque_1 est en partie dans le cadre au bord gauche au début du plan, et sort vers 26,1 s.
+   - p09 : la caméra part de y ≈ −6,4, passe par −6,65 à mi-plan et finit à −6,1 ; elle reste 0,35 à 0,9 m devant la ligne des barrières (et non 0,2 m). Notes de barriere_3 et barriere_4 mises à jour.
+   - Au passage : p03, plongée de 23° (et non 24°) à l'arrivée.
+
+Décompte des mouvements après correction : inchangé (plan_fixe × 6, dolly_avant × 3, revelation × 2, survol × 2, travelling_lateral × 1, plongee × 1, orbite × 1).
 
 ---
 

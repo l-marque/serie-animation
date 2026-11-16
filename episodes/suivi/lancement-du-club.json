@@ -3,7 +3,7 @@
   "titre": "La visite guidée",
   "demande_initiale": "premier épisode de La Revanche du Miteux : Kevin, seul dans son stade en ruine, lance le club et demande de l'aide à ses abonnés",
   "branche": "episode/lancement-du-club",
-  "etape_courante": "decoupage",
+  "etape_courante": "fiche",
   "fichiers": {
     "idee": "docs/storytelling/idees-retenues.md — entrée « 2026-11-16 — La visite guidée »",
     "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md",
@@ -33,10 +33,10 @@
       "reponse": "Validé. Réponses : versions de secours seulement si la voix n° 12 déborde à l'animatique ; pas de mesure avant le découpage ; on garde les 0,7 s à la jonction de la boucle. Et je délègue l'ARRÊT 4 : valide toi-même le découpage, corrige seul ce que story-continuite relève, puis passe la main au PC de Guillaume sans me demander. Seul l'ARRÊT 5 (vidéo finale) reste pour Lucas et Guillaume. Consigne cette délégation mot pour mot dans le suivi."
     },
     "arret_4": {
-      "statut": "en_attente",
-      "par": null,
-      "date": null,
-      "reponse": null
+      "statut": "valide",
+      "par": "Guillaume (accord de Lucas rapporté par Guillaume)",
+      "date": "2026-11-16T22:05:00+01:00",
+      "reponse": "ca y est passe a la video on valide tout avec lucas"
     },
     "arret_5": {
       "statut": "en_attente",
@@ -58,7 +58,7 @@
       "reponse": null
     }
   },
-  "machine_requise": "n'importe laquelle",
+  "machine_requise": "PC de Guillaume (Blender + GPU)",
   "blocage": null,
   "historique": [
     {
@@ -225,6 +225,26 @@
       "date": "2026-11-16T21:25:00+01:00",
       "etape": "decoupage",
       "evenement": "story-continuite sur le découpage : À corriger, rien de bloquant. 5 points : (1) p06 : le lampadaire sort du cadre vers 15,2 s ; (2) p05 : bout de tribune et main de Kevin dans le cadre alors qu'ils sont dans « ce qu'on ne doit pas voir » ; (3) bord du sol visible en p03, p15 (et p07, p08) : fond ou horizon manquant ; (4) « 6 types d'action » contredit « 5 types » dans les vérifications ; (5) mentions de cadrage inexactes (p04, p07, p09, p11). Boucle de correction par story-decoupage lancée puis interrompue par l'arrêt de l'agent : fichier non modifié, corrections non faites."
+    },
+    {
+      "date": "2026-11-16T21:45:00+01:00",
+      "etape": "arret_4",
+      "evenement": "Guillaume, mot pour mot : « ca y est passe a la video on valide tout avec lucas ». Reçu pendant que story-decoupage corrige encore le découpage (fichier pas encore modifié) : la validation sera consignée sur le découpage corrigé, dès son retour, avant le passage à la production."
+    },
+    {
+      "date": "2026-11-16T22:05:00+01:00",
+      "etape": "decoupage",
+      "evenement": "story-decoupage a corrigé les 5 points de continuité dans le fichier existant (section « Corrections après continuité (2026-11-16) »). Non corrigé : bord du sol visible en p03, p15, p07, p08 (fond ou horizon à décider par Guillaume) ; zone VIP décalée de 1 m. Rien testé."
+    },
+    {
+      "date": "2026-11-16T22:05:00+01:00",
+      "etape": "arret_4",
+      "evenement": "ARRÊT 4 validé par Guillaume, qui rapporte l'accord de Lucas, mot pour mot : « ca y est passe a la video on valide tout avec lucas » ; appliqué au découpage corrigé."
+    },
+    {
+      "date": "2026-11-16T22:05:00+01:00",
+      "etape": "fiche",
+      "evenement": "Blender 5.3 présent sur le PC de Guillaume. Appel de story-chef, passage 5 (statut du découpage, remise à la production)."
     }
   ]
 }
