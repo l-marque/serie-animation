@@ -41,6 +41,7 @@ def empreintes_beats(timeline: dict[str, Any]) -> dict[str, str]:
         "decor": timeline["decor"],
         "objets": timeline["objets"],
         "modules": timeline["modules"],
+        "textes_3d": timeline.get("textes_3d", []),
         "pack": timeline["pack_da"],
         "fps": timeline["fps"],
         "resolution": timeline["resolution"],

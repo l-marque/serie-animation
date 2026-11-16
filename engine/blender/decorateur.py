@@ -137,11 +137,41 @@ class Decorateur:
             obj.data.materials.pop()
         lier(obj, self.col_decor)
 
+    def texte_3d(self, t: dict, objets: dict[str, bpy.types.Object]) -> bpy.types.Object:
+        """Texte en relief (habillage) : nom de ville, légende de carte… converti en maillage pour
+        recevoir le matériau de son rôle et le contour du pack, comme les autres assets."""
+        courbe = bpy.data.curves.new(f"TXT_{t['id']}", "FONT")
+        courbe.body = t["texte"]
+        courbe.align_x, courbe.align_y = "CENTER", "CENTER"
+        courbe.size = t["taille"]
+        courbe.extrude = t["epaisseur"] / 2
+        tmp = bpy.data.objects.new(f"_TXT_{t['id']}", courbe)
+        self.scene.collection.objects.link(tmp)
+        bpy.context.view_layer.update()
+        maillage = bpy.data.meshes.new_from_object(tmp.evaluated_get(bpy.context.evaluated_depsgraph_get()))
+        bpy.data.objects.remove(tmp, do_unlink=True)
+        bpy.data.curves.remove(courbe)
+        obj = lier(bpy.data.objects.new(f"TXT_{t['id']}", maillage), self.col_decor)
+        look.appliquer_role(obj, t["role"], self.pack)
+        # Debout, face à -y : le texte est lisible depuis la caméra par défaut.
+        obj.rotation_euler = (math.radians(90), 0, math.radians(t["rotation_z"]))
+        obj.location = t["position"]
+        parent = objets.get(t["parent"]) if t.get("parent") else None
+        if parent is not None:
+            obj.parent = parent  # repère du parent : le texte suit ses apparitions et déplacements
+        obj[PROP_ID], obj[PROP_CATEGORIE] = t["id"], "texte"
+        if not t.get("visible_au_debut", True):
+            obj.scale = (0, 0, 0)
+        return obj
+
     def construire(self) -> None:
         self.sol()
+        objets = {}
         for spec in self.timeline["objets"]:
-            self.objet(spec)
+            objets[spec["id"]] = self.objet(spec)
         for m in self.timeline["modules"]:
             self.module(m)
+        for t in self.timeline.get("textes_3d", []):
+            self.texte_3d(t, objets)
         journal(f"décor monté : {len(self.timeline['objets'])} objet(s), {len(self.timeline['modules'])} module(s), "
                 f"{len(self.prototypes)} prototype(s)")

@@ -17,6 +17,8 @@ import random
 import bmesh
 import bpy
 
+from . import village
+
 Piece = tuple[str, bpy.types.Mesh, tuple[float, float, float], float, str, bool]
 # (nom, maillage, position, rotation_z_rad, role, principale)
 
@@ -219,6 +221,7 @@ PRIMITIVES = {
     "flaque": flaque,
     "donut": donut,
     "ballon": ballon,
+    **village.PRIMITIVES,  # kits/village.py
 }
 
 

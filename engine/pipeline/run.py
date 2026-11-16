@@ -34,7 +34,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from . import bibliothecaire, cache, chemins, continuite, contrat, montage, qa_auto, realisateur, voix
+from . import bibliothecaire, cache, chemins, continuite, contrat, habillage, montage, qa_auto, realisateur, voix
 
 
 # Suite à donner selon le code de sortie (lue par prod-chef ou par l'automatisation de Lucas).
@@ -148,6 +148,11 @@ def executer(args: argparse.Namespace) -> int:
     except realisateur.TimelineInvalide as e:
         rapport.etape("realisateur", "ECHEC", erreurs=[str(e)], resume=str(e))
         return rapport.terminer(2, etape_bloquante="realisateur", erreurs=[str(e)])
+    try:
+        timeline["textes_3d"] = habillage.charger(fiche.source, fiche.donnees)
+    except habillage.HabillageInvalide as e:
+        rapport.etape("realisateur", "ECHEC", erreurs=e.erreurs, resume="habillage invalide")
+        return rapport.terminer(2, etape_bloquante="realisateur", erreurs=e.erreurs)
     if args.pourcent:
         timeline["pourcentage_resolution"] = args.pourcent
     dossier.mkdir(parents=True, exist_ok=True)

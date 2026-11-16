@@ -59,9 +59,11 @@ def test_pack_inconnu(donnees):
 
 
 def test_primitives_concordent_avec_le_kit():
-    source = (chemins.SCRIPTS_BLENDER / "kits" / "primitifs.py").read_text(encoding="utf-8")
-    bloc = source.split("PRIMITIVES = {", 1)[1].split("}", 1)[0]
-    noms = set(re.findall(r'"([a-z_]+)"\s*:', bloc))
+    noms = set()
+    for fichier in ("primitifs.py", "village.py"):
+        source = (chemins.SCRIPTS_BLENDER / "kits" / fichier).read_text(encoding="utf-8")
+        bloc = source.split("PRIMITIVES = {", 1)[1].split("}", 1)[0]
+        noms |= set(re.findall(r'"([a-z_]+)"\s*:', bloc))
     assert noms == set(chemins.PRIMITIVES)
 
 
@@ -334,3 +336,29 @@ def test_lint_voix():
     assert "mot(s)" in realisateur.lint_voix("Stop !", "b")[0]
     assert realisateur.lint_voix("Et chaque canard devient deux canards.", "b") == []
     assert realisateur.lint_voix("", "b") == []
+
+
+def test_mot_declencheur_apres_elision():
+    from engine.pipeline.realisateur import _instant_mot
+    mots = [{"mot": "Il", "debut": 0.0}, {"mot": "pouvez", "debut": 0.4}, {"mot": "m'aider.", "debut": 0.9},
+            {"mot": "l’eau", "debut": 1.5}]
+    assert _instant_mot(mots, "aider", "b") == 0.9
+    assert _instant_mot(mots, "m'aider", "b") == 0.9
+    assert _instant_mot(mots, "eau", "b") == 1.5
+
+
+def test_habillage_valide_et_controle_les_parents():
+    from engine.pipeline import habillage
+    fiche_min = {"elements": [{"id": "panneau"}], "personnages": [], "modules": []}
+    textes = habillage.valider({"version": "1.0", "textes_3d": [{"id": "t1", "texte": "SIX SEVEN", "parent": "panneau"}]},
+                               fiche_min)
+    assert textes[0]["taille"] == 0.3 and textes[0]["role"] == "accent"
+    with pytest.raises(habillage.HabillageInvalide, match="parent"):
+        habillage.valider({"version": "1.0", "textes_3d": [{"id": "t1", "texte": "X", "parent": "absent"}]}, fiche_min)
+    with pytest.raises(habillage.HabillageInvalide, match="déjà utilisé"):
+        habillage.valider({"version": "1.0", "textes_3d": [{"id": "panneau", "texte": "X"}]}, fiche_min)
+
+
+def test_habillage_absent_ne_change_rien(tmp_path):
+    from engine.pipeline import habillage
+    assert habillage.charger(tmp_path / "ep.json", {}) == []
