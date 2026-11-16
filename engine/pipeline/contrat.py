@@ -1,5 +1,8 @@
 """Chargement et validation de la fiche épisode reçue des autres agents.
 
+Versions acceptées : "1.0" et "1.1" (la v1.1 ajoute le champ `habillage` et la caméra
+`descente` ; une fiche 1.0 se comporte exactement comme avant).
+
 Deux niveaux de contrôle :
 1. structure (JSON Schema, contracts/fiche-episode.schema.json) ;
 2. cohérence (identifiants uniques, cibles existantes, pack de DA présent, actions compatibles).
@@ -19,6 +22,8 @@ from typing import Any
 from jsonschema import Draft202012Validator
 
 from . import chemins, pack_da
+
+VERSIONS_ACCEPTEES = ("1.0", "1.1")
 
 # Actions qui ne s'appliquent qu'à un objet unique (pas à un module entier).
 ACTIONS_OBJET_SEUL = frozenset({"deplacer", "tourner", "transformer", "cycle"})

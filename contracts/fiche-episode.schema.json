@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/l-marque/serie-animation/contracts/fiche-episode.schema.json",
   "title": "Fiche épisode (contrat Storytelling -> Production)",
-  "description": "Ce que le pôle Storytelling (story-fiche) envoie au pôle Production (prod-chef). Version 1.0, proposition de Guillaume à valider par Lucas et Guillaume. Voir engine/docs/contrat-fiche-episode.md et contracts/vocabulaire-actions.md.",
+  "description": "Ce que le pôle Storytelling envoie au pôle Production (prod-chef). Version 1.0 : proposition de Guillaume. Version 1.1 (2026-11-16, décidée par Lucas, rétrocompatible) : champ facultatif 'habillage' (textes 3D, cartes de choix) et caméra 'descente', autorisés seulement si version = \"1.1\" ; une fiche 1.0 reste valide telle quelle. Voir engine/docs/contrat-fiche-episode.md, contracts/vocabulaire-actions.md et contracts/README.md.",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -12,7 +12,11 @@
   ],
   "properties": {
     "version": {
-      "const": "1.0"
+      "enum": [
+        "1.0",
+        "1.1"
+      ],
+      "description": "\"1.0\" ou \"1.1\". Les champs ajoutés en v1.1 (habillage, caméra descente) exigent \"1.1\"."
     },
     "episode_id": {
       "type": "string",
@@ -134,6 +138,195 @@
         }
       }
     },
+    "habillage": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "v1.1 seulement. Textes en 3D dans le décor (nom de lieu sur un panneau, légendes des cartes de choix) et HUD (compteurs, gains « +10 »). Repris de engine/schemas/habillage.schema.json (mêmes propriétés, mêmes contraintes) ; la version est celle de la fiche.",
+      "properties": {
+        "textes_3d": {
+          "type": "array",
+          "maxItems": 40,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "texte"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+              },
+              "texte": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 40
+              },
+              "parent": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
+                "description": "Id d'un élément ou personnage de la fiche. Le texte le suit (position, apparition, disparition). Sans parent, le texte est fixe dans le décor."
+              },
+              "position": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                },
+                "minItems": 3,
+                "maxItems": 3,
+                "description": "Centre du texte en mètres ; dans le repère du parent s'il y en a un."
+              },
+              "rotation_z": {
+                "type": "number",
+                "default": 0,
+                "description": "Degrés. 0 = lisible depuis -y (caméra par défaut)."
+              },
+              "taille": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 20,
+                "default": 0.3,
+                "description": "Hauteur des lettres en mètres."
+              },
+              "epaisseur": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1,
+                "default": 0.02
+              },
+              "role": {
+                "enum": [
+                  "sol",
+                  "batiment",
+                  "toit",
+                  "vegetation",
+                  "roche",
+                  "personnage",
+                  "accessoire",
+                  "accent",
+                  "eau",
+                  "peau",
+                  "tissu",
+                  "blanc",
+                  "or",
+                  "pierre"
+                ],
+                "default": "accent"
+              },
+              "visible_au_debut": {
+                "type": "boolean",
+                "default": true
+              }
+            }
+          }
+        },
+        "hud": {
+          "type": "array",
+          "maxItems": 40,
+          "description": "Habillage 2D incrusté au montage (style du kit Figma « Outils d'affichage »).",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "beat",
+                  "valeur"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "compteur"
+                  },
+                  "icone": {
+                    "enum": [
+                      "piece",
+                      "habitant"
+                    ],
+                    "default": "piece"
+                  },
+                  "beat": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+                  },
+                  "mot": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "debut": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "jusqu_au_beat": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
+                    "description": "Dernier beat où le compteur reste affiché (défaut : le beat de départ). Il apparaît quand on en parle et disparaît ensuite."
+                  },
+                  "valeur": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "vers": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Valeur finale : le compteur défile de « valeur » à « vers »."
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "beat"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "gain"
+                  },
+                  "texte": {
+                    "type": "string",
+                    "maxLength": 12,
+                    "default": "+10"
+                  },
+                  "icone": {
+                    "enum": [
+                      "piece",
+                      "habitant"
+                    ],
+                    "default": "piece"
+                  },
+                  "beat": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+                  },
+                  "mot": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "debut": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "position": {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "description": "Centre en fraction de l'image [x, y] (défaut [0,5 ; 0,55])."
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
     "beats": {
       "type": "array",
       "minItems": 1,
@@ -144,6 +337,41 @@
       }
     }
   },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "version": {
+            "const": "1.0"
+          }
+        }
+      },
+      "then": {
+        "not": {
+          "required": [
+            "habillage"
+          ]
+        },
+        "properties": {
+          "beats": {
+            "items": {
+              "properties": {
+                "plan": {
+                  "properties": {
+                    "camera": {
+                      "not": {
+                        "const": "descente"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
   "$defs": {
     "id": {
       "type": "string",
@@ -362,8 +590,10 @@
             "dolly_avant",
             "orbite",
             "plongee",
-            "travelling_lateral"
-          ]
+            "travelling_lateral",
+            "descente"
+          ],
+          "description": "Mouvements du vocabulaire (contracts/vocabulaire-actions.md). 'descente' : v1.1 seulement."
         },
         "cible": {
           "$ref": "#/$defs/id"

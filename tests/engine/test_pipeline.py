@@ -361,7 +361,8 @@ def test_habillage_valide_et_controle_les_parents():
 
 def test_habillage_absent_ne_change_rien(tmp_path):
     from engine.pipeline import habillage
-    assert habillage.charger(tmp_path / "ep.json", {}) == []
+    donnees, avert = habillage.assembler(tmp_path / "ep.json", {})
+    assert habillage.charger(donnees, {"elements": [], "personnages": [], "modules": []}) == [] and avert == []
 
 
 @pytest.mark.parametrize("licence,ok", [("CC0", True), ("CC0 1.0 Universal", True), ("CC-BY 3.0", True),
@@ -433,3 +434,62 @@ def test_ambiance_synthetisee(tmp_path, monkeypatch):
     f = sons.ambiance("village", 2.2)
     with wave.open(str(f)) as w:
         assert w.getnframes() / w.getframerate() >= 2.2
+
+
+def test_habillage_de_la_fiche_v11_l_emporte_sur_le_fichier(tmp_path):
+    import json as _json
+    from engine.pipeline import habillage
+    source = tmp_path / "ep.json"
+    (tmp_path / "ep.habillage.json").write_text(_json.dumps({"version": "1.0", "textes_3d": [{"id": "vieux", "texte": "X"}],
+                                                             "hud": [{"type": "gain", "beat": "b1"}]}), encoding="utf-8")
+    fiche = {"version": "1.1", "habillage": {"textes_3d": [{"id": "neuf", "texte": "SIX SEVEN"}]},
+             "elements": [], "personnages": [], "modules": []}
+    donnees, avert = habillage.assembler(source, fiche)
+    assert [t["id"] for t in habillage.charger(donnees, fiche)] == ["neuf"]
+    assert habillage.charger_hud(donnees) == [{"type": "gain", "beat": "b1"}]
+    assert any("ignoré" in a for a in avert) and any("lu(s) dans le fichier" in a for a in avert)
+    sans = {"version": "1.0", "elements": [], "personnages": [], "modules": []}
+    donnees, avert = habillage.assembler(source, sans)
+    assert [t["id"] for t in habillage.charger(donnees, sans)] == ["vieux"] and avert == []
+
+
+def test_versions_du_contrat_alignees_sur_le_schema():
+    import json as _json
+    from engine.pipeline import chemins, contrat
+    schema = _json.loads(chemins.SCHEMA_FICHE.read_text(encoding="utf-8"))
+    assert tuple(schema["properties"]["version"]["enum"]) == contrat.VERSIONS_ACCEPTEES
+
+
+def test_toutes_les_cameras_du_contrat_sont_implementees():
+    import json as _json
+    from engine.pipeline import chemins
+    schema = _json.loads(chemins.SCHEMA_FICHE.read_text(encoding="utf-8"))
+
+    def trouver_enum(o):
+        if isinstance(o, dict):
+            if "camera" in o.get("properties", {}) and "enum" in o["properties"]["camera"]:
+                return o["properties"]["camera"]["enum"]
+            for v in o.values():
+                r = trouver_enum(v)
+                if r:
+                    return r
+        if isinstance(o, list):
+            for v in o:
+                r = trouver_enum(v)
+                if r:
+                    return r
+        return None
+
+    source = (chemins.SCRIPTS_BLENDER / "camera.py").read_text(encoding="utf-8")
+    for mvt in trouver_enum(schema):
+        assert f'preset == "{mvt}"' in source, f"caméra {mvt} absente de engine/blender/camera.py"
+
+
+def test_fiche_six_seven_v11_valide_avec_habillage_et_descente():
+    from engine.pipeline import contrat, habillage
+    fiche = contrat.charger(chemins.RACINE / "episodes" / "tests" / "six_seven_001_v11.json")
+    assert fiche.donnees["version"] == "1.1"
+    assert fiche.donnees["beats"][0]["plan"]["camera"] == "descente"
+    donnees, avert = habillage.assembler(fiche.source, fiche.donnees)
+    assert len(habillage.charger(donnees, fiche.donnees)) == 3 and len(habillage.charger_hud(donnees)) == 3
+    assert avert == []  # pas de fichier d'habillage à côté de la fiche v1.1
