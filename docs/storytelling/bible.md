@@ -1,7 +1,7 @@
 # Bible de la série
 
 - **Nom de la série (français) : La Revanche du Miteux** (décidé par Lucas et Guillaume, 2026-11-16).
-- Nom anglais : **À DÉCIDER par Lucas et Guillaume**.
+- **Nom de la série (anglais) : Revenge of the Scrub** (décidé le 2026-11-16 par le Claude de Lucas, à la demande explicite de Lucas). Jeu de mots : « scrub » désigne le nul, et le remplaçant qui ne joue jamais.
 
 Base commune du pôle Storytelling. `story-chef` et `story-idees` la lisent avant tout travail. Elle est tenue par Lucas (propriétaire du pôle) ; les décisions de fond sont prises par Lucas **et** Guillaume.
 
@@ -109,7 +109,7 @@ Source : « 2026-11-15_claude-guillaume_benchmark-marche-et-outils » (Drive, `0
 
 ### Prudence
 
-La série de référence citée dans le benchmark (Rienville, où le public participe par ses commentaires) est **proche d'un concept de ville évolutive**. S'en inspirer de trop près ferait perdre l'originalité recherchée. Le concept (un stade de foot miteux qui se rénove) et le nom français sont décidés par Lucas et Guillaume (2026-11-16) ; le nom anglais reste **À DÉCIDER par Lucas et Guillaume**.
+La série de référence citée dans le benchmark (Rienville, où le public participe par ses commentaires) est **proche d'un concept de ville évolutive**. S'en inspirer de trop près ferait perdre l'originalité recherchée. Le concept (un stade de foot miteux qui se rénove) et le nom français sont décidés par Lucas et Guillaume (2026-11-16) . Le nom anglais, « Revenge of the Scrub », est décidé le 2026-11-16 par le Claude de Lucas, à la demande explicite de Lucas.
 
 ### 4 Reels de référence (analysés le 2026-11-15, sur images, sans le son)
 
