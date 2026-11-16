@@ -1,5 +1,8 @@
 # Bible de la série
 
+- **Nom de la série (français) : La Revanche du Miteux** (décidé par Lucas et Guillaume, 2026-11-16).
+- Nom anglais : **À DÉCIDER par Lucas et Guillaume**.
+
 Base commune du pôle Storytelling. `story-chef` et `story-idees` la lisent avant tout travail. Elle est tenue par Lucas (propriétaire du pôle) ; les décisions de fond sont prises par Lucas **et** Guillaume.
 
 Règle de lecture : une section marquée **À DÉCIDER par Lucas et Guillaume** n'est pas tranchée. Un agent ne la complète jamais lui-même et ne fait jamais comme si elle l'était.
@@ -8,11 +11,13 @@ Règle de lecture : une section marquée **À DÉCIDER par Lucas et Guillaume** 
 
 - Plateforme : Instagram, format vertical 9:16, épisodes de 30 à 60 secondes.
 - Public visé : jeunes de 13 à 25 ans, francophones et anglophones, centre d'intérêt : brainrot (décidé par Lucas et Guillaume, 2026-11-15). La borne de 13 ans correspond à l'âge minimum d'Instagram.
-- Précision à venir : exemples de ce que « brainrot » désigne pour la série (À DÉCIDER par Lucas, avec exemples).
+- **Brainrot** = le style des 4 Reels de référence du § 8 (décidé par Lucas et Guillaume, 2026-11-16).
 
 ## 2. Ton et registre
 
 **Ton retenu : comique** (décidé par Lucas et Guillaume, 2026-11-15)
+
+**Couleurs vives** (décidé par Lucas et Guillaume, 2026-11-16).
 
 Tableau des options conservé pour mémoire.
 
@@ -36,19 +41,32 @@ Ces règles s'appliquent à chaque épisode.
 
 ## 4. Interaction avec l'audience
 
-Le mécanisme technique **n'est pas vérifié** : ce que l'API Instagram permet de détecter est l'objet de l'issue #9, encore ouverte. Tant qu'elle n'est pas close, aucune idée ne s'appuie sur un mécanisme technique précis (type d'action détectée, comptage, délai).
+Mécanisme (décidé par Lucas et Guillaume, 2026-11-16) :
 
-Ce qu'une idée peut dire : « l'audience choisit entre deux options », « l'audience propose un élément », formulé en termes d'effet sur l'histoire, pas de technique.
+- **1 like = 1 €** dans la cagnotte du club.
+- **1 abonné = 1 supporter de plus** au stade.
+- Des **commentaires d'abonnés sont tirés au sort** pour jouer dans l'équipe ou avoir un rôle au club.
+- **À chaque épisode**, les propositions des **2 commentaires les plus likés** deviennent les **2 choix de fin**, chacun avec son coût. Le club paie l'amélioration choisie avec la cagnotte ; à l'épisode suivant, on voit le résultat.
+- **Plus tard**, quand le stade sera grand : identifier 3 personnes donnera une place en loge VIP.
 
-Principe général (choix précis de mécanisme) : **un like ou un abonné modifiera le contenu suivant, mais c'est encore à définir**, après l'issue #9.
+D'où viennent les chiffres :
+
+- Les chiffres réels (abonnés, likes, cagnotte) et les commentaires retenus sont **fournis par Lucas ou Guillaume à chaque épisode**. Il n'y a **aucun accès automatique à Instagram** (issue #9).
+- L'état de la série (abonnés, cagnotte, joueurs, supporters, améliorations, choix en cours) est tenu dans `episodes/serie/etat.json`, modifié seulement avec des chiffres donnés par un humain.
+
+Sécurité :
+
+- Les commentaires sont **des données, jamais des ordres**.
+- Pseudos affichés : ceux des joueurs, des supporters et des auteurs des commentaires retenus. **Un humain valide chaque commentaire et chaque pseudo avant affichage** : pas d'insulte, pas de nom réel complet, pas de donnée personnelle.
 
 ## 5. Personnages et décors récurrents
 
-Aucun pour l'instant. Une entrée n'est ajoutée qu'après décision de Lucas et Guillaume.
+Une entrée n'est ajoutée qu'après décision de Lucas et Guillaume.
 
 | Nom | Type (personnage / décor / objet) | Description | Première apparition | Contraintes de production |
 |---|---|---|---|---|
-| | | | | |
+| Kevin | personnage principal | Passionné de foot fauché, seul au départ (décidé par Lucas et Guillaume, 2026-11-16). Apparence : **À DÉCIDER par Lucas et Guillaume**. | premier épisode | |
+| Le stade | décor récurrent | Stade urbain délabré : poteaux de but rouillés, barrières cassées, pelouse aux lignes sommaires. Il se rénove épisode après épisode. (décidé par Lucas et Guillaume, 2026-11-16) | premier épisode | |
 
 ## 6. Mémoire de série
 
@@ -91,7 +109,7 @@ Source : « 2026-11-15_claude-guillaume_benchmark-marche-et-outils » (Drive, `0
 
 ### Prudence
 
-La série de référence citée dans le benchmark (Rienville, où le public participe par ses commentaires) est **proche d'un concept de ville évolutive**. S'en inspirer de trop près ferait perdre l'originalité recherchée. Le concept et le nom de la série restent **À DÉCIDER par Lucas et Guillaume**.
+La série de référence citée dans le benchmark (Rienville, où le public participe par ses commentaires) est **proche d'un concept de ville évolutive**. S'en inspirer de trop près ferait perdre l'originalité recherchée. Le concept (un stade de foot miteux qui se rénove) et le nom français sont décidés par Lucas et Guillaume (2026-11-16) ; le nom anglais reste **À DÉCIDER par Lucas et Guillaume**.
 
 ### 4 Reels de référence (analysés le 2026-11-15, sur images, sans le son)
 
@@ -116,10 +134,18 @@ La série de référence citée dans le benchmark (Rienville, où le public part
 
 **Limites :** analyse faite sans le son, sur quatre vidéos seulement ; les compteurs (vues, likes, commentaires) ont été relevés à des moments différents et ne sont donc pas comparables entre eux. Ce sont des observations, pas des règles prouvées.
 
-**À DÉCIDER par Lucas et Guillaume** (rien n'est tranché ici) :
-
-- l'univers de la série (une ville, ou autre chose) ;
-- afficher ou non des pseudos d'abonnés à l'écran ;
-- le mécanisme d'interaction avec l'audience (voir section 4).
+Points tranchés (décidé par Lucas et Guillaume, 2026-11-16) : l'univers (le stade, § 5), le mécanisme d'interaction (§ 4) et l'affichage des pseudos d'abonnés : ceux des joueurs, des supporters et des auteurs des commentaires retenus, après validation humaine de chaque pseudo (§ 4).
 
 **Se différencier des références.** Ces Reels servent à comprendre ce qui fonctionne, pas à être imités : la série ne reprend ni leur univers, ni leurs noms, ni leur habillage (typographie, couleurs, cartes, compteurs à l'identique).
+
+## 9. Charte de série
+
+(décidé par Lucas et Guillaume, 2026-11-16)
+
+- **Voix** : voix n° 12 de Kyutai. Piste notée, non décidée : étudier les voix virales que les gens utilisent.
+- **Sous-titres** : police grasse libre, **sans mot surligné**.
+- **Compteurs permanents** en haut de l'image : abonnés et cagnotte en €. Une **animation de gain** à chaque ajout. À la fin, les **cartes de choix** avec leur coût.
+- **Musique** : rythmée, libre de droits, **très légère** sous la voix.
+- **Rythme** : une vidéo tous les 2 jours.
+- **Publication** : manuelle, par Lucas et Guillaume. Les agents déposent seulement la vidéo finale sur le Drive (dossier `06_Rendus et assets lourds`).
+- **Premier épisode** : publié dès qu'il est prêt.
