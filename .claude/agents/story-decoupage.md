@@ -19,7 +19,7 @@ Un fichier de `docs/storytelling/beats/` dont le statut indique que la voix est 
 - `CLAUDE.md` ;
 - `docs/storytelling/gabarit-realisation.md`, **niveau D** (et B pour le décor) ;
 - `contracts/vocabulaire-actions.md` : les 7 actions, les 8 mouvements de caméra (dont `descente`, v1.1), le module `disperser`, les textes 3D et cartes de choix (v1.1) ;
-- `contracts/fiche-episode.schema.json` et `engine/docs/contrat-fiche-episode.md` : les champs qui existent en v1.0 et en v1.1 (`habillage.textes_3d`, caméra `descente`) ;
+- `contracts/fiche-episode.schema.json` et `engine/docs/contrat-fiche-episode.md` : les champs qui existent en v1.0 et en v1.1 (`habillage.textes_3d`, `habillage.hud`, caméra `descente`) ;
 - la liste des primitives qui fait foi : `PRIMITIVES` dans `engine/pipeline/chemins.py` ; le docstring de chaque primitive dans `engine/blender/kits/primitifs.py` donne ses dimensions ;
 - les modèles déjà intégrés : `engine/assets/registre.json` ;
 - **`engine/docs/exigences-production-pour-storytelling.md`** (ce que la Production attend de toi, en particulier §§ 2, 4, 5, 6 et la liste de contrôle du § 9) et la clé `hud` de `engine/schemas/habillage.schema.json` (compteurs et gains que le montage sait faire) ;
@@ -86,13 +86,13 @@ Repère : x vers la droite de l'image d'ouverture, y vers le fond, z vers le hau
 
 Ce qui s'affiche par-dessus l'image 3D. Valeurs **fictives** (aucun vrai chiffre d'audience). Un élément qui n'entre dans aucun de ces tableaux est écrit tel quel et listé dans « Briques manquantes ».
 
-### Compteurs (clé `hud`, type `compteur`)
+### Compteurs (champ v1.1 `habillage.hud`, type `compteur`)
 
 | id | Ressource (icône) | Valeur de départ | Valeur d'arrivée (s'il défile) | Plan et mot qui le font apparaître | Dernier plan affiché (il disparaît ensuite) |
 |---|---|---|---|---|---|
 | <ex. cpt_pieces> | pièces (piece) | <ex. 990> | <ex. 1 000> | <p04, « like »> | <p05> |
 
-### Gains (clé `hud`, type `gain`)
+### Gains (champ v1.1 `habillage.hud`, type `gain`)
 
 | id | Texte | Icône | Plan et mot déclencheur | Endroit de l'image (au-dessus de quel objet) |
 |---|---|---|---|---|
@@ -141,7 +141,7 @@ Une seule façon de décrire un texte posé dans le décor : nom de lieu sur un 
 
 ## Non porté par le contrat v1.0 (v1.1)
 
-<chaque paramètre de ce document qui n'a de champ ni en v1.0 ni en v1.1 : angle, transition, position dans l'image, compteur, intonation, sous-titres, sons, musique… ; avec les plans concernés. Les textes 3D, les cartes de choix et la caméra `descente` ont un champ en v1.1 : ils n'y figurent plus>
+<chaque paramètre de ce document qui n'a de champ ni en v1.0 ni en v1.1 : angle, transition, position dans l'image, intonation, sous-titres, sons, musique… ; avec les plans concernés. Les textes 3D, les cartes de choix, les compteurs et gains (HUD) et la caméra `descente` ont un champ en v1.1 : ils n'y figurent plus>
 
 ## À confirmer par Guillaume
 
@@ -173,7 +173,7 @@ Une seule façon de décrire un texte posé dans le décor : nom de lieu sur un 
 
 - **Un plan par beat**, rattaché à son id. Première seconde : quelque chose bouge ou apparaît ; jamais un plan fixe vide au premier plan.
 - **Jamais plus de 2 mouvements identiques d'affilée.** Le pilote canard v1 avait 19 `plan_fixe` : c'est le défaut à éviter. Un `plan_fixe` reste juste pour une pause, une chute ou un arrêt sur image, mais varie alors distance ou cible.
-- **Choix du mouvement selon l'intention** : ouverture qui situe un personnage dans son monde → `descente` (part haut au-dessus de la cible et descend en continu jusqu'à elle ; v1.1, encore à implémenter dans `engine/` : signale-la dans « À confirmer par Guillaume ») ; présenter un lieu → `survol` ou `orbite` ; dévoiler → `revelation` ; tension → `dolly_avant` ; vue d'ensemble → `plongee` ; suivre un déplacement → `travelling_lateral` ; pause, chute → `plan_fixe`.
+- **Choix du mouvement selon l'intention** : ouverture qui situe un personnage dans son monde → `descente` (part haut au-dessus de la cible et descend en continu jusqu'à elle ; v1.1, implémentée : prévoir un plan d'au moins 2,5 s) ; présenter un lieu → `survol` ou `orbite` ; dévoiler → `revelation` ; tension → `dolly_avant` ; vue d'ensemble → `plongee` ; suivre un déplacement → `travelling_lateral` ; pause, chute → `plan_fixe`.
 - **Distances** : alterner plans larges (≥ 20 m) et serrés (≤ 12 m) ; **majorité de plans serrés** sur le sujet dont parle la phrase ; les larges servent aux révélations et aux bilans. Caméra basse pour donner de la présence à un personnage.
 - **Un seul sujet par plan** ; vise l'objet important lui-même.
 - **Textes 3D et cartes de choix (v1.1)** : tu décides les textes posés dans le décor (nom de lieu sur un panneau, légendes des cartes de choix) dans le tableau « Textes dans le décor » de la section « Habillage (v1.1) », au format du schéma (`id`, `texte` de 1 à 40 caractères, `parent`, `position` dans le repère du parent, `rotation_z`, `taille`, `epaisseur`, `role`, `visible_au_debut`). Un texte qui doit apparaître avec son objet a cet objet pour `parent`. Primitives utiles : `panneau_entree`, `carte_choix`, `repere`. Ces textes ne remplacent ni le texte à l'écran ni les sous-titres.
