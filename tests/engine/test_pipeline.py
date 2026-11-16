@@ -463,3 +463,13 @@ def test_toutes_les_cameras_du_contrat_sont_implementees():
     source = (chemins.SCRIPTS_BLENDER / "camera.py").read_text(encoding="utf-8")
     for mvt in trouver_enum(schema):
         assert f'preset == "{mvt}"' in source, f"caméra {mvt} absente de engine/blender/camera.py"
+
+
+def test_fiche_six_seven_v11_valide_avec_habillage_et_descente():
+    from engine.pipeline import contrat, habillage
+    fiche = contrat.charger(chemins.RACINE / "episodes" / "tests" / "six_seven_001_v11.json")
+    assert fiche.donnees["version"] == "1.1"
+    assert fiche.donnees["beats"][0]["plan"]["camera"] == "descente"
+    donnees, avert = habillage.assembler(fiche.source, fiche.donnees)
+    assert len(habillage.charger(donnees, fiche.donnees)) == 3 and len(habillage.charger_hud(donnees)) == 3
+    assert avert == []  # pas de fichier d'habillage à côté de la fiche v1.1
