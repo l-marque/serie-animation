@@ -20,6 +20,26 @@ Source : « 2026-11-15_claude-lucas_organigramme-agents-v0.1 » (Drive, `01_Clau
 
 Le statut d'un agent est aussi indiqué dans l'en-tête de son fichier (champ `statut`).
 
+## Orchestrateur de bout en bout — propriétaire : Lucas
+
+| Commande | Rôle | Fichier | Statut |
+|---|---|---|---|
+| `/episode` | « Une vidéo en un seul prompt » : enchaîne `story-chef` puis `prod-chef` dans la conversation principale, avec 5 arrêts de validation humaine, un fichier de suivi par épisode (`episodes/suivi/<id>.json`) et une branche `episode/<id>` qui passe d'une machine à l'autre. Ne publie jamais. Détails : `docs/orchestrateur.md` | `.claude/commands/episode.md` | brouillon |
+
+```
+/episode <demande>
+  └─ story-chef ─ idées ─────── ARRÊT 1 (Lucas choisit l'idée)
+                ─ scénario ──── ARRÊT 2 (Lucas valide)
+                ─ voix ──────── ARRÊT 3 (Lucas valide le texte)
+                ─ découpage ─── ARRÊT 4 (Lucas valide)
+  └─ [Blender présent ? sinon : push de episode/<id>, reprise sur le PC de Guillaume]
+  └─ prod-chef ─ fiche (prod-realisateur) ─ animatique ─ contrôle qualité ─ corrections (≤ 2)
+               ─ rendu final (sur demande explicite) ─ ARRÊT 5 (Lucas ET Guillaume)
+  └─ PR episode/<id> → main, jamais fusionnée ; com-legendes seulement proposé
+```
+
+C'est une commande et non un agent : un sous-agent lancé dans le cloud ne reçoit pas l'outil `Agent` (voir « Hiérarchie entre agents »), la conversation principale si.
+
 ## Les pôles
 
 ### Pilotage — propriétaire : Lucas
