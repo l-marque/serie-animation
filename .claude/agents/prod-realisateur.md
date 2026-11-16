@@ -61,6 +61,13 @@ La voix est générée par Kyutai : certaines tournures sonnent faux. La validat
 - Des phrases de 5 à 12 mots, naturelles à dire, avec une respiration (virgule) au milieu.
 - Si le texte vient du pôle Storytelling, tu ne le réécris pas : tu signales le problème dans `PROPOSITIONS À VALIDER` avec une reformulation.
 
+## Compteurs et gains (HUD)
+
+Quand la voix parle d'une ressource du jeu (pièces, habitants), affiche-la avec la clé `"hud"` du même fichier d'habillage, au lieu d'un `texte_ecran` :
+- `compteur` (`icone` piece ou habitant, `beat`, `mot` déclencheur, `valeur`, `vers` facultatif, `jusqu_au_beat`) : il **apparaît quand on en parle et disparaît après** (choix de Guillaume), défile de `valeur` à `vers` ;
+- `gain` (`texte` « +10 », `beat`, `mot`, `position` [x, y] en fraction d'image) : le « +10 » doré monte et s'efface, avec le son de pièce.
+Le style suit le kit Figma « Série animation — Outils d'affichage (HUD) ». Pas de `texte_ecran` en même temps qu'un compteur (ils se chevauchent en haut de l'image).
+
 ## Personnages face à la caméra
 
 Un personnage qui parle à l'audience est **tourné vers la caméra** (de face ou de trois quarts, jamais de dos), même quand il travaille : oriente-le avec `rotation_z` selon la position de la caméra du beat (caméra par défaut au sud, en -y : `rotation_z` 0 = face caméra). Vérifie-le sur la planche contact. Erreur relevée par Guillaume sur Six Seven : le maire réparait la mairie de dos pendant qu'il parlait.

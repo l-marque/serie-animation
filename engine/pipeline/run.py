@@ -34,7 +34,7 @@ import time
 from datetime import datetime
 from pathlib import Path
 
-from . import bibliothecaire, cache, chemins, continuite, contrat, habillage, montage, qa_auto, realisateur, voix
+from . import bibliothecaire, cache, chemins, continuite, contrat, habillage, hud, montage, qa_auto, realisateur, voix
 
 
 # Suite à donner selon le code de sortie (lue par prod-chef ou par l'automatisation de Lucas).
@@ -150,6 +150,10 @@ def executer(args: argparse.Namespace) -> int:
         return rapport.terminer(2, etape_bloquante="realisateur", erreurs=[str(e)])
     try:
         timeline["textes_3d"] = habillage.charger(fiche.source, fiche.donnees)
+        timeline["hud"] = hud.resoudre(habillage.charger_hud(fiche.source), timeline)
+    except hud.HudInvalide as e:
+        rapport.etape("realisateur", "ECHEC", erreurs=[str(e)], resume="habillage HUD invalide")
+        return rapport.terminer(2, etape_bloquante="realisateur", erreurs=[str(e)])
     except habillage.HabillageInvalide as e:
         rapport.etape("realisateur", "ECHEC", erreurs=e.erreurs, resume="habillage invalide")
         return rapport.terminer(2, etape_bloquante="realisateur", erreurs=e.erreurs)
