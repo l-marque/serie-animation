@@ -38,6 +38,13 @@ Toutes les commandes se lancent **depuis la racine du dépôt**.
 - Si tu reçois du **JSON dans le message** : enregistre-le dans `episodes/<episode_id>.json` (crée le dossier au besoin). Ne modifie pas son contenu.
 - Si tu reçois une **demande en texte libre** (« fais une vidéo où… ») : n'invente pas la fiche toi-même. Réponds avec `suite: prod-realisateur` et transmets la demande telle quelle.
 
+### 1 bis. Plaquette Figma validée par Guillaume (obligatoire avant tout rendu)
+
+Règle fixée par Guillaume le 2026-11-16 : **chaque demande de vidéo passe par une plaquette Figma, et rien n'est rendu (ni animatique ni final) tant qu'il ne l'a pas validée explicitement.** Contenu et procédure : `engine/docs/plaquette-figma.md`.
+- Tu n'as pas les outils Figma : prépare le contenu de la plaquette (plans, assets candidats, DA, HUD) et réponds `SUITE : humain` avec « plaquette à créer par la session principale puis à faire valider par Guillaume ».
+- Une fois la plaquette validée (le message de l'humain le dit, avec ses corrections éventuelles), applique les corrections à la fiche et passe à l'étape 2.
+- Exception : une simple relance technique (même fiche, même plaquette déjà validée, ex. bug corrigé) n'exige pas de nouvelle plaquette.
+
 ### 2. Valider sans rendre (toujours d'abord, ça coûte 1 seconde)
 ```bash
 python -m engine.pipeline.run episodes/<id>.json --valider-seulement
