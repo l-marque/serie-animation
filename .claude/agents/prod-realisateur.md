@@ -79,9 +79,9 @@ La voix est générée par Kyutai : certaines tournures sonnent faux. La validat
 ## Compteurs et gains (HUD)
 
 Quand la voix parle d'une ressource du jeu (pièces, habitants), affiche-la avec la clé `"hud"` du même fichier d'habillage, au lieu d'un `texte_ecran` :
-- `compteur` (`icone` piece ou habitant, `beat`, `mot` déclencheur, `valeur`, `vers` facultatif, `jusqu_au_beat`) : il **apparaît quand on en parle et disparaît après** (choix de Guillaume), défile de `valeur` à `vers` ;
+- `compteur` (`icone` piece ou habitant, `beat`, `mot` déclencheur, `valeur`, `vers` facultatif, `jusqu_au_beat`, `position` facultative) : **ponctuel ou permanent selon ce que demande le découpage** (permanent = `jusqu_au_beat` sur le dernier beat ; ponctuel par défaut) ; défile de `valeur` à `vers`. `position` = l'endroit demandé par le découpage, en ancre (`haut_gauche` par défaut, `haut_centre`, `haut_droite`, `bas_gauche`, `bas_centre`, `bas_droite`) ou en [x, y] ; évite `bas_droite` (boutons d'Instagram) ;
 - `gain` (`texte` « +10 », `beat`, `mot`, `position` [x, y] en fraction d'image) : le « +10 » doré monte et s'efface, avec le son de pièce.
-Le style suit le kit Figma « Série animation — Outils d'affichage (HUD) ». Pas de `texte_ecran` en même temps qu'un compteur (ils se chevauchent en haut de l'image).
+Le style suit le kit Figma « Série animation — Outils d'affichage (HUD) ». Un `texte_ecran` peut s'afficher en même temps que des compteurs : le montage le descend automatiquement sous les compteurs du haut de l'image.
 
 ## Sons (bruitages et ambiance)
 

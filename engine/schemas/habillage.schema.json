@@ -130,7 +130,7 @@
               "jusqu_au_beat": {
                 "type": "string",
                 "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
-                "description": "Dernier beat où le compteur reste affiché (défaut : le beat de départ). Il apparaît quand on en parle et disparaît ensuite."
+                "description": "Dernier beat où le compteur reste affiché (défaut : le beat de départ). Ponctuel ou permanent selon l'histoire : pour un compteur permanent, le dernier beat de l'épisode."
               },
               "valeur": {
                 "type": "integer",
@@ -140,6 +140,32 @@
                 "type": "integer",
                 "minimum": 0,
                 "description": "Valeur finale : le compteur défile de « valeur » à « vers »."
+              },
+              "position": {
+                "description": "Où poser le compteur : une ancre (défaut « haut_gauche » ; à droite, l'interface Instagram masque le bas de l'image), ou [x, y] relatifs à l'image (0 à 1) pour son centre. Les compteurs simultanés sur une même ancre s'empilent.",
+                "oneOf": [
+                  {
+                    "enum": [
+                      "haut_gauche",
+                      "haut_centre",
+                      "haut_droite",
+                      "bas_gauche",
+                      "bas_centre",
+                      "bas_droite"
+                    ]
+                  },
+                  {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "minItems": 2,
+                    "maxItems": 2
+                  }
+                ],
+                "default": "haut_gauche"
               }
             }
           },
