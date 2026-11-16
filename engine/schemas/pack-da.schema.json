@@ -63,6 +63,21 @@
           "type": "number",
           "minimum": 0,
           "maximum": 20
+        },
+        "textures": {
+          "type": "string",
+          "description": "Dossier de textures PBR (cartes.json), ex. engine/assets/textures/<id> (sources_assets texture)."
+        },
+        "echelle_texture": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Taille d'une tuile de texture en mètres (défaut 1)."
+        },
+        "force_teinte": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Part de la couleur du pack mélangée à la texture (0 = texture pure)."
         }
       }
     },
@@ -166,6 +181,10 @@
         "echantillons_animatique": {
           "type": "integer",
           "minimum": 1
+        },
+        "lancer_de_rayons": {
+          "type": "boolean",
+          "description": "Lumière indirecte et reflets EEVEE (défaut : oui en rendu final, non en animatique)."
         }
       },
       "additionalProperties": false
@@ -249,6 +268,10 @@
         },
         "couleur": {
           "$ref": "#/$defs/rgb"
+        },
+        "sur_assets_textures": {
+          "type": "boolean",
+          "description": "Contour aussi sur les modèles importés qui gardent leurs textures (défaut : non)."
         }
       }
     },
@@ -289,6 +312,9 @@
         },
         "accent": {
           "$ref": "#/$defs/materiau"
+        },
+        "eau": {
+          "$ref": "#/$defs/materiau"
         }
       }
     },
@@ -301,6 +327,17 @@
     "effets_sonores": {
       "type": "boolean",
       "description": "Pop sur les apparitions et souffle aux changements de plan (défaut : oui)."
+    },
+    "voix_off": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Voix de la série, choisie par un humain après une audition (python -m engine.pipeline.voix audition).",
+      "properties": {
+        "kyutai": {
+          "type": "string",
+          "description": "Identifiant d'une voix du dépôt kyutai/tts-voices, ex. cml-tts/fr/<id>_enhanced.wav"
+        }
+      }
     }
   }
 }

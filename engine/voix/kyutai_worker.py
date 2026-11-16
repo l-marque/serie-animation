@@ -5,7 +5,7 @@ environnement (sans PyTorch).
 Entrée : un fichier JSON de travail
     {"voix": "unmute-prod-website/fabieng-enhanced-v2.wav", "dossier": "<sortie>",
      "appareil": "auto" | "cuda" | "cpu", "cfg": 2.0,
-     "phrases": [{"id": "b1", "texte": "..."}]}
+     "phrases": [{"id": "b1", "texte": "...", "voix": "<facultatif : autre voix pour cette phrase>"}]}
 Sortie : <dossier>/<id>.wav (mono, fréquence de Mimi) pour chaque phrase, et <dossier>/resultat.json
     {"frequence": 24000, "appareil": "cpu", "phrases": [{"id", "fichier", "duree_s", "mots": [...],
      "origine_mots": "kyutai" | "estimation", "secondes_calcul"}]}
@@ -98,8 +98,15 @@ def main(chemin_travail: str) -> int:
     t0 = time.time()
     info = CheckpointInfo.from_hf_repo(travail.get("depot", DEFAULT_DSM_TTS_REPO))
     modele = TTSModel.from_checkpoint_info(info, n_q=32, temp=0.6, device=torch.device(appareil), dtype=dtype)
-    chemin_voix = modele.get_voice_path(travail["voix"])
-    conditions = modele.make_condition_attributes([chemin_voix], cfg_coef=travail.get("cfg", 2.0))
+    cache_conditions: dict = {}
+
+    def conditions_pour(nom_voix: str):
+        if nom_voix not in cache_conditions:
+            cache_conditions[nom_voix] = modele.make_condition_attributes(
+                [modele.get_voice_path(nom_voix)], cfg_coef=travail.get("cfg", 2.0))
+        return cache_conditions[nom_voix]
+
+    conditions_pour(travail["voix"])
     chargement = time.time() - t0
     frequence = int(modele.mimi.sample_rate)
     frame_rate = float(modele.mimi.frame_rate)
@@ -116,7 +123,8 @@ def main(chemin_travail: str) -> int:
                 morceaux.append(np.clip(pcm[0, 0], -1, 1))
 
         with modele.mimi.streaming(1):
-            res = modele.generate([entrees], [conditions], on_frame=_sur_image)
+            res = modele.generate([entrees], [conditions_pour(phrase.get("voix", travail["voix"]))],
+                                  on_frame=_sur_image)
         pcm = np.concatenate(morceaux) if morceaux else np.zeros(1, dtype=np.float32)
         pcm, decalage = _rogner(pcm, frequence)
         duree = pcm.size / frequence

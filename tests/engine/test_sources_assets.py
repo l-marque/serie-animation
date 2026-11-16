@@ -89,7 +89,8 @@ def test_chercher_agrege_et_rapporte_les_erreurs(monkeypatch, tmp_path):
 
 def test_integrer_polyhaven_ecrit_registre_et_licences(monkeypatch, depot_temporaire):
     racine, registre, licences, telecharges = depot_temporaire
-    monkeypatch.setattr(sa, "_get_json", _faux_json({"https://api.polyhaven.com/files/": POLYHAVEN_FILES}))
+    monkeypatch.setattr(sa, "_get_json", _faux_json({"https://api.polyhaven.com/files/": POLYHAVEN_FILES,
+                                                     "https://api.polyhaven.com/info/": {"authors": {"Jane Doe": "All"}}}))
     sortie = sa.integrer("polyhaven", "lighthouse_01", "phare_01", role_defaut="batiment", materiaux="origine")
     assert sortie["fichier"] == "engine/assets/modeles/phare_01/lighthouse_01_1k.gltf"
     assert (racine / "engine/assets/modeles/phare_01/textures/lighthouse_diff_1k.jpg").is_file()
@@ -97,7 +98,7 @@ def test_integrer_polyhaven_ecrit_registre_et_licences(monkeypatch, depot_tempor
     entree = json.loads(registre.read_text(encoding="utf-8"))["assets"]["phare_01"]
     assert entree["materiaux"] == "origine" and entree["echelle_verifiee"] is False
     lignes = list(csv.reader(licences.open(encoding="utf-8")))
-    assert lignes[-1][:4] == ["phare_01", "polyhaven", "Poly Haven", "CC0"]
+    assert lignes[-1][:4] == ["phare_01", "polyhaven", "Jane Doe", "CC0"]
     with pytest.raises(sa.SourceErreur, match="existe déjà"):
         sa.integrer("polyhaven", "lighthouse_01", "phare_01")
 
@@ -125,3 +126,34 @@ def test_cli_chercher_code_1_si_aucune_source_ne_repond(monkeypatch, tmp_path, c
     monkeypatch.setattr(chemins, "RACINE", tmp_path)
     assert sa.main(["chercher", "lighthouse", "--sources", "polypizza"]) == 1
     assert "POLY_PIZZA_KEY" in capsys.readouterr().out
+
+
+def test_3dtexel_ne_garde_que_le_cc0_gratuit(monkeypatch):
+    monkeypatch.setattr(sa, "_get_json", _faux_json({"https://3dtexel.com/wp-json/3dtexel-api/v1/assets/search": {"items": [
+        {"id": 1, "title": "Carrelage", "type": "pbr", "source": "handmade", "license": "CC0 1.0 (public domain)",
+         "price": {"credits": 0, "free": True}, "url": "https://3dtexel.com/p/1"},
+        {"id": 2, "title": "Carrelage IA", "type": "ai-pbr", "source": "ai", "license": "3DTexel License",
+         "price": {"credits": 10, "free": False}},
+        {"id": 3, "title": "Rocher premium", "type": "premium-3d", "source": "premium", "license": "3DTexel License",
+         "price": {"credits": None, "free": True}}]}}))
+    res = sa.chercher_3dtexel("tile")
+    assert [c.id_source for c in res] == ["1"] and res[0].licence_ok
+
+
+def test_3dtexel_telechargement_sans_cle(monkeypatch, tmp_path):
+    monkeypatch.delenv("TEXEL_API_KEY", raising=False)
+    monkeypatch.setattr(chemins, "RACINE", tmp_path)
+    with pytest.raises(sa.SourceErreur, match="TEXEL_API_KEY"):
+        sa.telecharger_3dtexel("1", tmp_path)
+
+
+def test_texture_polyhaven(monkeypatch, depot_temporaire):
+    racine, *_ = depot_temporaire
+    monkeypatch.setattr(sa, "DOSSIER_TEXTURES", racine / "engine" / "assets" / "textures")
+    monkeypatch.setattr(sa, "_get_json", _faux_json({"https://api.polyhaven.com/files/": {
+        "Diffuse": {"1k": {"jpg": {"url": "https://dl/d.jpg"}}}, "nor_gl": {"1k": {"jpg": {"url": "https://dl/n.jpg"}}},
+        "Rough": {"1k": {"jpg": {"url": "https://dl/r.jpg"}}}}}))
+    dossier = sa.telecharger_texture_polyhaven("white_tiles")
+    import json as _json
+    cartes = _json.loads((dossier / "cartes.json").read_text(encoding="utf-8"))
+    assert set(cartes) == {"couleur", "normale", "rugosite"}

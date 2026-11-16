@@ -35,3 +35,6 @@ desktop.ini
 
 # HDRI : retéléchargeables avec engine/pipeline/sources_assets.py (lourdes)
 engine/assets/hdri/*.hdr
+# Modèles et textures téléchargés : retéléchargeables avec engine/pipeline/sources_assets.py (registre et licences, eux, sont versionnés)
+engine/assets/modeles/
+engine/assets/textures/

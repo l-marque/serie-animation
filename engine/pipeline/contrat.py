@@ -72,7 +72,8 @@ def _appliquer_defauts(d: dict[str, Any]) -> dict[str, Any]:
                 o["position"] = [*o["position"], 0]
             o.setdefault("rotation_z", 0)
             o.setdefault("echelle", 1)
-            o.setdefault("role", "personnage" if cle == "personnages" else None)
+            if cle == "personnages":
+                o.setdefault("role", "personnage")  # pas de rôle par défaut pour un élément : celui de sa pièce s'applique
             o.setdefault("visible_au_debut", True)
     for m in d.setdefault("modules", []):
         m.setdefault("motif", "spirale")
@@ -83,7 +84,6 @@ def _appliquer_defauts(d: dict[str, Any]) -> dict[str, Any]:
         m.setdefault("variation_echelle", [0.8, 1.1])
         m.setdefault("seed", 42)
         m.setdefault("rayon_interieur", 0)
-        m.setdefault("role", None)
         m.setdefault("visible_au_debut", True)
     for b in d["beats"]:
         b.setdefault("voix", "")

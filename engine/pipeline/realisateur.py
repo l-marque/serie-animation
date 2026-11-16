@@ -89,6 +89,28 @@ def _duree_et_mots(beat: dict[str, Any]) -> tuple[float, list[dict[str, Any]], s
     return beat.get("duree_s", DUREE_BEAT_MUET_S), [], "muet"
 
 
+NOMBRES_DIFFICILES = re.compile(r"\b(cents?|mille|quatre-vingts?|soixante-(?:dix|onze|douze|treize|quatorze|quinze|seize))\b", re.I)
+
+
+def lint_voix(texte: str, beat_id: str) -> list[str]:
+    """Défauts fréquents de la synthèse vocale, repérés sur le texte (avant tout calcul) :
+    phrase trop courte (intonation plate ou coupée) et grands nombres dits en toutes lettres ou en
+    chiffres (prononciation souvent heurtée). La production le signale ; le texte reste celui validé
+    par le pôle Storytelling."""
+    texte = (texte or "").strip()
+    if not texte:
+        return []
+    avert = []
+    nb_mots = len(_decouper_mots(texte))
+    if nb_mots < 3:
+        avert.append(f"beat {beat_id} : voix de {nb_mots} mot(s) (« {texte} ») : la synthèse vocale rend mal les "
+                     "phrases très courtes ; les regrouper avec la phrase voisine ou laisser le beat muet")
+    if re.search(r"\d{3,}", texte) or NOMBRES_DIFFICILES.search(texte):
+        avert.append(f"beat {beat_id} : grand nombre dans la voix (« {texte} ») : prononciation souvent heurtée ; "
+                     "le montrer à l'écran (compteur) et le dire autrement (« deux fois plus », « des centaines »)")
+    return avert
+
+
 def _instant_mot(mots: list[dict[str, Any]], cible: str, beat_id: str) -> float:
     n = normaliser_mot(cible)
     for m in mots:
@@ -158,10 +180,14 @@ def construire_timeline(fiche: Fiche, mode: str = "animatique") -> dict[str, Any
         })
         t = fin
 
+    for b in d["beats"]:
+        fiche.avertissements += lint_voix(b.get("voix", ""), b["id"])
+
     nb_frames = beats_sortie[-1]["frame_fin"]
     for b in beats_sortie:
         for a in b["actions"]:
-            if a["type"] != "cycle" and b["fin_s"] - a["t_fin_s"] < MARGE_LISIBILITE_S:
+            court_et_muet = not (b.get("voix") or "").strip() and b["duree_s"] < 1.5  # pops rapides voulus
+            if a["type"] != "cycle" and not court_et_muet and b["fin_s"] - a["t_fin_s"] < MARGE_LISIBILITE_S:
                 fiche.avertissements.append(
                     f"beat {b['id']} : '{a['type']}' sur '{a['cible']}' finit à {b['fin_s'] - a['t_fin_s']:.2f} s "
                     f"de la fin du beat (< {MARGE_LISIBILITE_S} s) : le résultat sera à peine visible ; "

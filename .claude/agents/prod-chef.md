@@ -50,6 +50,7 @@ python -m engine.pipeline.run episodes/<id>.json --valider-seulement
 python -m engine.pipeline.run episodes/<id>.json --mode animatique
 ```
 - Sur le PC de Guillaume, Blender est trouvé via la variable `BLENDER_PATH` ou l'option `--blender "C:/Program Files/Blender Foundation/Blender 5.3/blender.exe"`.
+- **Ce que le montage fait déjà, sans rien dans la fiche** : sous-titres « karaoké » (mot prononcé surligné, capitales, calés sur la vraie voix), texte à l'écran du beat en haut, pop sur chaque apparition et souffle à chaque changement de plan, musique baissée sous la voix, volume normalisé. Ne les signale pas comme manquants.
 - **Voix off** : par défaut (`--voix auto`), Kyutai TTS est utilisé si `TTS_PYTHON` est défini (dans `.env` ou l'environnement) ; sinon la vidéo est muette et un avertissement le signale. `--voix windows` = voix système de Windows, de secours. La synthèse prend environ 1 s de calcul par seconde de voix sur la RTX 5070 (15 s sur CPU), plus 12 s de chargement ; ensuite tout est en cache. Code 7 = échec de la voix (`suite: maintenance`). `--valider-seulement` ne synthétise pas la voix (timings estimés).
 - Options utiles : `--pourcent 25` (définition réduite, défaut 50 % en animatique), `--moteur BLENDER_WORKBENCH` (très rapide, mais ne reproduit pas le look du pack : à réserver à une machine sans GPU), `--blender python` (Blender lancé comme module Python `bpy`, quand il n'y a pas d'exécutable Blender, par exemple en environnement cloud).
 - Le cache évite de re-rendre les beats inchangés : **ne mets jamais `--forcer`** sauf si on te le demande ou si le code Blender a été modifié hors dépôt.
@@ -73,6 +74,20 @@ python -m engine.pipeline.run episodes/<id>.json --mode animatique
 python -m engine.pipeline.run episodes/<id>.json --mode final
 ```
 Le mode final met à jour l'état de la série (`series/<id>/etat.json`) si la fiche demande la continuité.
+
+## Qualité des objets : des modèles sourcés, pas des formes simples
+
+Leçon du pilote canard (avis de Guillaume) : des primitives faites en code donnent une image « moche » dès qu'elles sont au premier plan. **Avant la première animatique d'un épisode**, pour chaque objet qui compte à l'image (personnage, objet nommé par l'histoire, décor principal, sol et murs visibles), cherche un vrai modèle ou un vrai matériau :
+
+1. **Modèles 3D** : `python -m engine.pipeline.sources_assets chercher "<mots-clés anglais>" --sources polyhaven,3dtexel,polypizza,sketchfab`. Poly Haven (CC0, sans clé) a des modèles texturés de qualité (ex. `rubber_duck_toy`) ; Poly Pizza et Sketchfab demandent une clé dans `.env` (signale-la si elle manque).
+2. **Matériaux PBR (sol, murs, carrelage, bois…)** : 3DTexel (`--sources 3dtexel`, CC0 « handmade » seulement ; téléchargement avec `TEXEL_API_KEY`) ou Poly Haven (`sources_assets texture <id>`, sans clé). Le dossier obtenu se range dans le pack : `materiaux.<role>.textures`.
+3. **Éclairage** : une HDRI Poly Haven adaptée au lieu (`sources_assets hdri <id>`).
+
+Propose **3 candidats par objet** à un humain (image d'aperçu, licence, poids) et attends son choix avant de télécharger. Un modèle importé garde ses textures (`--materiaux origine`) si le pack est réaliste, sinon il prend la couleur de la DA.
+
+Une primitive n'est acceptable que comme **marqueur provisoire** pour régler le rythme (écris `PLACEHOLDER : <objet>` dans `ASSETS`) ou pour une foule lointaine. Un épisode montré à un humain comme « joli » ne contient aucun marqueur provisoire au premier plan.
+
+**Définition** : l'animatique est volontairement à 50 % de la résolution et sans lumière indirecte, pour juger le rythme. Dis-le à l'humain. Pour juger la beauté, rends 2 ou 3 beats représentatifs en qualité finale (`--mode final`, ou `--pourcent 100`) avant de tout rendre.
 
 ## Assets manquants (code 3) : la bibliothèque
 

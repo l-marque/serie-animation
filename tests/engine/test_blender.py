@@ -99,3 +99,21 @@ def test_hdri_branchee_sur_le_monde(tmp_path):
     noeuds = bpy.context.scene.world.node_tree.nodes
     tex = next(n for n in noeuds if n.type == "TEX_ENVIRONMENT")
     assert tex.outputs["Color"].is_linked
+
+
+def test_materiau_pbr_branche_les_textures(tmp_path):
+    sys.path.insert(0, str(chemins.SCRIPTS_BLENDER))
+    import look  # noqa: E402
+
+    for nom in ("c.png", "n.png", "r.png"):
+        img = bpy.data.images.new(nom, 4, 4)
+        img.filepath_raw = str(tmp_path / nom)
+        img.file_format = "PNG"
+        img.save()
+    (tmp_path / "cartes.json").write_text(json.dumps({"couleur": "c.png", "normale": "n.png", "rugosite": "r.png"}),
+                                          encoding="utf-8")
+    pack = json.loads((chemins.PACKS_DA / "test_lowpoly.json").read_text(encoding="utf-8"))
+    pack["materiaux"]["carrelage"] = dict(pack["materiaux"]["sol"], textures=str(tmp_path))  # chemin absolu accepté
+    mat = look.materiau_role(pack, "carrelage")
+    types = {n.type for n in mat.node_tree.nodes}
+    assert {"TEX_IMAGE", "NORMAL_MAP", "MAPPING"} <= types
