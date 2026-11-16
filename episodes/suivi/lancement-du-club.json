@@ -3,7 +3,7 @@
   "titre": null,
   "demande_initiale": "premier épisode de La Revanche du Miteux : Kevin, seul dans son stade en ruine, lance le club et demande de l'aide à ses abonnés",
   "branche": "episode/lancement-du-club",
-  "etape_courante": "idee",
+  "etape_courante": "arret_1",
   "fichiers": {
     "idee": null,
     "scenario": null,
@@ -14,11 +14,36 @@
     "video": null
   },
   "arrets": {
-    "arret_1": {"statut": "en_attente", "par": null, "date": null, "reponse": null},
-    "arret_2": {"statut": "en_attente", "par": null, "date": null, "reponse": null},
-    "arret_3": {"statut": "en_attente", "par": null, "date": null, "reponse": null},
-    "arret_4": {"statut": "en_attente", "par": null, "date": null, "reponse": null},
-    "arret_5": {"statut": "en_attente", "par": null, "date": null, "reponse": null}
+    "arret_1": {
+      "statut": "en_attente",
+      "par": null,
+      "date": null,
+      "reponse": null
+    },
+    "arret_2": {
+      "statut": "en_attente",
+      "par": null,
+      "date": null,
+      "reponse": null
+    },
+    "arret_3": {
+      "statut": "en_attente",
+      "par": null,
+      "date": null,
+      "reponse": null
+    },
+    "arret_4": {
+      "statut": "en_attente",
+      "par": null,
+      "date": null,
+      "reponse": null
+    },
+    "arret_5": {
+      "statut": "en_attente",
+      "par": null,
+      "date": null,
+      "reponse": null
+    }
   },
   "audience": {
     "premier_episode": true,
@@ -26,13 +51,40 @@
     "par": null,
     "date": null,
     "reponse": null,
-    "mise_a_jour_etat": {"statut": "sans_objet", "par": null, "date": null, "reponse": null}
+    "mise_a_jour_etat": {
+      "statut": "sans_objet",
+      "par": null,
+      "date": null,
+      "reponse": null
+    }
   },
   "machine_requise": "n'importe laquelle",
   "blocage": null,
   "historique": [
-    {"date": "2026-11-16T14:45:00+01:00", "etape": "demarrage", "evenement": "Épisode créé par /episode : id lancement-du-club, branche episode/lancement-du-club depuis main (3f2b934)."},
-    {"date": "2026-11-16T14:45:00+01:00", "etape": "audience", "evenement": "Premier épisode (aucun autre suivi, etat.json initial avec mise_a_jour null) : départ de l'état initial de la série, aucun chiffre demandé ; audience sans_objet."},
-    {"date": "2026-11-16T14:46:00+01:00", "etape": "idee", "evenement": "Appel de story-chef, passage 1 (idées + continuité), avec la demande initiale et l'état de la série."}
+    {
+      "date": "2026-11-16T14:45:00+01:00",
+      "etape": "demarrage",
+      "evenement": "Épisode créé par /episode : id lancement-du-club, branche episode/lancement-du-club depuis main (3f2b934)."
+    },
+    {
+      "date": "2026-11-16T14:45:00+01:00",
+      "etape": "audience",
+      "evenement": "Premier épisode (aucun autre suivi, etat.json initial avec mise_a_jour null) : départ de l'état initial de la série, aucun chiffre demandé ; audience sans_objet."
+    },
+    {
+      "date": "2026-11-16T14:46:00+01:00",
+      "etape": "idee",
+      "evenement": "Appel de story-chef, passage 1 (idées + continuité), avec la demande initiale et l'état de la série."
+    },
+    {
+      "date": "2026-11-16T15:05:00+01:00",
+      "etape": "idee",
+      "evenement": "story-chef passage 1 terminé : bible sans section À DÉCIDER, 5 idées (grilles 6, 6, 5, 6, 6 sur 7), continuité : 4 OK (1, 2, 3, 5), 1 à corriger (4), aucune bloquante. Points ouverts : mécanisme des 2 choix de fin à l'épisode 1 ; 2 contradictions bible / engine/docs/exigences-production-pour-storytelling.md § 6 sur les compteurs. Rien écrit dans docs/."
+    },
+    {
+      "date": "2026-11-16T15:05:00+01:00",
+      "etape": "arret_1",
+      "evenement": "ARRÊT 1 : en attente du choix de l'idée par Lucas."
+    }
   ]
 }
