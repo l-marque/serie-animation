@@ -361,7 +361,8 @@ def test_habillage_valide_et_controle_les_parents():
 
 def test_habillage_absent_ne_change_rien(tmp_path):
     from engine.pipeline import habillage
-    assert habillage.charger(tmp_path / "ep.json", {}) == []
+    donnees, avert = habillage.assembler(tmp_path / "ep.json", {})
+    assert habillage.charger(donnees, {"elements": [], "personnages": [], "modules": []}) == [] and avert == []
 
 
 @pytest.mark.parametrize("licence,ok", [("CC0", True), ("CC0 1.0 Universal", True), ("CC-BY 3.0", True),
@@ -413,3 +414,27 @@ def test_cles_env_tolerantes(tmp_path, monkeypatch):
     assert sources_assets._env("POLY_PIZZA_KEY") == "abc"
     assert sources_assets._env("TEXEL_API_KEY") == "tx_live_123"
     assert sources_assets._env("SKETCHFAB_TOKEN") is None
+
+
+def test_habillage_de_la_fiche_v11_l_emporte_sur_le_fichier(tmp_path):
+    import json as _json
+    from engine.pipeline import habillage
+    source = tmp_path / "ep.json"
+    (tmp_path / "ep.habillage.json").write_text(_json.dumps({"version": "1.0", "textes_3d": [{"id": "vieux", "texte": "X"}],
+                                                             "hud": [{"type": "gain", "beat": "b1"}]}), encoding="utf-8")
+    fiche = {"version": "1.1", "habillage": {"textes_3d": [{"id": "neuf", "texte": "SIX SEVEN"}]},
+             "elements": [], "personnages": [], "modules": []}
+    donnees, avert = habillage.assembler(source, fiche)
+    assert [t["id"] for t in habillage.charger(donnees, fiche)] == ["neuf"]
+    assert habillage.charger_hud(donnees) == [{"type": "gain", "beat": "b1"}]
+    assert any("ignoré" in a for a in avert) and any("lu(s) dans le fichier" in a for a in avert)
+    sans = {"version": "1.0", "elements": [], "personnages": [], "modules": []}
+    donnees, avert = habillage.assembler(source, sans)
+    assert [t["id"] for t in habillage.charger(donnees, sans)] == ["vieux"] and avert == []
+
+
+def test_versions_du_contrat_alignees_sur_le_schema():
+    import json as _json
+    from engine.pipeline import chemins, contrat
+    schema = _json.loads(chemins.SCHEMA_FICHE.read_text(encoding="utf-8"))
+    assert tuple(schema["properties"]["version"]["enum"]) == contrat.VERSIONS_ACCEPTEES
