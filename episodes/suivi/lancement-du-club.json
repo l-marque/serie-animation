@@ -245,6 +245,16 @@
       "date": "2026-11-16T22:05:00+01:00",
       "etape": "fiche",
       "evenement": "Blender 5.3 présent sur le PC de Guillaume. Appel de story-chef, passage 5 (statut du découpage, remise à la production)."
+    },
+    {
+      "date": "2026-11-16T22:15:00+01:00",
+      "etape": "fiche",
+      "evenement": "story-chef passage 5 terminé : statut du découpage passé à « validé par Guillaume et Lucas le 2026-11-16 (accord de Lucas rapporté par Guillaume) » (seule ligne modifiée, vérifiée par git diff) ; bloc REMISE À LA PRODUCTION rendu (14 points à confirmer par Guillaume, 11 briques manquantes)."
+    },
+    {
+      "date": "2026-11-16T22:15:00+01:00",
+      "etape": "fiche",
+      "evenement": "Appel de prod-chef : fiche par prod-realisateur, validation, puis contenu de la plaquette Figma ; aucun rendu avant validation de la plaquette par Guillaume."
     }
   ]
 }

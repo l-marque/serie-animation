@@ -1,6 +1,6 @@
 # La visite guidée — découpage technique
 
-- Statut : proposé, à valider par Lucas ; faisabilité à confirmer par Guillaume
+- Statut : validé par Guillaume et Lucas le 2026-11-16 (accord de Lucas rapporté par Guillaume) ; faisabilité à confirmer par Guillaume
 - Beats source : `docs/storytelling/beats/2026-11-16-la-visite-guidee.md` (statut : validé par Lucas le 2026-11-16 ; versions de secours seulement si la voix n° 12 déborde à l'animatique ; pas de mesure avant le découpage ; on garde les 0,7 s à la jonction de la boucle)
 - Scénario source : `docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md` (statut : validé par Lucas le 2026-11-16, avec réserves)
 - Épisode : `lancement-du-club` ; état de la série lu dans `episodes/serie/etat.json` (0 abonné, 0 €, 0 supporter, aucun choix en cours ; il n'a pas été transmis avec la demande, je l'ai lu dans le dépôt)
