@@ -1,0 +1,29 @@
+{
+  "id": "essai-orchestrateur",
+  "titre": "Essai factice du passage de machine (aucun contenu narratif)",
+  "demande_initiale": "Épisode factice demandé par Lucas le 2026-11-16 pour tester le passage de machine de /episode ; aucun contenu narratif.",
+  "branche": "episode/essai-orchestrateur",
+  "etape_courante": "fiche",
+  "fichiers": {
+    "idee": null,
+    "scenario": null,
+    "beats": null,
+    "decoupage": null,
+    "fiche": null,
+    "animatique": null,
+    "video": null
+  },
+  "arrets": {
+    "arret_1": {"statut": "valide", "par": "essai factice (aucune validation humaine)", "date": "2026-11-16", "reponse": "Arrêt marqué valide pour l'essai factice, sans contenu à valider."},
+    "arret_2": {"statut": "valide", "par": "essai factice (aucune validation humaine)", "date": "2026-11-16", "reponse": "Arrêt marqué valide pour l'essai factice, sans contenu à valider."},
+    "arret_3": {"statut": "valide", "par": "essai factice (aucune validation humaine)", "date": "2026-11-16", "reponse": "Arrêt marqué valide pour l'essai factice, sans contenu à valider."},
+    "arret_4": {"statut": "valide", "par": "essai factice (aucune validation humaine)", "date": "2026-11-16", "reponse": "Arrêt marqué valide pour l'essai factice, sans contenu à valider."},
+    "arret_5": {"statut": "en_attente", "par": null, "date": null, "reponse": null}
+  },
+  "boucles_correction": 0,
+  "machine_requise": "n'importe laquelle",
+  "blocage": null,
+  "historique": [
+    {"date": "2026-11-16T10:50:00+01:00", "etape": "fiche", "evenement": "Suivi factice créé pour tester le passage de machine ; prochaine étape : production."}
+  ]
+}

@@ -60,3 +60,9 @@ def test_suivi_refuse(modif):
     s = copy.deepcopy(SUIVI)
     modif(s)
     assert _erreurs(s)
+
+
+def test_suivi_factice_essai_orchestrateur_valide():
+    """Suivi factice de l'essai du passage de machine (2026-11-16), avant l'arrêt faute de Blender."""
+    chemin = RACINE / "tests" / "fixtures" / "suivi" / "essai-orchestrateur.json"
+    assert _erreurs(json.loads(chemin.read_text(encoding="utf-8"))) == []

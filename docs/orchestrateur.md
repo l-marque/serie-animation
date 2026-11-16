@@ -51,4 +51,13 @@ Avant une étape de production, l'orchestrateur vérifie Blender (`BLENDER_PATH`
 
 ## État réel
 
-Essai du 2026-11-16 chez Lucas, sans Blender, dans un clone jetable du dépôt (aucune branche `episode/*` poussée sur GitHub) : démarrage d'un épisode jusqu'au premier arrêt, reprise depuis une autre copie, changement de machine sur un épisode factice (`tests/fixtures/suivi/essai-orchestrateur.json`). Production jamais lancée de bout en bout.
+**Essai du 2026-11-16, PC de Lucas, sans Blender.** Fait dans un clone jetable du dépôt avec un faux `origin` local (scratchpad de la session) : aucune branche `episode/*` n'a été poussée sur GitHub. Dans ce clone, la branche d'épisode partait de `feature/orchestrateur-episode` (la commande n'est pas encore dans `main`).
+
+| Essai | Résultat |
+|---|---|
+| `/episode premier épisode de la série : un environnement qui évolue avec l'audience` | id `premier-episode`, branche et suivi créés (suivi valide) ; `story-chef` passage 1 **arrêté à son étape 0** (5 sections « À DÉCIDER » de la bible) ; aucune idée lancée, rien écrit dans `docs/`, aucun arrêt validé ; `blocage` et historique consignés, commit et push vers le faux `origin`. **Fait et vérifié.** |
+| `/episode reprendre premier-episode` depuis une autre copie | `git fetch`, `checkout`, lecture du suivi : étape `idee`, arrêts en attente, blocage rappelé, aucun agent relancé. Branche inexistante : refus de `git checkout`. **Fait et vérifié.** |
+| Passage de machine, épisode factice `essai-orchestrateur` (étape `fiche`, arrêts 1 à 4 marqués valides « essai factice (aucune validation humaine) ») | arrêts 1 à 4 vérifiés, Blender absent (`BLENDER_PATH` vide, `blender` introuvable ; un Blender 4.2 installé hors du PATH n'est pas détecté, et le pipeline demande la 5.3), suivi mis à jour, commit et push vers le faux `origin`, message pour le PC de Guillaume. Suivi rangé dans `tests/fixtures/suivi/essai-orchestrateur.json`. **Fait et vérifié.** |
+| ARRÊTS 1 à 5, production, PR d'épisode | **non testés** (aucun choix de Lucas demandé pendant l'essai, pas de Blender). |
+
+Constat : la commande `/episode` a été chargée par Claude Code dans la version du **premier commit** du fichier, sans les sections ajoutées ensuite dans la même session. L'essai a suivi le fichier complet. **Après toute modification de `.claude/commands/episode.md`, redémarrer Claude Code** avant de lancer `/episode`.
