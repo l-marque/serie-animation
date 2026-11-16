@@ -315,8 +315,24 @@
         },
         "eau": {
           "$ref": "#/$defs/materiau"
+        },
+        "peau": {
+          "$ref": "#/$defs/materiau"
+        },
+        "tissu": {
+          "$ref": "#/$defs/materiau"
+        },
+        "blanc": {
+          "$ref": "#/$defs/materiau"
+        },
+        "or": {
+          "$ref": "#/$defs/materiau"
+        },
+        "pierre": {
+          "$ref": "#/$defs/materiau"
         }
-      }
+      },
+      "description": "Les 8 rôles du contrat sont obligatoires. Rôles facultatifs (eau, peau, tissu, blanc, or, pierre) : valeurs neutres de engine/blender/look.py (ROLES_FACULTATIFS) si absents."
     },
     "texte_ecran": {
       "$ref": "#/$defs/texte"

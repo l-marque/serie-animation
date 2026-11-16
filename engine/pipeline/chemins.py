@@ -20,10 +20,11 @@ SCRIPT_CONSTRUCTION = SCRIPTS_BLENDER / "construire_scene.py"
 SERIES = RACINE / "series"
 RENDUS = RACINE / "renders"
 
-# Primitives fournies par le kit de décor « primitifs » (engine/blender/kits/primitifs.py).
-# Toute nouvelle primitive doit être ajoutée aux deux endroits (un test le vérifie).
+# Primitives fournies par le kit de décor « primitifs » (engine/blender/kits/primitifs.py et
+# kits/village.py). Toute nouvelle primitive doit être ajoutée ici aussi (un test le vérifie).
 PRIMITIVES = frozenset({"maison", "tour", "arbre", "rocher", "personnage", "caisse", "lampadaire",
-                        "canard", "baignoire", "eau", "flaque", "donut", "ballon"})
+                        "canard", "baignoire", "eau", "flaque", "donut", "ballon",
+                        "panneau_entree", "carte_choix", "icone_fontaine", "repere"})
 
 KITS_DECOR = frozenset({"primitifs"})
 

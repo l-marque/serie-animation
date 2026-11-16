@@ -68,6 +68,10 @@ La voix est générée par Kyutai : certaines tournures sonnent faux. La validat
 - **Effets disponibles** (vocabulaire actuel) : niveau d'eau qui monte (`deplacer` sur l'élément `eau`, vers le haut), eau qui déborde au sol (élément `flaque`, invisible au début, puis `apparaitre` et `grandir`), pop d'apparition (son automatique), vagues d'apparition d'un module. Utilise-les quand l'histoire le suggère : un débordement sans eau qui déborde n'est pas crédible.
 - Un effet que le vocabulaire ne permet pas (éclaboussures, vapeur, mousse, particules) se signale comme **brique manquante** dans ta réponse, au lieu d'être ignoré.
 
+## Textes en 3D et cartes de choix (habillage)
+
+Le contrat v1.0 n'a pas de champ pour un texte dans le décor (nom de ville sur un panneau, légende d'une carte de choix). Écris-les dans `<fiche>.habillage.json`, à côté de la fiche (schéma `engine/schemas/habillage.schema.json`) : `id`, `texte`, `parent` (élément que le texte suit, apparitions comprises), `position` dans le repère du parent, `taille`, `role`. Primitives utiles : `panneau_entree` (texte centré à (0, -0,06, 1,85)), `carte_choix` (objet à montrer posé devant, légende vers z ≈ 0,4), `icone_fontaine`, `repere` (point de visée invisible, ex. pour cadrer deux cartes). Exemple complet : `episodes/tests/six_seven_001.json`. Un personnage qui change d'action (parler → travailler → saluer) = deux entrées du registre ; échange-les sur une coupe (`disparaitre` / `apparaitre` en 0,05 s au début du beat).
+
 ## Ce que tu renvoies
 
 ```

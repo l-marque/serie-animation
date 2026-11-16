@@ -75,7 +75,9 @@ def verifier(donnees: dict[str, Any]) -> Verification:
             v.manquants.append({"asset": asset, "raison": f"fichier introuvable ({entree.get('fichier')})",
                                 "utilise_par": ", ".join(ou)})
             continue
-        ligne = lic.get(nom)
+        # Plusieurs entrées du registre peuvent partager un même fichier (variantes : animation,
+        # dégâts) : "licence" désigne alors la ligne de licences.csv du fichier d'origine.
+        ligne = lic.get(entree.get("licence") or nom)
         if ligne is None:
             v.manquants.append({"asset": asset, "raison": "licence non enregistrée dans licences.csv",
                                 "utilise_par": ", ".join(ou)})

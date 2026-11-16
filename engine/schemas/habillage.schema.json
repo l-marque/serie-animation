@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/l-marque/serie-animation/engine/schemas/habillage.schema.json",
+  "title": "Habillage d'un épisode (fichier interne au pôle Production)",
+  "description": "Fichier facultatif <fiche>.habillage.json posé à côté d'une fiche épisode. Ajoute ce que le contrat v1.0 ne sait pas encore décrire : textes en 3D dans le décor (nom de ville sur un panneau, légendes des cartes de choix). Écrit par prod-realisateur ou prod-directeur-artistique ; n'entre pas dans le contrat Storytelling -> Production.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["version"],
+  "properties": {
+    "version": {"const": "1.0"},
+    "textes_3d": {
+      "type": "array",
+      "maxItems": 40,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "texte"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"},
+          "texte": {"type": "string", "minLength": 1, "maxLength": 40},
+          "parent": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
+            "description": "Id d'un élément ou personnage de la fiche. Le texte le suit (position, apparition, disparition). Sans parent, le texte est fixe dans le décor."
+          },
+          "position": {
+            "type": "array", "items": {"type": "number"}, "minItems": 3, "maxItems": 3,
+            "description": "Centre du texte en mètres ; dans le repère du parent s'il y en a un."
+          },
+          "rotation_z": {"type": "number", "default": 0, "description": "Degrés. 0 = lisible depuis -y (caméra par défaut)."},
+          "taille": {"type": "number", "exclusiveMinimum": 0, "maximum": 20, "default": 0.3, "description": "Hauteur des lettres en mètres."},
+          "epaisseur": {"type": "number", "minimum": 0, "maximum": 1, "default": 0.02},
+          "role": {
+            "enum": ["sol", "batiment", "toit", "vegetation", "roche", "personnage", "accessoire", "accent", "eau", "peau", "tissu", "blanc", "or", "pierre"],
+            "default": "accent"
+          },
+          "visible_au_debut": {"type": "boolean", "default": true}
+        }
+      }
+    }
+  }
+}

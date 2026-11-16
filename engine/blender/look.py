@@ -15,6 +15,18 @@ from commun import journal
 
 ROLES = ("sol", "batiment", "toit", "vegetation", "roche", "personnage", "accessoire", "accent")
 
+# Rôles facultatifs, utilisés par les pièces secondaires des primitives (visage d'un personnage,
+# costume, panneau blanc, pièces d'or…). Un pack peut les redéfinir dans « materiaux » ; sinon ces
+# valeurs neutres s'appliquent, ce qui évite d'imposer un rôle de plus à chaque pack existant.
+ROLES_FACULTATIFS: dict[str, dict] = {
+    "eau": {"couleur": [0.16, 0.5, 0.75], "rugosite": 0.08},
+    "peau": {"couleur": [0.80, 0.56, 0.42], "rugosite": 0.55},
+    "tissu": {"couleur": [0.07, 0.09, 0.17], "rugosite": 0.85},
+    "blanc": {"couleur": [0.90, 0.90, 0.88], "rugosite": 0.5},
+    "or": {"couleur": [1.0, 0.70, 0.12], "rugosite": 0.3, "metal": 1.0},
+    "pierre": {"couleur": [0.62, 0.58, 0.52], "rugosite": 0.9},
+}
+
 
 def _principled(mat: bpy.types.Material) -> bpy.types.Node:
     return next(n for n in mat.node_tree.nodes if n.type == "BSDF_PRINCIPLED")
@@ -33,7 +45,7 @@ def materiau_role(pack: dict, role: str) -> bpy.types.Material:
     mat = bpy.data.materials.get(nom)
     if mat is not None:
         return mat
-    spec = pack["materiaux"].get(role) or pack["materiaux"]["accessoire"]
+    spec = pack["materiaux"].get(role) or ROLES_FACULTATIFS.get(role) or pack["materiaux"]["accessoire"]
     mat = bpy.data.materials.new(nom)
     mat.use_nodes = True
     bsdf = _principled(mat)

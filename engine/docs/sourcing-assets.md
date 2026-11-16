@@ -53,6 +53,24 @@ Crédit : si l'API Poly Haven est utilisée en direct, ajouter « Powered by Pol
 3. Ligne dans `engine/assets/licences.csv` (`id,source,auteur,licence,url,date_ajout,attribution_requise,texte_attribution`).
 4. Vérification : `python -m engine.pipeline.run <fiche> --valider-seulement`.
 
+## Où sont stockés les modèles
+
+- **Fichiers** : `engine/assets/modeles/<source>/<id>/` (ex. `polypizza/maire/modele.glb`, avec `apercu.webp` et `source.json` : titre, auteur, licence, lien). Ces dossiers ne vont pas dans Git (`.gitignore`) ; une copie partagée est rangée dans le Drive, `06_Rendus et assets lourds/modeles_3d/`, pour l'autre poste.
+- **Fiche de chaque modèle** (versionnée) : une entrée dans `engine/assets/registre.json` et une ligne dans `engine/assets/licences.csv`. C'est ce qui permet de retélécharger un modèle et de créditer son auteur.
+
+## Options du registre (variantes d'un même fichier)
+
+Plusieurs entrées peuvent pointer vers le même fichier ; `"licence"` désigne alors la ligne commune de `licences.csv`.
+
+| Option | Effet |
+|---|---|
+| `hauteur` | hauteur voulue en mètres : mise à l'échelle automatique (préférable à `echelle`) |
+| `poser_au_sol` | recentre en (0, 0) et pose le bas à z = 0 (implicite avec `hauteur`) |
+| `rotation_z` | corrige l'orientation : un asset doit regarder vers -y |
+| `animation` | animation du fichier jouée en boucle (`Idle`, `Wave`, `Interact`…) ; ex. `maire`, `maire_travaille`, `maire_salue` |
+| `degats` | version abîmée : morceaux arrachés + gravats (`seed`, `nombre`, `taille`, `zone_z`, `gravats`). `reparation` de 0 à 1 montre la **même** ruine partiellement réparée : `mairie_ruine` → `mairie_reparee_1` |
+| `exclure` | objets parasites à retirer (les maillages hors armature d'un personnage le sont d'office) |
+
 ## Matériaux : style unifié ou textures d'origine
 
 - `"materiaux": "pack"` (défaut) : les matériaux d'origine sont **remplacés** par ceux du pack de DA selon le rôle de chaque pièce. C'est ce qui rend cohérents des modèles venus de sources différentes.

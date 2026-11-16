@@ -72,15 +72,24 @@ class Candidat:
 
 
 # ----- réseau ---------------------------------------------------------------------------------
+# Autres noms acceptés pour une même clé (noms déjà utilisés dans les .env de l'équipe).
+ALIAS_CLES = {"POLY_PIZZA_KEY": ("API_Poly_Pizza", "POLYPIZZA_KEY")}
+
+
 def _env(cle: str) -> str | None:
     """Lit une clé dans l'environnement ou dans le fichier .env local (jamais versionné)."""
-    if os.environ.get(cle):
-        return os.environ[cle]
+    noms = (cle, *ALIAS_CLES.get(cle, ()))
+    for nom in noms:
+        if os.environ.get(nom):
+            return os.environ[nom]
     env = chemins.RACINE / ".env"
     if env.is_file():
         for ligne in env.read_text(encoding="utf-8").splitlines():
-            if ligne.strip().startswith(f"{cle}="):
-                return ligne.split("=", 1)[1].strip().strip('"').strip("'")
+            for nom in noms:
+                if ligne.strip().startswith(f"{nom}="):
+                    valeur = ligne.split("=", 1)[1].strip().strip('"').strip("'")
+                    if valeur:
+                        return valeur
     return None
 
 

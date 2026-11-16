@@ -1,0 +1,44 @@
+{
+  "version": "1.0",
+  "textes_3d": [
+    {
+      "id": "txt_ville",
+      "texte": "SIX SEVEN",
+      "parent": "panneau",
+      "position": [
+        0,
+        -0.06,
+        1.85
+      ],
+      "taille": 0.44,
+      "epaisseur": 0.02,
+      "role": "tissu"
+    },
+    {
+      "id": "txt_carte_mairie",
+      "texte": "LA MAIRIE",
+      "parent": "carte_mairie",
+      "position": [
+        0,
+        -0.07,
+        0.42
+      ],
+      "taille": 0.24,
+      "epaisseur": 0.02,
+      "role": "tissu"
+    },
+    {
+      "id": "txt_carte_fontaine",
+      "texte": "LA FONTAINE",
+      "parent": "carte_fontaine",
+      "position": [
+        0.17,
+        -0.07,
+        0.42
+      ],
+      "taille": 0.2,
+      "epaisseur": 0.02,
+      "role": "tissu"
+    }
+  ]
+}

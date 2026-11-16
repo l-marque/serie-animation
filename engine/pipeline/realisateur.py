@@ -114,7 +114,9 @@ def lint_voix(texte: str, beat_id: str) -> list[str]:
 def _instant_mot(mots: list[dict[str, Any]], cible: str, beat_id: str) -> float:
     n = normaliser_mot(cible)
     for m in mots:
-        if normaliser_mot(m["mot"]).startswith(n):
+        # Élision française : « m'aider », « l'eau », « qu'on » se déclenchent aussi sur « aider », « eau », « on ».
+        formes = {normaliser_mot(m["mot"]), normaliser_mot(re.split(r"['’]", m["mot"])[-1])}
+        if any(f.startswith(n) for f in formes if f):
             return m["debut"]
     dispo = ", ".join(m["mot"] for m in mots)
     raise TimelineInvalide(f"beat {beat_id} : le mot '{cible}' n'apparaît pas dans la voix ({dispo})")
