@@ -23,8 +23,9 @@ demande ─► story-chef p.1 (idées + continuité) ─► ARRÊT 1 Lucas chois
         ─► story-chef p.2 (scénario + continuité) ─► ARRÊT 2 Lucas valide le scénario
         ─► story-chef p.3 (voix : story-beats) ─► ARRÊT 3 Lucas valide le texte
         ─► story-chef p.4 (découpage + continuité) ─► ARRÊT 4 Lucas valide le découpage
-        ─► story-chef p.5 (remise) ─► [Blender ?] ─► prod-chef : fiche (prod-realisateur), validation,
-           animatique, contrôle qualité, corrections (≤ 2 boucles) ─► « rendu final ? » (humain)
+        ─► story-chef p.5 (remise) ─► [Blender ?] ─► prod-chef : fiche (prod-realisateur), validation
+        ─► ARRÊT PLAQUETTE (page Figma créée par la session principale, « validé » de Guillaume)
+        ─► animatique, contrôle qualité, corrections (≤ 2 boucles) ─► « rendu final ? » (humain)
         ─► rendu final ─► ARRÊT 5 Lucas ET Guillaume voient la vidéo ─► PR episode/<id> → main (non fusionnée)
 ```
 
@@ -36,6 +37,7 @@ Sans réponse explicite d'un humain dans la conversation, aucun arrêt n'est fra
 |---|---|---|
 | Histoire (arrêts 1 à 4) | n'importe laquelle | agents de texte, aucun outil local |
 | Production (fiche, animatique, contrôle, rendu final) | PC de Guillaume (Blender + GPU) | Blender 5.3, Kyutai, RTX 5070 |
+| Plaquette Figma | session qui a le connecteur Figma ; validation par Guillaume | règle de Guillaume (`engine/docs/plaquette-figma.md`) : rien n'est rendu sans plaquette validée |
 | Arrêt 5 | les deux | Lucas et Guillaume répondent chacun |
 
 Avant une étape de production, l'orchestrateur vérifie Blender (`BLENDER_PATH` ou `blender --version`). S'il manque, il commite et pousse la branche, puis s'arrête avec : « Étape suivante sur le PC de Guillaume : git fetch, git checkout episode/<id>, puis /episode reprendre <id> ».

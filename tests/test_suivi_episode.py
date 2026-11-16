@@ -66,3 +66,39 @@ def test_suivi_factice_essai_orchestrateur_valide():
     """Suivi factice de l'essai du passage de machine (2026-11-16), avant l'arrêt faute de Blender."""
     chemin = RACINE / "tests" / "fixtures" / "suivi" / "essai-orchestrateur.json"
     assert _erreurs(json.loads(chemin.read_text(encoding="utf-8"))) == []
+
+
+PLAQUETTE_VALIDEE = {
+    "lien": "https://www.figma.com/design/4jgvjoxBzwQDQfoXgwW0Fs",
+    "statut": "valide",
+    "par": "Guillaume",
+    "date": "2026-11-16T15:00:00+01:00",
+    "reponse": "validé",
+}
+
+
+def test_plaquette_en_attente_valide():
+    s = copy.deepcopy(SUIVI)
+    s["etape_courante"] = "plaquette"
+    s["plaquette"] = {"lien": None, "statut": "en_attente", "par": None, "date": None, "reponse": None}
+    assert _erreurs(s) == []
+
+
+def test_plaquette_validee_par_guillaume():
+    s = copy.deepcopy(SUIVI)
+    s["etape_courante"] = "animatique"
+    s["plaquette"] = dict(PLAQUETTE_VALIDEE)
+    assert _erreurs(s) == []
+
+
+@pytest.mark.parametrize("modif", [
+    {"par": "Lucas"},                      # seul Guillaume valide la plaquette
+    {"par": "Lucas et Guillaume"},         # accord rapporté ou commun : refusé
+    {"reponse": None},                     # validé sans réponse mot pour mot
+    {"lien": None},                        # validé sans plaquette créée
+    {"statut": "ok"},                      # statut hors liste
+])
+def test_plaquette_refusee(modif):
+    s = copy.deepcopy(SUIVI)
+    s["plaquette"] = {**PLAQUETTE_VALIDEE, **modif}
+    assert _erreurs(s)

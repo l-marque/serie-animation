@@ -33,7 +33,7 @@ Le statut d'un agent est aussi indiqué dans l'en-tête de son fichier (champ `s
                 ─ voix ──────── ARRÊT 3 (Lucas valide le texte)
                 ─ découpage ─── ARRÊT 4 (Lucas valide)
   └─ [Blender présent ? sinon : push de episode/<id>, reprise sur le PC de Guillaume]
-  └─ prod-chef ─ fiche (prod-realisateur) ─ animatique ─ contrôle qualité ─ corrections (≤ 2)
+  └─ prod-chef ─ fiche (prod-realisateur) ─ ARRÊT PLAQUETTE Figma (Guillaume) ─ animatique ─ contrôle qualité ─ corrections (≤ 2)
                ─ rendu final (sur demande explicite) ─ ARRÊT 5 (Lucas ET Guillaume)
   └─ PR episode/<id> → main, jamais fusionnée ; com-legendes seulement proposé
 ```
