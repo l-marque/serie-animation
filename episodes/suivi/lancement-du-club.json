@@ -3,10 +3,10 @@
   "titre": "La visite guidée",
   "demande_initiale": "premier épisode de La Revanche du Miteux : Kevin, seul dans son stade en ruine, lance le club et demande de l'aide à ses abonnés",
   "branche": "episode/lancement-du-club",
-  "etape_courante": "scenario",
+  "etape_courante": "arret_2",
   "fichiers": {
-    "idee": null,
-    "scenario": null,
+    "idee": "docs/storytelling/idees-retenues.md — entrée « 2026-11-16 — La visite guidée »",
+    "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee.md",
     "beats": null,
     "decoupage": null,
     "fiche": null,
@@ -95,6 +95,16 @@
       "date": "2026-11-16T15:20:00+01:00",
       "etape": "scenario",
       "evenement": "Appel de story-chef, passage 2 (consigne l'idée, scénario + continuité)."
+    },
+    {
+      "date": "2026-11-16T15:40:00+01:00",
+      "etape": "scenario",
+      "evenement": "story-chef passage 2 terminé : idée consignée dans idees-retenues.md, ligne ajoutée au § 6 de la bible (mémoire de série, « à produire »), scénario docs/storytelling/scenarios/2026-11-16-la-visite-guidee.md (40,0 s, 6/7, difficulté moyenne, 3 questions pour Lucas). Continuité : À corriger (voix de la chute et de la boucle trop longues pour leur créneau, 5 poses de Kevin non listées, chaussette verte, arbre mort, phrases d'au moins 3 mots). Avis de story-chef : une v2 avant la voix."
+    },
+    {
+      "date": "2026-11-16T15:40:00+01:00",
+      "etape": "arret_2",
+      "evenement": "ARRÊT 2 : en attente de la validation du scénario (ou d'une demande de v2) par Lucas."
     }
   ]
 }
