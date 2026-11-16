@@ -28,6 +28,7 @@ Le statut d'un agent est aussi indiqué dans l'en-tête de son fichier (champ `s
 
 ```
 /episode <demande>
+  └─ entrée audience (chiffres donnés par Lucas ; mise à jour de episodes/serie/etat.json après accord)
   └─ story-chef ─ idées ─────── ARRÊT 1 (Lucas choisit l'idée)
                 ─ scénario ──── ARRÊT 2 (Lucas valide)
                 ─ voix ──────── ARRÊT 3 (Lucas valide le texte)

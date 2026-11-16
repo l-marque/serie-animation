@@ -102,3 +102,51 @@ def test_plaquette_refusee(modif):
     s = copy.deepcopy(SUIVI)
     s["plaquette"] = {**PLAQUETTE_VALIDEE, **modif}
     assert _erreurs(s)
+
+
+AUDIENCE_RECUE = {
+    "premier_episode": False,
+    "statut": "recu",
+    "par": "Lucas",
+    "date": "2026-11-18T09:00:00+01:00",
+    "reponse": "12 abonnés, 40 likes, choix gagnant : les filets",
+    "mise_a_jour_etat": {"statut": "acceptee", "par": "Lucas", "date": "2026-11-18T09:05:00+01:00", "reponse": "ok"},
+}
+
+PREMIER_EPISODE = {
+    "premier_episode": True,
+    "statut": "sans_objet",
+    "par": None,
+    "date": None,
+    "reponse": None,
+    "mise_a_jour_etat": {"statut": "sans_objet", "par": None, "date": None, "reponse": None},
+}
+
+
+@pytest.mark.parametrize("audience", [
+    PREMIER_EPISODE,
+    AUDIENCE_RECUE,
+    {**AUDIENCE_RECUE, "mise_a_jour_etat": {"statut": "en_attente", "par": None, "date": None, "reponse": None}},
+    {**AUDIENCE_RECUE, "statut": "en_attente", "par": None, "date": None, "reponse": None,
+     "mise_a_jour_etat": {"statut": "en_attente", "par": None, "date": None, "reponse": None}},
+])
+def test_audience_valide(audience):
+    s = copy.deepcopy(SUIVI)
+    s["etape_courante"] = "audience"
+    s["audience"] = copy.deepcopy(audience)
+    assert _erreurs(s) == []
+
+
+@pytest.mark.parametrize("modif", [
+    {"reponse": None},                                       # reçu sans les chiffres mot pour mot
+    {"par": "agent"},                                        # chiffres donnés par un agent
+    {"par": "Instagram"},                                    # aucun accès automatique
+    {"statut": "sans_objet"},                                # sans objet hors premier épisode
+    {"premier_episode": True},                               # premier épisode : on ne demande rien
+    {"mise_a_jour_etat": {"statut": "acceptee", "par": None, "date": None, "reponse": None}},   # accord sans réponse
+    {"mise_a_jour_etat": {"statut": "acceptee", "par": "story-chef", "date": "2026-11-18", "reponse": "ok"}},
+])
+def test_audience_refusee(modif):
+    s = copy.deepcopy(SUIVI)
+    s["audience"] = {**copy.deepcopy(AUDIENCE_RECUE), **modif}
+    assert _erreurs(s)

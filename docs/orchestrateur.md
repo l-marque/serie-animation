@@ -14,12 +14,17 @@ La commande tourne dans la **conversation principale**, qui a l'outil `Agent` et
 /episode reprendre <id>           continuer un épisode, sur n'importe quelle machine
 ```
 
-Au lancement, l'orchestrateur propose un `id`, crée la branche `episode/<id>` depuis `main` et le fichier de suivi `episodes/suivi/<id>.json` (schéma : `episodes/suivi/suivi.schema.json`), puis appelle `story-chef`.
+Au lancement, l'orchestrateur propose un `id`, crée la branche `episode/<id>` depuis `main` et le fichier de suivi `episodes/suivi/<id>.json` (schéma : `episodes/suivi/suivi.schema.json`), puis passe à l'**entrée audience** (étape 0) avant d'appeler `story-chef`.
+
+## Étape 0 : entrée audience
+
+Les chiffres de l'audience viennent d'un humain, jamais d'Instagram (issue #9). L'orchestrateur demande à Lucas les abonnés, les likes depuis l'épisode précédent, les commentaires et pseudos retenus et le choix gagnant ; il les consigne mot pour mot dans le suivi (champ `audience`), propose la mise à jour de l'état de la série `episodes/serie/etat.json` (calculs écrits) et ne l'écrit qu'après accord explicite. Pour le premier épisode, il le dit et part de l'état initial (tout à zéro). `story-chef` reçoit l'état de la série avec la demande. Mécanisme : bible, § 4.
 
 ## La chaîne et les 5 arrêts
 
 ```
-demande ─► story-chef p.1 (idées + continuité) ─► ARRÊT 1 Lucas choisit l'idée
+demande ─► ENTRÉE AUDIENCE (chiffres de Lucas, accord sur etat.json ; rien au premier épisode)
+        ─► story-chef p.1 (idées + continuité, avec l'état de la série) ─► ARRÊT 1 Lucas choisit l'idée
         ─► story-chef p.2 (scénario + continuité) ─► ARRÊT 2 Lucas valide le scénario
         ─► story-chef p.3 (voix : story-beats) ─► ARRÊT 3 Lucas valide le texte
         ─► story-chef p.4 (découpage + continuité) ─► ARRÊT 4 Lucas valide le découpage

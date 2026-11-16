@@ -1,0 +1,36 @@
+# Tests automatiques (décision n° 17 de la réunion du 2026-11-16).
+# Lance pytest sur chaque PR vers main et chaque push sur main.
+# Sans Claude, sans secret, droits en lecture seule. Blender (bpy) n'est pas installé :
+# les tests qui en ont besoin sont sautés.
+name: tests
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Installer les dépendances
+        run: pip install -r engine/requirements.txt pytest
+
+      - name: Lancer les tests
+        run: python -m pytest -q
