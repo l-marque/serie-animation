@@ -92,3 +92,20 @@ python -c "import json,jsonschema; jsonschema.validate(json.load(open('episodes/
    - **arrêt en attente** : re-présente ce qui attend la décision **à partir des fichiers déjà produits** (aucun agent relancé) — pour l'ARRÊT 4 : chemin du découpage, nombre de plans, mouvements de caméra, briques manquantes, points « À confirmer par Guillaume », questions pour Lucas, dernier verdict de continuité connu (historique) — puis attends la réponse ;
    - **blocage** : rappelle-le et ce qu'il faut faire ; ne continue que si l'humain dit qu'il est levé ;
    - **étape de production** : vérification de Blender d'abord.
+
+## Branche et machines
+
+- **Une branche par épisode : `episode/<id>`**, créée depuis `main` à jour (`git checkout main && git pull && git checkout -b episode/<id>`) au démarrage, arbre de travail propre. **Jamais de commit ni de push sur `main`.** Jamais de push forcé.
+- Tu commites sur `episode/<id>` à chaque arrêt et à chaque étape : le suivi et les fichiers de l'épisode (docs/storytelling, `episodes/<id>*.json`). Messages en français, par ex. « Épisode canard : ARRÊT 4 validé par Lucas ».
+- **Tu pousses** (`git push -u origin episode/<id>`) à chaque arrêt, à chaque blocage et avant tout changement de machine, pour que l'épisode puisse reprendre ailleurs.
+- **Rendus et vidéos jamais dans Git** (`renders/`, `*.mp4` sont ignorés) : tu indiques seulement leur chemin ; un humain les dépose sur le Drive (`06_Rendus et assets lourds`).
+- **Vérification de Blender avant une étape de production** :
+  ```bash
+  if [ -n "$BLENDER_PATH" ] && [ -x "$BLENDER_PATH" ]; then "$BLENDER_PATH" --version | head -1; elif command -v blender >/dev/null; then blender --version | head -1; else echo "BLENDER ABSENT"; fi
+  ```
+  Si Blender est absent : `machine_requise: "PC de Guillaume (Blender + GPU)"`, une ligne d'historique, commit du suivi et des fichiers de l'épisode, push de la branche, puis tu t'arrêtes avec ce message, tel quel :
+  > Étape suivante sur le PC de Guillaume : git fetch, git checkout episode/<id>, puis /episode reprendre <id>
+
+  Tu ne lances aucune commande de production sans Blender (ni `--blender python`, ni `BLENDER_WORKBENCH` de ton propre chef).
+- **À la fin** (ARRÊT 5 franchi) : `gh pr create --base main --head episode/<id>` avec le résumé de l'épisode (titre, fichiers, arrêts et réponses, chemin de la vidéo, ce qui n'est pas vérifié) ; **tu ne fusionnes jamais**.
+- **Journal de bord** (Drive « Lucas X Guillaume », règle de `CLAUDE.md`) : une entrée datée à chaque push, changement de machine, blocage et PR. Si le Drive n'est pas accessible, dis-le à l'humain : il faudra l'ajouter.
