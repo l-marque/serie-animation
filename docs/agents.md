@@ -16,6 +16,7 @@ Source : « 2026-11-15_claude-lucas_organigramme-agents-v0.1 » (Drive, `01_Clau
 | brouillon | fichier écrit, jamais lancé sur un cas réel |
 | testé | lancé au moins une fois sur un cas réel, résultat vérifié par un humain |
 | en service | utilisé régulièrement dans la chaîne |
+| abandonné | décidé de ne pas le construire (raison et date indiquées) |
 
 Le statut d'un agent est aussi indiqué dans l'en-tête de son fichier (champ `statut`).
 
@@ -31,17 +32,18 @@ Un seul agent, sans sous-agent.
 
 ### Storytelling — propriétaire : Lucas
 
-Pôle séparé, **en amont** de la production. Il transforme une idée en fiche épisode JSON, que la production consomme.
+Pôle séparé, **en amont** de la production. Il transforme une idée en **découpage où tout est décidé** (voix, plans, décor chiffré), que la production traduit en fiche épisode JSON (`prod-realisateur`) puis construit. Référence commune : `docs/storytelling/gabarit-realisation.md`.
 
 | Agent | Rôle | Fichier | Statut |
 |---|---|---|---|
-| `story-chef` | Chef du pôle : fait proposer des idées par `story-idees`, les fait relire par `story-continuite`, les présente à Lucas avec leur verdict, consigne l'idée choisie dans `docs/storytelling/idees-retenues.md` | `.claude/agents/story-chef.md` | brouillon |
+| `story-chef` | Chef du pôle : enchaîne idées → continuité → scénario → continuité → beats → découpage → continuité, avec 4 arrêts de validation par Lucas (idée, scénario, voix, découpage), puis remet le découpage à `prod-chef` ; repli `SUITE` sans outil `Agent` | `.claude/agents/story-chef.md` | brouillon |
 | `story-idees` | 5 idées d'épisodes courts (9:16, 30 à 60 s) : accroche, déroulé, influence de l'audience, difficulté | `.claude/agents/story-idees.md` | brouillon |
 | `story-continuite` | Relit les idées (ou un scénario) avant le choix de Lucas : 6 contrôles sourcés (éléments, mémoire de série, cohérence, doublon, faisabilité, compréhension seule) ; lecture seule. Appelé par `story-chef` après `story-idees` | `.claude/agents/story-continuite.md` | brouillon |
 | `story-scenario` | Scénario d'épisode complet à partir d'une idée retenue (déroulé en 5 temps, intentions de voix off, contraintes, grille sur 7), proposé à la validation de Lucas dans `docs/storytelling/scenarios/` | `.claude/agents/story-scenario.md` | brouillon |
-| `story-beats` | Découpage en beats, avec le texte dit par la voix | aucun | prévu |
-| `story-scenes` | Séquencement en scènes | aucun | prévu |
-| `story-fiche` | Fiche épisode JSON conforme à `contracts/fiche-episode.schema.json` | aucun | prévu |
+| `story-beats` | Texte exact de la voix off en beats chronométrés (durées, intonation, mots appuyés, pauses, sous-titres, texte à l'écran, compteur), dans `docs/storytelling/beats/` ; règles de voix Kyutai | `.claude/agents/story-beats.md` | brouillon |
+| `story-decoupage` | Découpage technique plan par plan à partir d'une voix validée (décor chiffré, caméra, actions calées sur les mots, zone sûre, sons), dans `docs/storytelling/decoupage/` ; briques manquantes et champs hors contrat v1.0 listés | `.claude/agents/story-decoupage.md` | brouillon |
+| `story-scenes` | Séquencement en scènes | aucun | abandonné (décision de Lucas, 2026-11-16 : JSON et validation par prod-realisateur, scènes intégrées au découpage) |
+| `story-fiche` | Fiche épisode JSON conforme à `contracts/fiche-episode.schema.json` | aucun | abandonné (décision de Lucas, 2026-11-16 : JSON et validation par prod-realisateur, scènes intégrées au découpage) |
 
 ### Production — propriétaire : Guillaume
 
