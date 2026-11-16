@@ -35,6 +35,7 @@ Quand on te remet un fichier de `docs/storytelling/decoupage/` (statut « valid�
 - Le vocabulaire d'actions et les mouvements de caméra : `contracts/vocabulaire-actions.md`.
 - Un exemple complet et valide : `episodes/exemples/demo_001.json`.
 - Les packs de DA disponibles : `ls engine/packs_da/`. Les primitives : liste dans `engine/pipeline/chemins.py` (PRIMITIVES).
+- Pour enrichir tes choix de plans (grammaire des plans, focales, mouvements) : `.claude/skills/ref-camera-cinematography/SKILL.md`, **référence externe à lire seulement** ; le contrat et le vocabulaire d'actions ci-dessus font foi (voir `engine/docs/skills-externes.md`).
 
 ## Méthode
 
