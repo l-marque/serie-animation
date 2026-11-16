@@ -24,11 +24,11 @@
 |---|---|---|---|---|
 | Poly Haven | modèles réalistes, textures PBR, HDRI | aucune | CC0 | vérifié (canard, carrelage, herbe, ciel) |
 | Poly Pizza | ~10 000 modèles low-poly (Quaternius, Kenney, archive Google Poly) | `POLY_PIZZA_KEY` (alias `API_Poly_Pizza`), compte gratuit | CC0 / CC-BY | vérifié : 20 modèles du test Six Seven |
-| 3DAssets.dev | modèles de jeu GLB, souvent en kits cohérents | aucune | CC0 uniquement | recherche vérifiée |
-| Icosa Gallery | ~150 000 modèles de l'archive Google Poly | aucune | CC-BY surtout (crédit obligatoire) | recherche vérifiée |
+| 3DAssets.dev | modèles de jeu GLB, souvent en kits cohérents | aucune | CC0 uniquement | vérifié : recherche et téléchargement GLB |
+| Icosa Gallery | ~150 000 modèles de l'archive Google Poly | aucune | CC-BY surtout (crédit obligatoire) | vérifié : recherche et téléchargement glTF |
 | ambientCG | textures PBR, HDRI | aucune | CC0 | vérifié (`PavingStones152`) |
 | Sketchfab | la plus grande base (> 500 000 modèles téléchargeables) | recherche sans clé ; téléchargement `SKETCHFAB_TOKEN` (compte gratuit) | mixtes : l'outil garde CC0 et CC-BY | recherche vérifiée ; téléchargement en attente de la clé |
-| 3DTexel | surtout matériaux et HDRI « handmade » | recherche sans clé ; téléchargement `TEXEL_API_KEY` (compte gratuit) | CC0 (les assets IA et premium sont écartés) | recherche vérifiée |
+| 3DTexel | surtout matériaux et HDRI « handmade » | recherche sans clé ; téléchargement `TEXEL_API_KEY` (alias `API_3D_Texel`) | CC0 (les assets IA et premium sont écartés) | vérifié : matériau `24509` téléchargé, `cartes.json` écrit |
 
 Non intégrés, et pourquoi :
 - **Smithsonian Open Access** : clé gratuite api.data.gov ; scans de musée CC0, lourds et réalistes. Utile pour un objet historique précis, pas pour un décor. À ajouter le jour où un scénario en a besoin.

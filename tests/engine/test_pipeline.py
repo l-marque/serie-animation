@@ -367,7 +367,7 @@ def test_habillage_absent_ne_change_rien(tmp_path):
 @pytest.mark.parametrize("licence,ok", [("CC0", True), ("CC0 1.0 Universal", True), ("CC-BY 3.0", True),
                                         ("CREATIVE_COMMONS_BY", True), ("Public Domain", True), ("CC-BY-NC", False),
                                         ("CC BY-SA 4.0", False), ("CC-BY-ND 4.0", False), ("Editorial", False),
-                                        ("inconnue", False)])
+                                        ("inconnue", False), ("CC Attribution", True), ("CC Attribution-NonCommercial", False), ("CC Attribution-ShareAlike", False), ("CC0 Public Domain", True)])
 def test_licences_acceptees(licence, ok):
     from engine.pipeline.sources_assets import licence_acceptee
     assert licence_acceptee(licence) is ok
@@ -402,3 +402,14 @@ def test_hud_rend_des_sequences_transparentes(tmp_path):
     for s in seqs:
         with Image.open(s.dossier / "0010.png") as im:
             assert im.mode == "RGBA" and s.x + im.width <= 540 and s.y + im.height <= 960
+
+
+def test_cles_env_tolerantes(tmp_path, monkeypatch):
+    from engine.pipeline import chemins, sources_assets
+    (tmp_path / ".env").write_text("API_Poly_Pizza=abc\nAPI_3D_Texel :tx_live_123\n", encoding="utf-8")
+    monkeypatch.setattr(chemins, "RACINE", tmp_path)
+    for nom in ("POLY_PIZZA_KEY", "TEXEL_API_KEY", "SKETCHFAB_TOKEN"):
+        monkeypatch.delenv(nom, raising=False)
+    assert sources_assets._env("POLY_PIZZA_KEY") == "abc"
+    assert sources_assets._env("TEXEL_API_KEY") == "tx_live_123"
+    assert sources_assets._env("SKETCHFAB_TOKEN") is None
