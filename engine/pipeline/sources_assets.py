@@ -52,11 +52,18 @@ class SourceErreur(Exception):
 def licence_acceptee(licence: str) -> bool:
     """CC0, domaine public ou CC-BY simple (toutes versions). Refus : NC, ND, SA, Editorial, inconnue."""
     l = re.sub(r"[\s_]+", "-", licence.strip().lower()).replace("creative-commons", "cc")
+    # Libellés longs (Sketchfab : « CC Attribution-NonCommercial ») ramenés aux codes courts.
+    for long, court in (("attribution", "by"), ("noncommercial", "nc"), ("sharealike", "sa"),
+                        ("noderivatives", "nd"), ("noderivs", "nd"), ("public-domain", "cc0")):
+        l = l.replace(long, court)
     if l in LICENCES_ACCEPTEES:
         return True
-    if set(l.split("-")) & {"nc", "nd", "sa", "editorial"}:
+    jetons = [j for j in l.split("-") if j]
+    if set(jetons) & {"nc", "nd", "sa", "editorial"}:
         return False
-    return bool(re.fullmatch(r"(cc0|cc-0|cc-zero|public-domain|cc-by|by)(-?\d(\.\d)?)?(-universal)?", l))
+    neutres = {"cc", "universal", "international", "unported", "licence", "license", "deed"}
+    reste = [j for j in jetons if j not in neutres and not re.fullmatch(r"\d+(\.\d+)?", j)]
+    return reste in (["cc0"], ["cc0", "cc0"], ["by"], ["zero"], ["0"])
 
 
 @dataclass
@@ -84,11 +91,15 @@ class Candidat:
 
 # ----- réseau ---------------------------------------------------------------------------------
 # Autres noms acceptés pour une même clé (noms déjà utilisés dans les .env de l'équipe).
-ALIAS_CLES = {"POLY_PIZZA_KEY": ("API_Poly_Pizza", "POLYPIZZA_KEY")}
+ALIAS_CLES = {"POLY_PIZZA_KEY": ("API_Poly_Pizza", "POLYPIZZA_KEY"),
+              "TEXEL_API_KEY": ("API_3D_Texel", "API_3DTexel", "API_Texel"),
+              "SKETCHFAB_TOKEN": ("API_Sketchfab", "SKETCHFAB_KEY")}
 
 
 def _env(cle: str) -> str | None:
-    """Lit une clé dans l'environnement ou dans le fichier .env local (jamais versionné)."""
+    """Lit une clé dans l'environnement ou dans le fichier .env local (jamais versionné).
+
+    Tolère « NOM=valeur », « NOM = valeur » et « NOM : valeur » (fautes de frappe fréquentes)."""
     noms = (cle, *ALIAS_CLES.get(cle, ()))
     for nom in noms:
         if os.environ.get(nom):
@@ -96,11 +107,11 @@ def _env(cle: str) -> str | None:
     env = chemins.RACINE / ".env"
     if env.is_file():
         for ligne in env.read_text(encoding="utf-8").splitlines():
-            for nom in noms:
-                if ligne.strip().startswith(f"{nom}="):
-                    valeur = ligne.split("=", 1)[1].strip().strip('"').strip("'")
-                    if valeur:
-                        return valeur
+            m = re.match(r"\s*([A-Za-z0-9_]+)\s*[=:]\s*(.*)$", ligne)
+            if m and m.group(1) in noms:
+                valeur = m.group(2).strip().strip('"').strip("'")
+                if valeur:
+                    return valeur
     return None
 
 
@@ -232,17 +243,29 @@ def telecharger_3dtexel(id_source: str, destination: Path) -> list[Path]:
             reponse = json.loads(r.read().decode("utf-8"))
     except Exception as e:  # noqa: BLE001
         raise SourceErreur(f"3DTexel : échec de la demande de téléchargement : {e}") from e
-    # Format de réponse lu avec plusieurs variantes (à confirmer au premier appel réel).
+    # La réponse liste les fichiers soit en tableau, soit en dictionnaire {carte: url | {url: …}}
+    # (constaté le 2026-11-16 : dictionnaire par carte PBR pour les matériaux).
     fichiers = reponse.get("files") or reponse.get("downloads") or reponse.get("urls") or []
-    chemins_locaux = []
-    for f in fichiers:
-        url = f if isinstance(f, str) else (f.get("url") or f.get("signed_url"))
-        if not url:
+    entrees = list(fichiers.items()) if isinstance(fichiers, dict) else [(None, f) for f in fichiers]
+    chemins_locaux, cartes = [], {}
+    correspondance = {"basecolor": "couleur", "base_color": "couleur", "albedo": "couleur", "diffuse": "couleur",
+                      "color": "couleur", "normal": "normale", "normal_gl": "normale", "roughness": "rugosite"}
+    for carte, f in entrees:
+        url = f if isinstance(f, str) else ((f or {}).get("url") or (f or {}).get("signed_url"))
+        if not url or not urllib.parse.urlparse(url).scheme.startswith("http"):
             continue
         nom = Path(urllib.parse.urlparse(url).path).name or f"{id_source}.bin"
-        chemins_locaux.append(_telecharger(url, destination / nom))
+        if carte:
+            nom = f"{id_source}_{carte}{Path(nom).suffix}"
+        chemin = _telecharger(url, destination / nom)
+        chemins_locaux.append(chemin)
+        if carte and str(carte).lower() in correspondance:
+            cartes[correspondance[str(carte).lower()]] = chemin.name
     if not chemins_locaux:
-        raise SourceErreur(f"3DTexel : réponse sans fichier exploitable ({list(reponse)[:6]})")
+        apercu = {k: (type(v).__name__) for k, v in (fichiers.items() if isinstance(fichiers, dict) else [])}
+        raise SourceErreur(f"3DTexel : réponse sans fichier exploitable (clés {list(reponse)[:6]}, fichiers {apercu})")
+    if "couleur" in cartes:  # matériau PBR : utilisable directement comme dossier de textures d'un pack
+        (destination / "cartes.json").write_text(json.dumps(cartes, ensure_ascii=False, indent=2), encoding="utf-8")
     return chemins_locaux
 
 
@@ -355,9 +378,12 @@ def telecharger_icosa(id_source: str, dossier: Path) -> Path:
     fmt = _format_icosa(asset)
     if fmt is None:
         raise SourceErreur(f"Icosa : aucun format glTF 2 / GLB téléchargeable pour '{id_source}'")
-    principal = _telecharger(fmt["root"]["url"], dossier / fmt["root"]["relativePath"])
-    for res in fmt.get("resources", []):  # .bin et textures d'un .gltf
-        _telecharger(res["url"], dossier / res["relativePath"])
+    racine = fmt["root"]
+    principal = _telecharger(racine["url"], dossier / (racine.get("relativePath")
+                                                      or Path(urllib.parse.urlparse(racine["url"]).path).name))
+    for res in fmt.get("resources", []):  # .bin et textures d'un .gltf (relativePath parfois absent)
+        nom = res.get("relativePath") or Path(urllib.parse.urlparse(res["url"]).path).name
+        _telecharger(res["url"], dossier / nom)
     return principal
 
 
