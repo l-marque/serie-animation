@@ -414,6 +414,8 @@ def test_cles_env_tolerantes(tmp_path, monkeypatch):
     assert sources_assets._env("POLY_PIZZA_KEY") == "abc"
     assert sources_assets._env("TEXEL_API_KEY") == "tx_live_123"
     assert sources_assets._env("SKETCHFAB_TOKEN") is None
+    (tmp_path / ".env").write_text("\ufeffAPI_Sketch_Fab = sk_123\n", encoding="utf-8")
+    assert sources_assets._env("SKETCHFAB_TOKEN") == "sk_123"  # casse et séparateurs ignorés, BOM toléré
 
 
 def test_sons_resolus_avec_repetition_et_ambiance():
