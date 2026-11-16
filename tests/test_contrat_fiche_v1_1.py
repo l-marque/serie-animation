@@ -106,3 +106,23 @@ def test_habillage_identique_au_schema_engine():
     """Le champ du contrat reprend exactement engine/schemas/habillage.schema.json."""
     engine = json.loads((RACINE / "engine" / "schemas" / "habillage.schema.json").read_text(encoding="utf-8"))
     assert SCHEMA["properties"]["habillage"]["properties"]["textes_3d"] == engine["properties"]["textes_3d"]
+
+
+def test_hud_identique_au_schema_engine():
+    engine = json.loads((RACINE / "engine" / "schemas" / "habillage.schema.json").read_text(encoding="utf-8"))
+    assert SCHEMA["properties"]["habillage"]["properties"]["hud"] == engine["properties"]["hud"]
+
+
+def test_fiche_1_1_avec_hud_valide():
+    fiche = _fiche_min("1.1")
+    fiche["habillage"] = copy.deepcopy(HABILLAGE)
+    fiche["habillage"]["hud"] = [
+        {"type": "compteur", "icone": "piece", "beat": "b1", "mot": "village", "valeur": 990, "vers": 1000},
+        {"type": "gain", "texte": "+10", "beat": "b1", "position": [0.5, 0.6]}]
+    assert _erreurs(fiche) == []
+
+
+def test_hud_refuse_en_1_0():
+    fiche = _fiche_min("1.0")
+    fiche["habillage"] = {"hud": [{"type": "gain", "beat": "b1"}]}
+    assert _erreurs(fiche) != []

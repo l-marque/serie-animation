@@ -141,7 +141,7 @@
     "habillage": {
       "type": "object",
       "additionalProperties": false,
-      "description": "v1.1 seulement. Textes en 3D dans le décor (nom de lieu sur un panneau, légendes des cartes de choix). Repris de engine/schemas/habillage.schema.json (mêmes propriétés, mêmes contraintes) ; la version est celle de la fiche.",
+      "description": "v1.1 seulement. Textes en 3D dans le décor (nom de lieu sur un panneau, légendes des cartes de choix) et HUD (compteurs, gains « +10 »). Repris de engine/schemas/habillage.schema.json (mêmes propriétés, mêmes contraintes) ; la version est celle de la fiche.",
       "properties": {
         "textes_3d": {
           "type": "array",
@@ -219,6 +219,110 @@
                 "default": true
               }
             }
+          }
+        },
+        "hud": {
+          "type": "array",
+          "maxItems": 40,
+          "description": "Habillage 2D incrusté au montage (style du kit Figma « Outils d'affichage »).",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "beat",
+                  "valeur"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "compteur"
+                  },
+                  "icone": {
+                    "enum": [
+                      "piece",
+                      "habitant"
+                    ],
+                    "default": "piece"
+                  },
+                  "beat": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+                  },
+                  "mot": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "debut": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "jusqu_au_beat": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
+                    "description": "Dernier beat où le compteur reste affiché (défaut : le beat de départ). Il apparaît quand on en parle et disparaît ensuite."
+                  },
+                  "valeur": {
+                    "type": "integer",
+                    "minimum": 0
+                  },
+                  "vers": {
+                    "type": "integer",
+                    "minimum": 0,
+                    "description": "Valeur finale : le compteur défile de « valeur » à « vers »."
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "beat"
+                ],
+                "properties": {
+                  "type": {
+                    "const": "gain"
+                  },
+                  "texte": {
+                    "type": "string",
+                    "maxLength": 12,
+                    "default": "+10"
+                  },
+                  "icone": {
+                    "enum": [
+                      "piece",
+                      "habitant"
+                    ],
+                    "default": "piece"
+                  },
+                  "beat": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+                  },
+                  "mot": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "debut": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "position": {
+                    "type": "array",
+                    "items": {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1
+                    },
+                    "minItems": 2,
+                    "maxItems": 2,
+                    "description": "Centre en fraction de l'image [x, y] (défaut [0,5 ; 0,55])."
+                  }
+                }
+              }
+            ]
           }
         }
       }
