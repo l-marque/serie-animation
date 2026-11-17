@@ -585,8 +585,8 @@
       "id": "visee_k_frappe",
       "asset": "primitif:repere",
       "position": [
-        6,
-        -0.5,
+        5.7,
+        -0.6,
         0
       ],
       "rotation_z": 0,
@@ -688,19 +688,19 @@
   "personnages": [
     {
       "id": "kevin_frappe",
-      "asset": "bibliotheque:kevin_foot_frappe",
+      "asset": "bibliotheque:kevin_miteux_frappe",
       "position": [
-        6,
-        -0.5,
+        4.87,
+        -0.27,
         0
       ],
-      "rotation_z": 60,
+      "rotation_z": 75,
       "echelle": 1,
       "role": "personnage"
     },
     {
       "id": "kevin_parle_1",
-      "asset": "bibliotheque:kevin_foot_parle",
+      "asset": "bibliotheque:kevin_miteux_parle",
       "position": [
         0,
         -2.5,
@@ -713,7 +713,7 @@
     },
     {
       "id": "kevin_salue_1",
-      "asset": "bibliotheque:kevin_foot_salue",
+      "asset": "bibliotheque:kevin_miteux_salue",
       "position": [
         0,
         -2.5,
@@ -726,7 +726,7 @@
     },
     {
       "id": "kevin_parle_2",
-      "asset": "bibliotheque:kevin_foot_parle",
+      "asset": "bibliotheque:kevin_miteux_parle",
       "position": [
         0,
         -2.5,
@@ -739,7 +739,7 @@
     },
     {
       "id": "kevin_salue_2",
-      "asset": "bibliotheque:kevin_foot_salue",
+      "asset": "bibliotheque:kevin_miteux_salue",
       "position": [
         0,
         -2.5,
@@ -752,7 +752,7 @@
     },
     {
       "id": "equipier_1",
-      "asset": "bibliotheque:joueur_man_saute",
+      "asset": "bibliotheque:bonhomme_rouge",
       "position": [
         -2.2,
         -0.6,
@@ -765,7 +765,7 @@
     },
     {
       "id": "equipier_2",
-      "asset": "bibliotheque:joueur_perso",
+      "asset": "bibliotheque:bonhomme_bleu",
       "position": [
         -4.2,
         0.8,
@@ -778,7 +778,7 @@
     },
     {
       "id": "equipier_3",
-      "asset": "bibliotheque:habitante",
+      "asset": "bibliotheque:bonhomme_vert",
       "position": [
         -0.6,
         1.4,
@@ -934,24 +934,13 @@
           0.5,
           0.55
         ]
-      },
-      {
-        "type": "gain",
-        "texte": "+1",
-        "icone": "habitant",
-        "beat": "b10",
-        "mot": "abonné",
-        "position": [
-          0.5,
-          0.55
-        ]
       }
     ]
   },
   "beats": [
     {
       "id": "b01",
-      "voix": "Ça, c'est Kevin.",
+      "voix": "Ça, c'est Kevin !",
       "texte_ecran": "JOUR *1* | OBJECTIF : RÉPARER LE STADE",
       "plan": {
         "camera": "plan_fixe",
@@ -963,13 +952,26 @@
       "actions": [
         {
           "type": "deplacer",
+          "cible": "kevin_frappe",
+          "debut": 0.267,
+          "duree_s": 0.667,
+          "params": {
+            "vers": [
+              6.32,
+              -0.66,
+              0
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
           "cible": "ballon",
-          "mot": "Kevin",
-          "duree_s": 0.45,
+          "debut": 1.067,
+          "duree_s": 0.75,
           "params": {
             "vers": [
               10,
-              0.4,
+              -1.75,
               1.95
             ]
           }
@@ -978,7 +980,7 @@
     },
     {
       "id": "b02",
-      "voix": "Ça fait un an et demi qu'il joue tout seul.",
+      "voix": "Ça fait un an et demi... qu'il joue tout seul.",
       "texte_ecran": "!TOUT SEUL | DEPUIS 1 AN ET DEMI",
       "plan": {
         "camera": "revelation",
@@ -994,8 +996,8 @@
           "duree_s": 0.7,
           "params": {
             "vers": [
-              8.6,
-              -0.7,
+              8.4,
+              -1.3,
               0
             ]
           }
@@ -1043,7 +1045,7 @@
     },
     {
       "id": "b03",
-      "voix": "Pourtant, depuis tout petit, il rêve de devenir pro.",
+      "voix": "Pourtant, depuis tout petit, il rêve de devenir pro !",
       "texte_ecran": "SON *RÊVE* : DEVENIR PRO",
       "plan": {
         "camera": "survol",
@@ -1054,7 +1056,7 @@
     },
     {
       "id": "b04",
-      "voix": "Aujourd'hui, c'est le jour un de l'aventure.",
+      "voix": "Et aujourd'hui, c'est le jour un de l'aventure !",
       "texte_ecran": "LE DÉBUT DE *L'AVENTURE*",
       "plan": {
         "camera": "dolly_avant",
@@ -1215,8 +1217,8 @@
     },
     {
       "id": "b10",
-      "voix": "Et chaque abonné rapproche Kevin de son rêve : un vrai club, un stade réparé.",
-      "texte_ecran": "1 ABONNÉ = *1 AIDE* EN PLUS",
+      "voix": "Et mettez en commentaire vos suggestions pour aider Kevin !",
+      "texte_ecran": ">VOS IDÉES EN COMMENTAIRE ↓",
       "plan": {
         "camera": "revelation",
         "cible": "visee_k",

@@ -739,6 +739,224 @@
       "source": "création du projet (engine/outils/creer_assets_stade.py)",
       "ajoute_le": "2026-11-17",
       "echelle_verifiee": true
+    },
+    "bonhomme": {
+      "fichier": "engine/assets/modeles/bonhomme/bonhomme.glb",
+      "echelle": 1.0,
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://poly.pizza/m/6kFNcL9OnO",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.7,
+      "animation": "Idle"
+    },
+    "bonhomme_rouge": {
+      "fichier": "engine/assets/modeles/bonhomme/bonhomme.glb",
+      "echelle": 1.0,
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://poly.pizza/m/6kFNcL9OnO",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.7,
+      "animation": "Idle",
+      "licence": "bonhomme",
+      "tshirt": {
+        "couleur": [
+          0.8,
+          0.08,
+          0.06
+        ],
+        "zone_z": [
+          0.47,
+          1.0
+        ],
+        "os": [
+          "Hips",
+          "Spine",
+          "Spine1",
+          "Spine2",
+          "LeftShoulder",
+          "RightShoulder",
+          "LeftArm",
+          "RightArm"
+        ]
+      }
+    },
+    "bonhomme_bleu": {
+      "fichier": "engine/assets/modeles/bonhomme/bonhomme.glb",
+      "echelle": 1.0,
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://poly.pizza/m/6kFNcL9OnO",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.7,
+      "animation": "Idle",
+      "licence": "bonhomme",
+      "tshirt": {
+        "couleur": [
+          0.08,
+          0.3,
+          0.85
+        ],
+        "zone_z": [
+          0.47,
+          1.0
+        ],
+        "os": [
+          "Hips",
+          "Spine",
+          "Spine1",
+          "Spine2",
+          "LeftShoulder",
+          "RightShoulder",
+          "LeftArm",
+          "RightArm"
+        ]
+      }
+    },
+    "bonhomme_vert": {
+      "fichier": "engine/assets/modeles/bonhomme/bonhomme.glb",
+      "echelle": 1.0,
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://poly.pizza/m/6kFNcL9OnO",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.7,
+      "animation": "Idle",
+      "licence": "bonhomme",
+      "tshirt": {
+        "couleur": [
+          0.1,
+          0.65,
+          0.2
+        ],
+        "zone_z": [
+          0.47,
+          1.0
+        ],
+        "os": [
+          "Hips",
+          "Spine",
+          "Spine1",
+          "Spine2",
+          "LeftShoulder",
+          "RightShoulder",
+          "LeftArm",
+          "RightArm"
+        ]
+      }
+    },
+    "bonhomme_jaune": {
+      "fichier": "engine/assets/modeles/bonhomme/bonhomme.glb",
+      "echelle": 1.0,
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "https://poly.pizza/m/6kFNcL9OnO",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.7,
+      "animation": "Idle",
+      "licence": "bonhomme",
+      "tshirt": {
+        "couleur": [
+          0.95,
+          0.75,
+          0.05
+        ],
+        "zone_z": [
+          0.47,
+          1.0
+        ],
+        "os": [
+          "Hips",
+          "Spine",
+          "Spine1",
+          "Spine2",
+          "LeftShoulder",
+          "RightShoulder",
+          "LeftArm",
+          "RightArm"
+        ]
+      }
+    },
+    "kevin_miteux_parle": {
+      "fichier": "engine/assets/modeles/kevin_miteux/kevin_miteux.glb",
+      "materiaux": "origine",
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "source": "https://poly.pizza/m/kZ3DmIoGip (couleurs modifiées par engine/outils/kevin_miteux.py)",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.45,
+      "licence": "kevin_base",
+      "animation": "Idle_Neutral"
+    },
+    "kevin_miteux_salue": {
+      "fichier": "engine/assets/modeles/kevin_miteux/kevin_miteux.glb",
+      "materiaux": "origine",
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "source": "https://poly.pizza/m/kZ3DmIoGip (couleurs modifiées par engine/outils/kevin_miteux.py)",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.45,
+      "licence": "kevin_base",
+      "animation": "Wave"
+    },
+    "kevin_miteux_immobile": {
+      "fichier": "engine/assets/modeles/kevin_miteux/kevin_miteux.glb",
+      "materiaux": "origine",
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "source": "https://poly.pizza/m/kZ3DmIoGip (couleurs modifiées par engine/outils/kevin_miteux.py)",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.45,
+      "licence": "kevin_base",
+      "animation": "Idle"
+    },
+    "kevin_miteux_frappe": {
+      "fichier": "engine/assets/modeles/kevin_miteux/kevin_miteux.glb",
+      "materiaux": "origine",
+      "role_defaut": "personnage",
+      "roles": {},
+      "principal": null,
+      "source": "https://poly.pizza/m/kZ3DmIoGip (couleurs modifiées par engine/outils/kevin_miteux.py)",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": false,
+      "hauteur": 1.45,
+      "licence": "kevin_base",
+      "animation": "Idle",
+      "sequence": [
+        {
+          "nom": "Run",
+          "image": 9,
+          "fin_image": 29,
+          "fondu": 3
+        },
+        {
+          "nom": "Kick_Right",
+          "image": 29,
+          "fondu": 3
+        }
+      ]
     }
   }
 }
