@@ -8,6 +8,7 @@ Quand aucune banque libre n'a le bon modèle, Claude le construit lui-même en P
 |---|---|
 | `formes.py` | briques de modélisation : `boite` (bords biseautés), `tube` (raccords arrondis), `tube_courbe` (Bézier : tuyaux, rambardes, montants cintrés), `revolution` (profil tourné : poteaux, vases, têtes), `organique` (modificateur Skin + subdivision : corps, membres, branches), `filet` (grille de cordes avec affaissement), `miroir_x`, `usure`, `fusionner`, `exporter` |
 | `blender_direct.py` | pilote **le Blender ouvert** en direct par le pont de l'extension « MCP » de Blender Lab (port 9876) : exécute du Python (`-c` ou un fichier) et capture la vue 3D (`--capture vue.png`) pour voir le résultat |
+| `poses.py` | planche des poses clés d'un personnage animé (4 images par action) |
 | `apercu.py` | planche 2 × 2 (face, trois-quarts, profil, plongée) avec une silhouette de 1,75 m pour l'échelle |
 | `modeles/<id>.py` | un script par modèle ; il écrit `engine/assets/modeles/<id>/<id>.glb` |
 
@@ -29,9 +30,11 @@ Règles de style (ref-stylized-style, ref-lowpoly-style) : silhouette lisible de
 
 | Modèle | Script | Remarques |
 |---|---|---|
+| personnages en blocs (Kevin + 6 abonnés) | `modeles/perso_bloc.py` | style validé par Guillaume le 2026-11-17 pour toute la série ; squelette maison (Root, Torso, Head, Arm.L/R, Leg.L/R) et animations Idle, Idle_Neutral, Run, Kick_Right (contact image 4), Wave, Jump, Clapping ; GLB dans `engine/assets/modeles/personnages_bloc/` ; contrôle avec `poses.py` |
+| `stade_ruine` | `modeles/stade_ruine.py` | terrain boueux de Guillaume + tribune effondrée, pylônes rouillés, tableau d'affichage, abris de touche, cages sans filet, débris, ville en blocs autour ; `.blend`, collection « Stade » |
 | `cage_filet` | `modeles/cage_filet.py` | cage 4 × 2 m réparée avec filet, mêmes dimensions et orientation que `cage_rouillee` (choix « FILETS » du vote de jour-1) ; 17 600 triangles |
 
 ## Limites actuelles
 
-- Personnages : `organique` donne le volume, mais le squelette, les poids et les animations restent à construire (prochaine étape : réutiliser les animations Quaternius avec les mêmes noms d'os).
+- Personnages organiques (non en blocs) : `organique` donne le volume, mais squelette et poids restent à faire à la main.
 - Pas de textures peintes : couleurs unies par matériau, cohérentes avec les packs de DA actuels.

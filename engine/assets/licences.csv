@@ -44,3 +44,5 @@ route,projet,Projet série animation,création du projet,engine/outils/creer_ass
 etiquette_pseudo,projet,Projet série animation,création du projet,engine/outils/creer_assets_stade.py,2026-11-17,non,
 bonhomme,polypizza,J-Toastie,CC-BY 3.0,https://poly.pizza/m/6kFNcL9OnO,2026-11-17,oui,"Modèle ""Hyper Casual Character"" par J-Toastie (CC-BY 3.0), https://poly.pizza/m/6kFNcL9OnO"
 cage_filet,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/cage_filet.py,2026-11-17,non,
+personnages_bloc,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/perso_bloc.py,2026-11-17,non,
+stade_ruine,projet,Guillaume Dury + Projet série animation,création du projet,engine/outils/atelier/modeles/stade_ruine.py,2026-11-17,non,
