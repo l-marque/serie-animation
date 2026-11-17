@@ -187,7 +187,10 @@
       ],
       "debit": 16.0,
       "variation_hauteur": 110.0,
-      "graine": 3
+      "graine": 3,
+      "essais": 4,
+      "syllabes_par_s": 6.0,
+      "seuil_transcription": 0.8
     }
   }
 }

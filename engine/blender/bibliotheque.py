@@ -50,7 +50,15 @@ def _importer(fichier: Path, entree: dict) -> list[bpy.types.Object]:
         col = cible.collections[0]
         if col is None:
             raise RuntimeError(f"collection '{entree['collection']}' absente de {fichier}")
-        return list(col.all_objects)
+        objets = list(col.all_objects)
+        # Les objets d'une collection ajoutée hors scène n'ont pas de matrix_world calculée (elle vaut
+        # l'identité) : sans ce rattachement temporaire, _placer effaçait leur position (bug du 2026-11-17,
+        # stade_ruine). pieces_bibliotheque les détache ensuite de toutes les collections.
+        for o in objets:
+            if bpy.context.scene.collection not in o.users_collection:
+                bpy.context.scene.collection.objects.link(o)
+        bpy.context.view_layer.update()
+        return objets
     avant = set(bpy.data.objects)
     if ext in (".glb", ".gltf"):
         bpy.ops.import_scene.gltf(filepath=str(fichier))
@@ -224,7 +232,7 @@ def _boite_monde(objets: list[bpy.types.Object]) -> tuple[Vector, Vector] | None
 def _transformer_racines(objets: list[bpy.types.Object], matrice: Matrix) -> None:
     for o in objets:
         if o.parent is None:
-            o.matrix_world = matrice @ o.matrix_world
+            o.matrix_basis = matrice @ o.matrix_basis   # matrix_basis : juste même si la scène n'est pas évaluée
 
 
 def _placer(objets: list[bpy.types.Object], entree: dict, asset_id: str) -> None:

@@ -442,6 +442,28 @@
             },
             "graine": {
               "type": "integer"
+            },
+            "essais": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
+              "description": "Versions générées par phrase ; la plus propre est gardée"
+            },
+            "syllabes_par_s": {
+              "type": "number",
+              "minimum": 3,
+              "maximum": 10,
+              "description": "Débit attendu pour juger les versions"
+            },
+            "seuil_transcription": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Similarité minimale entre le texte et la transcription Whisper d'une version"
+            },
+            "verificateur": {
+              "type": "string",
+              "description": "Modèle Whisper de vérification (défaut openai/whisper-small)"
             }
           }
         }

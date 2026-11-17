@@ -42,14 +42,20 @@ Note de passation écrite par Claude pour le Claude qui reprend le projet (chang
 .venv/Scripts/python.exe -m engine.pipeline.run episodes/jour-1.json --mode final --blender "C:/Program Files/Blender Foundation/Blender 5.3/blender.exe"
 ```
 
-## Reste à faire (dans l'ordre)
+## État au 2026-11-17, 15 h 30
 
-1. **Rendu final** de la version blocs : interrompu à la demande de Guillaume avant le rendu Blender (fiche validée, code 0). Le relancer (commande ci-dessus, > 30 min).
-2. **Vérifier** la planche contact et les images clés : frappe de Kevin (contact image 33, ballon en x 41,45 ; à recaler si le pied ne touche pas le ballon), cadrage des plans sur les ruines (pylône en contre-plongée b03, tableau b03b, boue b12, cage b13), lisibilité des étiquettes @ton_pseudo au-dessus des abonnés, et la voix Zonos (mots estimés, pas horodatés par le modèle : vérifier la synchronisation des sous-titres).
-3. Si les lignes du terrain restantes paraissent encore trop propres de près : assombrir `Lignes_effacees` dans `stade_ruine.py`.
-4. Mettre à jour la plaquette Figma « jour-1 — plaquette » (elle montre encore l'ancienne version).
-5. Reporter les commits du 2026-11-17 dans le **Journal de bord** du Drive (règle du projet), et copier les assets lourds (`terrain_boueux_source.blend`, `stade_ruine.blend`, `personnages_bloc/`) dans `06_Rendus et assets lourds`.
-6. Ouvrir la PR (relecture par Lucas) ; ne pas fusionner sans accord.
+- **Vidéo finale de la version blocs rendue** : `renders/jour-1/final/episode.mp4` (41,3 s, code 0, QA automatique sans problème). Planche contact vérifiée : Kevin sur la pelouse, plans sur les ruines, abonnés avec pseudo, fin de b15 non coupée. **Voix validées par Guillaume.**
+- Images b01-b11 réutilisées (rendu interrompu, en partie à 32 échantillons pour les ~100 premières images), b12-b15 rendues à 64.
+- Corrections du moteur pendant la session : assets `.blend` mal placés au chargement (bibliotheque.py) ; plus de bascule silencieuse vers Cycles si une image est verrouillée (rendu.py) ; Zonos : plusieurs versions par phrase vérifiées par Whisper (zonos_worker.py), clé de cache limitée aux réglages de son, compilation automatique si Visual Studio Build Tools est présent.
+- Répliques reformulées pour Zonos : b04 « c'est le premier jour de l'aventure », b14 « La pelouse ou les filets ? », b15 « Rendez-vous au jour deux, pour voir la suite ! ».
+
+## Reste à faire
+
+1. Visual Studio Build Tools : l'installation par winget a été annulée (autorisation administrateur non donnée, code 0x8013153B). La relancer avec Guillaume devant l'écran ; Zonos passera alors en mode compilé (plus rapide) tout seul.
+2. Mettre à jour la plaquette Figma « jour-1 — plaquette ».
+3. Journal de bord du Drive et copie des assets lourds dans `06_Rendus et assets lourds`.
+4. Push : bloqué par la confidentialité de l'adresse e-mail GitHub (voir la session précédente) ; Guillaume a demandé de rester en local pour l'instant.
+5. PR et relecture par Lucas ; aucune publication sans validation humaine.
 
 ## Points d'attention
 

@@ -618,7 +618,7 @@
     },
     {
       "id": "b04",
-      "voix": "Et aujourd'hui, c'est le jour un de l'aventure !",
+      "voix": "Et aujourd'hui, c'est le premier jour de l'aventure !",
       "texte_ecran": "LE DÉBUT DE *L'AVENTURE*",
       "plan": {
         "camera": "dolly_avant",
@@ -849,7 +849,7 @@
     },
     {
       "id": "b14",
-      "voix": "Pelouse ou filets ? Vote en commentaire !",
+      "voix": "La pelouse ou les filets ? Vote en commentaire !",
       "texte_ecran": "PELOUSE *OU* FILETS ? | VOTE EN COMMENTAIRE ↓",
       "plan": {
         "camera": "plan_fixe",
@@ -860,7 +860,7 @@
     },
     {
       "id": "b15",
-      "voix": "Rendez-vous au jour deux pour voir la suite !",
+      "voix": "Rendez-vous au jour deux, pour voir la suite !",
       "texte_ecran": "RENDEZ-VOUS AU JOUR *2*",
       "plan": {
         "camera": "revelation",

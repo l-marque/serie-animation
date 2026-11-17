@@ -37,7 +37,8 @@ WORKER_KYUTAI = chemins.MOTEUR / "voix" / "kyutai_worker.py"
 WORKER_ZONOS = chemins.MOTEUR / "voix" / "zonos_worker.py"
 ZONOS_DEFAUT = {"reference": "engine/voix/references/narrateur_fr.wav", "langue": "fr-fr",
                 "emotion": [0.45, 0.15, 0.02, 0.05, 0.2, 0.02, 0.1, 0.35], "debit": 16.0,
-                "variation_hauteur": 110.0, "graine": 3}
+                "variation_hauteur": 110.0, "graine": 3, "essais": 8,
+                "syllabes_par_s": 6.0, "seuil_transcription": 0.8}
 DOSSIER_CACHE = chemins.RACINE / "renders" / "_cache_voix"
 
 
@@ -72,10 +73,48 @@ def python_zonos() -> str | None:
     return str(defaut) if defaut.is_file() else None
 
 
+_ENV_MSVC: dict[str, str] | None = None
+
+
+def env_msvc() -> dict[str, str] | None:
+    """Variables d'environnement du compilateur C++ de Visual Studio (vcvars64), si Build Tools est installé.
+
+    Zonos les utilise pour compiler son décodeur (torch.compile + Triton) : génération bien plus rapide."""
+    global _ENV_MSVC
+    if _ENV_MSVC is not None or sys.platform != "win32":
+        return _ENV_MSVC or None
+    vswhere = Path(os.environ.get("ProgramFiles(x86)", r"C:\Program Files (x86)")) / "Microsoft Visual Studio/Installer/vswhere.exe"
+    if not vswhere.is_file():
+        _ENV_MSVC = {}
+        return None
+    res = subprocess.run([str(vswhere), "-latest", "-products", "*", "-requires",
+                          "Microsoft.VisualStudio.Component.VC.Tools.x86.x64", "-property", "installationPath"],
+                         capture_output=True, text=True)
+    racine_vs = res.stdout.strip().splitlines()[0] if res.stdout.strip() else ""
+    vcvars = Path(racine_vs) / "VC/Auxiliary/Build/vcvars64.bat"
+    if not vcvars.is_file():
+        _ENV_MSVC = {}
+        return None
+    res = subprocess.run(f'"{vcvars}" >nul && set', shell=True, capture_output=True, text=True,
+                         encoding="utf-8", errors="replace")
+    _ENV_MSVC = dict(l.split("=", 1) for l in res.stdout.splitlines() if "=" in l) if res.returncode == 0 else {}
+    return _ENV_MSVC or None
+
+
 def reglages_zonos(nom_pack: str) -> dict[str, Any]:
     chemin = chemins.PACKS_DA / f"{nom_pack}.json"
     pack = json.loads(chemin.read_text(encoding="utf-8")) if chemin.is_file() else {}
     return {**ZONOS_DEFAUT, **((pack.get("voix_off") or {}).get("zonos") or {})}
+
+
+REGLAGES_SON_ZONOS = ("reference", "langue", "emotion", "debit", "variation_hauteur", "graine")
+
+
+def nom_voix_zonos(reglages: dict[str, Any]) -> str:
+    """Identifiant de voix pour le cache : seuls les réglages qui changent le son comptent. Les réglages
+    de sélection (essais, seuil_transcription, syllabes_par_s, verificateur) n'invalident pas le cache."""
+    son = {k: reglages.get(k) for k in REGLAGES_SON_ZONOS}
+    return "zonos:" + hashlib.sha256(json.dumps(son, sort_keys=True).encode()).hexdigest()[:12]
 
 
 def moteur_du_pack(nom_pack: str) -> str | None:
@@ -93,10 +132,13 @@ def _synthese_zonos(phrases: list[dict[str, str]], reglages: dict[str, Any], int
         ref = chemins.RACINE / ref
     with tempfile.TemporaryDirectory() as tmp:
         travail = Path(tmp) / "travail.json"
+        msvc = env_msvc()
         travail.write_text(json.dumps({**reglages, "reference": str(ref), "dossier": str(dossier),
-                                       "phrases": phrases}, ensure_ascii=False), encoding="utf-8")
+                                       "compiler": bool(msvc), "phrases": phrases}, ensure_ascii=False),
+                           encoding="utf-8")
+        env = dict(msvc or os.environ, PYTHONIOENCODING="utf-8")
         res = subprocess.run([interpreteur, "-I", str(WORKER_ZONOS), str(travail)], capture_output=True, text=True,
-                             encoding="utf-8", errors="replace", env=dict(os.environ, PYTHONIOENCODING="utf-8"))
+                             encoding="utf-8", errors="replace", env=env)
     if res.returncode != 0:
         raise VoixErreur(f"Zonos a échoué (code {res.returncode}) : {res.stderr.strip()[-1200:]}")
     resultat = json.loads((dossier / "resultat.json").read_text(encoding="utf-8"))
@@ -192,7 +234,7 @@ def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
         voix = voix or voix_du_pack(donnees.get("pack_da", "")) or VOIX_KYUTAI_DEFAUT
     elif moteur == "zonos":
         reglages = reglages_zonos(donnees.get("pack_da", ""))
-        voix = voix or "zonos:" + hashlib.sha256(json.dumps(reglages, sort_keys=True).encode()).hexdigest()[:12]
+        voix = voix or nom_voix_zonos(reglages)
         interpreteur = python_zonos()
         if not interpreteur:
             raise VoixErreur("Zonos : interpréteur introuvable ; indique ZONOS_PYTHON=<python.exe avec zonos> dans .env")
@@ -236,8 +278,10 @@ def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
             audio = {"fichier": str(DOSSIER_CACHE / f"{p['id']}.wav"), "duree_s": r["duree_s"], "mots": r["mots"]}
             (DOSSIER_CACHE / f"{p['id']}.json").write_text(json.dumps(audio, ensure_ascii=False), encoding="utf-8")
             par_beat[p["beat"]]["voix_audio"] = audio
-            compte_rendu["synthetisees"].append({"beat": p["beat"], "duree_s": r["duree_s"],
-                                                 "mots": r.get("origine_mots", "estimation")})
+            entree = {"beat": p["beat"], "duree_s": r["duree_s"], "mots": r.get("origine_mots", "estimation")}
+            if "transcription" in r:
+                entree.update(transcription=r["transcription"], similarite=r["similarite"])
+            compte_rendu["synthetisees"].append(entree)
 
     vitesse = vitesse_du_pack(donnees.get("pack_da", ""))
     if abs(vitesse - 1.0) > 1e-3:
