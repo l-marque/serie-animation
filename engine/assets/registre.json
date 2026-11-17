@@ -957,6 +957,17 @@
           "fondu": 3
         }
       ]
+    },
+    "cage_filet": {
+      "fichier": "engine/assets/modeles/cage_filet/cage_filet.glb",
+      "echelle": 1.0,
+      "role_defaut": "accessoire",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "création du projet (engine/outils/atelier/modeles/cage_filet.py)",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": true
     }
   }
 }
