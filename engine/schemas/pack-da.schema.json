@@ -401,6 +401,7 @@
         "moteur": {
           "enum": [
             "kyutai",
+            "qwen",
             "zonos",
             "windows",
             "aucune"
@@ -464,6 +465,53 @@
             "verificateur": {
               "type": "string",
               "description": "Modèle Whisper de vérification (défaut openai/whisper-small)"
+            }
+          }
+        },
+        "qwen": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Réglages Qwen3-TTS (engine/voix/qwen_worker.py).",
+          "properties": {
+            "modele": {
+              "type": "string"
+            },
+            "locuteur": {
+              "type": "string"
+            },
+            "langue": {
+              "type": "string"
+            },
+            "consigne": {
+              "type": "string",
+              "description": "Consigne de jeu par défaut, en français"
+            },
+            "essais": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "seuil_transcription": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "mots_par_minute": {
+              "type": "number",
+              "minimum": 80,
+              "maximum": 260
+            },
+            "verificateur": {
+              "type": "string"
+            },
+            "graine": {
+              "type": "integer"
+            },
+            "expressivite_min": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 12,
+              "description": "Variation de hauteur minimale visée (demi-tons) pour une phrase de 4 mots ou plus"
             }
           }
         }

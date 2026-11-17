@@ -3,6 +3,10 @@
 Moteurs :
     kyutai   Kyutai TTS (kyutai/tts-1.6b-en_fr, CC-BY 4.0), dans l'environnement Python qui a PyTorch
              et moshi (variable TTS_PYTHON ou option --python-tts). Mots horodatés par le modèle.
+    qwen     Qwen3-TTS (Alibaba Qwen, Apache 2.0), voix « dylan » du modèle CustomVoice : jeu dirigé phrase par
+             phrase par des consignes en français (prod-directeur-voix), débit visé en mots par minute ;
+             environnement QWEN_PYTHON (.env) ou ~/venvs/qwen-tts. Réglages : pack de DA (voix_off.qwen).
+             Voix choisie le 2026-11-17 à la place de Zonos. Mots estimés.
     zonos    Zonos (Zyphra, Zonos-v0.1-transformer, Apache 2.0) : voix expressive réglée par émotions,
              timbre copié d'un court enregistrement de référence ; environnement ZONOS_PYTHON (.env) ou
              ~/venvs/zonos-tts. Réglages dans le pack de DA (voix_off.zonos). Mots estimés.
@@ -31,10 +35,28 @@ from typing import Any
 
 from . import chemins
 
-MOTEURS = ("kyutai", "zonos", "windows", "aucune")
+MOTEURS = ("kyutai", "qwen", "zonos", "windows", "aucune")
 VOIX_KYUTAI_DEFAUT = "unmute-prod-website/fabieng-enhanced-v2.wav"
 WORKER_KYUTAI = chemins.MOTEUR / "voix" / "kyutai_worker.py"
 WORKER_ZONOS = chemins.MOTEUR / "voix" / "zonos_worker.py"
+WORKER_QWEN = chemins.MOTEUR / "voix" / "qwen_worker.py"
+QWEN_DEFAUT = {"modele": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice", "locuteur": "dylan", "langue": "French",
+               "consigne": ("Narrateur de Reel en français, énergique et captivant : ton vivant, intonations très marquées, "
+                            "la voix monte et descend, appuie les mots importants, enchaîne les phrases sans traîner."),
+               "essais": 6, "seuil_transcription": 0.9, "mots_par_minute": 180, "expressivite_min": 4.8, "graine": 7}
+# Émotions nommées du directeur de voix -> consignes de jeu Qwen (en français).
+CONSIGNES_EMOTION = {
+    "conteur": "Ton de conteur chaleureux, vivant, qui captive.",
+    "neutre": "Ton neutre et clair.",
+    "joyeux": "Ton joyeux et souriant, on entend le sourire.",
+    "enthousiaste": "Avec beaucoup d'enthousiasme et d'énergie, la voix monte sur la fin.",
+    "triste": "Ton triste et doux, la voix retombe sur la fin.",
+    "nostalgique": "Ton nostalgique, un peu suspendu, comme un souvenir.",
+    "mysterieux": "Ton mystérieux, en retenue, qui crée du suspense.",
+    "surpris": "Ton surpris et émerveillé.",
+    "determine": "Ton déterminé et assuré, qui relance l'histoire.",
+    "complice": "Ton complice et chaleureux, comme si on parlait à un ami.",
+}
 ZONOS_DEFAUT = {"reference": "engine/voix/references/narrateur_fr.wav", "langue": "fr-fr",
                 "emotion": [0.45, 0.15, 0.02, 0.05, 0.2, 0.02, 0.1, 0.35], "debit": 16.0,
                 "variation_hauteur": 110.0, "graine": 3, "essais": 8,
@@ -101,6 +123,44 @@ def env_msvc() -> dict[str, str] | None:
     return _ENV_MSVC or None
 
 
+def python_qwen() -> str | None:
+    """Interpréteur qui a qwen-tts : QWEN_PYTHON (environnement ou .env), sinon ~/venvs/qwen-tts."""
+    if os.environ.get("QWEN_PYTHON"):
+        return os.environ["QWEN_PYTHON"]
+    env = chemins.RACINE / ".env"
+    if env.is_file():
+        for ligne in env.read_text(encoding="utf-8").splitlines():
+            if ligne.strip().startswith("QWEN_PYTHON="):
+                return ligne.split("=", 1)[1].strip().strip('"').strip("'")
+    defaut = Path.home() / "venvs" / "qwen-tts" / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
+    return str(defaut) if defaut.is_file() else None
+
+
+def reglages_qwen(nom_pack: str) -> dict[str, Any]:
+    chemin = chemins.PACKS_DA / f"{nom_pack}.json"
+    pack = json.loads(chemin.read_text(encoding="utf-8")) if chemin.is_file() else {}
+    return {**QWEN_DEFAUT, **((pack.get("voix_off") or {}).get("qwen") or {})}
+
+
+def nom_voix_qwen(reglages: dict[str, Any]) -> str:
+    son = {k: reglages.get(k) for k in ("modele", "locuteur", "langue", "consigne", "graine")}
+    return "qwen:" + hashlib.sha256(json.dumps(son, sort_keys=True).encode()).hexdigest()[:12]
+
+
+def _synthese_qwen(phrases: list[dict[str, Any]], reglages: dict[str, Any], interpreteur: str,
+                   dossier: Path) -> dict[str, dict]:
+    with tempfile.TemporaryDirectory() as tmp:
+        travail = Path(tmp) / "travail.json"
+        travail.write_text(json.dumps({**reglages, "dossier": str(dossier), "phrases": phrases}, ensure_ascii=False),
+                           encoding="utf-8")
+        res = subprocess.run([interpreteur, "-I", str(WORKER_QWEN), str(travail)], capture_output=True, text=True,
+                             encoding="utf-8", errors="replace", env=dict(os.environ, PYTHONIOENCODING="utf-8"))
+    if res.returncode != 0:
+        raise VoixErreur(f"Qwen a échoué (code {res.returncode}) : {res.stderr.strip()[-1200:]}")
+    resultat = json.loads((dossier / "resultat.json").read_text(encoding="utf-8"))
+    return {p["id"]: p for p in resultat["phrases"]}
+
+
 def reglages_zonos(nom_pack: str) -> dict[str, Any]:
     chemin = chemins.PACKS_DA / f"{nom_pack}.json"
     pack = json.loads(chemin.read_text(encoding="utf-8")) if chemin.is_file() else {}
@@ -143,6 +203,57 @@ def _synthese_zonos(phrases: list[dict[str, str]], reglages: dict[str, Any], int
         raise VoixErreur(f"Zonos a échoué (code {res.returncode}) : {res.stderr.strip()[-1200:]}")
     resultat = json.loads((dossier / "resultat.json").read_text(encoding="utf-8"))
     return {p["id"]: p for p in resultat["phrases"]}
+
+
+# Émotions nommées -> vecteur Zonos [bonheur, tristesse, dégoût, peur, surprise, colère, autre, neutre].
+EMOTIONS = {
+    "conteur": [0.45, 0.15, 0.02, 0.05, 0.2, 0.02, 0.1, 0.35],
+    "neutre": [0.15, 0.05, 0.02, 0.02, 0.05, 0.02, 0.1, 0.8],
+    "joyeux": [0.85, 0.02, 0.02, 0.02, 0.25, 0.02, 0.1, 0.15],
+    "enthousiaste": [0.8, 0.02, 0.02, 0.02, 0.5, 0.05, 0.1, 0.1],
+    "triste": [0.05, 0.75, 0.02, 0.05, 0.02, 0.02, 0.1, 0.3],
+    "nostalgique": [0.3, 0.5, 0.02, 0.02, 0.05, 0.02, 0.15, 0.4],
+    "mysterieux": [0.1, 0.15, 0.02, 0.3, 0.3, 0.02, 0.2, 0.4],
+    "surpris": [0.4, 0.02, 0.02, 0.1, 0.8, 0.02, 0.1, 0.1],
+    "determine": [0.4, 0.02, 0.02, 0.02, 0.1, 0.3, 0.1, 0.3],
+    "complice": [0.65, 0.05, 0.02, 0.02, 0.2, 0.02, 0.2, 0.3],
+}
+CHAMPS_VOIX_BEAT = ("emotion", "debit", "variation_hauteur", "mots_par_minute")
+
+
+def fichier_reglages_voix(source: Path | None) -> Path | None:
+    """`<fiche>.voix.json` à côté de la fiche : réglages de voix phrase par phrase (prod-directeur-voix)."""
+    if source is None:
+        return None
+    chemin = Path(source).with_name(f"{Path(source).stem}.voix.json")
+    return chemin if chemin.is_file() else None
+
+
+def charger_reglages_voix(source: Path | None) -> dict[str, dict[str, Any]]:
+    """Lit `<fiche>.voix.json` : {"version": "1.0", "mots_par_minute": 120 (facultatif, tout l'épisode),
+    "beats": {"b02": {"intention": "...", "emotion": "triste" | [8 nombres], "debit": 14, "variation_hauteur": 80,
+    "mots_par_minute": 110, "pause_apres_s": 0.2}}}. Les émotions nommées sont converties en vecteur ;
+    le débit de tout l'épisode est rendu sous la clé "*"."""
+    chemin = fichier_reglages_voix(source)
+    if chemin is None:
+        return {}
+    contenu = json.loads(chemin.read_text(encoding="utf-8"))
+    brut = contenu.get("beats", {})
+    sortie = {}
+    if contenu.get("mots_par_minute"):               # débit cible de tout l'épisode
+        sortie["*"] = {"mots_par_minute": float(contenu["mots_par_minute"])}
+    for bid, r in brut.items():
+        r = dict(r)
+        emo = r.get("emotion")
+        if isinstance(emo, str):
+            r["emotion_nom"] = emo
+            if emo not in EMOTIONS:
+                raise VoixErreur(f"{chemin.name} : beat {bid} : émotion inconnue « {emo} » ({', '.join(EMOTIONS)})")
+            r["emotion"] = EMOTIONS[emo]
+        elif emo is not None and (len(emo) != 8 or not all(0 <= float(x) <= 1 for x in emo)):
+            raise VoixErreur(f"{chemin.name} : beat {bid} : « emotion » = un nom ou 8 nombres entre 0 et 1")
+        sortie[bid] = r
+    return sortie
 
 
 def _cle(moteur: str, voix: str, texte: str) -> str:
@@ -220,7 +331,8 @@ def voix_du_pack(nom_pack: str) -> str | None:
 
 
 def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
-                 interpreteur: str | None = None) -> tuple[dict[str, Any], dict[str, Any]]:
+                 interpreteur: str | None = None,
+                 reglages_beats: dict[str, dict[str, Any]] | None = None) -> tuple[dict[str, Any], dict[str, Any]]:
     """Renvoie (copie de la fiche avec voix_audio, compte rendu). Lève VoixErreur si la synthèse échoue.
 
     Voix utilisée : celle passée en argument, sinon celle du pack de DA, sinon la voix par défaut."""
@@ -232,6 +344,12 @@ def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
         return sortie, compte_rendu
     if moteur == "kyutai":
         voix = voix or voix_du_pack(donnees.get("pack_da", "")) or VOIX_KYUTAI_DEFAUT
+    elif moteur == "qwen":
+        reglages = reglages_qwen(donnees.get("pack_da", ""))
+        voix = voix or nom_voix_qwen(reglages)
+        interpreteur = python_qwen()
+        if not interpreteur:
+            raise VoixErreur("Qwen : interpréteur introuvable ; indique QWEN_PYTHON=<python.exe avec qwen-tts> dans .env")
     elif moteur == "zonos":
         reglages = reglages_zonos(donnees.get("pack_da", ""))
         voix = voix or nom_voix_zonos(reglages)
@@ -256,18 +374,30 @@ def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
         if b.get("voix_audio"):  # voix enregistrée ou fournie par un humain : on n'y touche pas
             compte_rendu["deja_fournies"].append(b["id"])
             continue
-        cle = _cle(moteur, voix, texte)
+        fusion = {**(reglages_beats or {}).get("*", {}), **(reglages_beats or {}).get(b["id"], {})}
+        if moteur == "zonos":
+            propres = {k: v for k, v in fusion.items() if k in CHAMPS_VOIX_BEAT}
+        elif moteur == "qwen":
+            propres = {k: v for k, v in fusion.items() if k in ("mots_par_minute", "expressivite_min")}
+            consigne = fusion.get("consigne") or CONSIGNES_EMOTION.get(fusion.get("emotion_nom", ""), "")
+            if consigne:
+                propres["consigne"] = (reglages["consigne"] + " " + consigne).strip()
+        else:
+            propres = {}
+        cle = _cle(moteur, voix + ("|" + json.dumps(propres, sort_keys=True) if propres else ""), texte)
         meta = DOSSIER_CACHE / f"{cle}.json"
         if meta.is_file() and (DOSSIER_CACHE / f"{cle}.wav").is_file():
             b["voix_audio"] = json.loads(meta.read_text(encoding="utf-8"))
             compte_rendu["depuis_cache"].append(b["id"])
         else:
-            a_synthetiser.append({"id": cle, "texte": texte, "beat": b["id"]})
+            a_synthetiser.append({"id": cle, "texte": texte, "beat": b["id"], **propres})
 
     if a_synthetiser:
-        phrases = [{"id": p["id"], "texte": p["texte"]} for p in a_synthetiser]
+        phrases = [{k: v for k, v in p.items() if k != "beat"} for p in a_synthetiser]
         if moteur == "kyutai":
             resultats = _synthese_kyutai(phrases, voix, interpreteur, DOSSIER_CACHE)
+        elif moteur == "qwen":
+            resultats = _synthese_qwen(phrases, reglages, interpreteur, DOSSIER_CACHE)
         elif moteur == "zonos":
             resultats = _synthese_zonos(phrases, reglages, interpreteur, DOSSIER_CACHE)
         else:
@@ -279,10 +409,19 @@ def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
             (DOSSIER_CACHE / f"{p['id']}.json").write_text(json.dumps(audio, ensure_ascii=False), encoding="utf-8")
             par_beat[p["beat"]]["voix_audio"] = audio
             entree = {"beat": p["beat"], "duree_s": r["duree_s"], "mots": r.get("origine_mots", "estimation")}
+            for champ in ("mots_par_minute", "expressivite_st"):
+                if champ in r:
+                    entree[champ] = r[champ]
             if "transcription" in r:
                 entree.update(transcription=r["transcription"], similarite=r["similarite"])
             compte_rendu["synthetisees"].append(entree)
 
+    # Pause voulue après une phrase (prod-directeur-voix) : durée du plan = avance + voix + pause,
+    # sauf si la fiche impose déjà duree_s.
+    for b in sortie["beats"]:
+        pause = (reglages_beats or {}).get(b["id"], {}).get("pause_apres_s")
+        if pause is not None and b.get("voix_audio") and "duree_s" not in b:
+            b["duree_s"] = round(0.15 + b["voix_audio"]["duree_s"] + float(pause), 3)
     vitesse = vitesse_du_pack(donnees.get("pack_da", ""))
     if abs(vitesse - 1.0) > 1e-3:
         compte_rendu["vitesse"] = vitesse

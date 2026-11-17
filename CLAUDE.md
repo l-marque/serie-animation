@@ -45,7 +45,7 @@ Carte complète, statuts et convention de nommage : `docs/agents.md`. Contrats e
 |---|---|---|---|
 | Pilotage | `pilotage` (agent unique) | Lucas | `.claude/agents/pilotage.md` |
 | Storytelling | `story-chef` + `story-idees`, `story-continuite`, `story-scenario`, `story-beats`, `story-decoupage` (`story-scenes` et `story-fiche` abandonnés) | Lucas | `.claude/agents/story-*.md` |
-| Production | `prod-chef` + `prod-realisateur`, `prod-controle-qualite`, `prod-directeur-artistique`, `prod-modeleur` ; modules en code dans `engine/` | Guillaume | `.claude/agents/prod-*.md` |
+| Production | `prod-chef` + `prod-realisateur`, `prod-controle-qualite`, `prod-directeur-artistique`, `prod-modeleur`, `prod-directeur-voix` ; modules en code dans `engine/` | Guillaume | `.claude/agents/prod-*.md` |
 | Communication | `com-chef` (plus tard) + `com-legendes` | à définir | `.claude/agents/communication.md` (v1), `.claude/agents/com-legendes.md` |
 
 Nommage dans `.claude/agents/` : dossier plat, préfixes `pilotage`, `story-`, `prod-`, `com-`. `production.md` est devenu `prod-chef.md` ; le renommage de `communication.md` reste à décider.

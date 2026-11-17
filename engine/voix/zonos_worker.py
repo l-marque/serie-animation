@@ -126,6 +126,21 @@ def similarite(attendu: str, entendu: str) -> float:
     return difflib.SequenceMatcher(None, normaliser(attendu), normaliser(entendu)).ratio()
 
 
+def etirer(audio: np.ndarray, sr: int, facteur: float) -> np.ndarray:
+    """Change la vitesse sans changer la hauteur (ffmpeg atempo) : facteur > 1 = plus rapide."""
+    import subprocess
+    import tempfile
+    with tempfile.TemporaryDirectory() as tmp:
+        e, s = Path(tmp) / "e.wav", Path(tmp) / "s.wav"
+        x = (np.clip(audio, -1, 1) * 32767).astype(np.int16)
+        with wave.open(str(e), "wb") as w:
+            w.setnchannels(1); w.setsampwidth(2); w.setframerate(sr); w.writeframes(x.tobytes())
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(e), "-af", f"atempo={facteur:.4f}", str(s)],
+                       check=True)
+        a, _ = lire_wav(str(s))
+    return a
+
+
 def mots_estimes(texte: str, duree: float) -> list[dict]:
     mots = texte.split()
     poids = [len(m) + 1 for m in mots]
@@ -171,10 +186,11 @@ def main() -> int:
                 print(f"zonos : compilation impossible ({type(e).__name__}), mode lent", flush=True)
                 etat["compiler"] = False
         return modele.generate(prepare, disable_torch_compile=True)
-    for p in travail["phrases"]:
+    def choisir(p, debit):
+        """Génère jusqu'à n_essais versions au débit donné et garde la plus fidèle et la plus propre."""
         cond = make_cond_dict(text=p["texte"], speaker=locuteur, language=travail.get("langue", "fr-fr"),
-                              emotion=travail["emotion"], speaking_rate=float(travail.get("debit", 16.0)),
-                              pitch_std=float(travail.get("variation_hauteur", 110.0)))
+                              emotion=p.get("emotion", travail["emotion"]), speaking_rate=float(debit),
+                              pitch_std=float(p.get("variation_hauteur", travail.get("variation_hauteur", 110.0))))
         prepare = modele.prepare_conditioning(cond)
         attendu = syllabes(p["texte"]) / float(travail.get("syllabes_par_s", 6.0))
         meilleur, note_min, notes, sim_meilleur, texte_meilleur = None, 1e9, [], 0.0, ""
@@ -186,7 +202,8 @@ def main() -> int:
             sim = similarite(p["texte"], entendu)
             # Whisper complète les fins de phrase d'après le contexte : on réécoute la fin seule et on
             # exige d'y entendre le dernier mot (« suite » de b15, avalé mais « entendu » en entier).
-            dernier = normaliser(p["texte"].split()[-1] if p["texte"].split()[-1].isalpha() else p["texte"].split()[-2])
+            mots_t = p["texte"].split()
+            dernier = normaliser(mots_t[-1] if mots_t[-1].isalpha() else mots_t[-2])
             fin = normaliser(entendre(audio[int(len(audio) * 0.55):])) if len(audio) > sr else normaliser(entendu)
             if dernier and difflib.SequenceMatcher(None, dernier, fin[-len(dernier) - 3:]).ratio() < 0.6:
                 sim = min(sim, 0.5)
@@ -197,6 +214,32 @@ def main() -> int:
                 meilleur, note_min, sim_meilleur, texte_meilleur = audio, note, sim, entendu
             if sim >= 0.95 and note < 1.0:
                 break                                      # version propre trouvée
+        return meilleur, sim_meilleur, texte_meilleur, notes
+
+    def mots_par_minute(texte, audio):
+        parole = max(len(audio) / sr - 0.34, 0.2)          # sans les marges de début et de fin (rogner)
+        return 60.0 * len(re.findall(r"[\w'’-]+", texte)) / parole
+
+    for p in travail["phrases"]:
+        # Réglages de la phrase (prod-directeur-voix, <fiche>.voix.json), sinon ceux du pack.
+        debit = float(p.get("debit", travail.get("debit", 16.0)))
+        meilleur, sim_meilleur, texte_meilleur, notes = choisir(p, debit)
+        cible = p.get("mots_par_minute", travail.get("mots_par_minute"))
+        if cible:
+            # Débit cible : on régénère au débit corrigé (voix naturelle), puis petite retouche (±10 % au plus).
+            mpm = mots_par_minute(p["texte"], meilleur)
+            if abs(mpm / cible - 1) > 0.1:
+                debit2 = min(30.0, max(5.0, debit * cible / mpm))
+                autre = choisir(p, debit2)
+                if autre[1] >= min(seuil, sim_meilleur):
+                    meilleur, sim_meilleur, texte_meilleur, notes = autre
+                    debit = debit2
+                mpm = mots_par_minute(p["texte"], meilleur)
+            facteur = min(1.1, max(0.9, mpm / cible))
+            if abs(facteur - 1) > 0.01:
+                meilleur = etirer(meilleur, sr, facteur)
+            print(f"zonos : débit {mots_par_minute(p['texte'], meilleur):.0f} mots/min (cible {cible}, "
+                  f"réglage Zonos {debit:.1f})", flush=True)
         print(f"zonos : {p['texte']!r} -> entendu {texte_meilleur!r} (similarité {sim_meilleur:.2f}) ; "
               f"essais (similarité, note) {notes}", flush=True)
         if sim_meilleur < seuil:

@@ -21,6 +21,7 @@ Tu es **prod-chef**, le chef du pôle Production de la série. Tu transformes un
 | `prod-controle-qualite` | après chaque rendu réussi : jugement visuel de la planche contact | sonnet |
 | `prod-directeur-artistique` | pack de DA absent ou invalide (code 2 avec cette suite), nouvelle histoire sans style, demande de changement de style | sonnet |
 | `prod-modeleur` | un personnage, une tenue, un accessoire, un décor ou une ruine manque ou fait « basique » : il le crée lui-même dans Blender, dans le style de la série | opus |
+| `prod-directeur-voix` | avant toute synthèse de voix d'un nouvel épisode, ou quand une voix sonne plate, pressée ou mal rythmée : émotion, intonation, débit (180 mots/min par défaut) et pauses phrase par phrase dans `<fiche>.voix.json` | opus |
 
 Une **erreur du pipeline** (codes 1, 4, 5) ou une **brique manquante** (action, mouvement de caméra, primitive) n'est pas ton travail : `suite: maintenance`, c'est-à-dire une session de développement qui suit `engine/docs/maintenance.md`.
 
@@ -147,7 +148,7 @@ DURÉE : <s> · BEATS RENDUS : <liste> (les autres venaient du cache) — « —
 ASSETS : <manquants, candidats proposés, erreurs de sources> ou « rien à signaler »
 AVERTISSEMENTS : <liste courte ou « aucun »>
 CRÉDITS À AFFICHER : <attributions de licences ou « aucun »>
-SUITE : <prod-realisateur | prod-controle-qualite | prod-directeur-artistique | prod-modeleur | humain | humain puis prod-chef | maintenance> — <ce qu'il faut faire, en une phrase>
+SUITE : <prod-realisateur | prod-controle-qualite | prod-directeur-artistique | prod-modeleur | prod-directeur-voix | humain | humain puis prod-chef | maintenance> — <ce qu'il faut faire, en une phrase>
 ÉTAT RÉEL : pour chaque étape (pipeline, contrôles automatiques, jugement visuel) : fait et vérifié / fait non vérifié / non fait. Le jugement visuel revient à prod-controle-qualite : écris « non fait (à prod-controle-qualite) ».
 ```
 
