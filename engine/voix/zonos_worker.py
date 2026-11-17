@@ -235,7 +235,7 @@ def main() -> int:
                     meilleur, sim_meilleur, texte_meilleur, notes = autre
                     debit = debit2
                 mpm = mots_par_minute(p["texte"], meilleur)
-            facteur = min(1.1, max(0.9, mpm / cible))
+            facteur = min(1.1, max(0.9, cible / mpm))   # atempo f : débit × f (sens corrigé le 2026-11-17)
             if abs(facteur - 1) > 0.01:
                 meilleur = etirer(meilleur, sr, facteur)
             print(f"zonos : débit {mots_par_minute(p['texte'], meilleur):.0f} mots/min (cible {cible}, "

@@ -107,7 +107,8 @@ def main() -> int:
                 audio, sim, entendu, expr = autre, s2, e2, x2
         # 3. Retouche fine du débit (±12 % au plus, hauteur inchangée)
         if cible:
-            facteur = min(1.12, max(0.88, mots_par_minute(p["texte"], audio, sr) / cible))
+            # atempo f : débit × f. Pour viser la cible : f = cible / débit (bug corrigé : le sens était inversé)
+            facteur = min(1.12, max(0.88, cible / mots_par_minute(p["texte"], audio, sr)))
             if abs(facteur - 1) > 0.01:
                 audio = etirer(audio, sr, facteur)
         mpm = mots_par_minute(p["texte"], audio, sr)

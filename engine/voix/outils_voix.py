@@ -36,12 +36,20 @@ def ecrire_wav(chemin: str, audio: np.ndarray, sr: int) -> None:
         w.writeframes(x.tobytes())
 
 
+def _energie(a: np.ndarray, fen: int) -> np.ndarray:
+    """Énergie (RMS) par fenêtres successives de `fen` échantillons, calculée d'un seul bloc (numpy)."""
+    n = len(a) // fen
+    if n == 0:
+        return np.array([float(np.sqrt((a ** 2).mean()))]) if len(a) else np.zeros(1)
+    return np.sqrt((a[:n * fen].reshape(n, fen) ** 2).mean(axis=1))
+
+
 def rogner(a: np.ndarray, sr: int, seuil: float = 0.006, marge_debut_s: float = 0.04,
            marge_fin_s: float = 0.3) -> np.ndarray:
     """Retire les silences de début et de fin ; seuil bas et marge de fin large pour ne pas couper la
     dernière syllabe ; court fondu de sortie."""
     fen = int(0.02 * sr)
-    energie = np.array([np.sqrt((a[i:i + fen] ** 2).mean()) for i in range(0, max(len(a) - fen, 1), fen)])
+    energie = _energie(a, fen)
     parle = np.where(energie > seuil)[0]
     if len(parle) == 0:
         return a
@@ -53,13 +61,10 @@ def rogner(a: np.ndarray, sr: int, seuil: float = 0.006, marge_debut_s: float = 
 
 
 def plus_long_silence_s(a: np.ndarray, sr: int, seuil: float = 0.012) -> float:
-    fen = int(0.02 * sr)
-    energie = np.array([np.sqrt((a[i:i + fen] ** 2).mean()) for i in range(0, max(len(a) - fen, 1), fen)])
-    plus_long = courant = 0
-    for s in energie < seuil:
-        courant = courant + 1 if s else 0
-        plus_long = max(plus_long, courant)
-    return plus_long * 0.02
+    silence = np.concatenate([[0], (_energie(a, int(0.02 * sr)) < seuil).astype(np.int8), [0]])
+    bords = np.flatnonzero(np.diff(silence))
+    longueurs = bords[1::2] - bords[::2]
+    return float(longueurs.max() * 0.02) if len(longueurs) else 0.0
 
 
 def normaliser(texte: str) -> str:
@@ -107,20 +112,23 @@ def variation_hauteur_st(audio: np.ndarray, sr: int) -> float:
     """Expressivité : écart-type de la hauteur de voix, en demi-tons (autocorrélation sur 40 ms).
     Repère : médiane des Reels de référence 5,8 (de 4,5 à 7,4) ; jour-1 5,1 (engine/docs/references-videos.md)."""
     fr, hop = int(0.04 * sr), int(0.01 * sr)
-    f0 = []
-    for i in range(0, max(len(audio) - fr, 0), hop):
-        s = audio[i:i + fr]
-        if np.sqrt((s ** 2).mean()) < 0.02:
-            continue
-        s = s - s.mean()
-        c = np.correlate(s, s, "full")[fr - 1:]
-        lo, hi = sr // 350, sr // 70
-        k = lo + int(np.argmax(c[lo:hi]))
-        if c[k] > 0.45 * c[0]:
-            f0.append(sr / k)
-    if len(f0) < 10:
+    if len(audio) <= fr:
         return 0.0
-    f0 = np.array(f0)
+    trames = np.lib.stride_tricks.sliding_window_view(audio, fr)[::hop]
+    trames = trames[np.sqrt((trames ** 2).mean(axis=1)) >= 0.02]
+    if len(trames) < 10:
+        return 0.0
+    trames = trames - trames.mean(axis=1, keepdims=True)
+    # autocorrélation de toutes les trames d'un coup (FFT), identique à np.correlate(s, s, "full")[fr - 1:]
+    n = 1 << int(np.ceil(np.log2(2 * fr)))
+    spectre = np.fft.rfft(trames, n=n, axis=1)
+    c = np.fft.irfft(spectre * np.conj(spectre), n=n, axis=1)[:, :fr]
+    lo, hi = sr // 350, sr // 70
+    k = lo + np.argmax(c[:, lo:hi], axis=1)
+    garde = c[np.arange(len(c)), k] > 0.45 * c[:, 0]
+    if garde.sum() < 10:
+        return 0.0
+    f0 = sr / k[garde]
     return float(np.std(12 * np.log2(f0 / np.median(f0))))
 
 
