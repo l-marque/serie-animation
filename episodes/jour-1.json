@@ -1,0 +1,1268 @@
+{
+  "version": "1.1",
+  "episode_id": "jour-1",
+  "titre": "Jour 1 : le début de l'aventure de Kevin",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 30
+  },
+  "pack_da": "kevin_vif",
+  "serie": {
+    "id": "serie",
+    "continuite": false
+  },
+  "decor": {
+    "kit": "primitifs",
+    "sol": true,
+    "taille_sol": 400
+  },
+  "audio": {
+    "musique": "engine/assets/musique/piano_doux.wav",
+    "volume_musique": 0.07
+  },
+  "elements": [
+    {
+      "id": "terrain",
+      "asset": "bibliotheque:terrain_pelouse_abimee",
+      "position": [
+        0,
+        0,
+        0.01
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "sol"
+    },
+    {
+      "id": "cage_gauche",
+      "asset": "bibliotheque:cage_rouillee",
+      "position": [
+        -10,
+        0,
+        0
+      ],
+      "rotation_z": 180,
+      "echelle": 1
+    },
+    {
+      "id": "cage_droite",
+      "asset": "bibliotheque:cage_rouillee",
+      "position": [
+        10,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "route",
+      "asset": "bibliotheque:route",
+      "position": [
+        0,
+        12,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "sol"
+    },
+    {
+      "id": "ballon",
+      "asset": "bibliotheque:ballon_foot",
+      "position": [
+        6.45,
+        -0.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "bat_0",
+      "asset": "bibliotheque:maison_ville",
+      "position": [
+        -24,
+        22,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "bat_1",
+      "asset": "bibliotheque:immeuble",
+      "position": [
+        -12,
+        23,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "bat_2",
+      "asset": "bibliotheque:mairie",
+      "position": [
+        -1,
+        22,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "bat_3",
+      "asset": "bibliotheque:petit_immeuble",
+      "position": [
+        9,
+        21,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "bat_4",
+      "asset": "bibliotheque:batiment_kay",
+      "position": [
+        18,
+        22,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "bat_5",
+      "asset": "bibliotheque:maison_ville",
+      "position": [
+        29,
+        22,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "bat_6",
+      "asset": "bibliotheque:immeuble",
+      "position": [
+        -27,
+        3,
+        0
+      ],
+      "rotation_z": 90,
+      "echelle": 1
+    },
+    {
+      "id": "bat_7",
+      "asset": "bibliotheque:maison_ville",
+      "position": [
+        27,
+        3,
+        0
+      ],
+      "rotation_z": -90,
+      "echelle": 1
+    },
+    {
+      "id": "bat_8",
+      "asset": "bibliotheque:petit_immeuble",
+      "position": [
+        -26,
+        -10,
+        0
+      ],
+      "rotation_z": 90,
+      "echelle": 1
+    },
+    {
+      "id": "bat_9",
+      "asset": "bibliotheque:batiment_kay",
+      "position": [
+        26,
+        -10,
+        0
+      ],
+      "rotation_z": -90,
+      "echelle": 1
+    },
+    {
+      "id": "arbre_0",
+      "asset": "primitif:arbre",
+      "position": [
+        -18,
+        17.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_1",
+      "asset": "primitif:arbre",
+      "position": [
+        -7,
+        17.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_2",
+      "asset": "primitif:arbre",
+      "position": [
+        4,
+        17.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_3",
+      "asset": "primitif:arbre",
+      "position": [
+        14,
+        17.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_4",
+      "asset": "primitif:arbre",
+      "position": [
+        24,
+        17.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "lampadaire_0",
+      "asset": "bibliotheque:lampadaire_rue",
+      "position": [
+        -12.5,
+        16.9,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "lampadaire_1",
+      "asset": "bibliotheque:lampadaire_rue",
+      "position": [
+        0.5,
+        16.9,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "lampadaire_2",
+      "asset": "bibliotheque:lampadaire_rue",
+      "position": [
+        12.5,
+        16.9,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "banc_1",
+      "asset": "bibliotheque:banc",
+      "position": [
+        -5,
+        17.3,
+        0
+      ],
+      "rotation_z": 180,
+      "echelle": 1
+    },
+    {
+      "id": "passant_1",
+      "asset": "bibliotheque:habitant",
+      "position": [
+        -3,
+        16.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "passant_2",
+      "asset": "bibliotheque:habitante",
+      "position": [
+        6,
+        16.6,
+        0
+      ],
+      "rotation_z": 20,
+      "echelle": 1
+    },
+    {
+      "id": "taxi_1",
+      "asset": "bibliotheque:voiture_taxi",
+      "position": [
+        -48,
+        10.6,
+        0
+      ],
+      "rotation_z": 90,
+      "echelle": 1
+    },
+    {
+      "id": "taxi_2",
+      "asset": "bibliotheque:voiture_taxi_2",
+      "position": [
+        48,
+        13.4,
+        0
+      ],
+      "rotation_z": -90,
+      "echelle": 1
+    },
+    {
+      "id": "joggeur",
+      "asset": "bibliotheque:joueur_perso_court",
+      "position": [
+        -30,
+        7.7,
+        0
+      ],
+      "rotation_z": 90,
+      "echelle": 1
+    },
+    {
+      "id": "route_avant",
+      "asset": "bibliotheque:route",
+      "position": [
+        0,
+        -15,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "sol"
+    },
+    {
+      "id": "taxi_gare",
+      "asset": "bibliotheque:voiture_taxi",
+      "position": [
+        -7,
+        -12.6,
+        0
+      ],
+      "rotation_z": 90,
+      "echelle": 1
+    },
+    {
+      "id": "arbre_av_0",
+      "asset": "primitif:arbre",
+      "position": [
+        -20,
+        -9.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_av_1",
+      "asset": "primitif:arbre",
+      "position": [
+        -12,
+        -9.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_av_2",
+      "asset": "primitif:arbre",
+      "position": [
+        -4,
+        -9.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_av_3",
+      "asset": "primitif:arbre",
+      "position": [
+        4,
+        -9.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_av_4",
+      "asset": "primitif:arbre",
+      "position": [
+        12,
+        -9.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "arbre_av_5",
+      "asset": "primitif:arbre",
+      "position": [
+        20,
+        -9.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "vegetation"
+    },
+    {
+      "id": "fleurs_av_0",
+      "asset": "bibliotheque:buisson_fleurs",
+      "position": [
+        -16,
+        -9.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "fleurs_av_1",
+      "asset": "bibliotheque:buisson_fleurs",
+      "position": [
+        -8,
+        -9.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "fleurs_av_2",
+      "asset": "bibliotheque:buisson_fleurs",
+      "position": [
+        0,
+        -9.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "fleurs_av_3",
+      "asset": "bibliotheque:buisson_fleurs",
+      "position": [
+        8,
+        -9.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "fleurs_av_4",
+      "asset": "bibliotheque:buisson_fleurs",
+      "position": [
+        16,
+        -9.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "banc_av_1",
+      "asset": "bibliotheque:banc",
+      "position": [
+        -2,
+        -10.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "banc_av_2",
+      "asset": "bibliotheque:banc",
+      "position": [
+        9,
+        -10.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "passant_3",
+      "asset": "bibliotheque:habitante",
+      "position": [
+        15,
+        -11.2,
+        0
+      ],
+      "rotation_z": 160,
+      "echelle": 1
+    },
+    {
+      "id": "tas_pieces",
+      "asset": "bibliotheque:pieces_tas",
+      "position": [
+        1.3,
+        -3.3,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "visee_k_frappe",
+      "asset": "primitif:repere",
+      "position": [
+        6,
+        -0.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_k",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        -2.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_terrain",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        -1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_equipe",
+      "asset": "primitif:repere",
+      "position": [
+        -2.5,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "fin",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        60,
+        30
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "carte_pelouse",
+      "asset": "primitif:carte_choix",
+      "position": [
+        -1.15,
+        60,
+        30
+      ],
+      "rotation_z": 0,
+      "echelle": 0.95,
+      "visible_au_debut": false
+    },
+    {
+      "id": "carte_filets",
+      "asset": "primitif:carte_choix",
+      "position": [
+        1.15,
+        60,
+        30
+      ],
+      "rotation_z": 0,
+      "echelle": 0.95,
+      "visible_au_debut": false
+    },
+    {
+      "id": "mini_touffe",
+      "asset": "bibliotheque:touffe_herbe",
+      "position": [
+        -1.15,
+        59.7,
+        30.75
+      ],
+      "rotation_z": 0,
+      "echelle": 2.2,
+      "visible_au_debut": false
+    },
+    {
+      "id": "mini_cage",
+      "asset": "bibliotheque:cage_rouillee",
+      "position": [
+        1.15,
+        59.6,
+        30.75
+      ],
+      "rotation_z": 90,
+      "echelle": 0.3,
+      "visible_au_debut": false
+    }
+  ],
+  "personnages": [
+    {
+      "id": "kevin_frappe",
+      "asset": "bibliotheque:kevin_foot_frappe",
+      "position": [
+        6,
+        -0.5,
+        0
+      ],
+      "rotation_z": 60,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "kevin_parle_1",
+      "asset": "bibliotheque:kevin_foot_parle",
+      "position": [
+        0,
+        -2.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_salue_1",
+      "asset": "bibliotheque:kevin_foot_salue",
+      "position": [
+        0,
+        -2.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_parle_2",
+      "asset": "bibliotheque:kevin_foot_parle",
+      "position": [
+        0,
+        -2.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_salue_2",
+      "asset": "bibliotheque:kevin_foot_salue",
+      "position": [
+        0,
+        -2.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "equipier_1",
+      "asset": "bibliotheque:joueur_man_saute",
+      "position": [
+        -2.2,
+        -0.6,
+        0
+      ],
+      "rotation_z": 10,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "equipier_2",
+      "asset": "bibliotheque:joueur_perso",
+      "position": [
+        -4.2,
+        0.8,
+        0
+      ],
+      "rotation_z": 20,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "equipier_3",
+      "asset": "bibliotheque:habitante",
+      "position": [
+        -0.6,
+        1.4,
+        0
+      ],
+      "rotation_z": -10,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    }
+  ],
+  "habillage": {
+    "textes_3d": [
+      {
+        "id": "pseudo_1",
+        "texte": "TON PSEUDO",
+        "parent": "equipier_1",
+        "position": [
+          0,
+          0,
+          2.15
+        ],
+        "taille": 0.26,
+        "epaisseur": 0.03,
+        "role": "accent"
+      },
+      {
+        "id": "pseudo_2",
+        "texte": "TON PSEUDO",
+        "parent": "equipier_2",
+        "position": [
+          0,
+          0,
+          2.15
+        ],
+        "taille": 0.26,
+        "epaisseur": 0.03,
+        "role": "accent"
+      },
+      {
+        "id": "pseudo_3",
+        "texte": "TON PSEUDO",
+        "parent": "equipier_3",
+        "position": [
+          0,
+          0,
+          2.15
+        ],
+        "taille": 0.26,
+        "epaisseur": 0.03,
+        "role": "accent"
+      },
+      {
+        "id": "txt_pelouse",
+        "texte": "PELOUSE",
+        "parent": "carte_pelouse",
+        "position": [
+          0,
+          -0.07,
+          0.48
+        ],
+        "taille": 0.3,
+        "epaisseur": 0.02,
+        "role": "tissu"
+      },
+      {
+        "id": "prix_pelouse",
+        "texte": "100 PIÈCES",
+        "parent": "carte_pelouse",
+        "position": [
+          0,
+          -0.07,
+          0.14
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.02,
+        "role": "eau"
+      },
+      {
+        "id": "txt_filets",
+        "texte": "FILETS",
+        "parent": "carte_filets",
+        "position": [
+          0,
+          -0.07,
+          0.48
+        ],
+        "taille": 0.3,
+        "epaisseur": 0.02,
+        "role": "tissu"
+      },
+      {
+        "id": "prix_filets",
+        "texte": "100 PIÈCES",
+        "parent": "carte_filets",
+        "position": [
+          0,
+          -0.07,
+          0.14
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.02,
+        "role": "eau"
+      }
+    ],
+    "hud": [
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b04",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b05",
+        "mot": "que",
+        "valeur": 0,
+        "vers": 100,
+        "jusqu_au_beat": "b15",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "gain",
+        "texte": "+100",
+        "icone": "piece",
+        "beat": "b05",
+        "mot": "pièces",
+        "position": [
+          0.5,
+          0.55
+        ]
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b15",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "gain",
+        "texte": "+10",
+        "icone": "piece",
+        "beat": "b09",
+        "mot": "like",
+        "position": [
+          0.5,
+          0.55
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b10",
+        "mot": "abonné",
+        "position": [
+          0.5,
+          0.55
+        ]
+      }
+    ]
+  },
+  "beats": [
+    {
+      "id": "b01",
+      "voix": "Ça, c'est Kevin.",
+      "texte_ecran": "JOUR 1",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k_frappe",
+        "distance": 4,
+        "hauteur": 0.3,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "deplacer",
+          "cible": "ballon",
+          "mot": "Kevin",
+          "duree_s": 0.45,
+          "params": {
+            "vers": [
+              10,
+              0.4,
+              1.95
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "b02",
+      "voix": "Ça fait un an et demi qu'il joue tout seul.",
+      "texte_ecran": "Aide Kevin à réparer son stade",
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_terrain",
+        "distance": 26,
+        "hauteur": 10
+      },
+      "actions": [
+        {
+          "type": "deplacer",
+          "cible": "ballon",
+          "debut": 0.0,
+          "duree_s": 0.7,
+          "params": {
+            "vers": [
+              8.6,
+              -0.7,
+              0
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "taxi_1",
+          "debut": 0.0,
+          "duree_s": 7.0,
+          "params": {
+            "vers": [
+              48,
+              10.6,
+              0
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "taxi_2",
+          "debut": 0.6,
+          "duree_s": 7.5,
+          "params": {
+            "vers": [
+              -48,
+              13.4,
+              0
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "joggeur",
+          "debut": 0.0,
+          "duree_s": 9.0,
+          "params": {
+            "vers": [
+              30,
+              7.7,
+              0
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "b03",
+      "voix": "Pourtant, depuis tout petit, il rêve de devenir pro.",
+      "texte_ecran": "et à construire son club !",
+      "plan": {
+        "camera": "survol",
+        "cible": "visee_terrain",
+        "distance": 28,
+        "hauteur": 12
+      }
+    },
+    {
+      "id": "b04",
+      "voix": "Aujourd'hui, c'est le jour un de l'aventure.",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_k",
+        "distance": 4.5,
+        "hauteur": 0.6
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_frappe",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_parle_1",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    },
+    {
+      "id": "b05",
+      "voix": "Et Kevin n'a que cent pièces.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k",
+        "distance": 4.2,
+        "hauteur": 0.6
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "tas_pieces",
+          "duree_s": 0.5,
+          "mot": "pièces"
+        }
+      ]
+    },
+    {
+      "id": "b06",
+      "voix": "Alors, on compte sur vous !",
+      "plan": {
+        "camera": "orbite",
+        "cible": "visee_k",
+        "distance": 5,
+        "hauteur": 1
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_parle_1",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_salue_1",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    },
+    {
+      "id": "b07",
+      "voix": "Tu veux jouer avec Kevin ? Mets ton pseudo en commentaire !",
+      "texte_ecran": "TON PSEUDO EN COMMENTAIRE",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_terrain",
+        "distance": 13,
+        "hauteur": 4
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_salue_1",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_parle_2",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "equipier_1",
+          "duree_s": 0.5,
+          "mot": "jouer"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "equipier_2",
+          "duree_s": 0.5,
+          "mot": "pseudo"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "equipier_3",
+          "duree_s": 0.5,
+          "mot": "commentaire"
+        }
+      ]
+    },
+    {
+      "id": "b08",
+      "voix": "Les sélectionnés joueront dès la prochaine partie, avec leur pseudo affiché !",
+      "texte_ecran": "TON PSEUDO AFFICHÉ !",
+      "plan": {
+        "camera": "survol",
+        "cible": "visee_equipe",
+        "distance": 9,
+        "hauteur": 2.5
+      },
+      "actions": [
+        {
+          "type": "cycle",
+          "cible": "equipier_2",
+          "debut": 0.0,
+          "duree_s": 2.5,
+          "params": {
+            "nom": "sautiller"
+          }
+        }
+      ]
+    },
+    {
+      "id": "b09",
+      "voix": "Chaque like, c'est dix pièces en plus !",
+      "texte_ecran": "1 LIKE = 10 PIÈCES",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k",
+        "distance": 4.2,
+        "hauteur": 0.6
+      }
+    },
+    {
+      "id": "b10",
+      "voix": "Et chaque abonné rapproche Kevin de son rêve : un vrai club, un stade réparé.",
+      "texte_ecran": "1 ABONNÉ = 1 AIDE EN PLUS",
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_k",
+        "distance": 20,
+        "hauteur": 7
+      }
+    },
+    {
+      "id": "b11",
+      "voix": "Avec nos cent pièces, on a deux choix.",
+      "texte_ecran": "2 CHOIX",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "fin",
+        "distance": 8.4,
+        "hauteur": 2.2
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "carte_pelouse",
+          "duree_s": 0.5,
+          "debut": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "mini_touffe",
+          "duree_s": 0.5,
+          "debut": 0.2
+        },
+        {
+          "type": "apparaitre",
+          "cible": "carte_filets",
+          "duree_s": 0.5,
+          "debut": 0.35
+        },
+        {
+          "type": "apparaitre",
+          "cible": "mini_cage",
+          "duree_s": 0.5,
+          "debut": 0.5
+        }
+      ]
+    },
+    {
+      "id": "b12",
+      "voix": "Entretenir la pelouse,",
+      "texte_ecran": "PELOUSE : 100 PIÈCES",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "carte_pelouse",
+        "distance": 4.2,
+        "hauteur": 0.4
+      }
+    },
+    {
+      "id": "b13",
+      "voix": "ou réparer les cages avec des filets.",
+      "texte_ecran": "FILETS : 100 PIÈCES",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "carte_filets",
+        "distance": 4.2,
+        "hauteur": 0.4
+      }
+    },
+    {
+      "id": "b14",
+      "voix": "Pelouse ou filets ? Vote en commentaire !",
+      "texte_ecran": "PELOUSE OU FILETS ?",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "fin",
+        "distance": 8.4,
+        "hauteur": 2.2
+      }
+    },
+    {
+      "id": "b15",
+      "voix": "Rendez-vous au jour deux pour voir la suite !",
+      "texte_ecran": "RENDEZ-VOUS AU JOUR 2",
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_k",
+        "distance": 15,
+        "hauteur": 5
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_parle_2",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_salue_2",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ]
+    }
+  ]
+}

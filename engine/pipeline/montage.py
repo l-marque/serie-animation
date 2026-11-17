@@ -89,6 +89,66 @@ def evenements_sous_titres(mots: list[dict[str, Any]], fin_beat: float,
     return sortie
 
 
+POLICES_WINDOWS = {"arial": "arialbd.ttf", "arial black": "ariblk.ttf", "verdana": "verdanab.ttf"}
+
+
+def _mesureur(police: str, taille_ass: int):
+    """Fonction largeur(texte) en px, avec la police réelle si elle est trouvée (gras), sinon estimée.
+    Facteur 1,075 mesuré sur un rendu libass réel (Arial gras), 2026-11-17."""
+    from PIL import ImageFont
+    fichier = Path("C:/Windows/Fonts") / POLICES_WINDOWS.get(police.lower(), "arialbd.ttf")
+    try:
+        f = ImageFont.truetype(str(fichier), max(1, round(taille_ass / 1.075)))
+        return lambda t: f.getlength(t)
+    except OSError:
+        return lambda t: len(t) * taille_ass * 0.58
+
+
+def _couper(texte: str, largeur_max: float, mesurer) -> list[str]:
+    mots, lignes, courante = texte.split(), [], ""
+    for m in mots:
+        essai = f"{courante} {m}".strip()
+        if courante and mesurer(essai) > largeur_max:
+            lignes.append(courante)
+            courante = m
+        else:
+            courante = essai
+    return lignes + [courante] if courante else lignes
+
+
+def _ass_couleur(c: str) -> str:
+    """'&H00BBGGRR' (style) -> '&HBBGGRR&' (balise de ligne)."""
+    return f"&H{c[4:]}&"
+
+
+def _texte_encadre(texte: str, debut: str, fin: str, cadre: dict[str, Any], te: dict[str, Any], taille: int,
+                   largeur: int, hauteur: int, haut: int) -> list[str]:
+    """Texte à l'écran dans UN rectangle ajusté à la phrase : liseré, fond plein, texte centré, apparition
+    en « pop » depuis le centre. Le rectangle est dessiné (\\p1), pas déduit des lignes, pour rester
+    rectangulaire quand la phrase tient sur plusieurs lignes."""
+    k = hauteur / 1920
+    marge_px = max(2, round(cadre.get("marge_px", 20) * k))
+    bordure_px = max(1, round(cadre.get("bordure_px", 9) * k))
+    mesurer = _mesureur(te.get("police", "Arial"), taille)
+    lignes_txt = _couper(texte, largeur * 0.84 - 2 * marge_px, mesurer)
+    interligne = round(taille * 1.0)
+    l_int = round(max(mesurer(t) for t in lignes_txt) + 2 * marge_px)
+    h_int = round(len(lignes_txt) * interligne + 2 * marge_px)
+    l_ext, h_ext = l_int + 2 * bordure_px, h_int + 2 * bordure_px
+    cx, cy = largeur // 2, haut + h_ext // 2
+    pop = "\\fscx0\\fscy0\\t(0,140,\\fscx115\\fscy115)\\t(140,240,\\fscx100\\fscy100)" if cadre.get("pop", True) else ""
+    commun = f"\\an5\\pos({cx},{cy})\\bord0\\shad0\\fad(0,150){pop}"
+    couleur_texte = cadre.get("texte", te.get("couleur", "&H00FFFFFF"))
+    return [
+        f"Dialogue: 1,{debut},{fin},TexteEcranCadre,,0,0,0,,{{{commun}\\1c{_ass_couleur(cadre['bordure'])}\\p1}}"
+        f"m 0 0 l {l_ext} 0 {l_ext} {h_ext} 0 {h_ext}{{\\p0}}",
+        f"Dialogue: 2,{debut},{fin},TexteEcranCadre,,0,0,0,,{{{commun}\\1c{_ass_couleur(cadre['fond'])}\\p1}}"
+        f"m 0 0 l {l_int} 0 {l_int} {h_int} 0 {h_int}{{\\p0}}",
+        f"Dialogue: 3,{debut},{fin},TexteEcranCadre,,0,0,0,,{{{commun}\\q2\\1c{_ass_couleur(couleur_texte)}}}"
+        + "\\N".join(_echapper_ass(t) for t in lignes_txt),
+    ]
+
+
 def ecrire_ass(timeline: dict[str, Any], largeur: int, hauteur: int, chemin: Path,
                sequences_hud: list[hud.Sequence] | None = None) -> None:
     """Sous-titres et texte à l'écran. Le texte à l'écran peut coexister avec des compteurs : s'il
@@ -115,6 +175,8 @@ def ecrire_ass(timeline: dict[str, Any], largeur: int, hauteur: int, chemin: Pat
         f"{st.get('contour', '&H00141018')},&H64000000,-1,0,0,0,100,100,0,0,1,{contour},0,2,60,60,{marge_st},1",
         f"Style: TexteEcran,{te.get('police', 'Arial')},{taille_te},{te.get('couleur', '&H00FFFFFF')},&H00FFFFFF,"
         f"{te.get('contour', '&H00141018')},&H64000000,-1,0,0,0,100,100,2,0,1,{contour + 1},0,8,60,60,{marge_te},1",
+        f"Style: TexteEcranCadre,{te.get('police', 'Arial')},{taille_te},{te.get('couleur', '&H00FFFFFF')},&H00FFFFFF,"
+        f"&H00FFFFFF,&H00000000,-1,0,0,0,100,100,2,0,3,{contour + 1},0,8,60,60,{marge_te},1",
         "",
         "[Events]",
         "Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text",
@@ -123,8 +185,14 @@ def ecrire_ass(timeline: dict[str, Any], largeur: int, hauteur: int, chemin: Pat
         if b.get("texte_ecran"):
             bas_hud = hud.bas_occupe_en_haut(sequences_hud or [], b["debut_s"], b["fin_s"], hauteur)
             marge = max(marge_te, bas_hud + int(hauteur * 0.01)) if bas_hud else 0  # 0 = marge du style
-            lignes.append(f"Dialogue: 1,{_ass_temps(b['debut_s'])},{_ass_temps(b['fin_s'])},TexteEcran,,0,0,{marge},,"
-                          f"{{\\fad(150,150)}}{_echapper_ass(b['texte_ecran'])}")
+            debut, fin, texte = _ass_temps(b["debut_s"]), _ass_temps(b["fin_s"]), _echapper_ass(b["texte_ecran"])
+            cadre = te.get("cadre")
+            if cadre:
+                lignes += _texte_encadre(b["texte_ecran"], debut, fin, cadre, te, taille_te, largeur, hauteur,
+                                         marge or marge_te)
+            else:
+                lignes.append(f"Dialogue: 1,{debut},{fin},TexteEcran,,0,0,{marge},,"
+                              f"{{\\fad(150,150)}}{texte}")
         for evt in evenements_sous_titres(b["mots"], b["fin_s"], st):
             lignes.append(f"Dialogue: 0,{_ass_temps(evt[0])},{_ass_temps(evt[1])},SousTitre,,0,0,0,,{evt[2]}")
     chemin.write_text("\n".join(lignes) + "\n", encoding="utf-8")

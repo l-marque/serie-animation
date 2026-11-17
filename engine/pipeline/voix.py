@@ -179,7 +179,41 @@ def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
             par_beat[p["beat"]]["voix_audio"] = audio
             compte_rendu["synthetisees"].append({"beat": p["beat"], "duree_s": r["duree_s"],
                                                  "mots": r.get("origine_mots", "estimation")})
+
+    vitesse = vitesse_du_pack(donnees.get("pack_da", ""))
+    if abs(vitesse - 1.0) > 1e-3:
+        compte_rendu["vitesse"] = vitesse
+        for b in sortie["beats"]:
+            if b.get("voix_audio") and b["id"] not in compte_rendu["deja_fournies"]:
+                b["voix_audio"] = _accelerer(b["voix_audio"], vitesse)
     return sortie, compte_rendu
+
+
+def vitesse_du_pack(nom_pack: str) -> float:
+    """Débit de la voix (`voix_off.vitesse` du pack de DA) : 1,0 = débit du modèle, 1,2 = 20 % plus rapide."""
+    chemin = chemins.PACKS_DA / f"{nom_pack}.json"
+    if not chemin.is_file():
+        return 1.0
+    return float((json.loads(chemin.read_text(encoding="utf-8")).get("voix_off") or {}).get("vitesse", 1.0))
+
+
+def _accelerer(audio: dict[str, Any], vitesse: float) -> dict[str, Any]:
+    """Version accélérée (sans changer la hauteur, filtre ffmpeg atempo) d'une voix du cache, elle-même
+    mise en cache ; les instants des mots sont divisés par la vitesse."""
+    source = Path(audio["fichier"])
+    cle = hashlib.sha256(f"{source.name}|{vitesse:.3f}".encode("utf-8")).hexdigest()[:16]
+    wav, meta = DOSSIER_CACHE / f"{cle}.wav", DOSSIER_CACHE / f"{cle}.json"
+    if meta.is_file() and wav.is_file():
+        return json.loads(meta.read_text(encoding="utf-8"))
+    res = subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", str(source), "-filter:a", f"atempo={vitesse:.3f}",
+                          str(wav)], capture_output=True, text=True)
+    if res.returncode != 0 or not wav.is_file():
+        raise VoixErreur(f"accélération de la voix impossible ({source.name}) : {res.stderr.strip()[-400:]}")
+    accelere = {"fichier": str(wav), "duree_s": round(_duree_wav(wav), 3),
+                "mots": [{**m, "debut": round(m["debut"] / vitesse, 3), "fin": round(m["fin"] / vitesse, 3)}
+                         for m in audio.get("mots", [])]}
+    meta.write_text(json.dumps(accelere, ensure_ascii=False), encoding="utf-8")
+    return accelere
 
 
 def copier_dans(donnees: dict[str, Any], dossier: Path) -> None:

@@ -113,6 +113,45 @@
         "majuscules": {
           "type": "boolean",
           "description": "Sous-titres en capitales (défaut : oui)."
+        },
+        "cadre": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "fond",
+            "bordure"
+          ],
+          "description": "Texte à l'écran : encadré (fond plein + bordure) et apparition en « pop ». Absent = texte simple avec contour.",
+          "properties": {
+            "fond": {
+              "$ref": "#/$defs/couleur_ass",
+              "description": "Couleur du cadre."
+            },
+            "bordure": {
+              "$ref": "#/$defs/couleur_ass",
+              "description": "Couleur du liseré autour du cadre."
+            },
+            "texte": {
+              "$ref": "#/$defs/couleur_ass",
+              "description": "Couleur du texte dans le cadre (défaut : couleur du texte à l'écran)."
+            },
+            "marge_px": {
+              "type": "number",
+              "minimum": 2,
+              "maximum": 60,
+              "description": "Marge intérieure du cadre à 1920 px de haut (défaut 20)."
+            },
+            "bordure_px": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 30,
+              "description": "Épaisseur du liseré à 1920 px de haut (défaut 9)."
+            },
+            "pop": {
+              "type": "boolean",
+              "description": "Apparition avec rebond (défaut : oui)."
+            }
+          }
         }
       }
     }
@@ -352,6 +391,12 @@
         "kyutai": {
           "type": "string",
           "description": "Identifiant d'une voix du dépôt kyutai/tts-voices, ex. cml-tts/fr/<id>_enhanced.wav"
+        },
+        "vitesse": {
+          "type": "number",
+          "minimum": 0.8,
+          "maximum": 1.5,
+          "description": "Débit de la voix : 1,0 = débit du modèle, 1,2 = 20 % plus rapide (accélération sans changer la hauteur)."
         }
       }
     }
