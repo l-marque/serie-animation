@@ -728,6 +728,17 @@
       "echelle": 1.0,
       "fichier": "engine/assets/modeles/route/route.glb",
       "role_defaut": "sol"
+    },
+    "etiquette_pseudo": {
+      "fichier": "engine/assets/modeles/etiquette_pseudo/etiquette_pseudo.glb",
+      "echelle": 1.0,
+      "role_defaut": "blanc",
+      "roles": {},
+      "principal": null,
+      "materiaux": "origine",
+      "source": "création du projet (engine/outils/creer_assets_stade.py)",
+      "ajoute_le": "2026-11-17",
+      "echelle_verifiee": true
     }
   }
 }

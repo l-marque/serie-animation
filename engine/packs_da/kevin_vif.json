@@ -163,10 +163,10 @@
     }
   },
   "sous_titres": {
-    "police": "Arial",
+    "police": "Arial Black",
     "couleur": "&H00FFFFFF",
     "contour": "&H00141018",
-    "taille_relative": 0.042
+    "taille_relative": 0.046
   },
   "inspiration": "Reels de jeux de gestion/ville participative : couleurs franches, contraste fort, contours, ciel très bleu.",
   "voix_off": {

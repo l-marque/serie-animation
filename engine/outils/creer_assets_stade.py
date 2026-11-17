@@ -175,9 +175,28 @@ def route():
     exporter(SORTIE / "route" / "route.glb")
 
 
+def etiquette_pseudo():
+    """Pastille blanche aux bords arrondis (1,6 × 0,42 m, 3 cm d'épaisseur), debout face à -y, base à z = 0 :
+    support des étiquettes « @pseudo » au-dessus des joueurs (texte 3D posé dessus, centré à z = 0,21)."""
+    vider()
+    blanc = materiau("Etiquette_blanche", (0.95, 0.95, 0.95), 0.5)
+    lg, h, ep = 1.6, 0.42, 0.03
+    r = h / 2
+    bpy.ops.mesh.primitive_cube_add(size=1, location=(0, 0, h / 2))
+    o = bpy.context.object
+    o.scale = (lg - 2 * r, ep, h)
+    o.data.materials.append(blanc)
+    for x in (-(lg / 2 - r), lg / 2 - r):  # bouts arrondis
+        bpy.ops.mesh.primitive_cylinder_add(vertices=24, radius=r, depth=ep, location=(x, 0, h / 2),
+                                            rotation=(math.pi / 2, 0, 0))
+        bpy.context.object.data.materials.append(blanc)
+    exporter(SORTIE / "etiquette_pseudo" / "etiquette_pseudo.glb")
+
+
 terrain()
 touffe()
 pelouse_abimee()
 cage_rouillee()
 route()
+etiquette_pseudo()
 print("ASSETS_STADE_OK")

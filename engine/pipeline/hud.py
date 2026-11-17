@@ -284,3 +284,171 @@ def sons(hud: list[dict[str, Any]]) -> list[tuple[str, float]]:
         elif e.get("icone", "piece") == "piece" and int(e.get("vers", e["valeur"])) != int(e["valeur"]):
             sortie.append(("piece", e["debut_s"] + DUREE_POP_S))
     return sortie
+
+
+# ----- titres (texte à l'écran dessiné, style des Reels de référence) ------------------------------
+# Écriture dans `texte_ecran` (le contrat ne change pas, c'est toujours une chaîne) :
+#   *mot*        mot en jaune ;          « A | B »   pastille jaune B sous le titre A ;
+#   « !TEXTE »   ruban de chantier ;     « >TEXTE »  pastille d'appel à l'action ; « ↓ » final = flèche.
+JAUNE_RUBAN, NOIR_RUBAN = (255, 204, 0), (25, 25, 30)
+INCLINAISON_DEG = -4.0
+DUREE_TITRE_POP_S = 0.22
+
+
+def _jetons(texte: str) -> list[tuple[str, bool]]:
+    """Mots avec leur couleur : True = jaune (entre astérisques)."""
+    sortie, jaune = [], False
+    for brut in texte.split():
+        ouvre = brut.startswith("*")
+        ferme = brut.endswith("*") and (len(brut) > 1 or not ouvre)
+        mot = brut.strip("*")
+        if ouvre:
+            jaune = True
+        if mot:
+            sortie.append((mot, jaune))
+        if ferme:
+            jaune = False
+    return sortie
+
+
+def _lignes(jetons: list[tuple[str, bool]], police: ImageFont.FreeTypeFont, largeur_max: float):
+    espace = police.getlength(" ")
+    lignes, courante, lg = [], [], 0.0
+    for mot, jaune in jetons:
+        l_mot = police.getlength(mot)
+        if courante and lg + espace + l_mot > largeur_max:
+            lignes.append((courante, lg))
+            courante, lg = [], 0.0
+        lg = lg + (espace if courante else 0) + l_mot
+        courante.append((mot, jaune))
+    if courante:
+        lignes.append((courante, lg))
+    return lignes
+
+
+def _bloc(texte: str, police: ImageFont.FreeTypeFont, largeur_max: float, fond, coul_texte, coul_jaune,
+          pad_x: int, pad_y: int, rayon: int, fleche: bool = False) -> Image.Image:
+    """Rectangle arrondi plein ajusté au texte (une ou plusieurs lignes, centrées)."""
+    lignes = _lignes(_jetons(texte), police, largeur_max)
+    haut_ref = police.getbbox("ÉHg")
+    h_ligne = round((haut_ref[3] - police.getbbox("H")[1]) * 1.02)
+    l_fleche = round(h_ligne * 0.5) if fleche else 0
+    supp = (l_fleche + pad_x // 2) if fleche else 0
+    l_txt = max(lg for _, lg in lignes) + supp
+    l, h = round(l_txt + 2 * pad_x), round(len(lignes) * h_ligne + 2 * pad_y)
+    im = Image.new("RGBA", (l, h), (0, 0, 0, 0))
+    d = ImageDraw.Draw(im)
+    d.rounded_rectangle([0, 0, l - 1, h - 1], radius=min(rayon, h // 2), fill=fond)
+    espace = police.getlength(" ")
+    y_haut_h = police.getbbox("H")[1]
+    for i, (ligne, lg) in enumerate(lignes):
+        x = (l - lg - supp) / 2
+        y = pad_y + i * h_ligne - y_haut_h
+        for mot, jaune in ligne:
+            d.text((x, y), mot, font=police, fill=coul_jaune if jaune else coul_texte)
+            x += police.getlength(mot) + espace
+    if fleche:
+        fx, s = l - pad_x - l_fleche, l_fleche
+        fy = (h - s * 0.75) / 2
+        d.polygon([(fx, fy), (fx + s, fy), (fx + s / 2, fy + s * 0.75)], fill=coul_texte)
+    return im
+
+
+def _ruban(texte: str, police: ImageFont.FreeTypeFont, largeur_max: float, echelle: float) -> Image.Image:
+    """Ruban de chantier : bandes jaunes et noires en biais autour d'un bandeau sombre, texte jaune."""
+    coeur = _bloc(texte, police, largeur_max, NUIT + (255,), JAUNE_RUBAN, BLANC,
+                  round(40 * echelle), round(16 * echelle), 0)
+    b = round(20 * echelle)
+    l, h = coeur.width + 2 * b, coeur.height + 2 * b
+    rayures = Image.new("RGBA", (l, h), JAUNE_RUBAN + (255,))
+    d = ImageDraw.Draw(rayures)
+    pas = round(30 * echelle)
+    for x0 in range(-h, l + h, 2 * pas):
+        d.polygon([(x0, h), (x0 + pas, h), (x0 + pas + h, 0), (x0 + h, 0)], fill=NOIR_RUBAN + (255,))
+    rayures.alpha_composite(coeur, (b, b))
+    return rayures
+
+
+def titre(texte: str, largeur: int, echelle: float) -> Image.Image:
+    """Image finale d'un texte à l'écran (ombre portée, légère inclinaison), sans animation."""
+    texte = texte.strip()
+    style = "cadre"
+    if texte.startswith("!"):
+        style, texte = "ruban", texte[1:].strip()
+    elif texte.startswith(">"):
+        style, texte = "appel", texte[1:].strip()
+    principal, _, sous = (p.strip() for p in texte.partition("|"))
+    largeur_max = largeur * 0.74
+    if style == "ruban":
+        bloc = _ruban(principal, _police(round(100 * echelle)), largeur_max, echelle)
+    elif style == "appel":
+        fleche = principal.endswith("↓")
+        bloc = _bloc(principal.rstrip("↓ "), _police(round(66 * echelle)), largeur * 0.86, OR + (255,), NUIT, BLANC,
+                     round(40 * echelle), round(20 * echelle), 999, fleche=fleche)
+    else:
+        court = len(principal.replace("*", "")) <= 10  # titre court (« JOUR 1 ») : très gros, comme la référence
+        bloc = _bloc(principal, _police(round((150 if court else 112) * echelle)), largeur_max, NUIT + (255,), BLANC, OR,
+                     round(46 * echelle), round(24 * echelle), round(30 * echelle))
+    if sous:
+        fleche = sous.endswith("↓")
+        pil = _bloc(sous.rstrip("↓ "), _police(round(50 * echelle)), largeur_max * 0.9, OR + (255,), NUIT, BLANC,
+                    round(28 * echelle), round(12 * echelle), 999, fleche=fleche)
+        recouvre = round(pil.height * 0.3)
+        l, h = max(bloc.width, pil.width), bloc.height + pil.height - recouvre
+        groupe = Image.new("RGBA", (l, h), (0, 0, 0, 0))
+        groupe.alpha_composite(bloc, ((l - bloc.width) // 2, 0))
+        groupe.alpha_composite(pil, ((l - pil.width) // 2 + round(30 * echelle), bloc.height - recouvre))
+        bloc = groupe
+    o = round(10 * echelle)
+    sortie = Image.new("RGBA", (bloc.width + o, bloc.height + o), (0, 0, 0, 0))
+    masque = bloc.getchannel("A").point(lambda a: round(a * 0.45))
+    sortie.paste(Image.new("RGBA", bloc.size, NUIT + (255,)), (o, o), masque)
+    sortie.alpha_composite(bloc, (0, 0))
+    return sortie.rotate(-INCLINAISON_DEG, resample=Image.BICUBIC, expand=True)
+
+
+def preparer_titres(beats: list[dict[str, Any]], fps: int, largeur: int, hauteur: int, dossier: Path,
+                    sequences_hud: list[Sequence]) -> list[Sequence]:
+    """Une séquence PNG par texte à l'écran ; deux beats consécutifs au même texte n'en font qu'une
+    (pas de second pop). Centré, posé sous les compteurs du haut."""
+    echelle = hauteur / HAUTEUR_REF
+    groupes: list[list[Any]] = []
+    for b in beats:
+        t = (b.get("texte_ecran") or "").strip()
+        if not t:
+            continue
+        if groupes and groupes[-1][0] == t and abs(groupes[-1][2] - b["debut_s"]) < 1e-3:
+            groupes[-1][2] = b["fin_s"]
+        else:
+            groupes.append([t, b["debut_s"], b["fin_s"]])
+    sortie = []
+    for i, (texte, debut, fin) in enumerate(groupes):
+        d = dossier / "hud" / f"titre_{i:02d}"
+        d.mkdir(parents=True, exist_ok=True)
+        for ancien in d.glob("*.png"):
+            ancien.unlink()
+        motif = titre(texte, largeur, echelle)
+        l, h = round(motif.width * 1.2), round(motif.height * 1.2)
+        duree = fin - debut
+        n = max(1, round(duree * fps))
+        fixe = None
+        for k in range(n):
+            t = k / fps
+            if t < DUREE_TITRE_POP_S:
+                s = _rebond(t / DUREE_TITRE_POP_S)
+            elif t > duree - DUREE_SORTIE_S:
+                s = max(0.0, (duree - t) / DUREE_SORTIE_S)
+            else:
+                s = 1.0
+            if s == 1.0 and fixe is not None:
+                fixe.save(d / f"{k:04d}.png")
+                continue
+            toile = Image.new("RGBA", (l, h), (0, 0, 0, 0))
+            _poser(toile, motif, s, 1.0, (l // 2, h // 2))
+            if s == 1.0:
+                fixe = toile
+            toile.save(d / f"{k:04d}.png")
+        bas = bas_occupe_en_haut(sequences_hud, debut, fin, hauteur)
+        y = max(round(hauteur * 0.2), bas) - round((h - motif.height) / 2)
+        sortie.append(Sequence(d, debut, debut + n / fps, (largeur - l) // 2, y, n, l, h))
+    return sortie

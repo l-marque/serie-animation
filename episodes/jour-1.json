@@ -534,6 +534,42 @@
       "echelle": 1
     },
     {
+      "id": "tag_1",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -2.2,
+        -0.65,
+        2.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_2",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -4.2,
+        0.75,
+        2.05
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_3",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -0.6,
+        1.3499999999999999,
+        2.05
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
       "id": "tas_pieces",
       "asset": "bibliotheque:pieces_tas",
       "position": [
@@ -758,42 +794,42 @@
     "textes_3d": [
       {
         "id": "pseudo_1",
-        "texte": "TON PSEUDO",
-        "parent": "equipier_1",
+        "texte": "@ton_pseudo",
+        "parent": "tag_1",
         "position": [
           0,
-          0,
-          2.15
+          -0.03,
+          0.21
         ],
-        "taille": 0.26,
-        "epaisseur": 0.03,
-        "role": "accent"
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
       },
       {
         "id": "pseudo_2",
-        "texte": "TON PSEUDO",
-        "parent": "equipier_2",
+        "texte": "@ton_pseudo",
+        "parent": "tag_2",
         "position": [
           0,
-          0,
-          2.15
+          -0.03,
+          0.21
         ],
-        "taille": 0.26,
-        "epaisseur": 0.03,
-        "role": "accent"
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
       },
       {
         "id": "pseudo_3",
-        "texte": "TON PSEUDO",
-        "parent": "equipier_3",
+        "texte": "@ton_pseudo",
+        "parent": "tag_3",
         "position": [
           0,
-          0,
-          2.15
+          -0.03,
+          0.21
         ],
-        "taille": 0.26,
-        "epaisseur": 0.03,
-        "role": "accent"
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
       },
       {
         "id": "txt_pelouse",
@@ -916,7 +952,7 @@
     {
       "id": "b01",
       "voix": "Ça, c'est Kevin.",
-      "texte_ecran": "JOUR 1",
+      "texte_ecran": "JOUR *1* | OBJECTIF : RÉPARER LE STADE",
       "plan": {
         "camera": "plan_fixe",
         "cible": "visee_k_frappe",
@@ -943,7 +979,7 @@
     {
       "id": "b02",
       "voix": "Ça fait un an et demi qu'il joue tout seul.",
-      "texte_ecran": "Aide Kevin à réparer son stade",
+      "texte_ecran": "!TOUT SEUL | DEPUIS 1 AN ET DEMI",
       "plan": {
         "camera": "revelation",
         "cible": "visee_terrain",
@@ -1008,7 +1044,7 @@
     {
       "id": "b03",
       "voix": "Pourtant, depuis tout petit, il rêve de devenir pro.",
-      "texte_ecran": "et à construire son club !",
+      "texte_ecran": "SON *RÊVE* : DEVENIR PRO",
       "plan": {
         "camera": "survol",
         "cible": "visee_terrain",
@@ -1019,6 +1055,7 @@
     {
       "id": "b04",
       "voix": "Aujourd'hui, c'est le jour un de l'aventure.",
+      "texte_ecran": "LE DÉBUT DE *L'AVENTURE*",
       "plan": {
         "camera": "dolly_avant",
         "cible": "visee_k",
@@ -1061,6 +1098,7 @@
     {
       "id": "b06",
       "voix": "Alors, on compte sur vous !",
+      "texte_ecran": ">ON COMPTE SUR VOUS !",
       "plan": {
         "camera": "orbite",
         "cible": "visee_k",
@@ -1085,7 +1123,7 @@
     {
       "id": "b07",
       "voix": "Tu veux jouer avec Kevin ? Mets ton pseudo en commentaire !",
-      "texte_ecran": "TON PSEUDO EN COMMENTAIRE",
+      "texte_ecran": ">COMMENTE TON PSEUDO ↓",
       "plan": {
         "camera": "dolly_avant",
         "cible": "visee_terrain",
@@ -1113,7 +1151,19 @@
         },
         {
           "type": "apparaitre",
+          "cible": "tag_1",
+          "duree_s": 0.5,
+          "mot": "jouer"
+        },
+        {
+          "type": "apparaitre",
           "cible": "equipier_2",
+          "duree_s": 0.5,
+          "mot": "pseudo"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_2",
           "duree_s": 0.5,
           "mot": "pseudo"
         },
@@ -1122,13 +1172,18 @@
           "cible": "equipier_3",
           "duree_s": 0.5,
           "mot": "commentaire"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_3",
+          "duree_s": 0.5,
+          "mot": "commentaire"
         }
       ]
     },
     {
       "id": "b08",
       "voix": "Les sélectionnés joueront dès la prochaine partie, avec leur pseudo affiché !",
-      "texte_ecran": "TON PSEUDO AFFICHÉ !",
       "plan": {
         "camera": "survol",
         "cible": "visee_equipe",
@@ -1150,7 +1205,7 @@
     {
       "id": "b09",
       "voix": "Chaque like, c'est dix pièces en plus !",
-      "texte_ecran": "1 LIKE = 10 PIÈCES",
+      "texte_ecran": "1 LIKE = *+10* PIÈCES",
       "plan": {
         "camera": "plan_fixe",
         "cible": "visee_k",
@@ -1161,7 +1216,7 @@
     {
       "id": "b10",
       "voix": "Et chaque abonné rapproche Kevin de son rêve : un vrai club, un stade réparé.",
-      "texte_ecran": "1 ABONNÉ = 1 AIDE EN PLUS",
+      "texte_ecran": "1 ABONNÉ = *1 AIDE* EN PLUS",
       "plan": {
         "camera": "revelation",
         "cible": "visee_k",
@@ -1172,7 +1227,7 @@
     {
       "id": "b11",
       "voix": "Avec nos cent pièces, on a deux choix.",
-      "texte_ecran": "2 CHOIX",
+      "texte_ecran": "*2* CHOIX | 100 PIÈCES CHACUN",
       "plan": {
         "camera": "plan_fixe",
         "cible": "fin",
@@ -1209,7 +1264,7 @@
     {
       "id": "b12",
       "voix": "Entretenir la pelouse,",
-      "texte_ecran": "PELOUSE : 100 PIÈCES",
+      "texte_ecran": "*PELOUSE* | 100 PIÈCES",
       "plan": {
         "camera": "dolly_avant",
         "cible": "carte_pelouse",
@@ -1220,7 +1275,7 @@
     {
       "id": "b13",
       "voix": "ou réparer les cages avec des filets.",
-      "texte_ecran": "FILETS : 100 PIÈCES",
+      "texte_ecran": "*FILETS* | 100 PIÈCES",
       "plan": {
         "camera": "dolly_avant",
         "cible": "carte_filets",
@@ -1231,7 +1286,7 @@
     {
       "id": "b14",
       "voix": "Pelouse ou filets ? Vote en commentaire !",
-      "texte_ecran": "PELOUSE OU FILETS ?",
+      "texte_ecran": "PELOUSE *OU* FILETS ? | VOTE EN COMMENTAIRE ↓",
       "plan": {
         "camera": "plan_fixe",
         "cible": "fin",
@@ -1242,7 +1297,7 @@
     {
       "id": "b15",
       "voix": "Rendez-vous au jour deux pour voir la suite !",
-      "texte_ecran": "RENDEZ-VOUS AU JOUR 2",
+      "texte_ecran": "RENDEZ-VOUS AU JOUR *2*",
       "plan": {
         "camera": "revelation",
         "cible": "visee_k",
