@@ -7,8 +7,13 @@ Quand aucune banque libre n'a le bon modèle, Claude le construit lui-même en P
 | Fichier | Rôle |
 |---|---|
 | `formes.py` | briques de modélisation : `boite` (bords biseautés), `tube` (raccords arrondis), `tube_courbe` (Bézier : tuyaux, rambardes, montants cintrés), `revolution` (profil tourné : poteaux, vases, têtes), `organique` (modificateur Skin + subdivision : corps, membres, branches), `filet` (grille de cordes avec affaissement), `miroir_x`, `usure`, `fusionner`, `exporter` |
+| `blender_direct.py` | pilote **le Blender ouvert** en direct par le pont de l'extension « MCP » de Blender Lab (port 9876) : exécute du Python (`-c` ou un fichier) et capture la vue 3D (`--capture vue.png`) pour voir le résultat |
 | `apercu.py` | planche 2 × 2 (face, trois-quarts, profil, plongée) avec une silhouette de 1,75 m pour l'échelle |
 | `modeles/<id>.py` | un script par modèle ; il écrit `engine/assets/modeles/<id>/<id>.glb` |
+
+## Travail en direct dans Blender
+
+Dans Blender : extension MCP activée, « Start MCP Bridge Server ». Claude envoie son code avec `blender_direct.py`, regarde la capture de la vue 3D, corrige, puis exporte le modèle en GLB dans `engine/assets/modeles/` (même enregistrement qu'à l'étape 5 ci-dessous). Règle : Claude travaille dans une scène à lui (« ATELIER_CLAUDE ») et ne modifie jamais une scène ouverte par Guillaume sans son accord.
 
 ## Méthode (boucle d'autocontrôle, d'après ref-lookdev)
 
