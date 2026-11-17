@@ -3,6 +3,9 @@
 Moteurs :
     kyutai   Kyutai TTS (kyutai/tts-1.6b-en_fr, CC-BY 4.0), dans l'environnement Python qui a PyTorch
              et moshi (variable TTS_PYTHON ou option --python-tts). Mots horodatés par le modèle.
+    zonos    Zonos (Zyphra, Zonos-v0.1-transformer, Apache 2.0) : voix expressive réglée par émotions,
+             timbre copié d'un court enregistrement de référence ; environnement ZONOS_PYTHON (.env) ou
+             ~/venvs/zonos-tts. Réglages dans le pack de DA (voix_off.zonos). Mots estimés.
     windows  voix système de Windows (System.Speech), sans installation ; qualité moyenne, mots
              estimés. Secours quand Kyutai n'est pas installé.
     aucune   pas de voix (vidéo muette, comme avant).
@@ -28,9 +31,13 @@ from typing import Any
 
 from . import chemins
 
-MOTEURS = ("kyutai", "windows", "aucune")
+MOTEURS = ("kyutai", "zonos", "windows", "aucune")
 VOIX_KYUTAI_DEFAUT = "unmute-prod-website/fabieng-enhanced-v2.wav"
 WORKER_KYUTAI = chemins.MOTEUR / "voix" / "kyutai_worker.py"
+WORKER_ZONOS = chemins.MOTEUR / "voix" / "zonos_worker.py"
+ZONOS_DEFAUT = {"reference": "engine/voix/references/narrateur_fr.wav", "langue": "fr-fr",
+                "emotion": [0.45, 0.15, 0.02, 0.05, 0.2, 0.02, 0.1, 0.35], "debit": 16.0,
+                "variation_hauteur": 110.0, "graine": 3}
 DOSSIER_CACHE = chemins.RACINE / "renders" / "_cache_voix"
 
 
@@ -50,6 +57,50 @@ def python_tts(explicite: str | None = None) -> str | None:
             if ligne.strip().startswith("TTS_PYTHON="):
                 return ligne.split("=", 1)[1].strip().strip('"').strip("'")
     return None
+
+
+def python_zonos() -> str | None:
+    """Interpréteur qui a zonos : ZONOS_PYTHON (environnement ou .env), sinon ~/venvs/zonos-tts."""
+    if os.environ.get("ZONOS_PYTHON"):
+        return os.environ["ZONOS_PYTHON"]
+    env = chemins.RACINE / ".env"
+    if env.is_file():
+        for ligne in env.read_text(encoding="utf-8").splitlines():
+            if ligne.strip().startswith("ZONOS_PYTHON="):
+                return ligne.split("=", 1)[1].strip().strip('"').strip("'")
+    defaut = Path.home() / "venvs" / "zonos-tts" / ("Scripts/python.exe" if sys.platform == "win32" else "bin/python")
+    return str(defaut) if defaut.is_file() else None
+
+
+def reglages_zonos(nom_pack: str) -> dict[str, Any]:
+    chemin = chemins.PACKS_DA / f"{nom_pack}.json"
+    pack = json.loads(chemin.read_text(encoding="utf-8")) if chemin.is_file() else {}
+    return {**ZONOS_DEFAUT, **((pack.get("voix_off") or {}).get("zonos") or {})}
+
+
+def moteur_du_pack(nom_pack: str) -> str | None:
+    """Moteur de voix choisi pour la série (`voix_off.moteur` du pack de DA), s'il est indiqué."""
+    chemin = chemins.PACKS_DA / f"{nom_pack}.json"
+    if not chemin.is_file():
+        return None
+    return (json.loads(chemin.read_text(encoding="utf-8")).get("voix_off") or {}).get("moteur")
+
+
+def _synthese_zonos(phrases: list[dict[str, str]], reglages: dict[str, Any], interpreteur: str,
+                    dossier: Path) -> dict[str, dict]:
+    ref = Path(reglages["reference"])
+    if not ref.is_absolute():
+        ref = chemins.RACINE / ref
+    with tempfile.TemporaryDirectory() as tmp:
+        travail = Path(tmp) / "travail.json"
+        travail.write_text(json.dumps({**reglages, "reference": str(ref), "dossier": str(dossier),
+                                       "phrases": phrases}, ensure_ascii=False), encoding="utf-8")
+        res = subprocess.run([interpreteur, "-I", str(WORKER_ZONOS), str(travail)], capture_output=True, text=True,
+                             encoding="utf-8", errors="replace", env=dict(os.environ, PYTHONIOENCODING="utf-8"))
+    if res.returncode != 0:
+        raise VoixErreur(f"Zonos a échoué (code {res.returncode}) : {res.stderr.strip()[-1200:]}")
+    resultat = json.loads((dossier / "resultat.json").read_text(encoding="utf-8"))
+    return {p["id"]: p for p in resultat["phrases"]}
 
 
 def _cle(moteur: str, voix: str, texte: str) -> str:
@@ -139,6 +190,12 @@ def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
         return sortie, compte_rendu
     if moteur == "kyutai":
         voix = voix or voix_du_pack(donnees.get("pack_da", "")) or VOIX_KYUTAI_DEFAUT
+    elif moteur == "zonos":
+        reglages = reglages_zonos(donnees.get("pack_da", ""))
+        voix = voix or "zonos:" + hashlib.sha256(json.dumps(reglages, sort_keys=True).encode()).hexdigest()[:12]
+        interpreteur = python_zonos()
+        if not interpreteur:
+            raise VoixErreur("Zonos : interpréteur introuvable ; indique ZONOS_PYTHON=<python.exe avec zonos> dans .env")
     else:
         voix = voix or "systeme"
     if moteur == "kyutai":
@@ -169,6 +226,8 @@ def ajouter_voix(donnees: dict[str, Any], moteur: str, voix: str | None = None,
         phrases = [{"id": p["id"], "texte": p["texte"]} for p in a_synthetiser]
         if moteur == "kyutai":
             resultats = _synthese_kyutai(phrases, voix, interpreteur, DOSSIER_CACHE)
+        elif moteur == "zonos":
+            resultats = _synthese_zonos(phrases, reglages, interpreteur, DOSSIER_CACHE)
         else:
             resultats = _synthese_windows(phrases, DOSSIER_CACHE)
         par_beat = {b["id"]: b for b in sortie["beats"]}

@@ -397,6 +397,53 @@
           "minimum": 0.8,
           "maximum": 1.5,
           "description": "Débit de la voix : 1,0 = débit du modèle, 1,2 = 20 % plus rapide (accélération sans changer la hauteur)."
+        },
+        "moteur": {
+          "enum": [
+            "kyutai",
+            "zonos",
+            "windows",
+            "aucune"
+          ],
+          "description": "Moteur de voix de la série (choix humain). Par défaut : kyutai si TTS_PYTHON est configuré."
+        },
+        "zonos": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Réglages Zonos (engine/voix/zonos_worker.py).",
+          "properties": {
+            "reference": {
+              "type": "string",
+              "description": "WAV du timbre, relatif à la racine du dépôt"
+            },
+            "langue": {
+              "type": "string"
+            },
+            "emotion": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 8,
+              "maxItems": 8,
+              "description": "[bonheur, tristesse, dégoût, peur, surprise, colère, autre, neutre]"
+            },
+            "debit": {
+              "type": "number",
+              "minimum": 5,
+              "maximum": 30
+            },
+            "variation_hauteur": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 400
+            },
+            "graine": {
+              "type": "integer"
+            }
+          }
         }
       }
     }

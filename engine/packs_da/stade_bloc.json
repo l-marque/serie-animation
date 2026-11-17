@@ -170,7 +170,24 @@
   },
   "inspiration": "Scène de Guillaume (terrain boueux, AgX Base Contrast) + jeux à avatars en blocs : plastique lisse, couleurs franches.",
   "voix_off": {
-    "kyutai": "cml-tts/fr/1770_1028_000036-0002_enhanced.wav",
-    "vitesse": 1.2
+    "moteur": "zonos",
+    "vitesse": 1.0,
+    "zonos": {
+      "reference": "engine/voix/references/narrateur_fr.wav",
+      "langue": "fr-fr",
+      "emotion": [
+        0.45,
+        0.15,
+        0.02,
+        0.05,
+        0.2,
+        0.02,
+        0.1,
+        0.35
+      ],
+      "debit": 16.0,
+      "variation_hauteur": 110.0,
+      "graine": 3
+    }
   }
 }
