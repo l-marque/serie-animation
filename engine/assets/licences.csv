@@ -46,3 +46,5 @@ bonhomme,polypizza,J-Toastie,CC-BY 3.0,https://poly.pizza/m/6kFNcL9OnO,2026-11-1
 cage_filet,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/cage_filet.py,2026-11-17,non,
 personnages_bloc,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/perso_bloc.py,2026-11-17,non,
 stade_ruine,projet,Guillaume Dury + Projet série animation,création du projet,engine/outils/atelier/modeles/stade_ruine.py,2026-11-17,non,
+stade_ruine_pelouse,projet,Guillaume Dury + Projet série animation,création du projet,engine/outils/atelier/modeles/stade_ruine_pelouse.py,2026-11-18,non,
+tribune_reparee,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/tribune_reparee.py,2026-11-18,non,

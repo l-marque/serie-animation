@@ -10,6 +10,8 @@ Quand aucune banque libre n'a le bon modèle, Claude le construit lui-même en P
 | `blender_direct.py` | pilote **le Blender ouvert** en direct par le pont de l'extension « MCP » de Blender Lab (port 9876) : exécute du Python (`-c` ou un fichier) et capture la vue 3D (`--capture vue.png`) pour voir le résultat |
 | `poses.py` | planche des poses clés d'un personnage animé (4 images par action) |
 | `apercu.py` | planche 2 × 2 (face, trois-quarts, profil, plongée) avec une silhouette de 1,75 m pour l'échelle |
+| `avant_apres.py` | avant / après d'un décor (.blend, collection « Stade ») sous les mêmes plans de caméra que le moteur (b12 de jour-1, vue d'ensemble…), planches côte à côte |
+| `carte_apercu.py` | carte de choix (2,0 × 2,6 m) avec sa miniature et sa légende, vue comme dans l'épisode : lisibilité des miniatures |
 | `modeles/<id>.py` | un script par modèle ; il écrit `engine/assets/modeles/<id>/<id>.glb` |
 
 ## Travail en direct dans Blender
@@ -30,8 +32,10 @@ Règles de style (ref-stylized-style, ref-lowpoly-style) : silhouette lisible de
 
 | Modèle | Script | Remarques |
 |---|---|---|
-| personnages en blocs (Kevin + 6 abonnés) | `modeles/perso_bloc.py` | style validé par Guillaume le 2026-11-17 pour toute la série ; squelette maison (Root, Torso, Head, Arm.L/R, Leg.L/R) et animations Idle, Idle_Neutral, Run, Kick_Right (contact image 4), Wave, Jump, Clapping ; GLB dans `engine/assets/modeles/personnages_bloc/` ; contrôle avec `poses.py` |
+| personnages en blocs (Kevin + 6 abonnés) | `modeles/perso_bloc.py` | style validé par Guillaume le 2026-11-17 pour toute la série ; squelette maison (Root, Torso, Head, Arm.L/R, Leg.L/R) et animations Idle, Idle_Neutral, Run, Kick_Right (contact image 4), Wave, Jump, Clapping, et depuis jour-2 Walk (marche lente, clés toutes les 2 images, pied d'appui fixe à 2 mm près pour un déplacement uniforme de 0,57 m/s pour un abonné, 0,47 m/s pour Kevin ; Run : environ 3,2 m/s pour un abonné), Control_Right (ballon amorti à l'image 8), Point_Down (bras en diagonale vers le bas, lisible de face) ; `kevin_bloc_heureux` (jour-2) : même Kevin et même tenue, grand sourire en « D » (intérieur sombre, dents, langue, coins relevés), sourcils plats, joues roses ; GLB dans `engine/assets/modeles/personnages_bloc/` ; contrôle avec `poses.py` |
 | `stade_ruine` | `modeles/stade_ruine.py` | terrain boueux de Guillaume + tribune effondrée, pylônes rouillés, tableau d'affichage, abris de touche, cages sans filet, débris, ville en blocs autour ; `.blend`, collection « Stade » |
+| `stade_ruine_pelouse` | `modeles/stade_ruine_pelouse.py` | état `pelouse_neuve` (jour-2) : part de `stade_ruine.blend` tel qu'il est sur le disque et ne change que la pelouse (sol aplani, bandes de tonte, lignes complètes et blanches ; mottes, pneus, plots, planches et herbes folles de l'enceinte retirés) ; relancer le script si `stade_ruine.blend` est retouché ; 503 000 triangles |
+| `tribune_reparee` | `modeles/tribune_reparee.py` | miniature de la carte « TRIBUNE » (jour-2) : tribune neuve 18 × 7,5 × 4,3 m, sièges rouges et bleus, toit bleu, ruban d'inauguration doré ; sur la carte, échelle 0,09 et base 1,0 m au-dessus du bas de la carte (à 0,75 m, la miniature touche le titre) ; 4 500 triangles |
 | `cage_filet` | `modeles/cage_filet.py` | cage 4 × 2 m réparée avec filet, mêmes dimensions et orientation que `cage_rouillee` (choix « FILETS » du vote de jour-1) ; 17 600 triangles |
 
 ## Limites actuelles

@@ -34,13 +34,29 @@ class Decorateur:
         self.col_modules = nouvelle_collection("MODULES", scene.collection)
 
     # ----- prototypes -------------------------------------------------------------------
-    def prototype(self, asset: str, role: str | None) -> bpy.types.Collection:
-        """Collection prototype d'un asset, pour un rôle principal donné (mise en cache)."""
-        cle = (asset, role)
+    def apparition(self, ident: str, visible_au_debut: bool) -> int:
+        """Image où l'élément devient visible : 1 s'il l'est dès le début, sinon le début de sa
+        première action « apparaitre » (repli : 1)."""
+        if visible_au_debut:
+            return 1
+        debuts = [a["frame_debut"] for b in self.timeline["beats"] for a in b["actions"]
+                  if a["type"] == "apparaitre" and a["cible"] == ident]
+        return min(debuts) if debuts else 1
+
+    def prototype(self, asset: str, role: str | None, decalage: int = 0) -> bpy.types.Collection:
+        """Collection prototype d'un asset, pour un rôle principal donné (mise en cache).
+
+        `decalage` (images) décale l'option « sequence » du registre : ses images comptent à partir
+        de l'apparition de l'élément. Il ne compte dans la clé du cache que pour un asset à séquence."""
+        espace, nom = asset.split(":", 1)
+        a_sequence = espace == "bibliotheque" and bool(
+            bibliotheque.charger_registre(self.racine).get(nom, {}).get("sequence"))
+        decalage = decalage if a_sequence else 0
+        cle = (asset, role, decalage)
         if cle in self.prototypes:
             return self.prototypes[cle]
-        espace, nom = asset.split(":", 1)
-        col = bpy.data.collections.new(f"PROTO_{nom}_{role or 'defaut'}")
+        suffixe = f"_d{decalage}" if decalage else ""
+        col = bpy.data.collections.new(f"PROTO_{nom}_{role or 'defaut'}{suffixe}")
         if espace == "primitif":
             for nom_piece, maillage, pos, rot_z, role_piece, principale in self.kit.PRIMITIVES[nom](seed=7):
                 obj = bpy.data.objects.new(f"{nom}_{nom_piece}", maillage.copy())
@@ -50,7 +66,7 @@ class Decorateur:
                 col.objects.link(obj)
         else:
             garder = bibliotheque.charger_registre(self.racine).get(nom, {}).get("materiaux") == "origine"
-            for obj, role_piece, principale in bibliotheque.pieces_bibliotheque(self.racine, nom):
+            for obj, role_piece, principale in bibliotheque.pieces_bibliotheque(self.racine, nom, decalage):
                 if obj.type == "MESH":
                     look.appliquer_role(obj, role if (principale and role) else role_piece, self.pack, garder)
                 col.objects.link(obj)
@@ -58,16 +74,18 @@ class Decorateur:
         return col
 
     # ----- objets -----------------------------------------------------------------------
-    def instance(self, nom: str, asset: str, role: str | None, collection: bpy.types.Collection) -> bpy.types.Object:
+    def instance(self, nom: str, asset: str, role: str | None, collection: bpy.types.Collection,
+                 decalage: int = 0) -> bpy.types.Object:
         e = bpy.data.objects.new(nom, None)
         e.instance_type = "COLLECTION"
-        e.instance_collection = self.prototype(asset, role)
+        e.instance_collection = self.prototype(asset, role, decalage)
         e.empty_display_size = 0.3
         return lier(e, collection)
 
     def objet(self, spec: dict) -> bpy.types.Object:
         col = self.col_personnages if spec["categorie"] == "personnage" else self.col_decor
-        e = self.instance(f"EP_{spec['id']}", spec["asset"], spec.get("role"), col)
+        decalage = self.apparition(spec["id"], spec.get("visible_au_debut", True)) - 1
+        e = self.instance(f"EP_{spec['id']}", spec["asset"], spec.get("role"), col, decalage)
         e.location = spec["position"]
         e.rotation_euler.z = math.radians(spec.get("rotation_z", 0))
         s = spec.get("echelle", 1)

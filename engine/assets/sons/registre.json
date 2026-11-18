@@ -101,6 +101,18 @@
       "categorie": "action",
       "description": "objet mou qui tombe, atterrissage"
     },
+    "frappe_ballon": {
+      "fichiers": [
+        "engine/assets/sons/kenney/impact-sounds/impactPunch_medium_000.ogg",
+        "engine/assets/sons/kenney/impact-sounds/impactPunch_medium_001.ogg",
+        "engine/assets/sons/kenney/impact-sounds/impactPunch_medium_002.ogg",
+        "engine/assets/sons/kenney/impact-sounds/impactPunch_medium_003.ogg",
+        "engine/assets/sons/kenney/impact-sounds/impactPunch_medium_004.ogg"
+      ],
+      "volume": 0.5,
+      "categorie": "action",
+      "description": "coup de pied dans un ballon (passe, tir)"
+    },
     "pas_herbe": {
       "fichiers": [
         "engine/assets/sons/kenney/impact-sounds/footstep_grass_000.ogg",

@@ -1,0 +1,134 @@
+{
+  "version": "1.0",
+  "mots_par_minute": 180,
+  "_note": "prod-directeur-voix, 2026-11-18. Voix retenue par Guillaume : Qwen3-TTS Base (Qwen/Qwen3-TTS-12Hz-1.7B-Base) en copie de voix (ICL) depuis renders/jour-1/essais_voix/qwen/reference_jeune_narrateur.wav ; Kyutai essayé puis abandonné par Guillaume le 2026-11-18. Le mode copie de voix n'accepte pas de consigne de jeu : les champs consigne et emotion servent à la relecture ; le ton vient de la référence et du choix des prises (repère : b01_p2, validée par Guillaume). Aucune retouche audio (ni étirement, ni fondu, ni collage) : seuls le retrait du silence autour de la voix, la pause et la normalisation du volume. b06 et b06b sont une seule prise coupée dans le creux après « but, », remise bout à bout sans pause. Fichier assemblé : renders/jour-2/essais_voix/jour-2_voix_qwen.wav.",
+  "beats": {
+    "b01": {
+      "intention": "accroche, bonne nouvelle, élan dès la première syllabe",
+      "emotion": "joyeux",
+      "consigne": "Très joyeux, on entend le sourire ; attaque franche sur « Super », appuie sur « plus seul » et « vous ».",
+      "pause_apres_s": 0.12,
+      "prise_validee": {
+        "version": "qwen",
+        "par": "Guillaume",
+        "date": "2026-11-18",
+        "remarque": "« la b01 p2 est bien », « parfaite » : gardée telle quelle ; repère de ton et de débit pour les autres phrases."
+      },
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b01_p2.wav"
+    },
+    "b02": {
+      "intention": "fierté, la surprise de la pelouse neuve",
+      "emotion": "enthousiaste",
+      "consigne": "Fier et enthousiaste, la voix monte sur « réparée ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b02_p4.wav"
+    },
+    "b03": {
+      "intention": "on fait les comptes, annonce suspendue",
+      "emotion": "complice",
+      "mots_par_minute": 175,
+      "consigne": "Complice, on fait le point ; la voix reste en l'air sur « abonnés », la phrase continue.",
+      "pause_apres_s": 0.12,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b03_p2.wav"
+    },
+    "b04": {
+      "intention": "suite de b03, montée jusqu'au chiffre",
+      "emotion": "enthousiaste",
+      "consigne": "La voix monte tout au long de la phrase et appuie fort sur « mille ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b04_p4.wav"
+    },
+    "b05": {
+      "intention": "on montre l'action, joie de Kevin",
+      "emotion": "surpris",
+      "consigne": "Émerveillé sur « Regardez cette passe », puis attendri et joyeux sur « trop content ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b05_p1.wav"
+    },
+    "b06": {
+      "intention": "rupture, le problème arrive (première moitié de phrase)",
+      "emotion": "mysterieux",
+      "consigne": "Changement de ton, plus posé, le problème arrive ; la voix reste en l'air sur « but ».",
+      "pause_apres_s": 0.0,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b06_b06b_p2.wav"
+    },
+    "b06b": {
+      "intention": "comique, exagération sur « très, très loin »",
+      "emotion": "complice",
+      "consigne": "Amusé, on retient sur « ballon... » puis on étire « très, très loin » avec un sourire.",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b06_b06b_p2.wav"
+    },
+    "b07": {
+      "intention": "relance, élan, on crée le club",
+      "emotion": "determine",
+      "mots_par_minute": 185,
+      "consigne": "Énergique et décidé, appuie sur « onze » et surtout sur « club ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b07_p7.wav"
+    },
+    "b08": {
+      "intention": "constat, le manque",
+      "emotion": "conteur",
+      "expressivite_min": 4.0,
+      "consigne": "Constat posé, appuie sur « entraîneur », la voix descend à la fin.",
+      "pause_apres_s": 0.12,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b08_p6.wav"
+    },
+    "b09": {
+      "intention": "promesse à l'abonné",
+      "emotion": "complice",
+      "consigne": "Complice, comme une promesse faite à un ami ; appuie sur « commentaire » et « nom du club ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b09_p1.wav"
+    },
+    "b10": {
+      "intention": "annonce du choix",
+      "emotion": "conteur",
+      "expressivite_min": 4.0,
+      "consigne": "Annonce claire, appuie sur « deux choix ».",
+      "pause_apres_s": 0.12,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b10_p8.wav"
+    },
+    "b11": {
+      "intention": "énumération, premier terme, la voix reste en l'air",
+      "emotion": "neutre",
+      "consigne": "Énumération : la voix monte sur « cages » et reste en l'air sur « pièces ».",
+      "pause_apres_s": 0.1,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b11_p1.wav"
+    },
+    "b12": {
+      "intention": "énumération, second terme, la voix retombe",
+      "emotion": "neutre",
+      "consigne": "Fin d'énumération, la voix retombe sur « mille pièces ».",
+      "pause_apres_s": 0.5,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b12_p1.wav"
+    },
+    "b13": {
+      "intention": "question puis appel à l'action, seule vraie pause avant",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 190,
+      "consigne": "Question qui monte sur « tribune ? », puis appel direct et énergique, appuie sur « nom de club ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b13_p4.wav"
+    },
+    "b14": {
+      "intention": "au revoir, rendez-vous",
+      "emotion": "joyeux",
+      "consigne": "Joyeux, voix qui monte sur « trois », comme à la fin du jour 1.",
+      "pause_apres_s": 0.6,
+      "prise": "renders/jour-2/essais_voix/qwen/candidats/b14_p12.wav",
+      "remarque": "Recréée le 2026-11-18 à la demande de Guillaume (« trois » coupé dans b14_p3) : b14_p12, première prise dont « trois » est complet selon Whisper, avec retombée naturelle ; queue complète gardée, 0,6 s de silence après pour que la fin de la vidéo ne la rogne pas.",
+      "prise_retenue": {
+        "version": "qwen",
+        "fichier": "renders/jour-2/essais_voix/qwen/candidats/b14_p2.wav",
+        "date": "2026-11-18",
+        "a_valider_par": "Guillaume",
+        "remarque": "« trois » coupé dans la v2 : la prise b14_p3 avait été rognée à 0,99 s au montage. Remplacée par la prise entière b14_p2 (aucun rognage de fin, seul le silence de tête est retiré, même volume que l'ancienne). Fichier complet : renders/jour-2/essais_voix/jour-2_voix_qwen_v3.wav."
+      }
+    }
+  },
+  "validation": {
+    "fichier_complet": "« parfait » sauf b14 (Guillaume, 2026-11-18) ; b14 recréée, non encore réécoutée par un humain"
+  }
+}

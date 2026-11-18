@@ -216,6 +216,54 @@
                 "description": "Centre en fraction de l'image [x, y] (défaut [0,5 ; 0,55])."
               }
             }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "beat",
+              "texte"
+            ],
+            "description": "Badge d'épisode affiché en continu (« JOUR *2* », mot entre astérisques en jaune).",
+            "properties": {
+              "type": {
+                "const": "badge"
+              },
+              "texte": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 16
+              },
+              "beat": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+              },
+              "mot": {
+                "type": "string",
+                "minLength": 1
+              },
+              "debut": {
+                "type": "number",
+                "minimum": 0
+              },
+              "jusqu_au_beat": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
+                "description": "Dernier beat où le badge reste affiché ; pour un badge permanent, le dernier beat de l'épisode."
+              },
+              "position": {
+                "enum": [
+                  "haut_gauche",
+                  "haut_centre",
+                  "haut_droite",
+                  "bas_gauche",
+                  "bas_centre",
+                  "bas_droite"
+                ],
+                "default": "haut_droite"
+              }
+            }
           }
         ]
       }

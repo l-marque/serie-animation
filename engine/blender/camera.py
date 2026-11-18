@@ -12,6 +12,7 @@ Mouvements disponibles (fiche : plan.camera) :
     orbite               tourne d'un tiers de tour autour de la cible
     plongee              vue presque verticale qui descend doucement
     travelling_lateral   translation latérale face à la cible
+    Option plan.azimut : côté d'où la caméra filme (-90 = sud, défaut ; 90 = nord).
     descente (v1.1)      part très haut au-dessus de la cible et descend en continu jusqu'à elle
                          (zoom continu du ciel jusqu'au personnage), arrivée à distance/hauteur du plan
 """
@@ -43,26 +44,30 @@ def _polaire(centre: Vector, angle_deg: float, rayon: float, z: float) -> Vector
     return centre + Vector((rayon * math.cos(a), rayon * math.sin(a), z))
 
 
-def trajectoire(preset: str, c: Vector, d: float, h: float):
-    """Renvoie une fonction u (0 -> 1) -> position de la caméra, et un booléen 'courbe'."""
+def trajectoire(preset: str, c: Vector, d: float, h: float, az: float = -90.0):
+    """Renvoie une fonction u (0 -> 1) -> position de la caméra, et un booléen 'courbe'.
+    `az` (plan.azimut, degrés) : côté d'où la caméra filme ; -90 = depuis le sud (défaut historique)."""
     if preset == "plan_fixe":
-        p = _polaire(c, -90, d, h)
+        p = _polaire(c, az, d, h)
         return (lambda u: p), False
     if preset == "survol":
-        return (lambda u: _polaire(c, -110 + 40 * u, d * (1 - 0.05 * u), h * (1 - 0.1 * u))), True
+        return (lambda u: _polaire(c, az - 20 + 40 * u, d * (1 - 0.05 * u), h * (1 - 0.1 * u))), True
     if preset == "revelation":
-        a, b = _polaire(c, -90, d * 0.45, max(1.0, h * 0.25)), _polaire(c, -90, d, h)
+        a, b = _polaire(c, az, d * 0.45, max(1.0, h * 0.25)), _polaire(c, az, d, h)
         return (lambda u: a.lerp(b, u)), False
     if preset == "dolly_avant":
-        a, b = _polaire(c, -90, d * 1.3, h * 1.15), _polaire(c, -90, d * 0.8, h * 0.85)
+        a, b = _polaire(c, az, d * 1.3, h * 1.15), _polaire(c, az, d * 0.8, h * 0.85)
         return (lambda u: a.lerp(b, u)), False
     if preset == "orbite":
-        return (lambda u: _polaire(c, -120 + 60 * u, d, h)), True
+        return (lambda u: _polaire(c, az - 30 + 60 * u, d, h)), True
     if preset == "plongee":
-        a, b = _polaire(c, -90, d * 0.25, h * 1.7), _polaire(c, -90, d * 0.15, h * 1.2)
+        a, b = _polaire(c, az, d * 0.25, h * 1.7), _polaire(c, az, d * 0.15, h * 1.2)
         return (lambda u: a.lerp(b, u)), False
     if preset == "travelling_lateral":
-        a, b = c + Vector((-d * 0.4, -d, h)), c + Vector((d * 0.4, -d, h))
+        r = math.radians(az)
+        face = Vector((d * math.cos(r), d * math.sin(r), h))
+        cote = Vector((-math.sin(r), math.cos(r), 0)) * (d * 0.4)   # perpendiculaire, vers la droite de l'image au sud
+        a, b = c + face - cote, c + face + cote
         return (lambda u: a.lerp(b, u)), False
     if preset == "descente":
         return _descente(c, d, h), True
@@ -117,7 +122,7 @@ class Cameraman:
         contrainte.track_axis = "TRACK_NEGATIVE_Z"
         contrainte.up_axis = "UP_Y"
         position, courbe = trajectoire(plan["camera"], centre, plan.get("distance", DISTANCE_DEFAUT),
-                                       plan.get("hauteur", HAUTEUR_DEFAUT))
+                                       plan.get("hauteur", HAUTEUR_DEFAUT), plan.get("azimut", -90.0))
         if courbe:
             for f in list(range(f0, f1, PAS_ARC)) + [f1]:
                 cam.location = position(_lisser((f - f0) / max(f1 - f0, 1)))

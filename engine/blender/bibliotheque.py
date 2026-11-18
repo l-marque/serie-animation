@@ -124,13 +124,15 @@ def _jouer_animation(objets: list[bpy.types.Object], nom: str) -> None:
         bande.repeat = max(1.0, 20000.0 / max(fin - debut, 1.0))  # ≈ 11 min à 30 i/s
 
 
-def _jouer_sequence(objets: list[bpy.types.Object], sequence: list[dict]) -> None:
+def _jouer_sequence(objets: list[bpy.types.Object], sequence: list[dict], decalage: int = 0) -> None:
     """Joue des animations ponctuelles par-dessus l'animation de base (option « sequence »).
 
     Chaque segment : {"nom": "Kick_Right", "image": 28, "fin_image": 55 (facultatif), "fondu": 3}.
-    `image` est l'image de l'épisode où le segment commence ; sans `fin_image`, l'animation est
-    jouée une fois. Chaque segment a sa piste NLA, au-dessus de la boucle de base, avec un fondu
-    d'entrée et de sortie : le personnage revient tout seul à l'animation de base."""
+    `image` compte à partir de l'apparition de l'élément dans l'épisode (`decalage` = image
+    d'apparition − 1, calculé par le décorateur) : un personnage visible dès le début garde les
+    images de l'épisode, comme au jour 1. Sans `fin_image`, l'animation est jouée une fois. Chaque
+    segment a sa piste NLA, au-dessus de la boucle de base, avec un fondu d'entrée et de sortie :
+    le personnage revient tout seul à l'animation de base."""
     for arm in (o for o in objets if o.type == "ARMATURE"):
         ad = arm.animation_data or arm.animation_data_create()
         for seg in sequence:
@@ -140,7 +142,7 @@ def _jouer_sequence(objets: list[bpy.types.Object], sequence: list[dict]) -> Non
                 raise RuntimeError(f"animation '{nom}' introuvable pour la séquence")
             debut, fin = action.frame_range
             piste = ad.nla_tracks.new()
-            bande = piste.strips.new(nom, int(seg["image"]), action)
+            bande = piste.strips.new(nom, int(seg["image"]) + int(decalage), action)
             if seg.get("fin_image"):
                 bande.repeat = max(0.1, (seg["fin_image"] - seg["image"]) / max(fin - debut, 1.0))
             bande.extrapolation = "NOTHING"
@@ -355,8 +357,9 @@ def abimer(objets: list[bpy.types.Object], degats: dict, asset_id: str) -> list[
     return gravats
 
 
-def pieces_bibliotheque(racine: Path, asset_id: str) -> list[tuple[bpy.types.Object, str, bool]]:
-    """Importe un asset et renvoie [(objet, role, principal)] prêts à être rangés dans un prototype."""
+def pieces_bibliotheque(racine: Path, asset_id: str, decalage: int = 0) -> list[tuple[bpy.types.Object, str, bool]]:
+    """Importe un asset et renvoie [(objet, role, principal)] prêts à être rangés dans un prototype.
+    `decalage` : images dont l'option « sequence » est décalée (apparition de l'élément)."""
     entree = charger_registre(racine).get(asset_id)
     if entree is None:
         raise RuntimeError(f"asset 'bibliotheque:{asset_id}' absent du registre")
@@ -367,7 +370,7 @@ def pieces_bibliotheque(racine: Path, asset_id: str) -> list[tuple[bpy.types.Obj
     if entree.get("animation"):
         _jouer_animation(objets, entree["animation"])
     if entree.get("sequence"):
-        _jouer_sequence(objets, entree["sequence"])
+        _jouer_sequence(objets, entree["sequence"], decalage)
     if entree.get("tshirt"):
         _colorer_tshirt(objets, entree["tshirt"], asset_id)
     _placer(objets, entree, asset_id)

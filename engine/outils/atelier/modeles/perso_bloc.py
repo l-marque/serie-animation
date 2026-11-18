@@ -2,7 +2,7 @@
 
 Corps en blocs biseautés (plastique lisse, couleurs franches), visage simple et expressif, squelette
 maison à membres rigides et animations faites ici : Idle, Idle_Neutral, Run, Kick_Right, Wave, Jump,
-Clapping (mêmes noms que les anciens modèles : les fiches et le registre n'ont pas à changer).
+Clapping, et depuis jour-2 Walk, Control_Right, Point_Down (mêmes noms que les anciens modèles : les fiches et le registre n'ont pas à changer).
 Style inspiré des jeux à avatars en blocs ; aucun élément repris d'un jeu existant.
 
     blender --background --factory-startup --python engine/outils/atelier/modeles/perso_bloc.py -- kevin_bloc
@@ -10,6 +10,11 @@ Style inspiré des jeux à avatars en blocs ; aucun élément repris d'un jeu ex
 
 Convention : le personnage regarde vers -y ; sa droite est du côté -x. Animations à 24 i/s.
 Kick_Right : contact du pied droit avec le ballon à l'image 4 de l'action.
+Walk (jour-2) : marche lente et nonchalante, cycle de 48 images (deux pas). Vitesse au sol pour que les pieds
+ne glissent pas : environ 0,46 m par pas, soit 0,57 m/s pour un abonné (1,75 m) et 0,47 m/s pour Kevin
+(1,45 m) à 30 i/s (les actions sont lues image pour image par le moteur).
+Control_Right (jour-2) : contrôle du ballon du pied droit, ballon amorti au pied à l'image 8.
+Point_Down (jour-2) : montre le bas de l'image (les commentaires), en boucle.
 """
 import math
 import random
@@ -31,6 +36,12 @@ PERSONNAGES = {
                        chaussures=(0.13, 0.12, 0.11), semelle=(0.4, 0.38, 0.35), chaussettes=(0.6, 0.58, 0.52),
                        cheveux=(0.09, 0.045, 0.02), coiffure="bataille", humeur="triste", piece=(0.2, 0.16, 0.12),
                        chaussette_tombee=True),
+    # Kevin heureux (jour-2) : même modèle, même tenue, seule l'expression change (grand sourire, sourcils
+    # détendus et levés, joues roses). Les épisodes passés gardent kevin_bloc.
+    "kevin_bloc_heureux": dict(hauteur=1.45, tshirt=(0.42, 0.28, 0.04), bas=(0.07, 0.1, 0.2), short=True,
+                               chaussures=(0.13, 0.12, 0.11), semelle=(0.4, 0.38, 0.35), chaussettes=(0.6, 0.58, 0.52),
+                               cheveux=(0.09, 0.045, 0.02), coiffure="bataille", humeur="heureux", piece=(0.2, 0.16, 0.12),
+                               chaussette_tombee=True),
     # Abonnés : même bonhomme, seul le t-shirt change.
     **{f"abonne_bloc_{nom}": dict(hauteur=1.75, tshirt=c, bas=(0.04, 0.05, 0.09), short=False,
                                   chaussures=(0.95, 0.95, 0.95), semelle=(0.2, 0.2, 0.2), chaussettes=None,
@@ -56,6 +67,11 @@ def construire(asset_id: str, p: dict):
         m["Chaussettes"] = plastique("Chaussettes", p["chaussettes"])
     if p.get("piece"):
         m["Piece"] = plastique("Piece", p["piece"], 0.8)
+    if p["humeur"] == "heureux":
+        m["Dents"] = plastique("Dents", (0.9, 0.88, 0.84), 0.3)
+        m["Langue"] = plastique("Langue", (0.55, 0.12, 0.12), 0.5)
+        m["Joues"] = plastique("Joues", (0.75, 0.24, 0.2), 0.6)
+        m["Gorge"] = plastique("Gorge", (0.09, 0.015, 0.015), 0.7)   # intérieur de la bouche, sombre : lisible au téléphone
     parties = []                      # (objet, os)
 
     def bloc(nom, os_, centre, taille, mat, biseau=b, rot=(0, 0, 0)):
@@ -103,9 +119,23 @@ def construire(asset_id: str, p: dict):
              "Blanc_yeux", biseau=0.0)
         triste = p["humeur"] == "triste"
         angle = (-22 if cote == "R" else 22) if triste else 0
-        bloc(f"sourcil_{cote}", "Head", (x, yf, zt + 0.3 * u), (0.28 * u, 0.04 * u, 0.06 * u), "Cheveux",
+        dz = 0.0                                                # sourcils plats et détendus (plus haut, la frange les cache)
+        bloc(f"sourcil_{cote}", "Head", (x, yf, zt + 0.3 * u + dz), (0.28 * u, 0.04 * u, 0.06 * u), "Cheveux",
              biseau=0.0, rot=(0, math.radians(angle), 0))
-    if p["humeur"] == "triste":                                 # bouche en accent circonflexe
+    if p["humeur"] == "heureux":                                # grand sourire ouvert, dents, langue, joues
+        # Sourire en « D » : bande haute large (dents), bande basse plus étroite (langue), coins relevés.
+        zb = zt - 0.3 * u
+        bloc("bouche_h", "Head", (0, yf, zb + 0.04 * u), (0.54 * u, 0.04 * u, 0.13 * u), "Gorge", biseau=0.03 * u)
+        bloc("bouche_b", "Head", (0, yf, zb - 0.06 * u), (0.34 * u, 0.04 * u, 0.13 * u), "Gorge", biseau=0.04 * u)
+        bloc("dents", "Head", (0, yf - 0.012 * u, zb + 0.06 * u), (0.44 * u, 0.03 * u, 0.055 * u), "Dents", biseau=0.0)
+        bloc("langue", "Head", (0.02 * u, yf - 0.012 * u, zb - 0.075 * u), (0.2 * u, 0.03 * u, 0.06 * u), "Langue",
+             biseau=0.02 * u)
+        for s in (-1, 1):
+            bloc(f"coin_{s}", "Head", (s * 0.29 * u, yf, zb + 0.12 * u), (0.07 * u, 0.04 * u, 0.12 * u), "Gorge",
+                 biseau=0.0, rot=(0, math.radians(-30 * s), 0))
+            bloc(f"joue_{s}", "Head", (s * 0.43 * u, yf + 0.005 * u, zt - 0.14 * u), (0.16 * u, 0.03 * u, 0.09 * u),
+                 "Joues", biseau=0.02 * u)
+    elif p["humeur"] == "triste":                                 # bouche en accent circonflexe
         for s in (-1, 1):
             bloc(f"bouche_{s}", "Head", (s * 0.08 * u, yf, zt - 0.3 * u), (0.18 * u, 0.04 * u, 0.05 * u), "Bouche",
                  biseau=0.0, rot=(0, math.radians(18 * s), 0))
@@ -240,6 +270,37 @@ def animer(arm, u):
     def clap(z):
         return {"Arm.R": (80, z, 0), "Arm.L": (80, -z, 0), "Head": (-5, 0, 0)}
     action("Clapping", {0: clap(-30), 4: clap(8), 8: clap(-30), 12: clap(8), 16: clap(-30)}, 16)
+
+    # Walk (jour-2) : marche lente, traînante. Clés toutes les 2 images pour que les pieds ne glissent pas :
+    # angle des jambes LINÉAIRE dans le temps (±20°, le pied d'appui recule à vitesse constante, écart < 2 mm
+    # avec un déplacement uniforme) et bassin abaissé de 2u·(1 − cos θ) à chaque image (pied d'appui à z = 0).
+    # Nonchalance : épaules qui roulent (torsion du tronc), bras ballants peu amples, tête basse qui dodeline.
+    def marche(img):
+        t = img / 48
+        s = 1 - 4 * abs(((t + 0.5) % 1) - 0.5)          # +1 (jambe droite devant) → −1 à l'image 24 → +1
+        c, sn = math.cos(2 * math.pi * t), math.sin(2 * math.pi * t)
+        th = math.radians(20 * s)
+        return {"Leg.R": (20 * s, 0, 0), "Leg.L": (-20 * s, 0, 0), "Arm.R": (-13 * c, 0, 4), "Arm.L": (13 * c, 0, -4),
+                "Torso": (5, 5 * c, 2.5 * c), "Head": (8 - math.cos(4 * math.pi * t), -3 * c, -5 * c + 2 * sn),
+                "Root:loc": (0, -2 * u * (1 - math.cos(th)), 0)}
+    action("Walk", {i: marche(i) for i in range(0, 49, 2)}, 48)
+
+    # Bras : pour Arm.R, z > 0 écarte le bras du corps (z < 0 le ramène devant le ventre) ; inverse pour Arm.L.
+    # Control_Right (jour-2) : la jambe droite vient au-devant du ballon puis recule pour l'amortir
+    # (ballon arrêté au pied à l'image 8), bras écartés pour l'équilibre, regard sur le ballon.
+    action("Control_Right", {
+        0: {},
+        5: {"Leg.R": (28, 0, 0), "Arm.R": (15, 0, 28), "Arm.L": (15, 0, -28), "Torso": (-4, 0, 0), "Head": (14, 0, 0)},
+        8: {"Leg.R": (8, 0, 0), "Arm.R": (10, 0, 22), "Arm.L": (10, 0, -22), "Torso": (2, 0, 0), "Head": (16, 0, 0)},
+        14: {"Leg.R": (0, 0, 0), "Arm.R": (0, 0, 8), "Arm.L": (0, 0, -8), "Head": (10, 0, 0)},
+        22: {}}, 22)
+
+    # Point_Down (jour-2) : bras droit tendu vers le bas de l'image, petits coups d'index en boucle.
+    # Bras écarté en diagonale (lisible de face : la silhouette dessine une flèche vers le bas), regard qui
+    # suit le bras, petits coups vers le bas ; l'autre bras reste le long du corps.
+    def montre(a):
+        return {"Arm.R": (a, 0, 30), "Arm.L": (0, 0, -3), "Head": (12, 0, -10), "Torso": (4, 0, -3)}
+    action("Point_Down", {0: montre(28), 6: montre(40), 12: montre(28), 18: montre(40), 24: montre(28)}, 24)
 
     arm.animation_data.action = bpy.data.actions["Idle"]
 

@@ -4,7 +4,8 @@ Styles repris du kit Figma « Série animation — Outils d'affichage (HUD) » :
 - compteur : pastille blanche arrondie, icône (pièce, habitant), valeur en Baloo 2 ExtraBold ;
   il apparaît quand on en parle (pop), compte jusqu'à la nouvelle valeur, puis disparaît ;
 - gain : « +10 » doré cerné de bleu nuit avec une pièce, qui monte et s'efface (façon jeu vidéo),
-  accompagné du son de pièce.
+  accompagné du son de pièce ;
+- badge : pastille d'épisode (« JOUR 2 ») affichée en continu, en haut à droite par défaut.
 
 Décrit dans `<fiche>.habillage.json` (clé "hud"), donc hors contrat v1.0. Chaque élément est rendu
 en une courte séquence PNG transparente (Pillow), superposée par ffmpeg à l'instant voulu : rien
@@ -40,6 +41,7 @@ ANCRES: dict[str, tuple[float, float, str, int]] = {
     "bas_droite": (1 - MARGE_COTE, 1 - MARGE_BAS, "droite", -1),
 }
 ANCRE_DEFAUT = "haut_gauche"
+ANCRE_BADGE_DEFAUT = "haut_droite"  # les compteurs occupent le haut à gauche
 
 
 class HudInvalide(Exception):
@@ -160,6 +162,17 @@ def badge_gain(texte: str, nom_icone: str, echelle: float) -> Image.Image:
     return im
 
 
+def badge(texte: str, echelle: float) -> Image.Image:
+    """Badge d'épisode (« JOUR *2* ») : pastille bleu nuit cerclée d'or, mot entre astérisques en jaune."""
+    coeur = _bloc(texte, _police(round(64 * echelle)), 10 ** 6, NUIT + (255,), BLANC, OR,
+                  round(30 * echelle), round(10 * echelle), 999)
+    b = max(2, round(5 * echelle))
+    im = Image.new("RGBA", (coeur.width + 2 * b, coeur.height + 2 * b), (0, 0, 0, 0))
+    ImageDraw.Draw(im).rounded_rectangle([0, 0, im.width - 1, im.height - 1], radius=im.height // 2, fill=OR + (255,))
+    im.alpha_composite(coeur, (b, b))
+    return im
+
+
 def _format(n: int) -> str:
     return f"{n:,}".replace(",", " ")  # espace des milliers, à la française
 
@@ -224,6 +237,32 @@ def _sequence_gain(e: dict[str, Any], fps: int, echelle: float, hauteur: int, do
     return n, l, h
 
 
+def _sequence_badge(e: dict[str, Any], fps: int, echelle: float, dossier: Path) -> tuple[int, int, int]:
+    """Badge permanent : pop à l'entrée, image fixe, sortie rapide à la fin."""
+    motif = badge(e.get("texte", "JOUR *1*"), echelle)
+    l, h = round(motif.width * 1.2), round(motif.height * 1.25)
+    duree = e["fin_s"] - e["debut_s"]
+    n = max(1, round(duree * fps))
+    fixe = None
+    for i in range(n):
+        t = i / fps
+        if t < DUREE_POP_S:
+            s = _rebond(t / DUREE_POP_S)
+        elif t > duree - DUREE_SORTIE_S:
+            s = max(0.0, (duree - t) / DUREE_SORTIE_S)
+        else:
+            s = 1.0
+        if s == 1.0 and fixe is not None:
+            fixe.save(dossier / f"{i:04d}.png")
+            continue
+        toile = Image.new("RGBA", (l, h), (0, 0, 0, 0))
+        _poser(toile, motif, s, 1.0, (l // 2, h // 2))
+        if s == 1.0:
+            fixe = toile
+        toile.save(dossier / f"{i:04d}.png")
+    return n, l, h
+
+
 def preparer(hud: list[dict[str, Any]], fps: int, largeur: int, hauteur: int, dossier: Path) -> list[Sequence]:
     """Rend chaque élément du HUD en séquence PNG.
 
@@ -256,6 +295,13 @@ def preparer(hud: list[dict[str, Any]], fps: int, largeur: int, hauteur: int, do
             else:
                 fx, fy = pos
                 x, y = round(largeur * fx - l / 2), round(hauteur * fy - h / 2)
+        elif e["type"] == "badge":
+            n, l, h = _sequence_badge(e, fps, echelle, d)
+            fx, fy, aligne, sens = ANCRES[e.get("position", ANCRE_BADGE_DEFAUT)]
+            ax = round(largeur * fx)
+            marge = round((l - l / 1.2) / 2)  # bord transparent laissé pour le rebond
+            x = {"gauche": ax - marge, "centre": ax - l // 2, "droite": ax - l + marge}[aligne]
+            y = round(hauteur * fy) - round((h - h / 1.25) / 2) if sens > 0 else round(hauteur * fy) - h
         else:
             n, l, h = _sequence_gain(e, fps, echelle, hauteur, d)
             fx, fy = e.get("position", [0.5, 0.55])
@@ -281,7 +327,7 @@ def sons(hud: list[dict[str, Any]]) -> list[tuple[str, float]]:
     for e in hud:
         if e["type"] == "gain":
             sortie.append(("piece", e["debut_s"]))
-        elif e.get("icone", "piece") == "piece" and int(e.get("vers", e["valeur"])) != int(e["valeur"]):
+        elif e["type"] == "compteur" and e.get("icone", "piece") == "piece" and int(e.get("vers", e["valeur"])) != int(e["valeur"]):
             sortie.append(("piece", e["debut_s"] + DUREE_POP_S))
     return sortie
 
@@ -289,7 +335,8 @@ def sons(hud: list[dict[str, Any]]) -> list[tuple[str, float]]:
 # ----- titres (texte à l'écran dessiné, style des Reels de référence) ------------------------------
 # Écriture dans `texte_ecran` (le contrat ne change pas, c'est toujours une chaîne) :
 #   *mot*        mot en jaune ;          « A | B »   pastille jaune B sous le titre A ;
-#   « !TEXTE »   ruban de chantier ;     « >TEXTE »  pastille d'appel à l'action ; « ↓ » final = flèche.
+#   « !TEXTE »   ruban de chantier ;     « >TEXTE »  pastille d'appel à l'action ; « ↓ » final = flèche ;
+#   « #TEXTE »   bannière d'événement (bande bleu nuit pleine largeur, liserés et étoiles dorés).
 JAUNE_RUBAN, NOIR_RUBAN = (255, 204, 0), (25, 25, 30)
 INCLINAISON_DEG = -4.0
 DUREE_TITRE_POP_S = 0.22
@@ -369,17 +416,46 @@ def _ruban(texte: str, police: ImageFont.FreeTypeFont, largeur_max: float, echel
     return rayures
 
 
+def _banniere(texte: str, largeur_bande: float, echelle: float) -> Image.Image:
+    """Bannière d'événement (« PELOUSE RÉPARÉE ») : bande bleu nuit très large (couleurs des titres du jour 1), texte blanc (mot clé
+    jaune) sur une seule ligne, liserés dorés en haut et en bas, une étoile dorée de chaque côté.
+    La police rétrécit (jusqu'à 60 px en 1080 × 1920) pour que le texte tienne sur une ligne."""
+    lisere, marge_etoile, pad = round(10 * echelle), round(100 * echelle), round(24 * echelle)
+    place = largeur_bande - 2 * marge_etoile - 2 * pad
+    nu = " ".join(m for m, _ in _jetons(texte))
+    taille = 96
+    while taille > 60 and _police(round(taille * echelle)).getlength(nu) > place:
+        taille -= 4
+    police = _police(round(taille * echelle))
+    coeur = _bloc(texte, police, max(place, police.getlength(nu)) + 1, NUIT + (255,), BLANC, OR,
+                  pad, round(18 * echelle), 0)
+    l, h = max(round(largeur_bande), coeur.width + 2 * marge_etoile), coeur.height + 2 * lisere
+    im = Image.new("RGBA", (l, h), OR + (255,))
+    d = ImageDraw.Draw(im)
+    d.rectangle([0, lisere, l - 1, h - 1 - lisere], fill=NUIT + (255,))
+    im.alpha_composite(coeur, ((l - coeur.width) // 2, lisere))
+    r = coeur.height * 0.3
+    for cx in (marge_etoile / 2, l - marge_etoile / 2):
+        d.polygon(_etoile(cx, h / 2, r), fill=OR + (255,))
+    return im
+
+
 def titre(texte: str, largeur: int, echelle: float) -> Image.Image:
     """Image finale d'un texte à l'écran (ombre portée, légère inclinaison), sans animation."""
     texte = texte.strip()
     style = "cadre"
-    if texte.startswith("!"):
+    if texte.startswith("#"):
+        style, texte = "banniere", texte[1:].strip()
+    elif texte.startswith("!"):
         style, texte = "ruban", texte[1:].strip()
     elif texte.startswith(">"):
         style, texte = "appel", texte[1:].strip()
     principal, _, sous = (p.strip() for p in texte.partition("|"))
     largeur_max = largeur * 0.74
-    if style == "ruban":
+    if style == "banniere":
+        # 0,78 : avec la marge d'animation (× 1,2) et l'inclinaison, la bannière tient dans l'image.
+        bloc = _banniere(principal, largeur * 0.78, echelle)
+    elif style == "ruban":
         bloc = _ruban(principal, _police(round(100 * echelle)), largeur_max, echelle)
     elif style == "appel":
         fleche = principal.endswith("↓")

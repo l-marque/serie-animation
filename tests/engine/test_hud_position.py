@@ -49,3 +49,23 @@ def test_texte_ecran_descend_sous_les_compteurs(tmp_path):
     marge_avec = int(lignes[0].split(",")[7])
     marge_sans = int(lignes[1].split(",")[7])
     assert marge_avec >= max(s.y + s.hauteur for s in seqs) and marge_sans == 0
+
+
+def test_badge_permanent_en_haut_a_droite(tmp_path):
+    (s,) = hud.preparer([{"type": "badge", "texte": "JOUR *2*", "beat": "b1", "debut_s": 0, "fin_s": 3}],
+                        FPS, L, H, tmp_path)
+    assert s.x + s.largeur / 2 > 2 * L / 3 and s.y < H / 3
+    assert s.nb_images == 30 and s.fin_s == pytest.approx(3)
+
+
+def test_banniere_une_ligne_dans_l_image():
+    for texte in ("#PELOUSE *RÉPARÉE*", "#ON EST *11*"):
+        im = hud.titre(texte, 1080, 1.0)
+        assert im.width * 1.2 <= 1080          # marge d'animation comprise
+        assert im.height < 260                 # une seule ligne
+
+
+def test_sons_ignore_le_badge():
+    specs = [{"type": "badge", "texte": "JOUR *2*", "beat": "b1", "debut_s": 0, "fin_s": 3},
+             {"type": "compteur", "beat": "b1", "valeur": 0, "vers": 10, "debut_s": 1, "fin_s": 3}]
+    assert [nom for nom, _ in hud.sons(specs)] == ["piece"]

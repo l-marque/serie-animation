@@ -52,10 +52,19 @@ def main() -> int:
         return transcripteur({"raw": audio.astype(np.float32), "sampling_rate": sr},
                              generate_kwargs={"language": "french", "task": "transcribe"})["text"].strip()
 
+    def plafond(textes):
+        """Pas de génération maximum (12 par seconde d'audio) : 2 fois la durée attendue + 2 s.
+        Par défaut Qwen s'autorise 2 048 pas (~170 s) : une phrase qui « babille » sans finir
+        bloquait tout le groupe pendant des minutes (constaté le 2026-11-17)."""
+        debit = float(travail.get("mots_par_minute") or 180)
+        duree_max = max(nombre_mots(x) for x in textes) * 60.0 / debit
+        return int(12 * (2 * duree_max + 2))
+
     def generer(textes, consignes, graine):
         torch.manual_seed(graine)
         wavs, sr = modele.generate_custom_voice(text=textes, language=[langue] * len(textes),
-                                                speaker=[locuteur] * len(textes), instruct=consignes)
+                                                speaker=[locuteur] * len(textes), instruct=consignes,
+                                                max_new_tokens=plafond(textes))
         return [np.asarray(w, dtype=np.float32) for w in wavs], sr
 
     def juger(p, audio, sr):
