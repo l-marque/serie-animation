@@ -1,0 +1,64 @@
+# Relevé de l'audience YouTube (abonnés, likes, commentaires, votes), tous les 2 jours et à la demande.
+# Ne commite rien et n'écrit pas etat.json : le relevé est un artefact à télécharger,
+# repris à l'étape 0 de /episode puis validé par Lucas ou Guillaume.
+# Secret requis : YOUTUBE_API_KEY. Variable requise : YOUTUBE_CHANNEL_ID (voir docs/audience-youtube.md).
+name: audience
+
+on:
+  schedule:
+    - cron: "17 6 */2 * *"   # 7 h 17 à Paris (heure d'hiver), un jour sur deux
+  workflow_dispatch:
+    inputs:
+      depuis:
+        description: "Vidéos publiées depuis (AAAA-MM-JJ). Vide : 3 derniers jours."
+        required: false
+      options:
+        description: "Options du vote, séparées par des espaces (ex. pelouse filets)"
+        required: false
+
+permissions:
+  contents: read
+
+jobs:
+  releve:
+    # Ne tourne pas tant que la chaîne n'est pas configurée (évite un échec tous les 2 jours).
+    if: vars.YOUTUBE_CHANNEL_ID != ''
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les dépendances
+        run: pip install -r engine/requirements.txt
+
+      - name: Relever l'audience YouTube
+        env:
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
+          YOUTUBE_CHANNEL_ID: ${{ vars.YOUTUBE_CHANNEL_ID }}
+          DEPUIS: ${{ inputs.depuis }}
+          OPTIONS: ${{ inputs.options }}
+        run: |
+          mkdir -p audience
+          [ -n "$DEPUIS" ] || DEPUIS=$(date -u -d '3 days ago' +%F)
+          ARGS=(--depuis "$DEPUIS")
+          [ -z "$OPTIONS" ] || ARGS+=(--options $OPTIONS)
+          python scripts/recuperer_audience.py "${ARGS[@]}" \
+            --sortie audience/releve.json --entree-filtre audience/entree_filtre.json
+        shell: bash
+
+      - name: Passer les commentaires au filtre de modération
+        # Code 8 = au moins un texte refusé : normal, le relevé reste utile.
+        run: |
+          python scripts/filtrer_audience.py audience/entree_filtre.json > audience/filtre.json || [ $? -eq 8 ]
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: audience-${{ github.run_number }}
+          path: audience/
+          retention-days: 14
