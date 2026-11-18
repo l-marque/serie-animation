@@ -99,6 +99,7 @@ Une ligne par idée retenue, ajoutée par `story-chef` après chaque choix de Lu
 
 | Épisode | Idée | Ce que l'audience a influencé | Éléments introduits |
 |---|---|---|---|
+| Idée du 2026-11-16 (à produire) | La visite guidée : Kevin fait visiter son stade en ruine comme un agent immobilier de luxe, chaque « atout » se révèle minable, puis il demande aux abonnés ce qu'on répare en premier. | pas encore diffusé | panneaux 3D « TRIBUNE VIP », « ÉCLAIRAGE », « PELOUSE » ; caisse (tribune VIP), lampadaire, touffe d'herbe ; tribune des supporters (vide) |
 
 ## 7. Ce que la production sait faire
 

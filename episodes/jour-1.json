@@ -1,0 +1,904 @@
+{
+  "version": "1.1",
+  "episode_id": "jour-1",
+  "titre": "Jour 1 : le début de l'aventure de Kevin",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 30
+  },
+  "pack_da": "stade_bloc",
+  "serie": {
+    "id": "serie",
+    "continuite": false
+  },
+  "decor": {
+    "kit": "primitifs",
+    "sol": false
+  },
+  "audio": {
+    "musique": "engine/assets/musique/piano_doux.wav",
+    "volume_musique": 0.07
+  },
+  "elements": [
+    {
+      "id": "stade",
+      "asset": "bibliotheque:stade_ruine",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_breche",
+      "asset": "primitif:repere",
+      "position": [
+        9,
+        42,
+        2
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_pylone",
+      "asset": "primitif:repere",
+      "position": [
+        -60,
+        44,
+        12
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_tableau",
+      "asset": "primitif:repere",
+      "position": [
+        -40,
+        47,
+        4.5
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_boue",
+      "asset": "primitif:repere",
+      "position": [
+        18,
+        3,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_filet",
+      "asset": "primitif:repere",
+      "position": [
+        51.3,
+        0,
+        1.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_centre",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "ballon",
+      "asset": "bibliotheque:ballon_foot",
+      "position": [
+        41.45,
+        -0.74,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "tag_1",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        42.6,
+        0.5499999999999999,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_2",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        44.7,
+        1.65,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_3",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        46.8,
+        0.45,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tas_pieces",
+      "asset": "bibliotheque:pieces_tas",
+      "position": [
+        45.3,
+        -2.9,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "visee_k_frappe",
+      "asset": "primitif:repere",
+      "position": [
+        40.6,
+        -0.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_k",
+      "asset": "primitif:repere",
+      "position": [
+        44,
+        -2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_terrain",
+      "asset": "primitif:repere",
+      "position": [
+        41,
+        -0.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_equipe",
+      "asset": "primitif:repere",
+      "position": [
+        44.6,
+        0.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "fin",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        0,
+        45
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "carte_pelouse",
+      "asset": "primitif:carte_choix",
+      "position": [
+        -1.15,
+        0,
+        45
+      ],
+      "rotation_z": 0,
+      "echelle": 0.95,
+      "visible_au_debut": false
+    },
+    {
+      "id": "carte_filets",
+      "asset": "primitif:carte_choix",
+      "position": [
+        1.15,
+        0,
+        45
+      ],
+      "rotation_z": 0,
+      "echelle": 0.95,
+      "visible_au_debut": false
+    },
+    {
+      "id": "mini_touffe",
+      "asset": "bibliotheque:touffe_herbe",
+      "position": [
+        -1.15,
+        -0.3,
+        45.75
+      ],
+      "rotation_z": 0,
+      "echelle": 2.2,
+      "visible_au_debut": false
+    },
+    {
+      "id": "mini_cage",
+      "asset": "bibliotheque:cage_rouillee",
+      "position": [
+        1.15,
+        -0.4,
+        45.75
+      ],
+      "rotation_z": 90,
+      "echelle": 0.3,
+      "visible_au_debut": false
+    }
+  ],
+  "personnages": [
+    {
+      "id": "kevin_frappe",
+      "asset": "bibliotheque:kevin_bloc_frappe",
+      "position": [
+        39.5,
+        -0.6,
+        0
+      ],
+      "rotation_z": 90,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "kevin_parle_1",
+      "asset": "bibliotheque:kevin_bloc_parle",
+      "position": [
+        44,
+        -2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_salue_1",
+      "asset": "bibliotheque:kevin_bloc_salue",
+      "position": [
+        44,
+        -2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_parle_2",
+      "asset": "bibliotheque:kevin_bloc_parle",
+      "position": [
+        44,
+        -2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_salue_2",
+      "asset": "bibliotheque:kevin_bloc_salue",
+      "position": [
+        44,
+        -2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "equipier_1",
+      "asset": "bibliotheque:abonne_bloc_rouge_saute",
+      "position": [
+        42.6,
+        0.6,
+        0
+      ],
+      "rotation_z": 10,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "equipier_2",
+      "asset": "bibliotheque:abonne_bloc_bleu",
+      "position": [
+        44.7,
+        1.7,
+        0
+      ],
+      "rotation_z": -5,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "equipier_3",
+      "asset": "bibliotheque:abonne_bloc_vert",
+      "position": [
+        46.8,
+        0.5,
+        0
+      ],
+      "rotation_z": -15,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    }
+  ],
+  "habillage": {
+    "textes_3d": [
+      {
+        "id": "pseudo_1",
+        "texte": "@ton_pseudo",
+        "parent": "tag_1",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_2",
+        "texte": "@ton_pseudo",
+        "parent": "tag_2",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_3",
+        "texte": "@ton_pseudo",
+        "parent": "tag_3",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "txt_pelouse",
+        "texte": "PELOUSE",
+        "parent": "carte_pelouse",
+        "position": [
+          0,
+          -0.07,
+          0.48
+        ],
+        "taille": 0.3,
+        "epaisseur": 0.02,
+        "role": "tissu"
+      },
+      {
+        "id": "prix_pelouse",
+        "texte": "100 PIÈCES",
+        "parent": "carte_pelouse",
+        "position": [
+          0,
+          -0.07,
+          0.14
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.02,
+        "role": "eau"
+      },
+      {
+        "id": "txt_filets",
+        "texte": "FILETS",
+        "parent": "carte_filets",
+        "position": [
+          0,
+          -0.07,
+          0.48
+        ],
+        "taille": 0.3,
+        "epaisseur": 0.02,
+        "role": "tissu"
+      },
+      {
+        "id": "prix_filets",
+        "texte": "100 PIÈCES",
+        "parent": "carte_filets",
+        "position": [
+          0,
+          -0.07,
+          0.14
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.02,
+        "role": "eau"
+      }
+    ],
+    "hud": [
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b04",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b05",
+        "mot": "que",
+        "valeur": 0,
+        "vers": 100,
+        "jusqu_au_beat": "b15",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "gain",
+        "texte": "+100",
+        "icone": "piece",
+        "beat": "b05",
+        "mot": "pièces",
+        "position": [
+          0.5,
+          0.55
+        ]
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b15",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "gain",
+        "texte": "+10",
+        "icone": "piece",
+        "beat": "b09",
+        "mot": "like",
+        "position": [
+          0.5,
+          0.55
+        ]
+      }
+    ]
+  },
+  "beats": [
+    {
+      "id": "b01",
+      "voix": "Ça, c'est Kevin !",
+      "texte_ecran": "JOUR *1* | OBJECTIF : RÉPARER LE STADE",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k_frappe",
+        "distance": 4.2,
+        "hauteur": 0.35,
+        "focale": 35
+      },
+      "actions": [
+        {
+          "type": "deplacer",
+          "cible": "kevin_frappe",
+          "debut": 0.267,
+          "duree_s": 0.667,
+          "params": {
+            "vers": [
+              41,
+              -0.6,
+              0
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "ballon",
+          "debut": 1.067,
+          "duree_s": 0.75,
+          "params": {
+            "vers": [
+              52.4,
+              -0.8,
+              2.3
+            ]
+          }
+        }
+      ],
+      "duree_s": 1.24
+    },
+    {
+      "id": "b02",
+      "voix": "Ça fait un an et demi...",
+      "texte_ecran": "!TOUT SEUL | DEPUIS 1 AN ET DEMI",
+      "plan": {
+        "camera": "survol",
+        "cible": "rep_breche",
+        "distance": 16,
+        "hauteur": 3
+      },
+      "actions": [
+        {
+          "type": "deplacer",
+          "cible": "ballon",
+          "debut": 0.0,
+          "duree_s": 0.7,
+          "params": {
+            "vers": [
+              49.5,
+              -1.4,
+              0
+            ]
+          }
+        }
+      ],
+      "duree_s": 1.26
+    },
+    {
+      "id": "b02b",
+      "voix": "qu'il joue tout seul.",
+      "texte_ecran": "!TOUT SEUL | DEPUIS 1 AN ET DEMI",
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_terrain",
+        "distance": 42,
+        "hauteur": 20
+      },
+      "duree_s": 1.27
+    },
+    {
+      "id": "b03",
+      "voix": "Pourtant, depuis tout petit,",
+      "texte_ecran": "SON *RÊVE* : DEVENIR PRO",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_pylone",
+        "distance": 19,
+        "hauteur": -9.5,
+        "focale": 24
+      },
+      "duree_s": 1.72
+    },
+    {
+      "id": "b03b",
+      "voix": "il rêve de devenir pro !",
+      "texte_ecran": "SON *RÊVE* : DEVENIR PRO",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "rep_tableau",
+        "distance": 13,
+        "hauteur": 0.5
+      },
+      "duree_s": 1.72
+    },
+    {
+      "id": "b04",
+      "voix": "Et aujourd'hui, c'est le premier jour de l'aventure !",
+      "texte_ecran": "LE DÉBUT DE *L'AVENTURE*",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_k",
+        "distance": 4.6,
+        "hauteur": 0.7
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_frappe",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_parle_1",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ],
+      "duree_s": 3.02
+    },
+    {
+      "id": "b05",
+      "voix": "Et Kevin n'a que cent pièces.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k",
+        "distance": 4.2,
+        "hauteur": 0.7
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "tas_pieces",
+          "duree_s": 0.5,
+          "mot": "pièces"
+        }
+      ],
+      "duree_s": 1.86
+    },
+    {
+      "id": "b06",
+      "voix": "Alors, on compte sur vous !",
+      "texte_ecran": ">ON COMPTE SUR VOUS !",
+      "plan": {
+        "camera": "orbite",
+        "cible": "visee_k",
+        "distance": 5,
+        "hauteur": 1.0
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_parle_1",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_salue_1",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ],
+      "duree_s": 1.78
+    },
+    {
+      "id": "b07",
+      "voix": "Tu veux jouer avec Kevin ? Mets ton pseudo en commentaire !",
+      "texte_ecran": ">COMMENTE TON PSEUDO ↓",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_equipe",
+        "distance": 11,
+        "hauteur": 3
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_salue_1",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_parle_2",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "equipier_1",
+          "duree_s": 0.5,
+          "mot": "jouer"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_1",
+          "duree_s": 0.5,
+          "mot": "jouer"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "equipier_2",
+          "duree_s": 0.5,
+          "mot": "pseudo"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_2",
+          "duree_s": 0.5,
+          "mot": "pseudo"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "equipier_3",
+          "duree_s": 0.5,
+          "mot": "commentaire"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_3",
+          "duree_s": 0.5,
+          "mot": "commentaire"
+        }
+      ],
+      "duree_s": 2.98
+    },
+    {
+      "id": "b08",
+      "voix": "Les sélectionnés joueront dès la prochaine partie, avec leur pseudo affiché !",
+      "plan": {
+        "camera": "survol",
+        "cible": "visee_equipe",
+        "distance": 8,
+        "hauteur": 2.2
+      },
+      "actions": [
+        {
+          "type": "cycle",
+          "cible": "equipier_2",
+          "debut": 0.0,
+          "duree_s": 2.5,
+          "params": {
+            "nom": "sautiller"
+          }
+        }
+      ],
+      "duree_s": 4.3
+    },
+    {
+      "id": "b09",
+      "voix": "Chaque like, c'est dix pièces en plus !",
+      "texte_ecran": "1 LIKE = *+10* PIÈCES",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k",
+        "distance": 4.2,
+        "hauteur": 0.7
+      },
+      "duree_s": 2.64
+    },
+    {
+      "id": "b10",
+      "voix": "Et mettez en commentaires vos suggestions d'amélioration !",
+      "texte_ecran": ">VOS IDÉES D'AMÉLIORATION ↓",
+      "plan": {
+        "camera": "revelation",
+        "cible": "rep_centre",
+        "distance": 80,
+        "hauteur": 32
+      },
+      "duree_s": 3.3
+    },
+    {
+      "id": "b11",
+      "voix": "Avec nos cent pièces, on a deux choix.",
+      "texte_ecran": "*2* CHOIX | 100 PIÈCES CHACUN",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "fin",
+        "distance": 8.4,
+        "hauteur": 2.2
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "carte_pelouse",
+          "duree_s": 0.5,
+          "debut": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "mini_touffe",
+          "duree_s": 0.5,
+          "debut": 0.2
+        },
+        {
+          "type": "apparaitre",
+          "cible": "carte_filets",
+          "duree_s": 0.5,
+          "debut": 0.35
+        },
+        {
+          "type": "apparaitre",
+          "cible": "mini_cage",
+          "duree_s": 0.5,
+          "debut": 0.5
+        }
+      ],
+      "duree_s": 2.18
+    },
+    {
+      "id": "b12",
+      "voix": "Entretenir la pelouse,",
+      "texte_ecran": "*PELOUSE* | 100 PIÈCES",
+      "plan": {
+        "camera": "travelling_lateral",
+        "cible": "rep_boue",
+        "distance": 6,
+        "hauteur": 1.3
+      },
+      "duree_s": 1.58
+    },
+    {
+      "id": "b13",
+      "voix": "ou réparer les cages avec des filets.",
+      "texte_ecran": "*FILETS* | 100 PIÈCES",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "rep_filet",
+        "distance": 6.5,
+        "hauteur": 0.2
+      },
+      "duree_s": 2.26
+    },
+    {
+      "id": "b14",
+      "voix": "La pelouse ou les filets ? Vote en commentaire !",
+      "texte_ecran": "PELOUSE *OU* FILETS ? | VOTE EN COMMENTAIRE ↓",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "fin",
+        "distance": 8.4,
+        "hauteur": 2.2
+      },
+      "duree_s": 2.76
+    },
+    {
+      "id": "b15",
+      "voix": "Rendez-vous au jour deux, pour voir la suite !",
+      "texte_ecran": "RENDEZ-VOUS AU JOUR *2*",
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_k",
+        "distance": 15,
+        "hauteur": 5
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_parle_2",
+          "debut": 0.0,
+          "duree_s": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_salue_2",
+          "debut": 0.0,
+          "duree_s": 0.05
+        }
+      ],
+      "duree_s": 2.857
+    }
+  ]
+}

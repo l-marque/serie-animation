@@ -1,0 +1,176 @@
+{
+  "nom": "kevin_vif",
+  "description": "Pack « couleurs vives » de la série La Revanche du Miteux (épisode Jour 1) : ciel bleu franc, soleil chaud et fort, couleurs saturées, contours noirs façon dessin animé pour que l'image accroche l'œil en vertical. Demandé par Guillaume le 2026-11-16.",
+  "version": "1.0",
+  "moteur": {
+    "final": "BLENDER_EEVEE",
+    "animatique": "BLENDER_EEVEE",
+    "secours": "CYCLES"
+  },
+  "cycles": {
+    "echantillons_final": 64,
+    "echantillons_animatique": 8
+  },
+  "eevee": {
+    "echantillons_final": 64,
+    "echantillons_animatique": 16
+  },
+  "transformation_vue": "Standard",
+  "exposition": -0.15,
+  "monde": {
+    "couleur": [
+      0.35,
+      0.6,
+      1.0
+    ],
+    "intensite": 1.0,
+    "hdri": "engine/assets/hdri/kloofendal_48d_partly_cloudy_puresky_2k.hdr"
+  },
+  "soleil": {
+    "rotation_deg": [
+      50,
+      0,
+      -35
+    ],
+    "energie": 4.0,
+    "couleur": [
+      1.0,
+      0.92,
+      0.78
+    ]
+  },
+  "ombrage_plat": false,
+  "contours": {
+    "actif": false,
+    "epaisseur": 0.025,
+    "couleur": [
+      0.05,
+      0.04,
+      0.08
+    ],
+    "sur_assets_textures": false
+  },
+  "materiaux": {
+    "sol": {
+      "couleur": [
+        0.1,
+        0.36,
+        0.08
+      ],
+      "rugosite": 0.9
+    },
+    "batiment": {
+      "couleur": [
+        1.0,
+        0.9,
+        0.7
+      ],
+      "rugosite": 0.25
+    },
+    "toit": {
+      "couleur": [
+        0.95,
+        0.2,
+        0.1
+      ],
+      "rugosite": 0.7
+    },
+    "vegetation": {
+      "couleur": [
+        0.12,
+        0.72,
+        0.12
+      ],
+      "rugosite": 0.9
+    },
+    "roche": {
+      "couleur": [
+        0.55,
+        0.53,
+        0.5
+      ],
+      "rugosite": 0.95
+    },
+    "personnage": {
+      "couleur": [
+        1.0,
+        0.565,
+        0.01
+      ],
+      "rugosite": 0.35
+    },
+    "accessoire": {
+      "couleur": [
+        0.694,
+        0.352,
+        0.133
+      ],
+      "rugosite": 0.6
+    },
+    "accent": {
+      "couleur": [
+        1.0,
+        0.78,
+        0.0
+      ],
+      "rugosite": 0.4
+    },
+    "eau": {
+      "couleur": [
+        0.02,
+        0.3,
+        1.0
+      ],
+      "rugosite": 0.15
+    },
+    "blanc": {
+      "couleur": [
+        0.95,
+        0.95,
+        0.93
+      ],
+      "rugosite": 0.45
+    },
+    "tissu": {
+      "couleur": [
+        0.02,
+        0.02,
+        0.03
+      ],
+      "rugosite": 0.7
+    },
+    "pierre": {
+      "couleur": [
+        0.58,
+        0.55,
+        0.5
+      ],
+      "rugosite": 0.92
+    }
+  },
+  "texte_ecran": {
+    "police": "Arial",
+    "couleur": "&H00FFFFFF",
+    "contour": "&H00141018",
+    "taille_relative": 0.05,
+    "cadre": {
+      "fond": "&H00FFFFFF",
+      "bordure": "&H00008CFF",
+      "texte": "&H00281812",
+      "marge_px": 22,
+      "bordure_px": 10,
+      "pop": true
+    }
+  },
+  "sous_titres": {
+    "police": "Arial Black",
+    "couleur": "&H00FFFFFF",
+    "contour": "&H00141018",
+    "taille_relative": 0.046
+  },
+  "inspiration": "Reels de jeux de gestion/ville participative : couleurs franches, contraste fort, contours, ciel très bleu.",
+  "voix_off": {
+    "kyutai": "cml-tts/fr/1770_1028_000036-0002_enhanced.wav",
+    "vitesse": 1.2
+  }
+}

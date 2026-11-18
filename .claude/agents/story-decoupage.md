@@ -1,6 +1,6 @@
 ---
 name: story-decoupage
-description: Sous-agent du pôle Storytelling. Transforme un fichier de beats dont la voix est validée par Lucas (docs/storytelling/beats/) en découpage technique complet, plan par plan (décor chiffré, caméra, actions calées sur les mots, texte et compteur dans la zone sûre, sons, lisibilité sans le son), dans docs/storytelling/decoupage/. Ne change aucun texte. N'écrit pas de JSON : prod-realisateur traduit le découpage en fiche épisode. Appelé par story-chef après la validation de la voix par Lucas.
+description: "Sous-agent du pôle Storytelling. Transforme un fichier de beats dont la voix est validée par Lucas (docs/storytelling/beats/) en découpage technique complet, plan par plan (décor chiffré, caméra, actions calées sur les mots, texte et compteur dans la zone sûre, sons, lisibilité sans le son), dans docs/storytelling/decoupage/. Ne change aucun texte. N'écrit pas de JSON : prod-realisateur traduit le découpage en fiche épisode. Appelé par story-chef après la validation de la voix par Lucas."
 tools: Read, Grep, Glob, Write
 statut: brouillon
 ---

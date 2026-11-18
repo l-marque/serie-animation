@@ -47,6 +47,10 @@ def rendre(scene: bpy.types.Scene, timeline: dict, beats: list[str]) -> dict[str
             secours = timeline["pack_da"]["moteur"].get("secours", "CYCLES")
             if scene.render.engine == secours:
                 raise
+            if "cannot save" in str(e):
+                # Image verrouillée (ouverte dans une visionneuse…) : changer de moteur ne règle rien et
+                # Cycles est ~20 fois plus lent (incident du 2026-11-17). On s'arrête avec un message clair.
+                raise RuntimeError(f"image impossible à écrire, fermer la visionneuse qui l'ouvre : {e}") from e
             journal(f"échec du moteur {scene.render.engine} ({e}) : bascule sur {secours}")
             look.moteur(scene, timeline["pack_da"], timeline["mode"], forcer=secours)
             bpy.ops.render.render(animation=True, scene=scene.name)

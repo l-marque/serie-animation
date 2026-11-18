@@ -172,7 +172,7 @@
         "engine/assets/sons/kenney/rpg-audio/handleCoins.ogg",
         "engine/assets/sons/kenney/rpg-audio/handleCoins2.ogg"
       ],
-      "volume": 0.5,
+      "volume": 0.28,
       "categorie": "interface",
       "description": "poignée de pièces (jouée avec chaque gain « +10 »)"
     },

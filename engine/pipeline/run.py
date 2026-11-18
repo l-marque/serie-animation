@@ -147,8 +147,15 @@ def executer(args: argparse.Namespace) -> int:
         # La validation doit rester instantanée : pas de synthèse sauf demande explicite (--voix kyutai).
         auto_kyutai = voix.python_tts(args.python_tts) and not args.valider_seulement
         moteur_voix = "kyutai" if auto_kyutai else "aucune"
+        choix_pack = voix.moteur_du_pack(fiche.donnees.get("pack_da", ""))
+        if choix_pack and not args.valider_seulement:
+            moteur_voix = choix_pack
     try:
-        donnees_voix, cr_voix = voix.ajouter_voix(fiche.donnees, moteur_voix, args.voix_nom, args.python_tts)
+        reglages_voix = voix.charger_reglages_voix(fiche.source)
+        donnees_voix, cr_voix = voix.ajouter_voix(fiche.donnees, moteur_voix, args.voix_nom, args.python_tts,
+                                                  reglages_beats=reglages_voix)
+        if reglages_voix:
+            cr_voix["reglages_par_phrase"] = sorted(reglages_voix)
     except voix.VoixErreur as e:
         rapport.etape("voix", "ECHEC", erreurs=[str(e)], resume=str(e)[:200])
         return rapport.terminer(7, etape_bloquante="voix", erreurs=[str(e)])

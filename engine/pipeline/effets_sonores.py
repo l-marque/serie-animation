@@ -23,8 +23,8 @@ from . import chemins
 FREQUENCE = 48000
 DOSSIER = chemins.RACINE / "renders" / "_cache_sons"
 ACTIONS_POP = {"apparaitre", "grandir"}
-VOLUME_POP = 0.35
-VOLUME_SOUFFLE = 0.22
+VOLUME_POP = 0.18  # 0,35 jugé trop fort par Guillaume le 2026-11-17
+VOLUME_SOUFFLE = 0.025  # 0,22 puis 0,08 jugés trop forts (Guillaume, Lucas : « bruit de balai ») le 2026-11-17
 ECART_MIN_S = 0.12  # deux sons plus proches que cela sont fusionnés (vague d'apparitions d'un module)
 
 
@@ -76,7 +76,7 @@ def _piece() -> list[float]:
     return sortie
 
 
-VOLUME_PIECE = 0.3
+VOLUME_PIECE = 0.18  # 0,30 jugé trop fort par Guillaume le 2026-11-17
 
 
 def fichiers() -> dict[str, Path]:

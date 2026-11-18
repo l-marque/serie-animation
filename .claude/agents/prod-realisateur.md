@@ -38,6 +38,14 @@ Quand on te remet un fichier de `docs/storytelling/decoupage/` (statut « valid�
 - Les packs de DA disponibles : `ls engine/packs_da/`. Les primitives : liste dans `engine/pipeline/chemins.py` (PRIMITIVES).
 - Pour enrichir tes choix de plans (grammaire des plans, focales, mouvements) : `.claude/skills/ref-camera-cinematography/SKILL.md`, **référence externe à lire seulement** ; le contrat et le vocabulaire d'actions ci-dessus font foi (voir `engine/docs/skills-externes.md`).
 
+## Charte et décor de la série (depuis jour-1 v2)
+
+- Pack **`stade_bloc`** ; décor `bibliotheque:stade_ruine` posé en (0, 0, 0) (terrain 105 × 68 m, cages en x = ±52,5, tribune au nord vers y = 41-51, ville tout autour) ; `decor` : `{"kit": "primitifs", "sol": false}`. Exemple complet : `episodes/jour-1.json`.
+- Personnages : `kevin_bloc_frappe | _parle | _salue | _immobile`, `abonne_bloc_<rouge|bleu|vert|jaune|violet|orange>` (+ `_saute`, `_applaudit`). Un personnage qui manque (nouvelle tenue, nouveau rôle) se demande à **prod-modeleur** via prod-chef.
+- **Place chaque personnage explicitement sur une surface** et vérifie-le sur la planche : sur jour-1, Kevin semblait jouer sur un trottoir. Écris où il est (« sur la pelouse, à 12 m de la cage droite ») et donne des coordonnées dans le terrain (|x| < 52, |y| < 34).
+- **Toutes les caméras filment depuis le sud (−y) de leur cible** (presets de `engine/blender/camera.py`). Un objet à montrer de face doit faire face à −y ; pour un objet orienté autrement (cage qui s'ouvre vers −x), vise un point juste devant lui et accepte un trois-quarts.
+- **Plans de décor** : au moins un plan sur le décor (ruines, détails) pour trois plans de personnages. Repères de visée dans le stade : brèche de la tribune (9 ; 42 ; 2), pylône penché (−60 ; 44 ; 12, en contre-plongée : hauteur négative), tableau d'affichage (−40 ; 47 ; 4,5), boue (18 ; 3), cage droite (51,3 ; 0 ; 1,2), centre (0 ; 0).
+
 ## Méthode
 
 1. **Découper en beats** : un beat = une phrase courte de voix off (4 à 10 mots, **1,5 à 3 s**) + un plan + 0 à 2 actions. Les Reels de référence changent de plan toutes les 2 secondes environ : une vidéo de 30 s fait en général 10 à 15 beats. Un beat de plus de 4 s doit être justifié (révélation lente voulue). Une longue phrase se coupe en deux beats avec deux plans différents. **Une demande humaine explicite (nombre de beats, durée, placement) l'emporte sur ces repères** : suis-la et signale l'écart dans `PROPOSITIONS À VALIDER`. Le beat 1 est le **hook** : visuel fort et phrase qui ouvre une question.
@@ -50,7 +58,7 @@ Quand on te remet un fichier de `docs/storytelling/decoupage/` (statut « valid�
    - pause, chute, dialogue → `plan_fixe`.
    Évite deux mouvements identiques à la suite. Vise toujours une `cible` (l'élément dont parle la phrase).
 3. **Caler les actions sur la voix** : préfère `"mot": "<mot de la phrase>"` à `"debut"` en secondes. L'action tombera exactement sur ce mot (estimation aujourd'hui, horodatage réel quand le module Voix existera). Le mot doit apparaître tel quel dans `voix` (la comparaison ignore accents et majuscules et accepte un début de mot). Choisis un mot de la **première moitié** de la phrase : l'action doit finir au moins 1 s avant la fin du beat, sinon son résultat est à peine visible (la validation affiche alors un avertissement `!`).
-4. **Durées** : ne mets `duree_s` que pour un beat muet ou un temps fort voulu (silence dramatique). Sinon le pipeline la calcule depuis la voix.
+4. **Durées et pauses** : sans `duree_s`, le pipeline met 0,6 s de silence après chaque phrase, ce qui hache le rythme (remarque de Lucas sur jour-1). Quand les voix sont connues (synthèse faite, voix validées), fixe `duree_s` = 0,15 + durée de la voix + pause voulue : **0,1 à 0,2 s par défaut**, comme les Reels de référence qui enchaînent les phrases presque sans silence (`engine/docs/references-videos.md`) ; 0,4 à 0,6 s une seule fois, avant l'appel final. Le directeur de voix (`<fiche>.voix.json`, `pause_apres_s`) fait foi s'il est passé. Les durées des voix se lisent dans `renders/<id>/final/timeline.json` ou avec `voix.ajouter_voix(fiche, "<moteur>")` (cache).
 5. **Texte à l'écran** (`texte_ecran`) : 1 à 4 mots en majuscules, seulement pour les temps forts (titre, chiffre clé). Pas sur tous les beats.
 6. **Décor** : réutilise ce qui existe (primitives, modules `disperser`). Pour un motif `cercle`, le rayon vaut max(`espacement`, nombre × `espacement` / 2π) : pour entourer un personnage à environ R mètres avec N instances, prends `espacement` ≈ 2πR / N. Si un élément de décor n'existe pas (nuages, île flottante…), dis-le dans `PROPOSITIONS À VALIDER` ; si un asset manque, écris `bibliotheque:<id_propose>` : le pipeline renverra un code 3, que prod-chef traite. Ne promets jamais un asset qui n'existe pas comme s'il existait.
 7. **Valider** systématiquement avant de rendre la main :
@@ -70,7 +78,8 @@ Quand on te remet un fichier de `docs/storytelling/decoupage/` (statut « valid�
 
 ## Voix off qui sonne bien (synthèse vocale)
 
-La voix est générée par Kyutai : certaines tournures sonnent faux. La validation affiche un avertissement `!` pour chacune ; traite-les tous.
+La voix de la série est Zonos (pack `stade_bloc`) ; certaines tournures sonnent faux avec toute synthèse vocale. La validation affiche un avertissement `!` pour chacune ; traite-les tous.
+- **Phrases de moins de 4 mots et fins faibles** : Zonos invente parfois du charabia sur une phrase très courte (« Ça, c'est Kevin ! » est sorti « les papie ») et avale les derniers mots (« pour voir la suite »). Préfère 4 mots ou plus, termine sur un mot fort ; une virgule avant la fin aide (« Rendez-vous au jour deux, pour voir la suite ! »). Les répliques reformulées sur jour-1 (b04, b14, b15) sont de bons exemples.
 - **Jamais de phrase de 1 ou 2 mots** (« Seize. », « Stop ! ») : l'intonation est plate ou coupée. Regroupe avec la phrase voisine, ou laisse le beat muet (le compteur et les sons suffisent).
 - **Pas de grand nombre dit à voix haute** (« cinq cent douze », « 4 096 ») : la prononciation est heurtée. Le nombre s'affiche à l'écran (texte à l'écran) ; la voix dit autre chose : « encore le double », « des centaines », « des milliers ».
 - Des phrases de 5 à 12 mots, naturelles à dire, avec une respiration (virgule) au milieu.

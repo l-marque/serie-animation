@@ -9,6 +9,8 @@ Le registre engine/assets/registre.json décrit chaque asset :
       "poser_au_sol": true,                               # facultatif : recentre en (0, 0) et pose le bas à z = 0
       "rotation_z": 180,                                  # facultatif : correction d'orientation (degrés)
       "animation": "Idle",                                # facultatif : animation de l'asset jouée en boucle
+      "sequence": [{"nom": "Kick_Right", "image": 28}],   # facultatif : animations ponctuelles par-dessus (voir _jouer_sequence)
+      "tshirt": {"couleur": [0.8, 0.1, 0.1]},             # facultatif : t-shirt coloré sur un modèle d'un seul matériau
       "degats": {"seed": 3, "nombre": 5, "taille": 0.22, "reparation": 0.0, "gravats": 14},
                                                           # facultatif : version abîmée (voir abimer())
       "role_defaut": "batiment",                          # rôle des pièces non listées
@@ -48,7 +50,15 @@ def _importer(fichier: Path, entree: dict) -> list[bpy.types.Object]:
         col = cible.collections[0]
         if col is None:
             raise RuntimeError(f"collection '{entree['collection']}' absente de {fichier}")
-        return list(col.all_objects)
+        objets = list(col.all_objects)
+        # Les objets d'une collection ajoutée hors scène n'ont pas de matrix_world calculée (elle vaut
+        # l'identité) : sans ce rattachement temporaire, _placer effaçait leur position (bug du 2026-11-17,
+        # stade_ruine). pieces_bibliotheque les détache ensuite de toutes les collections.
+        for o in objets:
+            if bpy.context.scene.collection not in o.users_collection:
+                bpy.context.scene.collection.objects.link(o)
+        bpy.context.view_layer.update()
+        return objets
     avant = set(bpy.data.objects)
     if ext in (".glb", ".gltf"):
         bpy.ops.import_scene.gltf(filepath=str(fichier))
@@ -114,6 +124,95 @@ def _jouer_animation(objets: list[bpy.types.Object], nom: str) -> None:
         bande.repeat = max(1.0, 20000.0 / max(fin - debut, 1.0))  # ≈ 11 min à 30 i/s
 
 
+def _jouer_sequence(objets: list[bpy.types.Object], sequence: list[dict]) -> None:
+    """Joue des animations ponctuelles par-dessus l'animation de base (option « sequence »).
+
+    Chaque segment : {"nom": "Kick_Right", "image": 28, "fin_image": 55 (facultatif), "fondu": 3}.
+    `image` est l'image de l'épisode où le segment commence ; sans `fin_image`, l'animation est
+    jouée une fois. Chaque segment a sa piste NLA, au-dessus de la boucle de base, avec un fondu
+    d'entrée et de sortie : le personnage revient tout seul à l'animation de base."""
+    for arm in (o for o in objets if o.type == "ARMATURE"):
+        ad = arm.animation_data or arm.animation_data_create()
+        for seg in sequence:
+            nom = seg["nom"]
+            action = next((a for a in bpy.data.actions if a.name == nom or a.name.split("|")[-1] == nom), None)
+            if action is None:
+                raise RuntimeError(f"animation '{nom}' introuvable pour la séquence")
+            debut, fin = action.frame_range
+            piste = ad.nla_tracks.new()
+            bande = piste.strips.new(nom, int(seg["image"]), action)
+            if seg.get("fin_image"):
+                bande.repeat = max(0.1, (seg["fin_image"] - seg["image"]) / max(fin - debut, 1.0))
+            bande.extrapolation = "NOTHING"
+            duree = bande.frame_end - bande.frame_start
+            bande.blend_in = min(float(seg.get("fondu", 3)), duree / 2)
+            bande.blend_out = min(float(seg.get("fondu", 3)), duree / 2)
+
+
+# ----- t-shirt ---------------------------------------------------------------------------------
+def _colorer_tshirt(objets: list[bpy.types.Object], tshirt: dict, asset_id: str) -> None:
+    """Donne une couleur de t-shirt à un personnage d'un seul matériau (option « tshirt »).
+
+    {"couleur": [r, g, b], "zone_z": [0.5, 0.8], "os": ["Spine", "LeftArm"], "rayon": 0.2} : les faces dont le centre, dans la
+    pose courante, tombe dans la bande de hauteur `zone_z` (fractions de la hauteur) prennent une
+    copie du matériau d'origine teinte de `couleur`. `rayon` (fraction de la hauteur, facultatif)
+    écarte les faces trop loin de l'axe du corps, pour ne pas colorer les mains."""
+    boite = _boite_monde(objets)
+    if boite is None:
+        return
+    mn, mx = boite
+    h = mx.z - mn.z
+    z0, z1 = (mn.z + f * h for f in tshirt.get("zone_z", [0.5, 0.8]))
+    cx, cy = (mn.x + mx.x) / 2, (mn.y + mx.y) / 2
+    rayon = tshirt.get("rayon")
+    couleur = (*tshirt["couleur"][:3], 1.0)
+    deps = bpy.context.evaluated_depsgraph_get()
+    n = 0
+    for o in objets:
+        if o.type != "MESH":
+            continue
+        ev = o.evaluated_get(deps)
+        me_ev = ev.to_mesh()
+        if len(me_ev.polygons) != len(o.data.polygons):
+            ev.to_mesh_clear()
+            journal(f"asset {asset_id} : topologie modifiée par les modificateurs, t-shirt ignoré sur {o.name}")
+            continue
+        base = o.data.materials[0] if o.data.materials else None
+        mat = base.copy() if base else bpy.data.materials.new(f"{asset_id}_tshirt")
+        mat.name = f"{asset_id}_tshirt"
+        mat.diffuse_color = couleur
+        if mat.use_nodes:
+            for nd in mat.node_tree.nodes:
+                if nd.type == "BSDF_PRINCIPLED":
+                    entree = nd.inputs["Base Color"]
+                    for lien in list(entree.links):
+                        mat.node_tree.links.remove(lien)
+                    entree.default_value = couleur
+        o.data.materials.append(mat)
+        indice = len(o.data.materials) - 1
+        dans_os = None
+        if tshirt.get("os"):
+            # Os dominant de chaque sommet : le t-shirt suit le squelette (manches nettes au coude).
+            noms = {g.index: g.name for g in o.vertex_groups}
+            dans_os = []
+            for v in o.data.vertices:
+                g = max(v.groups, key=lambda x: x.weight, default=None)
+                nom = noms.get(g.group, "") if g else ""
+                dans_os.append(any(nom.endswith(s) for s in tshirt["os"]))
+        for p_ev, p in zip(me_ev.polygons, o.data.polygons):
+            c = ev.matrix_world @ p_ev.center
+            if dans_os is not None and sum(dans_os[i] for i in p.vertices) * 2 < len(p.vertices):
+                continue
+            if not (z0 <= c.z <= z1):
+                continue
+            if rayon and math.hypot(c.x - cx, c.y - cy) > rayon * h:
+                continue
+            p.material_index = indice
+            n += 1
+        ev.to_mesh_clear()
+    journal(f"asset {asset_id} : t-shirt coloré ({n} face(s))")
+
+
 # ----- placement -------------------------------------------------------------------------------
 def _boite_monde(objets: list[bpy.types.Object]) -> tuple[Vector, Vector] | None:
     """Boîte englobante (coordonnées monde) des maillages évalués : tient compte de la pose."""
@@ -133,7 +232,7 @@ def _boite_monde(objets: list[bpy.types.Object]) -> tuple[Vector, Vector] | None
 def _transformer_racines(objets: list[bpy.types.Object], matrice: Matrix) -> None:
     for o in objets:
         if o.parent is None:
-            o.matrix_world = matrice @ o.matrix_world
+            o.matrix_basis = matrice @ o.matrix_basis   # matrix_basis : juste même si la scène n'est pas évaluée
 
 
 def _placer(objets: list[bpy.types.Object], entree: dict, asset_id: str) -> None:
@@ -267,6 +366,10 @@ def pieces_bibliotheque(racine: Path, asset_id: str) -> list[tuple[bpy.types.Obj
     objets = _retirer_parasites(_importer(fichier, entree), entree, asset_id)
     if entree.get("animation"):
         _jouer_animation(objets, entree["animation"])
+    if entree.get("sequence"):
+        _jouer_sequence(objets, entree["sequence"])
+    if entree.get("tshirt"):
+        _colorer_tshirt(objets, entree["tshirt"], asset_id)
     _placer(objets, entree, asset_id)
     roles = entree.get("roles", {})
     sortie = []

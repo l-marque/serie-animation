@@ -76,6 +76,8 @@ Plusieurs entrées peuvent pointer vers le même fichier ; `"licence"` désigne 
 | `rotation_z` | corrige l'orientation : un asset doit regarder vers -y |
 | `animation` | animation du fichier jouée en boucle (`Idle`, `Wave`, `Interact`…) ; ex. `maire`, `maire_travaille`, `maire_salue` |
 | `degats` | version abîmée : morceaux arrachés + gravats (`seed`, `nombre`, `taille`, `zone_z`, `gravats`). `reparation` de 0 à 1 montre la **même** ruine partiellement réparée : `mairie_ruine` → `mairie_reparee_1` |
+| `sequence` | animations ponctuelles jouées par-dessus `animation`, à une image précise de l'épisode, avec fondu : `[{"nom": "Run", "image": 9, "fin_image": 29}, {"nom": "Kick_Right", "image": 29}]` (ex. `kevin_miteux_frappe` : course d'élan puis frappe) |
+| `tshirt` | t-shirt coloré sur un personnage d'un seul matériau : `{"couleur": [r, g, b], "zone_z": [0.47, 1.0], "os": ["Hips", "Spine", "LeftArm", …]}` ; les faces rattachées à ces os et dans la bande de hauteur prennent la couleur (ex. `bonhomme_rouge`, `bonhomme_bleu`…) |
 | `exclure` | objets parasites à retirer (les maillages hors armature d'un personnage le sont d'office) |
 
 ## Matériaux : style unifié ou textures d'origine

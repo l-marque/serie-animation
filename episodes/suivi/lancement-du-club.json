@@ -1,0 +1,300 @@
+{
+  "id": "lancement-du-club",
+  "titre": "La visite guidée",
+  "demande_initiale": "premier épisode de La Revanche du Miteux : Kevin, seul dans son stade en ruine, lance le club et demande de l'aide à ses abonnés",
+  "branche": "episode/lancement-du-club",
+  "etape_courante": "final",
+  "fichiers": {
+    "idee": "docs/storytelling/idees-retenues.md — entrée « 2026-11-16 — La visite guidée »",
+    "scenario": "docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md",
+    "beats": "docs/storytelling/beats/2026-11-16-la-visite-guidee.md",
+    "decoupage": "docs/storytelling/decoupage/2026-11-16-la-visite-guidee.md",
+    "fiche": "episodes/lancement-du-club.json",
+    "animatique": "renders/lancement-du-club/animatique/episode.mp4",
+    "video": "renders/lancement-du-club/final/episode.mp4"
+  },
+  "arrets": {
+    "arret_1": {
+      "statut": "valide",
+      "par": "Lucas",
+      "date": "2026-11-16T15:20:00+01:00",
+      "reponse": "Idée 1, La visite guidée, telle quelle. Points ouverts : (1) épisode 1 : Kevin pose la question « qu'est-ce qu'on répare en premier ? », les abonnés proposent en commentaire ; les 2 commentaires les plus likés deviendront les 2 cartes de choix avec leur coût à l'épisode 2. (2) Compteurs : la bible fait foi (compteurs permanents, vraies valeurs de etat.json), décidé en réunion le 2026-11-16 (points 6 et 9) ; le document de Guillaume sera mis à jour. (3) Kevin parle lui-même face caméra avec la voix n° 12, sans synchronisation des lèvres, avec des gestes (animation qui parle, bras, tête). Continue vers le scénario."
+    },
+    "arret_2": {
+      "statut": "valide",
+      "par": "Lucas",
+      "date": "2026-11-16T21:15:00+01:00",
+      "reponse": "Validé avec réserves, à transmettre à story-beats et story-decoupage. Réponses : (1) la pose bras ouverts est la pose de départ et de fin de « parle avec gestes », pas une 4e attitude ; (2) le panneau « ON RÉPARE QUOI ? » reste jusqu'à 40,0 s, hors du cadre du plan final : validé ; (3) sol : terre sèche avec des lignes blanches sommaires et une seule touffe verte (la « pelouse aux lignes sommaires » de la bible, version ratée), à confirmer par Guillaume. Réserves : (a) plan d'ouverture et de fin : Kevin en pied, bras ouverts entièrement dans le cadre 9:16 (plan moyen), même cadrage à 0,0 s et à 40,0 s ; (b) Kevin a l'attitude « parle avec gestes » de 22,5 à 27,0 s ; (c) story-beats corrige la liste des moments sans sous-titres ; (d) la voix n'a aucune marge à l'accroche, à la chute et à la phrase finale : si la voix n° 12 est plus lente que 2,5 mots par seconde, raccourcis ces phrases au lieu de déborder. Passe à la voix."
+    },
+    "arret_3": {
+      "statut": "valide",
+      "par": "Lucas",
+      "date": "2026-11-16T21:50:00+01:00",
+      "reponse": "Validé. Réponses : versions de secours seulement si la voix n° 12 déborde à l'animatique ; pas de mesure avant le découpage ; on garde les 0,7 s à la jonction de la boucle. Et je délègue l'ARRÊT 4 : valide toi-même le découpage, corrige seul ce que story-continuite relève, puis passe la main au PC de Guillaume sans me demander. Seul l'ARRÊT 5 (vidéo finale) reste pour Lucas et Guillaume. Consigne cette délégation mot pour mot dans le suivi."
+    },
+    "arret_4": {
+      "statut": "valide",
+      "par": "Guillaume (accord de Lucas rapporté par Guillaume)",
+      "date": "2026-11-16T22:05:00+01:00",
+      "reponse": "ca y est passe a la video on valide tout avec lucas"
+    },
+    "arret_5": {
+      "statut": "en_attente",
+      "par": null,
+      "date": null,
+      "reponse": null
+    }
+  },
+  "audience": {
+    "premier_episode": true,
+    "statut": "sans_objet",
+    "par": null,
+    "date": null,
+    "reponse": null,
+    "mise_a_jour_etat": {
+      "statut": "sans_objet",
+      "par": null,
+      "date": null,
+      "reponse": null
+    }
+  },
+  "machine_requise": "PC de Guillaume (Blender + GPU)",
+  "blocage": null,
+  "historique": [
+    {
+      "date": "2026-11-16T14:45:00+01:00",
+      "etape": "demarrage",
+      "evenement": "Épisode créé par /episode : id lancement-du-club, branche episode/lancement-du-club depuis main (3f2b934)."
+    },
+    {
+      "date": "2026-11-16T14:45:00+01:00",
+      "etape": "audience",
+      "evenement": "Premier épisode (aucun autre suivi, etat.json initial avec mise_a_jour null) : départ de l'état initial de la série, aucun chiffre demandé ; audience sans_objet."
+    },
+    {
+      "date": "2026-11-16T14:46:00+01:00",
+      "etape": "idee",
+      "evenement": "Appel de story-chef, passage 1 (idées + continuité), avec la demande initiale et l'état de la série."
+    },
+    {
+      "date": "2026-11-16T15:05:00+01:00",
+      "etape": "idee",
+      "evenement": "story-chef passage 1 terminé : bible sans section À DÉCIDER, 5 idées (grilles 6, 6, 5, 6, 6 sur 7), continuité : 4 OK (1, 2, 3, 5), 1 à corriger (4), aucune bloquante. Points ouverts : mécanisme des 2 choix de fin à l'épisode 1 ; 2 contradictions bible / engine/docs/exigences-production-pour-storytelling.md § 6 sur les compteurs. Rien écrit dans docs/."
+    },
+    {
+      "date": "2026-11-16T15:05:00+01:00",
+      "etape": "arret_1",
+      "evenement": "ARRÊT 1 : en attente du choix de l'idée par Lucas."
+    },
+    {
+      "date": "2026-11-16T15:20:00+01:00",
+      "etape": "arret_1",
+      "evenement": "ARRÊT 1 validé par Lucas : idée 1 « La visite guidée », telle quelle ; réponse consignée mot pour mot (mécanisme des choix à l'épisode 2, compteurs selon la bible, Kevin parle face caméra voix n° 12 sans synchro des lèvres)."
+    },
+    {
+      "date": "2026-11-16T15:20:00+01:00",
+      "etape": "scenario",
+      "evenement": "Appel de story-chef, passage 2 (consigne l'idée, scénario + continuité)."
+    },
+    {
+      "date": "2026-11-16T15:40:00+01:00",
+      "etape": "scenario",
+      "evenement": "story-chef passage 2 terminé : idée consignée dans idees-retenues.md, ligne ajoutée au § 6 de la bible (mémoire de série, « à produire »), scénario docs/storytelling/scenarios/2026-11-16-la-visite-guidee.md (40,0 s, 6/7, difficulté moyenne, 3 questions pour Lucas). Continuité : À corriger (voix de la chute et de la boucle trop longues pour leur créneau, 5 poses de Kevin non listées, chaussette verte, arbre mort, phrases d'au moins 3 mots). Avis de story-chef : une v2 avant la voix."
+    },
+    {
+      "date": "2026-11-16T15:40:00+01:00",
+      "etape": "arret_2",
+      "evenement": "ARRÊT 2 : en attente de la validation du scénario (ou d'une demande de v2) par Lucas."
+    },
+    {
+      "date": "2026-11-16T15:55:00+01:00",
+      "etape": "arret_2",
+      "evenement": "Lucas demande une v2 du scénario (ARRÊT 2 reste en attente) : corriger tous les points de continuité (a à f) ; réponses : Kevin la vingtaine, maillot jaune vif à tache rouge, short bleu, chaussettes rouge et blanche, tongs bleues, casquette rouge, validé pour toute la série ; pas de bandeau, panneau 3D « ON RÉPARE QUOI ? » ; club « FC Miteux » ; ajouter Kevin et le FC Miteux à la bible § 5. Consigne transmise mot pour mot à story-chef."
+    },
+    {
+      "date": "2026-11-16T15:55:00+01:00",
+      "etape": "scenario",
+      "evenement": "Appel de story-chef, passage 2 relancé pour la v2 du scénario."
+    },
+    {
+      "date": "2026-11-16T20:10:00+01:00",
+      "etape": "scenario",
+      "evenement": "Reprise par /episode reprendre : le passage 2 relancé pour la v2 n'a rien produit (aucun fichier -v2 dans docs/storytelling/scenarios/, bible § 5 inchangée ; session précédente interrompue). ARRÊT 2 toujours en attente ; consigne v2 de Lucas non conservée mot pour mot (seul le résumé de l'historique existe) : demande à Lucas avant relance."
+    },
+    {
+      "date": "2026-11-16T20:20:00+01:00",
+      "etape": "arret_2",
+      "evenement": "Lucas redonne sa consigne de v2 (ARRÊT 2 reste en attente), mot pour mot : « Option 2, voici ma consigne, à transmettre telle quelle à story-chef : v2 du scénario. Corrige tous les points de story-continuite : (a) chute : 15 mots au plus dans le créneau de parole, garde le silence sur la tribune vide ; (b) boucle : la phrase finale tient dans son créneau (supprime le temps « il la regarde, immobile » pour lui donner 3,5 s) et la première image est identique à la dernière (Kevin bras ouverts dès 0,0 s) ; (c) gestes : 3 attitudes seulement (« immobile », « parle avec gestes », « montre du bras ») ; (d) aucune phrase de moins de 3 mots, pas d'interjection isolée ; (e) arbre mort derrière la tribune ; (f) pas de gros plan fixe de plus de 3 s sur le visage de Kevin quand il parle (pas de synchronisation des lèvres) : alterne avec des plans moyens. Réponses : (1) Kevin : la vingtaine, maillot jaune vif à tache rouge, short bleu, chaussettes rouge et blanche, tongs bleues, casquette rouge : validé pour toute la série. (2) Pas de bandeau : la question finale est un panneau 3D « ON RÉPARE QUOI ? » qui surgit à côté de Kevin, comme les autres panneaux. (3) Le club s'appelle « FC Miteux » ; Kevin le dit dans la mise en situation. Ajoute Kevin (âge, couleurs) et le FC Miteux à la bible § 5. Ajoute aussi le stade et sa tribune aux éléments récurrents du § 5 ; la caisse et le lampadaire restent des éléments de cet épisode seulement. »"
+    },
+    {
+      "date": "2026-11-16T20:20:00+01:00",
+      "etape": "scenario",
+      "evenement": "Appel de story-chef, passage 2 relancé pour la v2 du scénario, avec la consigne de Lucas mot pour mot."
+    },
+    {
+      "date": "2026-11-16T20:35:00+01:00",
+      "etape": "scenario",
+      "evenement": "story-chef rend un état intermédiaire : story-scenario écrit la v2 en arrière-plan ; ajouts à la bible § 5 (Kevin âge et couleurs, FC Miteux, tribune) non faits, hors du cadre de story-chef et de l'orchestrateur."
+    },
+    {
+      "date": "2026-11-16T20:35:00+01:00",
+      "etape": "scenario",
+      "evenement": "Lucas, mot pour mot : « Option 1, PR séparée pour la bible après l'épisode ». Ajouts au § 5 reportés à une PR séparée après l'épisode."
+    },
+    {
+      "date": "2026-11-16T21:05:00+01:00",
+      "etape": "scenario",
+      "evenement": "story-chef passage 2 (v2) terminé : scénario v2 docs/storytelling/scenarios/2026-11-16-la-visite-guidee-v2.md (40 s, environ 75 mots, 6/7, difficulté moyenne ; v1 conservée). Continuité : À corriger, rien de bloquant (consigne a à f et 1 à 3 respectée, (c) partiellement ; plan rapproché impossible en 9:16, Kevin sans attitude de 22,5 à 27,0 s, moments sans sous-titres incomplets, plan final de 1,0 s non signalé, terre battue contre pelouse de la bible). 3 questions pour Lucas. Avis de story-chef : une v3 courte."
+    },
+    {
+      "date": "2026-11-16T21:05:00+01:00",
+      "etape": "arret_2",
+      "evenement": "ARRÊT 2 : en attente de la validation du scénario v2 (ou d'une demande de v3) par Lucas."
+    },
+    {
+      "date": "2026-11-16T21:15:00+01:00",
+      "etape": "arret_2",
+      "evenement": "ARRÊT 2 validé par Lucas, avec réserves (scénario v2) : réponses aux questions 1 à 3 (sol à confirmer par Guillaume) et réserves a à d à transmettre à story-beats et story-decoupage ; réponse consignée mot pour mot."
+    },
+    {
+      "date": "2026-11-16T21:15:00+01:00",
+      "etape": "voix",
+      "evenement": "Appel de story-chef, passage 3 (statut du scénario, voix par story-beats)."
+    },
+    {
+      "date": "2026-11-16T21:40:00+01:00",
+      "etape": "voix",
+      "evenement": "story-chef passage 3 terminé : statut du scénario v2 passé à « validé par Lucas (avec réserves) » ; beats docs/storytelling/beats/2026-11-16-la-visite-guidee.md (16 beats dont 4 muets, 40,0 s, 69 mots, 2,5 mots/s de référence, débit réel de la voix n° 12 non mesuré). Réserves a à d appliquées ou transmises à story-decoupage. 5 questions pour Lucas."
+    },
+    {
+      "date": "2026-11-16T21:40:00+01:00",
+      "etape": "arret_3",
+      "evenement": "ARRÊT 3 : en attente de la validation du texte de la voix par Lucas."
+    },
+    {
+      "date": "2026-11-16T21:50:00+01:00",
+      "etape": "arret_3",
+      "evenement": "ARRÊT 3 validé par Lucas (texte de la voix) ; réponse consignée mot pour mot dans arrets.arret_3."
+    },
+    {
+      "date": "2026-11-16T21:50:00+01:00",
+      "etape": "arret_4",
+      "evenement": "Délégation de l'ARRÊT 4 demandée par Lucas, mot pour mot : « Et je délègue l'ARRÊT 4 : valide toi-même le découpage, corrige seul ce que story-continuite relève, puis passe la main au PC de Guillaume sans me demander. Seul l'ARRÊT 5 (vidéo finale) reste pour Lucas et Guillaume. Consigne cette délégation mot pour mot dans le suivi. » Appliquée en partie : les corrections relevées par story-continuite sont faites sans demander (une boucle de correction du découpage) ; la validation de l'ARRÊT 4 n'est pas déléguée, car la règle des arrêts de /episode (sans exception, processus partagé avec Guillaume) l'interdit. Lucas peut proposer de changer cette règle par une PR relue par Guillaume."
+    },
+    {
+      "date": "2026-11-16T21:50:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Appel de story-chef, passage 4 (statut des beats, découpage + continuité, une boucle de correction si À corriger)."
+    },
+    {
+      "date": "2026-11-16T22:00:00+01:00",
+      "etape": "decoupage",
+      "evenement": "story-chef passage 4 arrêté : statut des beats passé à « validé par Lucas » ; story-decoupage introuvable (agent non chargé dans la session), aucun découpage écrit, story-continuite non lancé. L'orchestrateur n'a pas non plus cet agent : il n'écrit pas le découpage à sa place."
+    },
+    {
+      "date": "2026-11-16T22:00:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Blocage : Agent story-decoupage introuvable dans cette session (« Agent type 'story-decoupage' not found ») alors que .claude/agents/story-decoupage.md existe : Claude Code charge les agents au démarrage. Quoi faire : quitter et relancer Claude Code dans le dépôt, puis /episode reprendre lancement-du-club (le passage 4 reprend au découpage ; statut des beats déjà à jour)."
+    },
+    {
+      "date": "2026-11-16T22:02:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Correctif : le commit d8c0d30 contenait un blocage au mauvais format (chaîne au lieu d'objet), refusé par le schéma ; blocage réécrit au format du schéma."
+    },
+    {
+      "date": "2026-11-16T20:50:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Reprise par /episode reprendre sur le PC de Guillaume (session de Guillaume), après relance de Claude Code : l'agent story-decoupage est chargé dans cette session, blocage levé. Remarque : l'horloge du PC indique 20 h 50 ; les heures des lignes précédentes (jusqu'à 22 h 02) venaient de l'autre session et ne sont pas corrigées."
+    },
+    {
+      "date": "2026-11-16T20:50:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Appel de story-chef, passage 4 relancé (statut des beats déjà à jour ; découpage + continuité, une boucle de correction si À corriger)."
+    },
+    {
+      "date": "2026-11-16T20:58:00+01:00",
+      "etape": "arret_4",
+      "evenement": "Guillaume, dans la conversation, pendant que le passage 4 tourne (découpage pas encore rendu), mot pour mot : « Lucas est d'acoord avec tout il est avec change ce qu'il faut pour avancer ». Consigné comme accord de principe donné avant présentation du découpage ; l'ARRÊT 4 reste en attente : il sera présenté dès le retour de story-chef et la réponse sera demandée sur le découpage réel."
+    },
+    {
+      "date": "2026-11-16T21:10:00+01:00",
+      "etape": "decoupage",
+      "evenement": "Reprise après interruption de la session (Guillaume : « continue le projet »). Le passage 4 a produit le découpage docs/storytelling/decoupage/2026-11-16-la-visite-guidee.md (16 plans, 40,0 s, statut « proposé »), non commité ; aucun verdict de story-continuite conservé. Découpage commité tel quel ; story-chef relancé pour la seule fin du passage 4 (continuité sur le découpage existant, une boucle de correction si À corriger)."
+    },
+    {
+      "date": "2026-11-16T21:25:00+01:00",
+      "etape": "decoupage",
+      "evenement": "story-continuite sur le découpage : À corriger, rien de bloquant. 5 points : (1) p06 : le lampadaire sort du cadre vers 15,2 s ; (2) p05 : bout de tribune et main de Kevin dans le cadre alors qu'ils sont dans « ce qu'on ne doit pas voir » ; (3) bord du sol visible en p03, p15 (et p07, p08) : fond ou horizon manquant ; (4) « 6 types d'action » contredit « 5 types » dans les vérifications ; (5) mentions de cadrage inexactes (p04, p07, p09, p11). Boucle de correction par story-decoupage lancée puis interrompue par l'arrêt de l'agent : fichier non modifié, corrections non faites."
+    },
+    {
+      "date": "2026-11-16T21:45:00+01:00",
+      "etape": "arret_4",
+      "evenement": "Guillaume, mot pour mot : « ca y est passe a la video on valide tout avec lucas ». Reçu pendant que story-decoupage corrige encore le découpage (fichier pas encore modifié) : la validation sera consignée sur le découpage corrigé, dès son retour, avant le passage à la production."
+    },
+    {
+      "date": "2026-11-16T22:05:00+01:00",
+      "etape": "decoupage",
+      "evenement": "story-decoupage a corrigé les 5 points de continuité dans le fichier existant (section « Corrections après continuité (2026-11-16) »). Non corrigé : bord du sol visible en p03, p15, p07, p08 (fond ou horizon à décider par Guillaume) ; zone VIP décalée de 1 m. Rien testé."
+    },
+    {
+      "date": "2026-11-16T22:05:00+01:00",
+      "etape": "arret_4",
+      "evenement": "ARRÊT 4 validé par Guillaume, qui rapporte l'accord de Lucas, mot pour mot : « ca y est passe a la video on valide tout avec lucas » ; appliqué au découpage corrigé."
+    },
+    {
+      "date": "2026-11-16T22:05:00+01:00",
+      "etape": "fiche",
+      "evenement": "Blender 5.3 présent sur le PC de Guillaume. Appel de story-chef, passage 5 (statut du découpage, remise à la production)."
+    },
+    {
+      "date": "2026-11-16T22:15:00+01:00",
+      "etape": "fiche",
+      "evenement": "story-chef passage 5 terminé : statut du découpage passé à « validé par Guillaume et Lucas le 2026-11-16 (accord de Lucas rapporté par Guillaume) » (seule ligne modifiée, vérifiée par git diff) ; bloc REMISE À LA PRODUCTION rendu (14 points à confirmer par Guillaume, 11 briques manquantes)."
+    },
+    {
+      "date": "2026-11-16T22:15:00+01:00",
+      "etape": "fiche",
+      "evenement": "Appel de prod-chef : fiche par prod-realisateur, validation, puis contenu de la plaquette Figma ; aucun rendu avant validation de la plaquette par Guillaume."
+    },
+    {
+      "date": "2026-11-16T22:50:00+01:00",
+      "etape": "fiche",
+      "evenement": "Fiche episodes/lancement-du-club.json écrite par prod-realisateur (v1.1, durées imposées, Kevin échangé sur les coupes). 9 propositions à valider (pack_da test_lowpoly provisoire, rotation des buts, id de série, habillage.json non écrit, etc.)."
+    },
+    {
+      "date": "2026-11-16T22:50:00+01:00",
+      "etape": "fiche",
+      "evenement": "Validation --valider-seulement : code 3 (bibliothécaire), 8 assets manquants ; candidats proposés par prod-chef, rien téléchargé. Contenu de la plaquette Figma préparé, plaquette non créée. Blocage : choix des assets par Guillaume."
+    },
+    {
+      "date": "2026-11-16T22:55:00+01:00",
+      "etape": "fiche",
+      "evenement": "Guillaume, mot pour mot : « je valide et ce qu'il te manque crée le ou fouille plus dans les api ». Interprété : candidats proposés acceptés (tribune, but, caisse, touffe en primitive, texture de terre), recherche approfondie par API ou création pour ce qui manque (Kevin en priorité). Appel de prod-chef pour l'intégration des assets."
+    },
+    {
+      "date": "2026-11-16T23:05:00+01:00",
+      "etape": "plaquette",
+      "evenement": "Guillaume demande où est la plaquette Figma : elle n'était pas créée. Tentative de création : connecteur Figma non connecté dans cette session. Blocage consigné ; aucune autre plaquette de remplacement."
+    },
+    {
+      "date": "2026-11-16T23:12:00+01:00",
+      "etape": "plaquette",
+      "evenement": "Guillaume, mot pour mot : « ensuite je valide la plaquette avec lucas enchaine direct et finis la viéo direct on autorise tout », puis « juste adapte le hud à la vidéo ». Plaquette créée dans Figma : page « lancement-du-club — plaquette » du fichier HUD (https://www.figma.com/design/4jgvjoxBzwQDQfoXgwW0Fs, node 11:40), HUD du Kit adapté sur b01, b05, b14 (2 compteurs à 0, aucun gain, carte ni bandeau). Validation donnée d'avance par Guillaume et Lucas."
+    },
+    {
+      "date": "2026-11-16T23:20:00+01:00",
+      "etape": "fiche",
+      "evenement": "Assets complétés : kevin_parle (Idle_Neutral), kevin_montre_g et kevin_montre_d (Interact), kevin_immobile (Idle) sur kevin_base (Quaternius, CC0) ; terrain_miteux et touffe_herbe créés par engine/outils/creer_assets_stade.py. Pack de DA « stade » dérivé de village_six_seven (voix n° 12, HDRI nuageux CC0, asphalte gris). Validation : code 0. Lancement de l'animatique."
+    },
+    {
+      "date": "2026-11-16T23:25:00+01:00",
+      "etape": "animatique",
+      "evenement": "Animatique 1 : code 2, voix n° 12 plus longue que b05, b06, b08, b09. Durées redistribuées sans changer le total (40,0 s) ni le texte : b02 2,3 ; b04 2,15 ; b05 3,7 ; b06 2,45 ; b08 2,35 ; b09 2,15 ; b12 2,4 ; b14 3,7. Animatique 2 : tribune géante (modèle de 22 m, hauteur fixée à 4,5 m), but à 2,4 m, Kevin absent en b01 (élément réapparu : copies kevin_k0_parle_b14 et _b16). Animatique 3 : tribune tournée de 180°, asphalte foncé ; code 0, QA automatique sans problème."
+    },
+    {
+      "date": "2026-11-16T23:40:00+01:00",
+      "etape": "final",
+      "evenement": "Rendu final : code 0, QA automatique sans problème. Vidéo : renders/lancement-du-club/final/episode.mp4. ARRÊT 5 (vidéo finale) en attente de Lucas et Guillaume. Rien n'est publié."
+    }
+  ]
+}

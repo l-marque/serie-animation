@@ -113,6 +113,45 @@
         "majuscules": {
           "type": "boolean",
           "description": "Sous-titres en capitales (défaut : oui)."
+        },
+        "cadre": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "fond",
+            "bordure"
+          ],
+          "description": "Texte à l'écran : encadré (fond plein + bordure) et apparition en « pop ». Absent = texte simple avec contour.",
+          "properties": {
+            "fond": {
+              "$ref": "#/$defs/couleur_ass",
+              "description": "Couleur du cadre."
+            },
+            "bordure": {
+              "$ref": "#/$defs/couleur_ass",
+              "description": "Couleur du liseré autour du cadre."
+            },
+            "texte": {
+              "$ref": "#/$defs/couleur_ass",
+              "description": "Couleur du texte dans le cadre (défaut : couleur du texte à l'écran)."
+            },
+            "marge_px": {
+              "type": "number",
+              "minimum": 2,
+              "maximum": 60,
+              "description": "Marge intérieure du cadre à 1920 px de haut (défaut 20)."
+            },
+            "bordure_px": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 30,
+              "description": "Épaisseur du liseré à 1920 px de haut (défaut 9)."
+            },
+            "pop": {
+              "type": "boolean",
+              "description": "Apparition avec rebond (défaut : oui)."
+            }
+          }
         }
       }
     }
@@ -352,6 +391,129 @@
         "kyutai": {
           "type": "string",
           "description": "Identifiant d'une voix du dépôt kyutai/tts-voices, ex. cml-tts/fr/<id>_enhanced.wav"
+        },
+        "vitesse": {
+          "type": "number",
+          "minimum": 0.8,
+          "maximum": 1.5,
+          "description": "Débit de la voix : 1,0 = débit du modèle, 1,2 = 20 % plus rapide (accélération sans changer la hauteur)."
+        },
+        "moteur": {
+          "enum": [
+            "kyutai",
+            "qwen",
+            "zonos",
+            "windows",
+            "aucune"
+          ],
+          "description": "Moteur de voix de la série (choix humain). Par défaut : kyutai si TTS_PYTHON est configuré."
+        },
+        "zonos": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Réglages Zonos (engine/voix/zonos_worker.py).",
+          "properties": {
+            "reference": {
+              "type": "string",
+              "description": "WAV du timbre, relatif à la racine du dépôt"
+            },
+            "langue": {
+              "type": "string"
+            },
+            "emotion": {
+              "type": "array",
+              "items": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "minItems": 8,
+              "maxItems": 8,
+              "description": "[bonheur, tristesse, dégoût, peur, surprise, colère, autre, neutre]"
+            },
+            "debit": {
+              "type": "number",
+              "minimum": 5,
+              "maximum": 30
+            },
+            "variation_hauteur": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 400
+            },
+            "graine": {
+              "type": "integer"
+            },
+            "essais": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12,
+              "description": "Versions générées par phrase ; la plus propre est gardée"
+            },
+            "syllabes_par_s": {
+              "type": "number",
+              "minimum": 3,
+              "maximum": 10,
+              "description": "Débit attendu pour juger les versions"
+            },
+            "seuil_transcription": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1,
+              "description": "Similarité minimale entre le texte et la transcription Whisper d'une version"
+            },
+            "verificateur": {
+              "type": "string",
+              "description": "Modèle Whisper de vérification (défaut openai/whisper-small)"
+            }
+          }
+        },
+        "qwen": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "Réglages Qwen3-TTS (engine/voix/qwen_worker.py).",
+          "properties": {
+            "modele": {
+              "type": "string"
+            },
+            "locuteur": {
+              "type": "string"
+            },
+            "langue": {
+              "type": "string"
+            },
+            "consigne": {
+              "type": "string",
+              "description": "Consigne de jeu par défaut, en français"
+            },
+            "essais": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 12
+            },
+            "seuil_transcription": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "mots_par_minute": {
+              "type": "number",
+              "minimum": 80,
+              "maximum": 260
+            },
+            "verificateur": {
+              "type": "string"
+            },
+            "graine": {
+              "type": "integer"
+            },
+            "expressivite_min": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 12,
+              "description": "Variation de hauteur minimale visée (demi-tons) pour une phrase de 4 mots ou plus"
+            }
+          }
         }
       }
     }
