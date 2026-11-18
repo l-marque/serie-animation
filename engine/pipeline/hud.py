@@ -5,7 +5,8 @@ Styles repris du kit Figma « Série animation — Outils d'affichage (HUD) » :
   il apparaît quand on en parle (pop), compte jusqu'à la nouvelle valeur, puis disparaît ;
 - gain : « +10 » doré cerné de bleu nuit avec une pièce, qui monte et s'efface (façon jeu vidéo),
   accompagné du son de pièce ;
-- badge : pastille d'épisode (« JOUR 2 ») affichée en continu, en haut à droite par défaut.
+- badge : pastille d'épisode (« JOUR 2 ») affichée en continu, en haut à droite par défaut ;
+- chrono : compte à rebours « 7J 00:00:00 » qui défile pendant l'épisode (même pastille que le badge).
 
 Décrit dans `<fiche>.habillage.json` (clé "hud"), donc hors contrat v1.0. Chaque élément est rendu
 en une courte séquence PNG transparente (Pillow), superposée par ffmpeg à l'instant voulu : rien
@@ -263,6 +264,41 @@ def _sequence_badge(e: dict[str, Any], fps: int, echelle: float, dossier: Path) 
     return n, l, h
 
 
+def texte_chrono(secondes: float) -> str:
+    """« 6J 23:59:12 » : jours en jaune, puis heures, minutes et secondes."""
+    s = max(0, int(math.ceil(secondes)))
+    j, r = divmod(s, 86400)
+    h, r = divmod(r, 3600)
+    m, s = divmod(r, 60)
+    return f"*{j}J* {h:02d}:{m:02d}:{s:02d}"
+
+
+def _sequence_chrono(e: dict[str, Any], fps: int, echelle: float, dossier: Path) -> tuple[int, int, int]:
+    """Compte à rebours : part de `depart_s` (défaut 7 jours) et descend de `vitesse` secondes par seconde
+    de vidéo. Toile de taille fixe (la plus large valeur), pop à l'entrée, sortie rapide à la fin."""
+    depart, vitesse = float(e.get("depart_s", 7 * 86400)), float(e.get("vitesse", 1.0))
+    duree = e["fin_s"] - e["debut_s"]
+    n = max(1, round(duree * fps))
+    gabarit = badge("*0J* 00:00:00", echelle)
+    l, h = round(gabarit.width * 1.25), round(gabarit.height * 1.25)
+    precedent, image = None, None
+    for i in range(n):
+        t = i / fps
+        if t < DUREE_POP_S:
+            s = _rebond(t / DUREE_POP_S)
+        elif t > duree - DUREE_SORTIE_S:
+            s = max(0.0, (duree - t) / DUREE_SORTIE_S)
+        else:
+            s = 1.0
+        texte = texte_chrono(depart - vitesse * t)
+        if s != 1.0 or texte != precedent or image is None:
+            image = Image.new("RGBA", (l, h), (0, 0, 0, 0))
+            _poser(image, badge(texte, echelle), s, 1.0, (l // 2, h // 2))
+            precedent = texte if s == 1.0 else None
+        image.save(dossier / f"{i:04d}.png")
+    return n, l, h
+
+
 def preparer(hud: list[dict[str, Any]], fps: int, largeur: int, hauteur: int, dossier: Path) -> list[Sequence]:
     """Rend chaque élément du HUD en séquence PNG.
 
@@ -295,9 +331,9 @@ def preparer(hud: list[dict[str, Any]], fps: int, largeur: int, hauteur: int, do
             else:
                 fx, fy = pos
                 x, y = round(largeur * fx - l / 2), round(hauteur * fy - h / 2)
-        elif e["type"] == "badge":
-            n, l, h = _sequence_badge(e, fps, echelle, d)
-            fx, fy, aligne, sens = ANCRES[e.get("position", ANCRE_BADGE_DEFAUT)]
+        elif e["type"] in ("badge", "chrono"):
+            n, l, h = (_sequence_badge if e["type"] == "badge" else _sequence_chrono)(e, fps, echelle, d)
+            fx, fy, aligne, sens = ANCRES[e.get("position", ANCRE_BADGE_DEFAUT if e["type"] == "badge" else "haut_centre")]
             ax = round(largeur * fx)
             marge = round((l - l / 1.2) / 2)  # bord transparent laissé pour le rebond
             x = {"gauche": ax - marge, "centre": ax - l // 2, "droite": ax - l + marge}[aligne]

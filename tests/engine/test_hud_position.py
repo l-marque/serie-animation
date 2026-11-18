@@ -69,3 +69,10 @@ def test_sons_ignore_le_badge():
     specs = [{"type": "badge", "texte": "JOUR *2*", "beat": "b1", "debut_s": 0, "fin_s": 3},
              {"type": "compteur", "beat": "b1", "valeur": 0, "vers": 10, "debut_s": 1, "fin_s": 3}]
     assert [nom for nom, _ in hud.sons(specs)] == ["piece"]
+
+
+def test_chrono_defile(tmp_path):
+    assert hud.texte_chrono(7 * 86400) == "*7J* 00:00:00"
+    assert hud.texte_chrono(7 * 86400 - 1) == "*6J* 23:59:59"
+    (s,) = hud.preparer([{"type": "chrono", "beat": "b1", "debut_s": 0, "fin_s": 3}], FPS, L, H, tmp_path)
+    assert s.nb_images == 30 and s.x + s.largeur / 2 == pytest.approx(L / 2, abs=2) and s.y < H / 3

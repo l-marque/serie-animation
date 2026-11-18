@@ -11,7 +11,7 @@
 
 - **Deux îles** : une pour Instagram, une pour YouTube.
 - **Sept jours** pour construire la meilleure base et la meilleure défense. Au septième jour, les deux îles s'attaquent ; la meilleure gagne. Le compte à rebours est au cœur de chaque épisode.
-- **Économie** : 1 abonné = 100 pièces ; 1 like = 10 pièces. Chaque île a sa cagnotte, alimentée par sa plateforme.
+- **Économie** : 1 abonné = 100 pièces, et l'île de sa plateforme s'agrandit ; 1 like = 10 pièces. Chaque île a sa cagnotte, alimentée par sa plateforme.
 - **Construction** : chaque jour, le commentaire le plus liké de chaque plateforme décide de ce qui est ajouté sur son île. Il n'y a pas de choix imposé.
 - **Habitants** : chaque abonné vit sur l'île de sa plateforme, avec son pseudo, et se battra le jour de l'attaque.
 - **Style** : personnages en blocs, comme La Revanche du Miteux (`perso_bloc.py`).
@@ -49,7 +49,7 @@ b02  À gauche, l'île d'Instagram. À droite, l'île de YouTube.
 b03  Pour l'instant, elles sont vides, et c'est vous qui allez les construire.
 b04  Il ne reste que sept jours pour bâtir la meilleure base et la meilleure défense.
 b05  Car au septième jour, les deux îles s'attaquent, et une seule gagnera !
-b06  Chaque abonné rapporte cent pièces.
+b06  Chaque abonné rapporte cent pièces, et agrandit son île !
 b07  Chaque like en rapporte dix.
 b08  Avec ces pièces, on peut construire des maisons, des remparts, des tours...
 b09  et même des crocodiles autour de l'île !
@@ -81,7 +81,7 @@ Repère : x de l'île Instagram (à gauche, x = −20) vers l'île YouTube (à d
 | b03 | plan sur une île vide | — |
 | b04 | plan large, les deux îles | titre « IL RESTE 7 JOURS » |
 | b05 | les deux îles face à face, caméra basse au ras de l'eau | titre « JOUR 7 : L'ATTAQUE » |
-| b06 | gros plan sur le compteur de pièces d'une île | gain « +100 » sur « cent » |
+| b06 | plan sur l'île Instagram | gain « +100 » sur « cent » ; l'île grandit sur « agrandit » |
 | b07 | idem | gain « +10 » sur « dix » |
 | b08 | plan sur une île | une maison, puis un rempart, puis une tour apparaissent et disparaissent l'une après l'autre, sur « maisons », « remparts », « tours » |
 | b09 | plan au ras de l'eau | trois crocodiles sortent de l'eau autour de l'île, puis disparaissent |
@@ -97,7 +97,7 @@ Repère : x de l'île Instagram (à gauche, x = −20) vers l'île YouTube (à d
 | b01 | ruban « ALERTE ! » |
 | b04 | IL RESTE *7* JOURS |
 | b05 | JOUR *7* : L'ATTAQUE |
-| b06 | 1 ABONNÉ = *100* PIÈCES |
+| b06 | 1 ABONNÉ = *100* PIÈCES \| + L'ÎLE S'AGRANDIT |
 | b07 | 1 LIKE = *10* PIÈCES |
 | b11 | TOP COMMENTAIRE = ON CONSTRUIT ↓ |
 | b12 | bannière INSTAGRAM *VS* YOUTUBE |

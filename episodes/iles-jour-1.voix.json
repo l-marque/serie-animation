@@ -1,0 +1,134 @@
+{
+  "version": "1.0",
+  "mots_par_minute": 180,
+  "_note": "prod-directeur-voix, 2026-11-18. Même voix que jour-2 de La Revanche du Miteux : Qwen3-TTS Base (Qwen/Qwen3-TTS-12Hz-1.7B-Base) en copie de voix (ICL) depuis renders/jour-1/essais_voix/qwen/reference_jeune_narrateur.wav (texte de référence : « Il rêve de devenir pro ! Rendez-vous au jour deux, pour voir la suite ! »). Le mode copie de voix n'accepte pas de consigne de jeu : consigne et emotion servent à la relecture ; le ton vient de la référence et du choix des prises (repère : jour-2 b01_p2). Aucune retouche audio : seuls le retrait du silence autour de la voix (queue gardée jusqu'à -50 dB), la pause et la normalisation du volume. b06 et b07 (5 mots) : débit non visé par phrase. texte_synthese : même mots que la fiche, seule la ponctuation donnée au modèle change (respirations, pour ralentir les phrases sans virgule qui sortaient à 240-270 mots/min).",
+  "beats": {
+    "b01": {
+      "intention": "alarme : choc et urgence dès la première syllabe, puis la menace",
+      "emotion": "surpris",
+      "mots_par_minute": 190,
+      "consigne": "Urgent et choqué, comme si une alarme venait de sonner : crie presque « Alerte ! », puis énergique, appuie sur « sept jours » et « rayée de la carte ».",
+      "pause_apres_s": 0.12,
+      "decoupage": {
+        "b01a": {
+          "texte": "Alerte !",
+          "texte_synthese": "ALERTE !",
+          "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b01a_maj_p53.wav",
+          "pause_apres_s": 0.08,
+          "intention": "cri d'alarme, urgence"
+        },
+        "b01b": {
+          "texte": "Dans sept jours, une de ces deux îles sera rayée de la carte !",
+          "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b01b_p53.wav",
+          "pause_apres_s": 0.12,
+          "intention": "menace, urgent et rapide"
+        }
+      },
+      "remarque": "Demande de Guillaume (2026-11-18) : « Alerte » crié en mode urgence ; b01 dit en deux phrases complètes, chacune entière selon Whisper, sans retouche."
+    },
+    "b02": {
+      "intention": "présentation des deux camps, énergique et complice",
+      "emotion": "complice",
+      "mots_par_minute": 180,
+      "consigne": "Énergique et complice, la voix monte sur « Instagram » puis sur « YouTube », comme on présente deux équipes.",
+      "pause_apres_s": 0.12,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b02_p8.wav"
+    },
+    "b03": {
+      "intention": "constat puis promesse à l'abonné",
+      "emotion": "complice",
+      "mots_par_minute": 180,
+      "consigne": "Complice : posé sur « elles sont vides », puis appuie franchement sur « c'est vous ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b03_p0.wav"
+    },
+    "b04": {
+      "intention": "compte à rebours, enjeu",
+      "emotion": "determine",
+      "mots_par_minute": 185,
+      "consigne": "Décidé et pressant, appuie sur « sept jours » et sur « meilleure défense ».",
+      "pause_apres_s": 0.12,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b04_ponct_p20.wav",
+      "texte_synthese": "Il ne reste que sept jours, pour bâtir la meilleure base, et la meilleure défense."
+    },
+    "b05": {
+      "intention": "la menace finale, dramatique",
+      "emotion": "determine",
+      "mots_par_minute": 180,
+      "consigne": "Dramatique et tendu : la voix monte sur « s'attaquent », appuie fort sur « une seule ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b05_p13.wav"
+    },
+    "b06": {
+      "intention": "règle du jeu, chiffre clé puis bonus : l'île grandit",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 185,
+      "consigne": "Enthousiaste, appuie sur « cent pièces », puis la voix monte sur « agrandit son île ».",
+      "pause_apres_s": 0.1,
+      "remarque": "Texte changé par Guillaume le 2026-11-18 (« Chaque abonné rapporte cent pièces, et agrandit son île ! ») : b06 recréée entièrement, prises b06_p60 et suivantes.",
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b06_p63.wav"
+    },
+    "b07": {
+      "intention": "suite de la règle, plus léger",
+      "emotion": "complice",
+      "consigne": "Complice, appuie sur « dix ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b07_p3.wav"
+    },
+    "b08": {
+      "intention": "énumération qui monte, la voix reste en l'air",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 185,
+      "consigne": "Énumération qui monte : « maisons », « remparts », « tours », la voix reste en l'air sur « tours... ».",
+      "pause_apres_s": 0.1,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b08_p0.wav"
+    },
+    "b09": {
+      "intention": "chute amusante de l'énumération",
+      "emotion": "joyeux",
+      "mots_par_minute": 180,
+      "consigne": "Amusé et surpris, avec un sourire : appuie sur « crocodiles ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b09_ponct_p25.wav",
+      "texte_synthese": "et même... des crocodiles autour de l'île !"
+    },
+    "b10": {
+      "intention": "les abonnés deviennent habitants, fierté",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 180,
+      "consigne": "Fier et énergique, appuie sur « son pseudo » et « prêt à se battre ».",
+      "pause_apres_s": 0.12,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b10_p11.wav"
+    },
+    "b11": {
+      "intention": "règle de construction, explication claire et vive",
+      "emotion": "complice",
+      "mots_par_minute": 185,
+      "consigne": "Clair et vif, appuie sur « commentaire le plus liké » et « décide ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b11_ponct_p20.wav",
+      "texte_synthese": "Chaque jour, le commentaire le plus liké de chaque plateforme, décide de ce qu'on construit."
+    },
+    "b12": {
+      "intention": "le duel, question qui monte",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 175,
+      "consigne": "Duel annoncé : appuie sur « contre », la voix monte sur la question « qui aura la meilleure île ? ».",
+      "pause_apres_s": 0.2,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b12_p3.wav"
+    },
+    "b13": {
+      "intention": "au revoir joyeux, donne envie de revenir",
+      "emotion": "joyeux",
+      "mots_par_minute": 185,
+      "consigne": "Joyeux et entraînant, on entend le sourire, appuie sur « jour deux » ; donne envie de revenir.",
+      "pause_apres_s": 0.0,
+      "prise": "renders/iles-jour-1/essais_voix/qwen/candidats/b13_ponct_p32.wav",
+      "texte_synthese": "Rendez-vous au jour deux ! Pour savoir laquelle des deux îles, sera la meilleure !"
+    }
+  },
+  "fichier_complet": "renders/iles-jour-1/essais_voix/iles-jour-1_voix_qwen.wav",
+  "validation": {
+    "fichier_complet": "généré et vérifié par Whisper le 2026-11-18, non écouté par un humain"
+  }
+}

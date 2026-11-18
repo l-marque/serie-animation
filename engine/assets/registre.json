@@ -1720,7 +1720,7 @@
       "ajoute_le": "2026-11-18",
       "echelle_verifiee": true,
       "licence": "iles_duel",
-      "remarque": "série « 7 Jours avant l'Attaque » : placer en [0, 0, 0]. Île Instagram centrée en (-20, 0, 0), île YouTube en (20, 0, 0), environ 18 m de diamètre au niveau de l'eau ; herbe plate à z = 0 jusqu'à un rayon de 6,5 m au moins (rayon 5 m libre au centre) ; sable en pente douce jusqu'à l'eau ; mer à z = -0,3 (3 km de côté). Mâts de 6 m en (±20, 6, 0), drapeaux 2,6 × 1,6 m tournés vers +x (vus de face depuis le sud) qui ondulent seuls (modificateur Onde, animé par le numéro d'image). Repères : REP_ile_instagram, REP_ile_youtube (centre, z = 1), REP_drapeau_instagram, REP_drapeau_youtube, REP_centre, REP_bras_de_mer. 7 500 triangles"
+      "remarque": "série « 7 Jours avant l'Attaque » : placer en [0, 0, 0]. Île Instagram centrée en (-11, 0, 0), île YouTube en (11, 0, 0) (rapprochées le 2026-11-18 pour remplir le 9:16), environ 18 m de diamètre au niveau de l'eau ; bras de mer de 4,6 m au plus étroit (plages resserrées côté bras de mer, lagons qui se rejoignent) ; herbe plate à z = 0 jusqu'à un rayon de 6,5 m au moins (rayon 5 m libre au centre) ; sable en pente douce jusqu'à l'eau ; mer à z = -0,3 (3 km de côté). Mâts de 6 m en (±11, 6, 0), drapeaux 2,6 × 1,6 m tournés vers +x (vus de face depuis le sud) qui ondulent seuls (modificateur Onde, animé par le numéro d'image). Repères : REP_ile_instagram (-11, 0, 1), REP_ile_youtube (11, 0, 1), REP_drapeau_instagram (-9,7 ; 6 ; 5), REP_drapeau_youtube (12,3 ; 6 ; 5), REP_centre (0, 0, 1), REP_bras_de_mer (0, 0, -0,3). Plan large vérifié : caméra (0, -45, 28) vers (0, 0, 1), 20 mm. 8 050 triangles. Version en trois assets séparés (île qui s'agrandit) : mer_iles + ile_instagram + ile_youtube, même image au pixel près"
     },
     "maison_bloc": {
       "fichier": "engine/assets/modeles/maison_bloc/maison_bloc.glb",
@@ -2019,6 +2019,48 @@
       "licence": "personnages_bloc",
       "animation": "Jump",
       "remarque": "Jump : sommet du saut à l'image 11 (24 images)"
+    },
+    "mer_iles": {
+      "fichier": "engine/assets/modeles/mer_iles/mer_iles.blend",
+      "collection": "Mer",
+      "echelle": 1.0,
+      "materiaux": "origine",
+      "roles": {},
+      "principal": null,
+      "source": "création du projet (engine/outils/atelier/modeles/iles_duel.py)",
+      "ajoute_le": "2026-11-18",
+      "echelle_verifiee": true,
+      "licence": "iles_duel",
+      "role_defaut": "sol",
+      "remarque": "mer seule de iles_duel (plan de 3 km à z = -0,3, lagon turquoise clair autour des îles en x = ±11, qui reste fixe si une île grandit) ; placer en [0, 0, 0] ; repère REP_bras_de_mer ; 2 triangles"
+    },
+    "ile_instagram": {
+      "fichier": "engine/assets/modeles/ile_instagram/ile_instagram.blend",
+      "collection": "Ile",
+      "echelle": 1.0,
+      "materiaux": "origine",
+      "roles": {},
+      "principal": null,
+      "source": "création du projet (engine/outils/atelier/modeles/iles_duel.py)",
+      "ajoute_le": "2026-11-18",
+      "echelle_verifiee": true,
+      "licence": "iles_duel",
+      "role_defaut": "sol",
+      "remarque": "île instagram seule de iles_duel (sable, herbe, écume, palmier, rochers, mât et drapeau qui ondule) ; placer en [-11, 0, 0]. Origine au centre de l'île à z = 0 (niveau de l'herbe) ; toutes les pièces sont enfants de l'empty « ILE_instagram » : une mise à l'échelle depuis l'origine fait grandir l'île sur place, herbe toujours à z = 0. Vérifié à l'échelle 1,2 : bord de sable dans l'eau, écume visible, pas de trou avec le lagon ; l'écume est posée sur le sable et reste visible jusqu'à l'échelle 1,4 environ (au-delà : plage sans écume, toujours propre). Attention : à 1,2 et plus, les deux plages se touchent presque dans le bras de mer (4,6 m à l'échelle 1, environ 2,7 m si une seule île est à 1,2). Repères REP_ile_instagram (0, 0, 1) et REP_drapeau_instagram (1,3 ; 6 ; 5) en coordonnées de l'île ; 4088 triangles"
+    },
+    "ile_youtube": {
+      "fichier": "engine/assets/modeles/ile_youtube/ile_youtube.blend",
+      "collection": "Ile",
+      "echelle": 1.0,
+      "materiaux": "origine",
+      "roles": {},
+      "principal": null,
+      "source": "création du projet (engine/outils/atelier/modeles/iles_duel.py)",
+      "ajoute_le": "2026-11-18",
+      "echelle_verifiee": true,
+      "licence": "iles_duel",
+      "role_defaut": "sol",
+      "remarque": "île youtube seule de iles_duel (sable, herbe, écume, palmier, rochers, mât et drapeau qui ondule) ; placer en [11, 0, 0]. Origine au centre de l'île à z = 0 (niveau de l'herbe) ; toutes les pièces sont enfants de l'empty « ILE_youtube » : une mise à l'échelle depuis l'origine fait grandir l'île sur place, herbe toujours à z = 0. Vérifié à l'échelle 1,2 : bord de sable dans l'eau, écume visible, pas de trou avec le lagon ; l'écume est posée sur le sable et reste visible jusqu'à l'échelle 1,4 environ (au-delà : plage sans écume, toujours propre). Attention : à 1,2 et plus, les deux plages se touchent presque dans le bras de mer (4,6 m à l'échelle 1, environ 2,7 m si une seule île est à 1,2). Repères REP_ile_youtube (0, 0, 1) et REP_drapeau_youtube (1,3 ; 6 ; 5) en coordonnées de l'île ; 3964 triangles"
     }
   }
 }

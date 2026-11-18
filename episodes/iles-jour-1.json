@@ -20,10 +20,32 @@
   },
   "elements": [
     {
-      "id": "scene",
-      "asset": "bibliotheque:iles_duel",
+      "id": "mer",
+      "asset": "bibliotheque:mer_iles",
       "position": [
         0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "ile_insta",
+      "asset": "bibliotheque:ile_instagram",
+      "position": [
+        -11,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "ile_yt",
+      "asset": "bibliotheque:ile_youtube",
+      "position": [
+        11,
         0,
         0
       ],
@@ -45,7 +67,7 @@
       "id": "rep_insta",
       "asset": "primitif:repere",
       "position": [
-        -20,
+        -11,
         0,
         0
       ],
@@ -56,7 +78,7 @@
       "id": "rep_croc",
       "asset": "primitif:repere",
       "position": [
-        -20,
+        -11,
         -9,
         0
       ],
@@ -67,7 +89,7 @@
       "id": "maison",
       "asset": "bibliotheque:maison_bloc",
       "position": [
-        -20,
+        -11,
         0,
         0
       ],
@@ -79,7 +101,7 @@
       "id": "rempart",
       "asset": "bibliotheque:rempart_bloc",
       "position": [
-        -20,
+        -11,
         0,
         0
       ],
@@ -91,7 +113,7 @@
       "id": "tour",
       "asset": "bibliotheque:tour_bloc",
       "position": [
-        -20,
+        -11,
         0,
         0
       ],
@@ -103,7 +125,7 @@
       "id": "croco_1",
       "asset": "bibliotheque:crocodile_bloc",
       "position": [
-        -26.55,
+        -17.55,
         -9.82,
         -0.45
       ],
@@ -115,7 +137,7 @@
       "id": "croco_2",
       "asset": "bibliotheque:crocodile_bloc",
       "position": [
-        -20.0,
+        -11.0,
         -11.8,
         -0.45
       ],
@@ -127,7 +149,7 @@
       "id": "croco_3",
       "asset": "bibliotheque:crocodile_bloc",
       "position": [
-        -13.45,
+        -4.45,
         -9.82,
         -0.45
       ],
@@ -139,7 +161,7 @@
       "id": "tag_1",
       "asset": "bibliotheque:etiquette_pseudo",
       "position": [
-        -16,
+        -7,
         -1.05,
         2.15
       ],
@@ -151,7 +173,7 @@
       "id": "tag_2",
       "asset": "bibliotheque:etiquette_pseudo",
       "position": [
-        -13,
+        -4,
         -1.05,
         2.15
       ],
@@ -163,7 +185,7 @@
       "id": "tag_3",
       "asset": "bibliotheque:etiquette_pseudo",
       "position": [
-        13,
+        4,
         -1.05,
         2.15
       ],
@@ -175,7 +197,7 @@
       "id": "tag_4",
       "asset": "bibliotheque:etiquette_pseudo",
       "position": [
-        16,
+        7,
         -1.05,
         2.15
       ],
@@ -189,7 +211,7 @@
       "id": "h1",
       "asset": "bibliotheque:habitant_iles_violet_saute",
       "position": [
-        -16,
+        -7,
         -1,
         0
       ],
@@ -202,7 +224,7 @@
       "id": "h2",
       "asset": "bibliotheque:habitant_iles_bleu_salue",
       "position": [
-        -13,
+        -4,
         -1,
         0
       ],
@@ -215,7 +237,7 @@
       "id": "h3",
       "asset": "bibliotheque:habitant_iles_rouge_saute",
       "position": [
-        13,
+        4,
         -1,
         0
       ],
@@ -228,7 +250,7 @@
       "id": "h4",
       "asset": "bibliotheque:habitant_iles_vert_salue",
       "position": [
-        16,
+        7,
         -1,
         0
       ],
@@ -295,11 +317,12 @@
     ],
     "hud": [
       {
-        "type": "badge",
-        "texte": "J-*7*",
+        "type": "chrono",
         "beat": "b01",
         "debut": 0,
         "jusqu_au_beat": "b13",
+        "depart_s": 604800,
+        "vitesse": 1,
         "position": "haut_centre"
       },
       {
@@ -369,11 +392,88 @@
       "plan": {
         "camera": "dolly_avant",
         "cible": "rep_centre",
-        "distance": 60,
-        "hauteur": 14,
+        "distance": 48,
+        "hauteur": 26,
         "focale": 20
       },
-      "texte_ecran": "!ALERTE !"
+      "texte_ecran": "!ALERTE !",
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b01.wav",
+        "duree_s": 3.9,
+        "mots": [
+          {
+            "mot": "Alerte",
+            "debut": 0.0,
+            "fin": 0.302
+          },
+          {
+            "mot": "Dans",
+            "debut": 0.302,
+            "fin": 0.681
+          },
+          {
+            "mot": "sept",
+            "debut": 0.681,
+            "fin": 1.356
+          },
+          {
+            "mot": "jours,",
+            "debut": 1.356,
+            "fin": 1.895
+          },
+          {
+            "mot": "une",
+            "debut": 1.895,
+            "fin": 2.083
+          },
+          {
+            "mot": "de",
+            "debut": 2.083,
+            "fin": 2.177
+          },
+          {
+            "mot": "ces",
+            "debut": 2.177,
+            "fin": 2.306
+          },
+          {
+            "mot": "deux",
+            "debut": 2.306,
+            "fin": 2.495
+          },
+          {
+            "mot": "îles",
+            "debut": 2.495,
+            "fin": 2.721
+          },
+          {
+            "mot": "sera",
+            "debut": 2.721,
+            "fin": 2.96
+          },
+          {
+            "mot": "rayée",
+            "debut": 2.96,
+            "fin": 3.305
+          },
+          {
+            "mot": "de",
+            "debut": 3.305,
+            "fin": 3.404
+          },
+          {
+            "mot": "la",
+            "debut": 3.404,
+            "fin": 3.522
+          },
+          {
+            "mot": "carte",
+            "debut": 3.522,
+            "fin": 3.88
+          }
+        ]
+      },
+      "duree_s": 4.05
     },
     {
       "id": "b02",
@@ -381,10 +481,62 @@
       "plan": {
         "camera": "survol",
         "cible": "rep_centre",
-        "distance": 48,
-        "hauteur": 10,
-        "focale": 22
-      }
+        "distance": 46,
+        "hauteur": 24,
+        "focale": 20
+      },
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b02.wav",
+        "duree_s": 3.28,
+        "mots": [
+          {
+            "mot": "À",
+            "debut": 0.0,
+            "fin": 0.14
+          },
+          {
+            "mot": "gauche,",
+            "debut": 0.14,
+            "fin": 0.7
+          },
+          {
+            "mot": "l'île",
+            "debut": 0.7,
+            "fin": 0.84
+          },
+          {
+            "mot": "d'Instagram.",
+            "debut": 0.84,
+            "fin": 1.76
+          },
+          {
+            "mot": "À",
+            "debut": 1.76,
+            "fin": 1.88
+          },
+          {
+            "mot": "droite,",
+            "debut": 1.88,
+            "fin": 2.4
+          },
+          {
+            "mot": "l'île",
+            "debut": 2.4,
+            "fin": 2.66
+          },
+          {
+            "mot": "de",
+            "debut": 2.66,
+            "fin": 2.8
+          },
+          {
+            "mot": "YouTube.",
+            "debut": 2.8,
+            "fin": 3.26
+          }
+        ]
+      },
+      "duree_s": 3.43
     },
     {
       "id": "b03",
@@ -395,7 +547,74 @@
         "distance": 21,
         "hauteur": 4,
         "focale": 24
-      }
+      },
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b03.wav",
+        "duree_s": 4.03,
+        "mots": [
+          {
+            "mot": "Pour",
+            "debut": 0.0,
+            "fin": 0.12
+          },
+          {
+            "mot": "l'instant,",
+            "debut": 0.12,
+            "fin": 1.08
+          },
+          {
+            "mot": "elles",
+            "debut": 1.08,
+            "fin": 1.36
+          },
+          {
+            "mot": "sont",
+            "debut": 1.36,
+            "fin": 1.58
+          },
+          {
+            "mot": "vides,",
+            "debut": 1.58,
+            "fin": 2.3
+          },
+          {
+            "mot": "et",
+            "debut": 2.3,
+            "fin": 2.7
+          },
+          {
+            "mot": "c'est",
+            "debut": 2.7,
+            "fin": 2.86
+          },
+          {
+            "mot": "vous",
+            "debut": 2.86,
+            "fin": 3.02
+          },
+          {
+            "mot": "qui",
+            "debut": 3.02,
+            "fin": 3.16
+          },
+          {
+            "mot": "allez",
+            "debut": 3.16,
+            "fin": 3.28
+          },
+          {
+            "mot": "les",
+            "debut": 3.28,
+            "fin": 3.42
+          },
+          {
+            "mot": "construire.",
+            "debut": 3.42,
+            "fin": 4.0
+          }
+        ]
+      },
+      "duree_s": 4.21
     },
     {
       "id": "b04",
@@ -403,11 +622,93 @@
       "plan": {
         "camera": "revelation",
         "cible": "rep_centre",
-        "distance": 60,
-        "hauteur": 16,
+        "distance": 50,
+        "hauteur": 30,
         "focale": 20
       },
-      "texte_ecran": "IL RESTE *7* JOURS"
+      "texte_ecran": "IL RESTE *7* JOURS",
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b04.wav",
+        "duree_s": 4.39,
+        "mots": [
+          {
+            "mot": "Il",
+            "debut": 0.0,
+            "fin": 0.16
+          },
+          {
+            "mot": "ne",
+            "debut": 0.16,
+            "fin": 0.28
+          },
+          {
+            "mot": "reste",
+            "debut": 0.28,
+            "fin": 0.5
+          },
+          {
+            "mot": "que",
+            "debut": 0.5,
+            "fin": 0.76
+          },
+          {
+            "mot": "sept",
+            "debut": 0.76,
+            "fin": 1.0
+          },
+          {
+            "mot": "jours",
+            "debut": 1.0,
+            "fin": 1.32
+          },
+          {
+            "mot": "pour",
+            "debut": 1.32,
+            "fin": 1.82
+          },
+          {
+            "mot": "bâtir",
+            "debut": 1.82,
+            "fin": 2.12
+          },
+          {
+            "mot": "la",
+            "debut": 2.12,
+            "fin": 2.28
+          },
+          {
+            "mot": "meilleure",
+            "debut": 2.28,
+            "fin": 2.58
+          },
+          {
+            "mot": "base",
+            "debut": 2.58,
+            "fin": 2.9
+          },
+          {
+            "mot": "et",
+            "debut": 2.9,
+            "fin": 3.32
+          },
+          {
+            "mot": "la",
+            "debut": 3.32,
+            "fin": 3.44
+          },
+          {
+            "mot": "meilleure",
+            "debut": 3.44,
+            "fin": 3.78
+          },
+          {
+            "mot": "défense.",
+            "debut": 3.78,
+            "fin": 4.36
+          }
+        ]
+      },
+      "duree_s": 4.54
     },
     {
       "id": "b05",
@@ -415,22 +716,153 @@
       "plan": {
         "camera": "plan_fixe",
         "cible": "rep_centre",
-        "distance": 58,
-        "hauteur": 1,
+        "distance": 40,
+        "hauteur": 8,
         "focale": 20
       },
-      "texte_ecran": "JOUR *7* : L'ATTAQUE"
+      "texte_ecran": "JOUR *7* : L'ATTAQUE",
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b05.wav",
+        "duree_s": 3.85,
+        "mots": [
+          {
+            "mot": "Car",
+            "debut": 0.0,
+            "fin": 0.18
+          },
+          {
+            "mot": "au",
+            "debut": 0.18,
+            "fin": 0.32
+          },
+          {
+            "mot": "septième",
+            "debut": 0.32,
+            "fin": 0.6
+          },
+          {
+            "mot": "jour,",
+            "debut": 0.6,
+            "fin": 1.38
+          },
+          {
+            "mot": "les",
+            "debut": 1.38,
+            "fin": 1.46
+          },
+          {
+            "mot": "deux",
+            "debut": 1.46,
+            "fin": 1.64
+          },
+          {
+            "mot": "îles",
+            "debut": 1.64,
+            "fin": 1.84
+          },
+          {
+            "mot": "s'attaquent,",
+            "debut": 1.84,
+            "fin": 2.32
+          },
+          {
+            "mot": "et",
+            "debut": 2.32,
+            "fin": 2.92
+          },
+          {
+            "mot": "une",
+            "debut": 2.92,
+            "fin": 3.1
+          },
+          {
+            "mot": "seule",
+            "debut": 3.1,
+            "fin": 3.34
+          },
+          {
+            "mot": "gagnera",
+            "debut": 3.34,
+            "fin": 3.82
+          }
+        ]
+      },
+      "duree_s": 4.03
     },
     {
       "id": "b06",
-      "voix": "Chaque abonné rapporte cent pièces.",
+      "voix": "Chaque abonné rapporte cent pièces, et agrandit son île !",
       "plan": {
-        "camera": "dolly_avant",
+        "camera": "plan_fixe",
         "cible": "rep_insta",
-        "distance": 12,
-        "hauteur": 3
+        "distance": 28,
+        "hauteur": 12,
+        "focale": 24
       },
-      "texte_ecran": "1 ABONNÉ = *100* PIÈCES"
+      "texte_ecran": "1 ABONNÉ = *100* PIÈCES | + L'ÎLE S'AGRANDIT",
+      "actions": [
+        {
+          "type": "grandir",
+          "cible": "ile_insta",
+          "duree_s": 0.6,
+          "params": {
+            "facteur": 1.15
+          },
+          "mot": "agrandit"
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b06.wav",
+        "duree_s": 2.66,
+        "mots": [
+          {
+            "mot": "Chaque",
+            "debut": 0.0,
+            "fin": 0.372
+          },
+          {
+            "mot": "abonné",
+            "debut": 0.372,
+            "fin": 0.648
+          },
+          {
+            "mot": "rapporte",
+            "debut": 0.648,
+            "fin": 0.982
+          },
+          {
+            "mot": "cent",
+            "debut": 0.982,
+            "fin": 1.232
+          },
+          {
+            "mot": "pièces,",
+            "debut": 1.232,
+            "fin": 1.635
+          },
+          {
+            "mot": "et",
+            "debut": 1.635,
+            "fin": 1.816
+          },
+          {
+            "mot": "agrandit",
+            "debut": 1.816,
+            "fin": 2.227
+          },
+          {
+            "mot": "son",
+            "debut": 2.227,
+            "fin": 2.386
+          },
+          {
+            "mot": "île",
+            "debut": 2.386,
+            "fin": 2.64
+          }
+        ]
+      },
+      "duree_s": 3.26
     },
     {
       "id": "b07",
@@ -441,7 +873,39 @@
         "distance": 9,
         "hauteur": 2.2
       },
-      "texte_ecran": "1 LIKE = *10* PIÈCES"
+      "texte_ecran": "1 LIKE = *10* PIÈCES",
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b07.wav",
+        "duree_s": 1.69,
+        "mots": [
+          {
+            "mot": "Chaque",
+            "debut": 0.0,
+            "fin": 0.36
+          },
+          {
+            "mot": "like",
+            "debut": 0.36,
+            "fin": 0.56
+          },
+          {
+            "mot": "en",
+            "debut": 0.56,
+            "fin": 0.88
+          },
+          {
+            "mot": "rapporte",
+            "debut": 0.88,
+            "fin": 1.18
+          },
+          {
+            "mot": "dix.",
+            "debut": 1.18,
+            "fin": 1.66
+          }
+        ]
+      },
+      "duree_s": 1.86
     },
     {
       "id": "b08",
@@ -483,7 +947,74 @@
           "duree_s": 0.6,
           "mot": "tours"
         }
-      ]
+      ],
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b08.wav",
+        "duree_s": 4.02,
+        "mots": [
+          {
+            "mot": "Avec",
+            "debut": 0.0,
+            "fin": 0.14
+          },
+          {
+            "mot": "ces",
+            "debut": 0.14,
+            "fin": 0.32
+          },
+          {
+            "mot": "pièces,",
+            "debut": 0.32,
+            "fin": 1.04
+          },
+          {
+            "mot": "on",
+            "debut": 1.04,
+            "fin": 1.24
+          },
+          {
+            "mot": "peut",
+            "debut": 1.24,
+            "fin": 1.34
+          },
+          {
+            "mot": "construire",
+            "debut": 1.34,
+            "fin": 1.74
+          },
+          {
+            "mot": "des",
+            "debut": 1.74,
+            "fin": 1.86
+          },
+          {
+            "mot": "maisons,",
+            "debut": 1.86,
+            "fin": 2.6
+          },
+          {
+            "mot": "des",
+            "debut": 2.6,
+            "fin": 2.72
+          },
+          {
+            "mot": "remparts,",
+            "debut": 2.72,
+            "fin": 3.52
+          },
+          {
+            "mot": "des",
+            "debut": 3.52,
+            "fin": 3.64
+          },
+          {
+            "mot": "tours...",
+            "debut": 3.64,
+            "fin": 4.0
+          }
+        ]
+      },
+      "duree_s": 4.17
     },
     {
       "id": "b09",
@@ -513,7 +1044,49 @@
           "duree_s": 0.6,
           "mot": "crocodiles"
         }
-      ]
+      ],
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b09.wav",
+        "duree_s": 2.14,
+        "mots": [
+          {
+            "mot": "et",
+            "debut": 0.0,
+            "fin": 0.14
+          },
+          {
+            "mot": "même",
+            "debut": 0.14,
+            "fin": 0.4
+          },
+          {
+            "mot": "des",
+            "debut": 0.4,
+            "fin": 1.08
+          },
+          {
+            "mot": "crocodiles",
+            "debut": 1.08,
+            "fin": 1.48
+          },
+          {
+            "mot": "autour",
+            "debut": 1.48,
+            "fin": 1.68
+          },
+          {
+            "mot": "de",
+            "debut": 1.68,
+            "fin": 1.86
+          },
+          {
+            "mot": "l'île",
+            "debut": 1.86,
+            "fin": 2.12
+          }
+        ]
+      },
+      "duree_s": 2.32
     },
     {
       "id": "b10",
@@ -521,8 +1094,8 @@
       "plan": {
         "camera": "plan_fixe",
         "cible": "rep_centre",
-        "distance": 34,
-        "hauteur": 5,
+        "distance": 30,
+        "hauteur": 12,
         "focale": 20
       },
       "actions": [
@@ -598,7 +1171,79 @@
           "duree_s": 0.6,
           "mot": "île"
         }
-      ]
+      ],
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b10.wav",
+        "duree_s": 3.89,
+        "mots": [
+          {
+            "mot": "Chaque",
+            "debut": 0.0,
+            "fin": 0.34
+          },
+          {
+            "mot": "abonné",
+            "debut": 0.34,
+            "fin": 0.66
+          },
+          {
+            "mot": "vivra",
+            "debut": 0.66,
+            "fin": 0.98
+          },
+          {
+            "mot": "sur",
+            "debut": 0.98,
+            "fin": 1.14
+          },
+          {
+            "mot": "son",
+            "debut": 1.14,
+            "fin": 1.3
+          },
+          {
+            "mot": "île,",
+            "debut": 1.3,
+            "fin": 1.6
+          },
+          {
+            "mot": "avec",
+            "debut": 1.6,
+            "fin": 1.94
+          },
+          {
+            "mot": "son",
+            "debut": 1.94,
+            "fin": 2.12
+          },
+          {
+            "mot": "pseudo,",
+            "debut": 2.12,
+            "fin": 2.98
+          },
+          {
+            "mot": "prêt",
+            "debut": 2.98,
+            "fin": 3.24
+          },
+          {
+            "mot": "à",
+            "debut": 3.24,
+            "fin": 3.4
+          },
+          {
+            "mot": "se",
+            "debut": 3.4,
+            "fin": 3.5
+          },
+          {
+            "mot": "battre.",
+            "debut": 3.5,
+            "fin": 3.86
+          }
+        ]
+      },
+      "duree_s": 4.04
     },
     {
       "id": "b11",
@@ -606,11 +1251,93 @@
       "plan": {
         "camera": "plongee",
         "cible": "rep_centre",
-        "distance": 60,
-        "hauteur": 40,
+        "distance": 30,
+        "hauteur": 34,
         "focale": 20
       },
-      "texte_ecran": ">TOP COMMENTAIRE = ON CONSTRUIT ↓"
+      "texte_ecran": ">TOP COMMENTAIRE = ON CONSTRUIT ↓",
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b11.wav",
+        "duree_s": 4.71,
+        "mots": [
+          {
+            "mot": "Chaque",
+            "debut": 0.0,
+            "fin": 0.3
+          },
+          {
+            "mot": "jour,",
+            "debut": 0.3,
+            "fin": 0.9
+          },
+          {
+            "mot": "le",
+            "debut": 0.9,
+            "fin": 1.12
+          },
+          {
+            "mot": "commentaire",
+            "debut": 1.12,
+            "fin": 1.54
+          },
+          {
+            "mot": "le",
+            "debut": 1.54,
+            "fin": 1.64
+          },
+          {
+            "mot": "plus",
+            "debut": 1.64,
+            "fin": 1.82
+          },
+          {
+            "mot": "liké",
+            "debut": 1.82,
+            "fin": 2.16
+          },
+          {
+            "mot": "de",
+            "debut": 2.16,
+            "fin": 2.28
+          },
+          {
+            "mot": "chaque",
+            "debut": 2.28,
+            "fin": 2.48
+          },
+          {
+            "mot": "plateforme",
+            "debut": 2.48,
+            "fin": 3.04
+          },
+          {
+            "mot": "décide",
+            "debut": 3.04,
+            "fin": 3.8
+          },
+          {
+            "mot": "de",
+            "debut": 3.8,
+            "fin": 3.92
+          },
+          {
+            "mot": "ce",
+            "debut": 3.92,
+            "fin": 4.06
+          },
+          {
+            "mot": "qu'on",
+            "debut": 4.06,
+            "fin": 4.2
+          },
+          {
+            "mot": "construit.",
+            "debut": 4.2,
+            "fin": 4.68
+          }
+        ]
+      },
+      "duree_s": 4.89
     },
     {
       "id": "b12",
@@ -618,11 +1345,58 @@
       "plan": {
         "camera": "plan_fixe",
         "cible": "rep_centre",
-        "distance": 58,
-        "hauteur": 4,
+        "distance": 44,
+        "hauteur": 22,
         "focale": 20
       },
-      "texte_ecran": "#INSTAGRAM *VS* YOUTUBE"
+      "texte_ecran": "#INSTAGRAM *VS* YOUTUBE",
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b12.wav",
+        "duree_s": 2.61,
+        "mots": [
+          {
+            "mot": "Instagram",
+            "debut": 0.0,
+            "fin": 0.42
+          },
+          {
+            "mot": "contre",
+            "debut": 0.42,
+            "fin": 0.68
+          },
+          {
+            "mot": "YouTube",
+            "debut": 0.68,
+            "fin": 1.54
+          },
+          {
+            "mot": "qui",
+            "debut": 1.54,
+            "fin": 1.76
+          },
+          {
+            "mot": "aura",
+            "debut": 1.76,
+            "fin": 1.92
+          },
+          {
+            "mot": "la",
+            "debut": 1.92,
+            "fin": 2.06
+          },
+          {
+            "mot": "meilleure",
+            "debut": 2.06,
+            "fin": 2.36
+          },
+          {
+            "mot": "île",
+            "debut": 2.36,
+            "fin": 2.58
+          }
+        ]
+      },
+      "duree_s": 2.84
     },
     {
       "id": "b13",
@@ -630,11 +1404,83 @@
       "plan": {
         "camera": "revelation",
         "cible": "rep_centre",
-        "distance": 70,
-        "hauteur": 18,
+        "distance": 52,
+        "hauteur": 30,
         "focale": 20
       },
-      "texte_ecran": "RENDEZ-VOUS AU JOUR *2*"
+      "texte_ecran": "RENDEZ-VOUS AU JOUR *2*",
+      "voix_audio": {
+        "fichier": "renders/iles-jour-1/voix_finale/b13.wav",
+        "duree_s": 3.83,
+        "mots": [
+          {
+            "mot": "Rendez-vous",
+            "debut": 0.0,
+            "fin": 0.488
+          },
+          {
+            "mot": "au",
+            "debut": 0.488,
+            "fin": 0.586
+          },
+          {
+            "mot": "jour",
+            "debut": 0.586,
+            "fin": 0.685
+          },
+          {
+            "mot": "deux",
+            "debut": 0.685,
+            "fin": 1.188
+          },
+          {
+            "mot": "pour",
+            "debut": 1.188,
+            "fin": 1.501
+          },
+          {
+            "mot": "savoir",
+            "debut": 1.501,
+            "fin": 1.744
+          },
+          {
+            "mot": "laquelle",
+            "debut": 1.744,
+            "fin": 2.089
+          },
+          {
+            "mot": "des",
+            "debut": 2.089,
+            "fin": 2.274
+          },
+          {
+            "mot": "deux",
+            "debut": 2.274,
+            "fin": 2.487
+          },
+          {
+            "mot": "îles",
+            "debut": 2.487,
+            "fin": 2.797
+          },
+          {
+            "mot": "sera",
+            "debut": 2.797,
+            "fin": 3.201
+          },
+          {
+            "mot": "la",
+            "debut": 3.201,
+            "fin": 3.342
+          },
+          {
+            "mot": "meilleure",
+            "debut": 3.342,
+            "fin": 3.8
+          }
+        ]
+      },
+      "duree_s": 4.48
     }
   ]
 }

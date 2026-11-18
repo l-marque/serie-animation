@@ -4,6 +4,8 @@ lumière et ciel du pack « iles » (HDRI, soleil, AgX, exposition), Eevee à pe
     blender --background --factory-startup -noaudio --python engine/outils/atelier/iles_apercu.py -- sortie.png '<json>'
 
 json : {"cam": [x, y, z], "cible": [x, y, z], "lens": 24, "res": [540, 960], "decor": true,
+        "blends": [{"fichier": "engine/assets/modeles/ile_instagram/ile_instagram.blend", "collection": "Ile",
+                    "pos": [-11, 0, 0], "echelle": 1.2}],   (remplace le décor iles_duel si présent)
         "objets": [{"glb": "engine/assets/...glb", "pos": [x, y, z], "rot_z": 0, "action": "Wave", "image": 7}]}
 Chemins relatifs au dépôt. Sert à l'autocontrôle des modèles (pas un rendu d'épisode).
 """
@@ -23,7 +25,19 @@ pack = json.loads((R / "engine/packs_da" / f"{cfg.get('pack', 'iles')}.json").re
 
 bpy.ops.wm.read_factory_settings(use_empty=True)
 sc = bpy.context.scene
-if cfg.get("decor", True):
+for bl in cfg.get("blends", []):   # assets .blend séparés : {"fichier", "collection", "pos", "echelle"}
+    with bpy.data.libraries.load(str(R / bl["fichier"]), link=False) as (src, dst):
+        dst.collections = [bl["collection"]]
+    c = dst.collections[0]
+    sc.collection.children.link(c)
+    for o in c.all_objects:
+        if o.parent is None:
+            k = bl.get("echelle", 1.0)   # comme le moteur : échelle depuis l'origine de l'asset, puis position
+            o.scale = o.scale * k
+            o.location = o.location * k + Vector(bl.get("pos", (0, 0, 0)))
+if cfg.get("blends"):
+    pass
+elif cfg.get("decor", True):
     with bpy.data.libraries.load(str(R / "engine/assets/modeles/iles_duel/iles_duel.blend"), link=False) as (src, dst):
         dst.collections = ["Iles"]
     sc.collection.children.link(dst.collections[0])

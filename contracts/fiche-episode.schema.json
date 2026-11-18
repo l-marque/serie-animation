@@ -395,6 +395,60 @@
                     "default": "haut_droite"
                   }
                 }
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "type",
+                  "beat"
+                ],
+                "description": "Compte à rebours affiché en continu (« 7J 00:00:00 ») qui défile pendant l'épisode.",
+                "properties": {
+                  "type": {
+                    "const": "chrono"
+                  },
+                  "beat": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$"
+                  },
+                  "mot": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "debut": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "jusqu_au_beat": {
+                    "type": "string",
+                    "pattern": "^[a-z0-9][a-z0-9_-]{0,63}$",
+                    "description": "Dernier beat où le badge reste affiché ; pour un badge permanent, le dernier beat de l'épisode."
+                  },
+                  "position": {
+                    "enum": [
+                      "haut_gauche",
+                      "haut_centre",
+                      "haut_droite",
+                      "bas_gauche",
+                      "bas_centre",
+                      "bas_droite"
+                    ],
+                    "default": "haut_centre"
+                  },
+                  "depart_s": {
+                    "type": "number",
+                    "minimum": 0,
+                    "default": 604800,
+                    "description": "Valeur de départ en secondes (défaut 7 jours)."
+                  },
+                  "vitesse": {
+                    "type": "number",
+                    "exclusiveMinimum": 0,
+                    "default": 1,
+                    "description": "Secondes décomptées par seconde de vidéo (1 = temps réel)."
+                  }
+                }
               }
             ]
           }

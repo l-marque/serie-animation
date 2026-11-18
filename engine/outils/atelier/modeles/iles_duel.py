@@ -5,7 +5,8 @@
 Écrit engine/assets/modeles/iles_duel/iles_duel.blend, collection « Iles », lue par le moteur comme
 un asset de bibliothèque (.blend + collection), placé en [0, 0, 0] dans la fiche.
 
-Repère (brief iles-jour-1) : île Instagram centrée en (-20, 0, 0), île YouTube en (20, 0, 0), environ
+Repère (corrigé le 2026-11-18 après l'animatique : îles rapprochées pour remplir le 9:16) : île Instagram
+centrée en (-11, 0, 0), île YouTube en (11, 0, 0) (bras de mer d'environ 4 m au plus étroit), environ
 18 m de diamètre au niveau de l'eau ; dessus de l'herbe PLAT à z = 0 (rayon 6,5 m au moins), sable en
 pente douce jusqu'à l'eau (z = -0,3) ; mer de 3 km de côté, horizon propre. Rayon de 5 m libre au centre.
 Un mât au bord arrière (y = +6) : drapeau dégradé rose-violet (Instagram), rouge (YouTube), sans logo ;
@@ -28,31 +29,12 @@ import formes as f  # noqa: E402
 
 DOSSIER = f.MODELES / "iles_duel"
 NIVEAU_EAU = -0.3
-ILES = {"instagram": -20.0, "youtube": 20.0}
+DEMI_ECART = 11.0
+ILES = {"instagram": -DEMI_ECART, "youtube": DEMI_ECART}
 rng = random.Random(7)
 
 f.vider()
 sc = bpy.context.scene
-
-M = {
-    "herbe": f.materiau("Ile_herbe", (0.1, 0.5, 0.02), 0.9),
-    "herbe_bord": f.materiau("Ile_herbe_bord", (0.06, 0.33, 0.015), 0.9),
-    "sable": f.materiau("Ile_sable", (0.8, 0.58, 0.28), 0.95),
-    "sable_mouille": f.materiau("Ile_sable_mouille", (0.5, 0.36, 0.17), 0.55),
-    "roche": f.materiau("Ile_roche", (0.3, 0.3, 0.32), 0.9),
-    "roche_claire": f.materiau("Ile_roche_claire", (0.48, 0.46, 0.44), 0.9),
-    "tronc": f.materiau("Palmier_tronc", (0.32, 0.18, 0.07), 0.85),
-    "tronc_bague": f.materiau("Palmier_bague", (0.22, 0.12, 0.04), 0.85),
-    "palme": f.materiau("Palmier_palme", (0.08, 0.55, 0.05), 0.6),
-    "coco": f.materiau("Noix_coco", (0.17, 0.09, 0.03), 0.6),
-    "mat": f.materiau("Mat_blanc", (0.85, 0.85, 0.82), 0.35),
-    "or": f.materiau("Mat_pommeau_or", (0.9, 0.62, 0.08), 0.3, metal=0.8),
-    "rouge_yt": f.materiau("Drapeau_rouge", (0.75, 0.01, 0.01), 0.55),
-    "ecume": f.materiau("Ecume", (0.9, 0.95, 0.95), 0.6),
-    "etoile": f.materiau("Etoile_de_mer", (0.85, 0.2, 0.05), 0.6),
-    "seau": f.materiau("Seau_bleu", (0.02, 0.2, 0.75), 0.4),
-}
-
 
 # ----- matériaux à nœuds : eau (lagon clair près des îles) et drapeau dégradé ----------------------
 def materiau_eau():
@@ -66,10 +48,10 @@ def materiau_eau():
     coord = nt.nodes.new("ShaderNodeTexCoord")
     sep = nt.nodes.new("ShaderNodeSeparateXYZ")
     nt.links.new(coord.outputs["Object"], sep.inputs[0])
-    # distance au centre de l'île la plus proche : |x| - 20 et y
+    # distance au centre de l'île la plus proche : |x| - DEMI_ECART et y (les deux lagons se rejoignent au milieu)
     absx = nt.nodes.new("ShaderNodeMath"); absx.operation = "ABSOLUTE"
     nt.links.new(sep.outputs["X"], absx.inputs[0])
-    dx = nt.nodes.new("ShaderNodeMath"); dx.operation = "SUBTRACT"; dx.inputs[1].default_value = 20.0
+    dx = nt.nodes.new("ShaderNodeMath"); dx.operation = "SUBTRACT"; dx.inputs[1].default_value = DEMI_ECART
     nt.links.new(absx.outputs[0], dx.inputs[0])
     comb = nt.nodes.new("ShaderNodeCombineXYZ")
     nt.links.new(dx.outputs[0], comb.inputs["X"])
@@ -135,16 +117,41 @@ def materiau_degrade(nom, c1, c2, c3):
     return m
 
 
-M["eau"] = materiau_eau()
-M["degrade_ig"] = materiau_degrade("Drapeau_rose_violet", (1.0, 0.45, 0.02), (0.85, 0.02, 0.32), (0.28, 0.02, 0.7))
+def creer_materiaux():
+    global M
+    M = {
+        "herbe": f.materiau("Ile_herbe", (0.1, 0.5, 0.02), 0.9),
+        "herbe_bord": f.materiau("Ile_herbe_bord", (0.06, 0.33, 0.015), 0.9),
+        "sable": f.materiau("Ile_sable", (0.8, 0.58, 0.28), 0.95),
+        "sable_mouille": f.materiau("Ile_sable_mouille", (0.5, 0.36, 0.17), 0.55),
+        "roche": f.materiau("Ile_roche", (0.3, 0.3, 0.32), 0.9),
+        "roche_claire": f.materiau("Ile_roche_claire", (0.48, 0.46, 0.44), 0.9),
+        "tronc": f.materiau("Palmier_tronc", (0.32, 0.18, 0.07), 0.85),
+        "tronc_bague": f.materiau("Palmier_bague", (0.22, 0.12, 0.04), 0.85),
+        "palme": f.materiau("Palmier_palme", (0.08, 0.55, 0.05), 0.6),
+        "coco": f.materiau("Noix_coco", (0.17, 0.09, 0.03), 0.6),
+        "mat": f.materiau("Mat_blanc", (0.85, 0.85, 0.82), 0.35),
+        "or": f.materiau("Mat_pommeau_or", (0.9, 0.62, 0.08), 0.3, metal=0.8),
+        "rouge_yt": f.materiau("Drapeau_rouge", (0.75, 0.01, 0.01), 0.55),
+        "ecume": f.materiau("Ecume", (0.9, 0.95, 0.95), 0.6),
+        "etoile": f.materiau("Etoile_de_mer", (0.85, 0.2, 0.05), 0.6),
+        "seau": f.materiau("Seau_bleu", (0.02, 0.2, 0.75), 0.4),
+    }
+    M["eau"] = materiau_eau()
+    M["degrade_ig"] = materiau_degrade("Drapeau_rose_violet", (1.0, 0.45, 0.02), (0.85, 0.02, 0.32), (0.28, 0.02, 0.7))
+
+
+M = {}
+creer_materiaux()
 
 
 # ----- mer -------------------------------------------------------------------------------------------
-bpy.ops.mesh.primitive_plane_add(size=3000, location=(0, 0, NIVEAU_EAU))
-mer = bpy.context.object
-mer.name = "Mer"
-mer.data.materials.append(M["eau"])
-# fond marin sombre sous les îles (évite de voir le vide à travers les bords)
+def mer():
+    bpy.ops.mesh.primitive_plane_add(size=3000, location=(0, 0, NIVEAU_EAU))
+    o = bpy.context.object
+    o.name = "Mer"
+    o.data.materials.append(M["eau"])
+    return o
 
 
 # ----- îles : disque radial en bmesh, herbe plate à z = 0, sable en pente douce ----------------------
@@ -152,7 +159,31 @@ def rayon_herbe(a, graine):
     return 6.9 + 0.35 * math.sin(3 * a + graine) + 0.25 * math.sin(5 * a + 2 * graine)
 
 
-def ile(nom, cx, graine):
+def rayon_eau(a, graine, cote):
+    """Rayon du bord de l'eau ; côté bras de mer, la plage est un peu resserrée (bras de mer d'environ 4 m)."""
+    rs = rayon_herbe(a, graine) + 2.3 + 0.3 * math.sin(4 * a + graine * 1.7)
+    vers = math.cos(a) * -cote                           # 1 = face à l'autre île (cote : -1 Instagram, +1 YouTube)
+    return rs - 0.9 * max(0.0, vers) ** 3
+
+
+def profil(rh, rs):
+    return [
+        (rh * 0.5, 0.0), (rh - 0.02, 0.0),          # herbe plate
+        (rh + 0.06, -0.06),                         # petite marche herbe / sable
+        (rh + (rs - rh) * 0.5, -0.14),              # sable sec
+        (rs - 0.25, -0.25), (rs, NIVEAU_EAU - 0.02),   # sable mouillé
+        (rs + 1.6, -1.0), (rs + 4.0, -2.5),         # talus sous l'eau
+    ]
+
+
+def z_sable(r, prof):
+    for (r0, z0), (r1, z1) in zip(prof, prof[1:]):
+        if r0 <= r <= r1:
+            return z0 + (z1 - z0) * (r - r0) / (r1 - r0)
+    return prof[-1][1]
+
+
+def ile(nom, cx, graine, cote):
     """Renvoie l'objet île. Profil : herbe (z = 0) jusqu'à r_h, petite marche de 6 cm, sable
     jusqu'à l'eau vers r = 9, puis talus sous-marin jusqu'à -2,5 m."""
     secteurs = 72
@@ -163,14 +194,8 @@ def ile(nom, cx, graine):
     for i in range(secteurs):
         a = 2 * math.pi * i / secteurs
         rh = rayon_herbe(a, graine)
-        rs = rh + 2.3 + 0.3 * math.sin(4 * a + graine * 1.7)  # bord de l'eau
-        prof = [
-            (rh * 0.5, 0.0), (rh - 0.02, 0.0),          # herbe plate
-            (rh + 0.06, -0.06),                         # petite marche herbe / sable
-            (rh + (rs - rh) * 0.5, -0.14),              # sable sec
-            (rs - 0.25, -0.25), (rs, NIVEAU_EAU - 0.02),   # sable mouillé
-            (rs + 1.6, -1.0), (rs + 4.0, -2.5),         # talus sous l'eau
-        ]
+        rs = rayon_eau(a, graine, cote)  # bord de l'eau
+        prof = profil(rh, rs)
         anneaux.append([bm.verts.new((cx + r * math.cos(a), r * math.sin(a), z)) for r, z in prof])
     mats = [0, 1, 2, 2, 3, 3, 3]  # herbe, herbe_bord, sable, sable, mouillé...
     n = len(anneaux[0])
@@ -200,20 +225,24 @@ def ile(nom, cx, graine):
     return o
 
 
-def ecume(nom, cx, graine):
-    """Liseré d'écume irrégulier, juste au-dessus de l'eau, là où le sable plonge."""
+def ecume(nom, cx, graine, cote):
+    """Liseré d'écume irrégulier POSÉ SUR LE SABLE (4 cm au-dessus), de part et d'autre du bord de l'eau :
+    si l'île est agrandie (mise à l'échelle depuis son centre, jusqu'à 1,4 environ), la ligne d'eau
+    recoupe toujours la bande et l'écume reste visible."""
     secteurs = 72
     bm = bmesh.new()
-    interieur, exterieur = [], []
+    anneaux = []
     for i in range(secteurs):
         a = 2 * math.pi * i / secteurs
-        rs = rayon_herbe(a, graine) + 2.3 + 0.3 * math.sin(4 * a + graine * 1.7)
-        largeur = 0.25 + 0.2 * (0.5 + 0.5 * math.sin(7 * a + graine))
-        interieur.append(bm.verts.new((cx + (rs - 0.05) * math.cos(a), (rs - 0.05) * math.sin(a), NIVEAU_EAU + 0.012)))
-        exterieur.append(bm.verts.new((cx + (rs + largeur) * math.cos(a), (rs + largeur) * math.sin(a), NIVEAU_EAU + 0.012)))
+        rh, rs = rayon_herbe(a, graine), rayon_eau(a, graine, cote)
+        prof = profil(rh, rs)
+        dedans = 0.45 + 0.15 * math.sin(7 * a + graine)
+        anneaux.append([bm.verts.new((cx + r * math.cos(a), r * math.sin(a), z_sable(r, prof) + 0.015))
+                        for r in (rs - dedans, rs - 0.2, rs, rs + 0.35)])
     for i in range(secteurs):
         j = (i + 1) % secteurs
-        bm.faces.new((interieur[i], exterieur[i], exterieur[j], interieur[j]))
+        for k in range(3):
+            bm.faces.new((anneaux[i][k], anneaux[i][k + 1], anneaux[j][k + 1], anneaux[j][k]))
     me = bpy.data.meshes.new(nom)
     bm.normal_update()
     bm.to_mesh(me)
@@ -221,6 +250,8 @@ def ecume(nom, cx, graine):
     o = bpy.data.objects.new(nom, me)
     sc.collection.objects.link(o)
     o.data.materials.append(M["ecume"])
+    for p in o.data.polygons:
+        p.use_smooth = True
     return o
 
 
@@ -344,10 +375,15 @@ def repere(nom, p):
     sc.collection.objects.link(e)
 
 
-for i, (nom, cx) in enumerate(ILES.items()):
+def construire_ile(i, nom, cx):
+    """Une île complète (sable, herbe, écume, mât et drapeau, rochers, palmier, détail) centrée en (cx, 0, 0).
+    Même résultat quel que soit cx (tirages aléatoires propres à chaque île)."""
+    global rng
+    rng = random.Random(100 + i)
+    cote = -1 if nom == "instagram" else 1
     graine = 1.3 + 2.1 * i
-    ile(f"Ile_{nom}", cx, graine)
-    ecume(f"Ecume_{nom}", cx, graine)
+    ile(f"Ile_{nom}", cx, graine, cote)
+    ecume(f"Ecume_{nom}", cx, graine, cote)
     mat_et_drapeau(nom, cx, M["degrade_ig"] if nom == "instagram" else M["rouge_yt"], graine * 3)
     # rochers : sur le sable et dans l'eau, côtés et arrière (le centre et l'avant restent dégagés)
     rochers = []
@@ -365,27 +401,64 @@ for i, (nom, cx) in enumerate(ILES.items()):
     base = (cx + sens * 6.6, 3.6, -0.02)
     palmier(f"Palmier_{nom}", base, (sens * 0.55, 0.25), graine=11 + i)
     if nom == "instagram":
-        etoile_de_mer("Etoile_de_mer", (cx + 5.0, -7.5, -0.16), 0.3)
+        etoile_de_mer("Etoile_de_mer", (cx + 4.4, -6.9, -0.1), 0.3)
     else:
         seau("Seau_oublie", (cx - 6.2, -6.2, -0.04))
     repere(f"ile_{nom}", (cx, 0, 1.0))
     repere(f"drapeau_{nom}", (cx + 1.3, 6.0, 5.0))
+
+
+mer()
+for i, (nom, cx) in enumerate(ILES.items()):
+    construire_ile(i, nom, cx)
 repere("centre", (0, 0, 1.0))
 repere("bras_de_mer", (0, 0, NIVEAU_EAU))
 
-# ----- tout dans la collection « Iles » --------------------------------------------------------------
-col = bpy.data.collections.new("Iles")
-sc.collection.children.link(col)
-for o in list(sc.collection.objects):
-    col.objects.link(o)
-    sc.collection.objects.unlink(o)
-DOSSIER.mkdir(parents=True, exist_ok=True)
-sortie = DOSSIER / "iles_duel.blend"
-bpy.ops.wm.save_as_mainfile(filepath=str(sortie), compress=True)
-dg = bpy.context.evaluated_depsgraph_get()
-n_tri = 0
-for o in col.all_objects:
-    if o.type == "MESH":
-        me = o.evaluated_get(dg).to_mesh()
-        n_tri += sum(len(p.vertices) - 2 for p in me.polygons)
-print(f"ILES_OK {sortie} : {len(col.all_objects)} objets, {n_tri} triangles")
+# ----- enregistrement : tout dans une collection nommée ------------------------------------------------
+def enregistrer(nom_collection, chemin, racine=None):
+    """Range tous les objets de la scène dans la collection et enregistre le .blend.
+    racine : nom d'un empty placé à l'origine, parent de tous les objets (mise à l'échelle sur place)."""
+    if racine:
+        e = bpy.data.objects.new(racine, None)
+        e.empty_display_size = 2.0
+        sc.collection.objects.link(e)
+        for o in list(sc.collection.objects):
+            if o is not e and o.parent is None:
+                o.parent = e
+    col = bpy.data.collections.new(nom_collection)
+    sc.collection.children.link(col)
+    for o in list(sc.collection.objects):
+        col.objects.link(o)
+        sc.collection.objects.unlink(o)
+    chemin.parent.mkdir(parents=True, exist_ok=True)
+    bpy.ops.wm.save_as_mainfile(filepath=str(chemin), compress=True)
+    dg = bpy.context.evaluated_depsgraph_get()
+    n_tri = 0
+    for o in col.all_objects:
+        if o.type == "MESH":
+            me = o.evaluated_get(dg).to_mesh()
+            n_tri += sum(len(p.vertices) - 2 for p in me.polygons)
+    print(f"ILES_OK {chemin} : {len(col.all_objects)} objets, {n_tri} triangles")
+
+
+enregistrer("Iles", DOSSIER / "iles_duel.blend")
+
+
+def scene_neuve():
+    global sc
+    f.vider()
+    sc = bpy.context.scene
+    creer_materiaux()
+
+
+# ----- assets séparés (île qui s'agrandit, 2026-11-18) : mêmes pièces que iles_duel ---------------------
+# mer_iles en (0, 0, 0) ; ile_instagram en (-11, 0, 0) et ile_youtube en (11, 0, 0) : origine au centre de
+# l'île, à z = 0 (niveau de l'herbe), racine « ILE_<nom> » parente de tout.
+scene_neuve()
+mer()
+repere("bras_de_mer", (0, 0, NIVEAU_EAU))
+enregistrer("Mer", f.MODELES / "mer_iles" / "mer_iles.blend")
+for i, nom in enumerate(ILES):
+    scene_neuve()
+    construire_ile(i, nom, 0.0)
+    enregistrer("Ile", f.MODELES / f"ile_{nom}" / f"ile_{nom}.blend", racine=f"ILE_{nom}")
