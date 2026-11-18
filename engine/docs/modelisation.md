@@ -11,6 +11,7 @@ Quand aucune banque libre n'a le bon modèle, Claude le construit lui-même en P
 | `poses.py` | planche des poses clés d'un personnage animé (4 images par action) |
 | `apercu.py` | planche 2 × 2 (face, trois-quarts, profil, plongée) avec une silhouette de 1,75 m pour l'échelle |
 | `avant_apres.py` | avant / après d'un décor (.blend, collection « Stade ») sous les mêmes plans de caméra que le moteur (b12 de jour-1, vue d'ensemble…), planches côte à côte |
+| `iles_apercu.py` | aperçu léger d'un plan de la série des îles : décor `iles_duel` + modèles posés (GLB, action et image au choix), lumière du pack `iles`, Eevee à 16 échantillons |
 | `carte_apercu.py` | carte de choix (2,0 × 2,6 m) avec sa miniature et sa légende, vue comme dans l'épisode : lisibilité des miniatures |
 | `modeles/<id>.py` | un script par modèle ; il écrit `engine/assets/modeles/<id>/<id>.glb` |
 
@@ -37,6 +38,10 @@ Règles de style (ref-stylized-style, ref-lowpoly-style) : silhouette lisible de
 | `stade_ruine_pelouse` | `modeles/stade_ruine_pelouse.py` | état `pelouse_neuve` (jour-2) : part de `stade_ruine.blend` tel qu'il est sur le disque et ne change que la pelouse (sol aplani, bandes de tonte, lignes complètes et blanches ; mottes, pneus, plots, planches et herbes folles de l'enceinte retirés) ; relancer le script si `stade_ruine.blend` est retouché ; 503 000 triangles |
 | `tribune_reparee` | `modeles/tribune_reparee.py` | miniature de la carte « TRIBUNE » (jour-2) : tribune neuve 18 × 7,5 × 4,3 m, sièges rouges et bleus, toit bleu, ruban d'inauguration doré ; sur la carte, échelle 0,09 et base 1,0 m au-dessus du bas de la carte (à 0,75 m, la miniature touche le titre) ; 4 500 triangles |
 | `cage_filet` | `modeles/cage_filet.py` | cage 4 × 2 m réparée avec filet, mêmes dimensions et orientation que `cage_rouillee` (choix « FILETS » du vote de jour-1) ; 17 600 triangles |
+| `iles_duel` | `modeles/iles_duel.py` | série « 7 Jours avant l'Attaque » : mer (3 km, z = -0,3, lagon turquoise clair autour des îles calculé dans le matériau, reflet du ciel atténué) et deux îles vides de 18 m (Instagram en x = -20, YouTube en x = +20), herbe plate à z = 0, sable en pente douce, écume ; mâts de 6 m en y = +6, drapeaux dégradé rose-violet / rouge (sans logo) qui ondulent seuls (modificateur Onde) ; rochers, un palmier par île, étoile de mer, seau oublié ; `.blend`, collection « Iles », repères `REP_*` ; 7 500 triangles |
+| `maison_bloc`, `rempart_bloc`, `tour_bloc` | `modeles/<id>.py` | constructions des îles, blocs arrondis et couleurs franches : maison crème au toit corail (porte turquoise, volets jaunes, jardinière, lanterne, tuile de travers), mur crénelé de 6 m qui s'aligne bout à bout (bannière jaune, torches), tour de garde de 5 m (fanions rouges, cloche d'alarme, longue-vue, échelle) ; < 4 600 triangles chacun |
+| `crocodile_bloc` | `modeles/crocodile_bloc.py` | gardien des îles, 3,2 m, vert pomme, gros yeux à paupière mi-close, dent en or ; ventre à z = 0 : à z = -0,55 dans l'eau de `iles_duel`, seuls la tête et le dos dépassent ; 3 900 triangles |
+| habitants des îles (`habitant_iles_<couleur>`) | `modeles/perso_bloc.py` | option `rond=True` de `perso_bloc.py` : biseaux 5 fois plus grands, tête 15 % plus grosse (hauteur totale inchangée, 1,75 m), mains en bille, plastique plus brillant ; mêmes squelette et animations ; 6 couleurs vives (rouge corail, bleu ciel, vert pomme, jaune soleil, violet, orange) ; Kevin et les `abonne_bloc_*` ne changent pas |
 
 ## Limites actuelles
 

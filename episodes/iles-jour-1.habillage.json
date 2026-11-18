@@ -1,0 +1,27 @@
+{
+  "version": "1.0",
+  "ambiance": {
+    "son": "ambiance_vent",
+    "volume": 0.1
+  },
+  "sons": [
+    {
+      "son": "alarme",
+      "beat": "b01",
+      "debut": 0,
+      "volume": 0.35
+    },
+    {
+      "son": "bonus",
+      "beat": "b09",
+      "mot": "crocodiles",
+      "volume": 0.2
+    },
+    {
+      "son": "jingle_victoire",
+      "beat": "b13",
+      "mot": "jour",
+      "volume": 0.22
+    }
+  ]
+}

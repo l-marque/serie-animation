@@ -1,0 +1,640 @@
+{
+  "version": "1.1",
+  "episode_id": "iles-jour-1",
+  "titre": "Jour 1 : sept jours avant l'attaque",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 30
+  },
+  "pack_da": "iles",
+  "serie": {
+    "id": "serie_iles",
+    "continuite": false
+  },
+  "decor": {
+    "kit": "primitifs",
+    "sol": false
+  },
+  "elements": [
+    {
+      "id": "scene",
+      "asset": "bibliotheque:iles_duel",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_centre",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_insta",
+      "asset": "primitif:repere",
+      "position": [
+        -20,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_croc",
+      "asset": "primitif:repere",
+      "position": [
+        -20,
+        -9,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "maison",
+      "asset": "bibliotheque:maison_bloc",
+      "position": [
+        -20,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "rempart",
+      "asset": "bibliotheque:rempart_bloc",
+      "position": [
+        -20,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tour",
+      "asset": "bibliotheque:tour_bloc",
+      "position": [
+        -20,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "croco_1",
+      "asset": "bibliotheque:crocodile_bloc",
+      "position": [
+        -26.55,
+        -9.82,
+        -0.45
+      ],
+      "rotation_z": -25,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "croco_2",
+      "asset": "bibliotheque:crocodile_bloc",
+      "position": [
+        -20.0,
+        -11.8,
+        -0.45
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "croco_3",
+      "asset": "bibliotheque:crocodile_bloc",
+      "position": [
+        -13.45,
+        -9.82,
+        -0.45
+      ],
+      "rotation_z": 25,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_1",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -16,
+        -1.05,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_2",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -13,
+        -1.05,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_3",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        13,
+        -1.05,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_4",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        16,
+        -1.05,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    }
+  ],
+  "personnages": [
+    {
+      "id": "h1",
+      "asset": "bibliotheque:habitant_iles_violet_saute",
+      "position": [
+        -16,
+        -1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "h2",
+      "asset": "bibliotheque:habitant_iles_bleu_salue",
+      "position": [
+        -13,
+        -1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "h3",
+      "asset": "bibliotheque:habitant_iles_rouge_saute",
+      "position": [
+        13,
+        -1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "h4",
+      "asset": "bibliotheque:habitant_iles_vert_salue",
+      "position": [
+        16,
+        -1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    }
+  ],
+  "habillage": {
+    "textes_3d": [
+      {
+        "id": "pseudo_1",
+        "texte": "@ton_pseudo",
+        "parent": "tag_1",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_2",
+        "texte": "@ton_pseudo",
+        "parent": "tag_2",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_3",
+        "texte": "@ton_pseudo",
+        "parent": "tag_3",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_4",
+        "texte": "@ton_pseudo",
+        "parent": "tag_4",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      }
+    ],
+    "hud": [
+      {
+        "type": "badge",
+        "texte": "J-*7*",
+        "beat": "b01",
+        "debut": 0,
+        "jusqu_au_beat": "b13",
+        "position": "haut_centre"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b13",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b13",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b13",
+        "position": "haut_droite"
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 0,
+        "jusqu_au_beat": "b13",
+        "position": "haut_droite"
+      },
+      {
+        "type": "gain",
+        "texte": "+100",
+        "icone": "piece",
+        "beat": "b06",
+        "mot": "cent",
+        "position": [
+          0.25,
+          0.22
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+10",
+        "icone": "piece",
+        "beat": "b07",
+        "mot": "dix",
+        "position": [
+          0.25,
+          0.22
+        ]
+      }
+    ]
+  },
+  "beats": [
+    {
+      "id": "b01",
+      "voix": "Alerte ! Dans sept jours, une de ces deux îles sera rayée de la carte !",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "rep_centre",
+        "distance": 60,
+        "hauteur": 14,
+        "focale": 20
+      },
+      "texte_ecran": "!ALERTE !"
+    },
+    {
+      "id": "b02",
+      "voix": "À gauche, l'île d'Instagram. À droite, l'île de YouTube.",
+      "plan": {
+        "camera": "survol",
+        "cible": "rep_centre",
+        "distance": 48,
+        "hauteur": 10,
+        "focale": 22
+      }
+    },
+    {
+      "id": "b03",
+      "voix": "Pour l'instant, elles sont vides, et c'est vous qui allez les construire.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_insta",
+        "distance": 21,
+        "hauteur": 4,
+        "focale": 24
+      }
+    },
+    {
+      "id": "b04",
+      "voix": "Il ne reste que sept jours pour bâtir la meilleure base et la meilleure défense.",
+      "plan": {
+        "camera": "revelation",
+        "cible": "rep_centre",
+        "distance": 60,
+        "hauteur": 16,
+        "focale": 20
+      },
+      "texte_ecran": "IL RESTE *7* JOURS"
+    },
+    {
+      "id": "b05",
+      "voix": "Car au septième jour, les deux îles s'attaquent, et une seule gagnera !",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_centre",
+        "distance": 58,
+        "hauteur": 1,
+        "focale": 20
+      },
+      "texte_ecran": "JOUR *7* : L'ATTAQUE"
+    },
+    {
+      "id": "b06",
+      "voix": "Chaque abonné rapporte cent pièces.",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "rep_insta",
+        "distance": 12,
+        "hauteur": 3
+      },
+      "texte_ecran": "1 ABONNÉ = *100* PIÈCES"
+    },
+    {
+      "id": "b07",
+      "voix": "Chaque like en rapporte dix.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_insta",
+        "distance": 9,
+        "hauteur": 2.2
+      },
+      "texte_ecran": "1 LIKE = *10* PIÈCES"
+    },
+    {
+      "id": "b08",
+      "voix": "Avec ces pièces, on peut construire des maisons, des remparts, des tours...",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "rep_insta",
+        "distance": 13,
+        "hauteur": 3
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "maison",
+          "duree_s": 0.6,
+          "mot": "maisons"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "maison",
+          "duree_s": 0.3,
+          "mot": "remparts"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "rempart",
+          "duree_s": 0.6,
+          "mot": "remparts"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "rempart",
+          "duree_s": 0.3,
+          "mot": "tours"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tour",
+          "duree_s": 0.6,
+          "mot": "tours"
+        }
+      ]
+    },
+    {
+      "id": "b09",
+      "voix": "et même des crocodiles autour de l'île !",
+      "plan": {
+        "camera": "revelation",
+        "cible": "rep_croc",
+        "distance": 24,
+        "hauteur": 1
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "croco_1",
+          "duree_s": 0.6,
+          "mot": "crocodiles"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "croco_2",
+          "duree_s": 0.6,
+          "mot": "crocodiles"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "croco_3",
+          "duree_s": 0.6,
+          "mot": "crocodiles"
+        }
+      ]
+    },
+    {
+      "id": "b10",
+      "voix": "Chaque abonné vivra sur son île, avec son pseudo, prêt à se battre.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_centre",
+        "distance": 34,
+        "hauteur": 5,
+        "focale": 20
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "tour",
+          "duree_s": 0.3,
+          "debut": 0.0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "croco_1",
+          "duree_s": 0.4,
+          "debut": 0.0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "croco_2",
+          "duree_s": 0.4,
+          "debut": 0.0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "croco_3",
+          "duree_s": 0.4,
+          "debut": 0.0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "h1",
+          "duree_s": 0.6,
+          "mot": "abonné"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_1",
+          "duree_s": 0.6,
+          "mot": "abonné"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "h2",
+          "duree_s": 0.6,
+          "mot": "vivra"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_2",
+          "duree_s": 0.6,
+          "mot": "vivra"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "h3",
+          "duree_s": 0.6,
+          "mot": "sur"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_3",
+          "duree_s": 0.6,
+          "mot": "sur"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "h4",
+          "duree_s": 0.6,
+          "mot": "île"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_4",
+          "duree_s": 0.6,
+          "mot": "île"
+        }
+      ]
+    },
+    {
+      "id": "b11",
+      "voix": "Chaque jour, le commentaire le plus liké de chaque plateforme décide de ce qu'on construit.",
+      "plan": {
+        "camera": "plongee",
+        "cible": "rep_centre",
+        "distance": 60,
+        "hauteur": 40,
+        "focale": 20
+      },
+      "texte_ecran": ">TOP COMMENTAIRE = ON CONSTRUIT ↓"
+    },
+    {
+      "id": "b12",
+      "voix": "Instagram contre YouTube : qui aura la meilleure île ?",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_centre",
+        "distance": 58,
+        "hauteur": 4,
+        "focale": 20
+      },
+      "texte_ecran": "#INSTAGRAM *VS* YOUTUBE"
+    },
+    {
+      "id": "b13",
+      "voix": "Rendez-vous au jour deux pour savoir laquelle des deux îles sera la meilleure !",
+      "plan": {
+        "camera": "revelation",
+        "cible": "rep_centre",
+        "distance": 70,
+        "hauteur": 18,
+        "focale": 20
+      },
+      "texte_ecran": "RENDEZ-VOUS AU JOUR *2*"
+    }
+  ]
+}

@@ -48,6 +48,20 @@ PERSONNAGES = {
                                   cheveux=(0.05, 0.035, 0.025), coiffure="courte", humeur="sourire")
        for nom, c in {"rouge": (0.7, 0.03, 0.02), "bleu": (0.02, 0.15, 0.7), "vert": (0.03, 0.45, 0.08),
                       "jaune": (0.9, 0.55, 0.01), "violet": (0.3, 0.05, 0.6), "orange": (0.9, 0.22, 0.01)}.items()},
+    # Habitants des îles (série « 7 Jours avant l'Attaque », 2026-11-18) : même squelette et mêmes animations,
+    # forme « rond » (biseaux bien plus grands, tête 15 % plus grosse, mains douces, plastique plus brillant :
+    # plus « jouet », moins anguleux) et couleurs vives. Les abonne_bloc_* ci-dessus ne changent pas.
+    **{f"habitant_iles_{nom}": dict(hauteur=1.75, tshirt=c, bas=b, short=False, rond=True,
+                                    chaussures=(0.95, 0.95, 0.95), semelle=(0.25, 0.25, 0.27), chaussettes=None,
+                                    cheveux=h, coiffure="courte", humeur="sourire")
+       for nom, (c, b, h) in {
+           "rouge": ((0.95, 0.12, 0.07), (0.05, 0.12, 0.35), (0.08, 0.04, 0.02)),     # rouge corail
+           "bleu": ((0.03, 0.42, 0.95), (0.95, 0.95, 0.93), (0.3, 0.13, 0.03)),       # bleu ciel, pantalon blanc
+           "vert": ((0.25, 0.75, 0.02), (0.06, 0.1, 0.3), (0.85, 0.5, 0.1)),          # vert pomme, cheveux blonds
+           "jaune": ((1.0, 0.7, 0.0), (0.04, 0.3, 0.55), (0.05, 0.035, 0.025)),       # jaune soleil
+           "violet": ((0.45, 0.07, 0.9), (0.08, 0.06, 0.12), (0.45, 0.07, 0.02)),     # violet, cheveux roux
+           "orange": ((1.0, 0.3, 0.0), (0.03, 0.33, 0.35), (0.05, 0.035, 0.025)),     # orange, pantalon sarcelle
+       }.items()},
 }
 
 
@@ -57,12 +71,19 @@ def plastique(nom, couleur, rugosite=0.42):
 
 def construire(asset_id: str, p: dict):
     f.vider()
-    u = p["hauteur"] / 5.25           # unité de bloc
-    b = 0.06 * u                      # biseau
+    rond = p.get("rond", False)
+    kt = 1.15 if rond else 1.0         # tête plus grosse (forme « rond »)
+    u = p["hauteur"] / (5.25 + 1.18 * (kt - 1))   # unité de bloc (la hauteur totale reste p["hauteur"])
+    b = (0.3 if rond else 0.06) * u   # biseau
+    seg = 3 if rond else 2
+    rug = 0.3 if rond else 0.42
     m = {k: plastique(k, v) for k, v in {
         "Peau": PEAU, "Tshirt": p["tshirt"], "Bas": p["bas"], "Chaussures": p["chaussures"],
         "Semelle": p["semelle"], "Cheveux": p["cheveux"], "Yeux": (0.05, 0.05, 0.07),
         "Blanc_yeux": (0.97, 0.97, 0.97), "Bouche": (0.35, 0.1, 0.1)}.items()}
+    if rond:
+        for mat in m.values():
+            mat.node_tree.nodes["Principled BSDF"].inputs["Roughness"].default_value = rug
     if p.get("chaussettes"):
         m["Chaussettes"] = plastique("Chaussettes", p["chaussettes"])
     if p.get("piece"):
@@ -75,7 +96,7 @@ def construire(asset_id: str, p: dict):
     parties = []                      # (objet, os)
 
     def bloc(nom, os_, centre, taille, mat, biseau=b, rot=(0, 0, 0)):
-        o = f.boite(nom, centre, taille, m[mat], biseau=biseau, segments=2, rotation=rot)
+        o = f.boite(nom, centre, taille, m[mat], biseau=biseau, segments=seg, rotation=rot)
         parties.append((o, os_))
         return o
 
@@ -106,14 +127,22 @@ def construire(asset_id: str, p: dict):
         os_ = f"Arm.{cote}"
         bloc(f"manche_{cote}", os_, (x * (large if large > 1 else 1), 0, 3.55 * u), (0.98 * u * large, 1.0 * u * large, 0.9 * u), "Tshirt")
         bloc(f"bras_{cote}", os_, (x, 0, 2.65 * u), (0.82 * u, 0.82 * u, 1.1 * u), "Peau")
-        bloc(f"main_{cote}", os_, (x, 0, 1.98 * u), (0.86 * u, 0.86 * u, 0.32 * u), "Peau", biseau=0.12 * u)
+        if rond:                                               # main douce, presque une bille
+            bloc(f"main_{cote}", os_, (x, 0, 1.95 * u), (0.84 * u, 0.84 * u, 0.5 * u), "Peau", biseau=0.24 * u)
+        else:
+            bloc(f"main_{cote}", os_, (x, 0, 1.98 * u), (0.86 * u, 0.86 * u, 0.32 * u), "Peau", biseau=0.12 * u)
 
     # Tête : bloc arrondi 1,25u, cou court.
-    zt = 4.68 * u
+    zt = 4.09 * u + 0.59 * u * kt
     bloc("cou", "Head", (0, 0, 4.07 * u), (0.6 * u, 0.6 * u, 0.2 * u), "Peau")
-    bloc("tete", "Head", (0, 0, zt), (1.3 * u, 1.18 * u, 1.18 * u), "Peau", biseau=0.22 * u)
-    yf = -0.59 * u - 0.01 * u                                   # face avant
-    for cote, x in (("R", -0.27 * u), ("L", 0.27 * u)):
+    bloc("tete", "Head", (0, 0, zt), (1.3 * u * kt, 1.18 * u * kt, 1.18 * u * kt), "Peau",
+         biseau=(0.46 if rond else 0.22) * u)
+    yf = -0.59 * u * kt - 0.01 * u                              # face avant
+    if rond:                                                    # visage mis à l'échelle de la tête
+        u0 = u
+        u = u * kt
+        zt0 = zt
+    for cote, x in (("R", -(0.23 if rond else 0.27) * u), ("L", (0.23 if rond else 0.27) * u)):
         bloc(f"oeil_{cote}", "Head", (x, yf, zt + 0.05 * u), (0.17 * u, 0.04 * u, 0.26 * u), "Yeux", biseau=0.05 * u)
         bloc(f"reflet_{cote}", "Head", (x + 0.03 * u, yf - 0.02 * u, zt + 0.11 * u), (0.06 * u, 0.02 * u, 0.06 * u),
              "Blanc_yeux", biseau=0.0)
@@ -164,6 +193,8 @@ def construire(asset_id: str, p: dict):
             bloc(f"frange_{i}", "Head", (x * u, -0.52 * u, zh - 0.1 * u - i * 0.04 * u), (0.36 * u, 0.24 * u, 0.3 * u),
                  "Cheveux", biseau=0.06 * u, rot=(0, rng.uniform(-0.4, 0.4), 0))
 
+    if rond:
+        u = u0
     # Squelette : Root, Torso, Head, Arm.L/R, Leg.L/R.
     arm_d = bpy.data.armatures.new("Squelette")
     arm = bpy.data.objects.new("Armature", arm_d)

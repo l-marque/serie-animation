@@ -67,6 +67,39 @@ def boite(nom, centre, taille, mat=None, biseau: float = 0.0, segments: int = 2,
     return _finir(o, mat, lisse=biseau > 0, nom=nom)
 
 
+def prisme(nom, centre, longueur: float, largeur: float, hauteur: float, mat=None, biseau: float = 0.0,
+           segments: int = 2):
+    """Prisme triangulaire (toit à deux pans) : faîtage selon x, pans vers -y et +y, base à centre.z.
+
+    longueur : selon x ; largeur : selon y (base du triangle) ; hauteur : du bas au faîtage."""
+    cx, cy, cz = centre
+    bm = bmesh.new()
+    bouts = []
+    for sx in (-0.5, 0.5):
+        x = cx + sx * longueur
+        bouts.append([bm.verts.new((x, cy - largeur / 2, cz)), bm.verts.new((x, cy + largeur / 2, cz)),
+                      bm.verts.new((x, cy, cz + hauteur))])
+    a, b = bouts
+    bm.faces.new((a[0], a[2], a[1]))
+    bm.faces.new((b[0], b[1], b[2]))
+    for i in range(3):
+        j = (i + 1) % 3
+        bm.faces.new((a[i], a[j], b[j], b[i]))
+    bmesh.ops.recalc_face_normals(bm, faces=bm.faces)
+    me = bpy.data.meshes.new(nom)
+    bm.to_mesh(me)
+    bm.free()
+    o = bpy.data.objects.new(nom, me)
+    bpy.context.scene.collection.objects.link(o)
+    if biseau > 0:
+        mod = o.modifiers.new("Biseau", "BEVEL")
+        mod.width = biseau
+        mod.segments = segments
+        mod.limit_method = "ANGLE"
+        appliquer(o)
+    return _finir(o, mat, lisse=biseau > 0, nom=nom)
+
+
 def tube(nom, a, b, rayon: float, mat=None, cotes: int = 12, bouts_ronds: bool = False):
     """Cylindre de a à b. bouts_ronds : ajoute une sphère à chaque bout (raccords de tubes propres)."""
     a, b = Vector(a), Vector(b)

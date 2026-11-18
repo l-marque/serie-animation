@@ -90,8 +90,28 @@ def _oiseaux(n: int, rng: random.Random) -> list[float]:
     return sortie
 
 
+def _alarme() -> list[float]:
+    """Sirène d'alerte : deux montées-descentes de 650 à 1 300 Hz (1,2 s chacune), timbre carré adouci."""
+    n, sortie, phase = int(2.4 * FREQUENCE), [], 0.0
+    for i in range(n):
+        u = (i / FREQUENCE) % 1.2 / 1.2
+        f = 650 + 650 * math.sin(math.pi * u)
+        phase += 2 * math.pi * f / FREQUENCE
+        s = math.sin(phase) + 0.33 * math.sin(3 * phase) + 0.2 * math.sin(5 * phase)
+        sortie.append(0.45 * s)
+    fondu = int(0.04 * FREQUENCE)
+    for i in range(fondu):
+        sortie[i] *= i / fondu
+        sortie[-1 - i] *= i / fondu
+    return sortie
+
+
 def ambiance(nom: str, duree_s: float) -> Path:
-    """Fichier d'ambiance synthétisée (mis en cache par nom et durée arrondie à la seconde)."""
+    """Fichier d'ambiance synthétisée (mis en cache par nom et durée arrondie à la seconde).
+    « alarme » est un effet ponctuel de durée fixe (2,4 s)."""
+    if nom == "alarme":
+        chemin = CACHE / "effet_alarme.wav"
+        return chemin if chemin.is_file() else _ecrire_wav(chemin, _alarme())
     duree = int(math.ceil(duree_s)) + 1
     chemin = CACHE / f"ambiance_{nom}_{duree}s.wav"
     if chemin.is_file():

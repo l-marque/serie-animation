@@ -29,9 +29,11 @@ Format reçu : 384 × 832, 60 i/s (recompression WhatsApp : la définition d'ori
 | v4 | 133 | 213 | 1 | 0,40 s | 0,0 s | 9 |
 | v5 | 157 | 180 | 0 | 0,20 s | 0,0 s | 10 |
 | v6 | 252 | 214 | 1 | 0,54 s | 0,0 s | 9 |
-| v7 | 274 | 255 | 1 | 0,66 s | 0,0 s | 5 |
+| v7 | 142 (corrigé le 2026-11-18) | 132 | 1 | 0,66 s | 0,0 s | 5 |
 | v8 | 113 | 123 | 2 | 2,48 s | 0,0 s | 7 |
 | **jour-1 (nous)** | 110 | 212 | 16 | 0,5 s | 0,15 s | ~6 |
+
+Correction du 2026-11-18 (v7) : la première mesure (274 mots, 255 mots par minute) était faussée par une erreur de Whisper, qui avait répété un passage et inventé une phrase à la jonction de deux tranches de 30 s. Recompté sur la transcription nettoyée : 142 mots en 64,6 s, soit environ 132 mots par minute. La médiane ci-dessous n'en est pas changée.
 
 À retenir :
 1. **Débit** : médiane d'environ 190 mots par minute ; 6 vidéos sur 8 entre 160 et 215. La cible de 180 décidée par Guillaume est dans la norme.

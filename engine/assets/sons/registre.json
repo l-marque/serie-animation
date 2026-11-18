@@ -316,6 +316,14 @@
       "volume": 0.15,
       "categorie": "ambiance",
       "description": "vent seul (synthétisé)"
+    },
+    "alarme": {
+      "fichiers": [
+        "synth:alarme"
+      ],
+      "volume": 0.35,
+      "categorie": "action",
+      "description": "sirène d'alerte (synthétisée), pour une accroche d'urgence"
     }
   }
 }

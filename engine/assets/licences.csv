@@ -48,3 +48,8 @@ personnages_bloc,projet,Projet série animation,création du projet,engine/outil
 stade_ruine,projet,Guillaume Dury + Projet série animation,création du projet,engine/outils/atelier/modeles/stade_ruine.py,2026-11-17,non,
 stade_ruine_pelouse,projet,Guillaume Dury + Projet série animation,création du projet,engine/outils/atelier/modeles/stade_ruine_pelouse.py,2026-11-18,non,
 tribune_reparee,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/tribune_reparee.py,2026-11-18,non,
+iles_duel,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/iles_duel.py,2026-11-18,non,
+maison_bloc,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/maison_bloc.py,2026-11-18,non,
+rempart_bloc,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/rempart_bloc.py,2026-11-18,non,
+tour_bloc,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/tour_bloc.py,2026-11-18,non,
+crocodile_bloc,projet,Projet série animation,création du projet,engine/outils/atelier/modeles/crocodile_bloc.py,2026-11-18,non,
