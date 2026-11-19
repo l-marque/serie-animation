@@ -1,0 +1,4243 @@
+{
+  "version": "1.1",
+  "episode_id": "jour-3",
+  "titre": "Jour 3 : le FC Élite est né",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 30
+  },
+  "pack_da": "stade_bloc",
+  "serie": {
+    "id": "serie",
+    "continuite": false
+  },
+  "decor": {
+    "kit": "primitifs",
+    "sol": false
+  },
+  "audio": {
+    "musique": "engine/assets/musique/piano_doux.wav",
+    "volume_musique": 0.07
+  },
+  "elements": [
+    {
+      "id": "stade",
+      "asset": "bibliotheque:stade_repare",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_k",
+      "asset": "primitif:repere",
+      "position": [
+        30,
+        -1.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_equipe",
+      "asset": "primitif:repere",
+      "position": [
+        29.6,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_abri",
+      "asset": "primitif:repere",
+      "position": [
+        -4,
+        -21.4,
+        0.9
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_ligne",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        0.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_blason",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        0.5,
+        2.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_b05",
+      "asset": "primitif:repere",
+      "position": [
+        -0.6,
+        0.5,
+        2.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_filet",
+      "asset": "primitif:repere",
+      "position": [
+        53.0,
+        0,
+        1.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_but",
+      "asset": "primitif:repere",
+      "position": [
+        52,
+        -0.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_breche",
+      "asset": "primitif:repere",
+      "position": [
+        -5,
+        43.5,
+        1.5
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_tribune",
+      "asset": "primitif:repere",
+      "position": [
+        1.5,
+        45,
+        3.5
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_rang1",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        42.68,
+        1.1
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "fin",
+      "asset": "primitif:repere",
+      "position": [
+        -25,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_kt",
+      "asset": "primitif:repere",
+      "position": [
+        0.8,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "visee_nord",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        10,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "ballon",
+      "asset": "bibliotheque:ballon_foot",
+      "position": [
+        29.0,
+        -1.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "blason",
+      "asset": "bibliotheque:blason_fc_elite",
+      "position": [
+        0,
+        38,
+        26
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_1",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        27.75,
+        2.35,
+        3.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_2",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        28.65,
+        2.35,
+        3.65
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_3",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        29.55,
+        2.35,
+        3.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_4",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        30.45,
+        2.35,
+        3.65
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_5",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        31.35,
+        2.35,
+        3.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_6",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        31.8,
+        0.95,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_7",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        30.9,
+        0.95,
+        2.65
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_8",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        30.0,
+        0.95,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_9",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        28.2,
+        0.95,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_10",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        29.1,
+        0.95,
+        2.65
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_tom",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -4,
+        -20.85,
+        2.15
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp1",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -2.22,
+        46.83,
+        4.75
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp2",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -0.36,
+        46.83,
+        4.75
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp3",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        1.5,
+        46.83,
+        4.75
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp4",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        3.36,
+        46.83,
+        4.75
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp5",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        5.22,
+        46.83,
+        4.75
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp6",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -3.46,
+        42.63,
+        3.1
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp7",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -1.6,
+        42.63,
+        3.1
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp8",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        0.26,
+        42.63,
+        3.1
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp9",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        2.12,
+        42.63,
+        3.1
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_sp10",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        3.98,
+        42.63,
+        3.1
+      ],
+      "rotation_z": 0,
+      "echelle": 0.6,
+      "visible_au_debut": false
+    },
+    {
+      "id": "carte_likes",
+      "asset": "primitif:carte_choix",
+      "position": [
+        -25,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 0.95,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tas",
+      "asset": "bibliotheque:pieces_tas",
+      "position": [
+        -25,
+        -0.4,
+        2.6
+      ],
+      "rotation_z": 0,
+      "echelle": 1.3,
+      "visible_au_debut": false
+    }
+  ],
+  "personnages": [
+    {
+      "id": "ab1_d",
+      "asset": "bibliotheque:abonne_bloc_rouge_saute",
+      "position": [
+        27.75,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab1_s",
+      "asset": "bibliotheque:abonne_bloc_rouge_saute",
+      "position": [
+        27.75,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab1_a",
+      "asset": "bibliotheque:abonne_bloc_rouge_applaudit",
+      "position": [
+        27.75,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab1_i",
+      "asset": "bibliotheque:abonne_bloc_rouge",
+      "position": [
+        -4.25,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab1_w",
+      "asset": "bibliotheque:abonne_bloc_rouge_salue",
+      "position": [
+        -4.25,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab2_d",
+      "asset": "bibliotheque:abonne_bloc_bleu_saute",
+      "position": [
+        28.65,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab2_s",
+      "asset": "bibliotheque:abonne_bloc_bleu_saute",
+      "position": [
+        28.65,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab2_a",
+      "asset": "bibliotheque:abonne_bloc_bleu_applaudit",
+      "position": [
+        28.65,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab2_i",
+      "asset": "bibliotheque:abonne_bloc_bleu",
+      "position": [
+        -3.4,
+        1.1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab2_w",
+      "asset": "bibliotheque:abonne_bloc_bleu_salue",
+      "position": [
+        -3.4,
+        1.1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab3_d",
+      "asset": "bibliotheque:abonne_bloc_vert_saute",
+      "position": [
+        29.55,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab3_s",
+      "asset": "bibliotheque:abonne_bloc_vert_saute",
+      "position": [
+        29.55,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab3_a",
+      "asset": "bibliotheque:abonne_bloc_vert_applaudit",
+      "position": [
+        29.55,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab3_i",
+      "asset": "bibliotheque:abonne_bloc_vert",
+      "position": [
+        -2.55,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab3_w",
+      "asset": "bibliotheque:abonne_bloc_vert_salue",
+      "position": [
+        -2.55,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab4_d",
+      "asset": "bibliotheque:abonne_bloc_jaune_saute",
+      "position": [
+        30.45,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab4_s",
+      "asset": "bibliotheque:abonne_bloc_jaune_saute",
+      "position": [
+        30.45,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab4_a",
+      "asset": "bibliotheque:abonne_bloc_jaune_applaudit",
+      "position": [
+        30.45,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab4_i",
+      "asset": "bibliotheque:abonne_bloc_jaune",
+      "position": [
+        -1.7,
+        1.1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab4_w",
+      "asset": "bibliotheque:abonne_bloc_jaune_salue",
+      "position": [
+        -1.7,
+        1.1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab5_d",
+      "asset": "bibliotheque:abonne_bloc_violet_saute",
+      "position": [
+        31.35,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab5_s",
+      "asset": "bibliotheque:abonne_bloc_violet_saute",
+      "position": [
+        31.35,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab5_a",
+      "asset": "bibliotheque:abonne_bloc_violet_applaudit",
+      "position": [
+        31.35,
+        2.4,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab5_i",
+      "asset": "bibliotheque:abonne_bloc_violet",
+      "position": [
+        -0.85,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab5_w",
+      "asset": "bibliotheque:abonne_bloc_violet_salue",
+      "position": [
+        -0.85,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab6_d",
+      "asset": "bibliotheque:abonne_bloc_orange_saute",
+      "position": [
+        31.8,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab6_s",
+      "asset": "bibliotheque:abonne_bloc_orange_saute",
+      "position": [
+        31.8,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab6_a",
+      "asset": "bibliotheque:abonne_bloc_orange_applaudit",
+      "position": [
+        31.8,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab6_i",
+      "asset": "bibliotheque:abonne_bloc_orange",
+      "position": [
+        0.85,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab6_w",
+      "asset": "bibliotheque:abonne_bloc_orange_salue",
+      "position": [
+        0.85,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab7_d",
+      "asset": "bibliotheque:abonne_bloc_rouge_saute",
+      "position": [
+        30.9,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab7_s",
+      "asset": "bibliotheque:abonne_bloc_rouge_saute",
+      "position": [
+        30.9,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab7_a",
+      "asset": "bibliotheque:abonne_bloc_rouge_applaudit",
+      "position": [
+        30.9,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab7_i",
+      "asset": "bibliotheque:abonne_bloc_rouge",
+      "position": [
+        1.7,
+        1.1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab7_w",
+      "asset": "bibliotheque:abonne_bloc_rouge_salue",
+      "position": [
+        1.7,
+        1.1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab8_d",
+      "asset": "bibliotheque:abonne_bloc_bleu_saute",
+      "position": [
+        30.0,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab8_s",
+      "asset": "bibliotheque:abonne_bloc_bleu_saute",
+      "position": [
+        30.0,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab8_a",
+      "asset": "bibliotheque:abonne_bloc_bleu_applaudit",
+      "position": [
+        30.0,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab8_i",
+      "asset": "bibliotheque:abonne_bloc_bleu",
+      "position": [
+        2.55,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab8_w",
+      "asset": "bibliotheque:abonne_bloc_bleu_salue",
+      "position": [
+        2.55,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab9_d",
+      "asset": "bibliotheque:abonne_bloc_vert_saute",
+      "position": [
+        28.2,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab9_s",
+      "asset": "bibliotheque:abonne_bloc_vert_saute",
+      "position": [
+        28.2,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab9_a",
+      "asset": "bibliotheque:abonne_bloc_vert_applaudit",
+      "position": [
+        28.2,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab9_i",
+      "asset": "bibliotheque:abonne_bloc_vert",
+      "position": [
+        3.4,
+        1.1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab9_w",
+      "asset": "bibliotheque:abonne_bloc_vert_salue",
+      "position": [
+        3.4,
+        1.1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab10_d",
+      "asset": "bibliotheque:abonne_bloc_jaune_saute",
+      "position": [
+        29.1,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "ab10_s",
+      "asset": "bibliotheque:abonne_bloc_jaune_saute",
+      "position": [
+        29.1,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab10_a",
+      "asset": "bibliotheque:abonne_bloc_jaune_applaudit",
+      "position": [
+        29.1,
+        1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab10_i",
+      "asset": "bibliotheque:abonne_bloc_jaune",
+      "position": [
+        4.25,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "ab10_w",
+      "asset": "bibliotheque:abonne_bloc_jaune_salue",
+      "position": [
+        4.25,
+        0.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_h0",
+      "asset": "bibliotheque:kevin_bloc_heureux",
+      "position": [
+        30,
+        -1.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage"
+    },
+    {
+      "id": "kevin_h1",
+      "asset": "bibliotheque:kevin_bloc_heureux",
+      "position": [
+        30,
+        -1.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_p",
+      "asset": "bibliotheque:kevin_bloc_heureux_parle",
+      "position": [
+        30,
+        -1.2,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_i",
+      "asset": "bibliotheque:kevin_bloc_heureux_immobile",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_j",
+      "asset": "bibliotheque:kevin_bloc_heureux",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_f",
+      "asset": "bibliotheque:kevin_bloc_heureux_frappe",
+      "position": [
+        47,
+        -0.6,
+        0
+      ],
+      "rotation_z": 90,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_m",
+      "asset": "bibliotheque:kevin_bloc_heureux_montre",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "kevin_w",
+      "asset": "bibliotheque:kevin_bloc_heureux_salue",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "tom_arr",
+      "asset": "bibliotheque:tom_bloc_arrive_siffle",
+      "position": [
+        -4,
+        -20.8,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "tom_i",
+      "asset": "bibliotheque:tom_bloc",
+      "position": [
+        -1.7,
+        -1.7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "tom_j",
+      "asset": "bibliotheque:tom_bloc_saute",
+      "position": [
+        -1.7,
+        -1.7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "tom_m",
+      "asset": "bibliotheque:tom_bloc_montre",
+      "position": [
+        1.0,
+        -1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "tom_s",
+      "asset": "bibliotheque:tom_bloc_salue",
+      "position": [
+        -1.7,
+        -1.7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp1",
+      "asset": "bibliotheque:supporter_bloc_rouge",
+      "position": [
+        -2.22,
+        46.88,
+        2.75
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp2",
+      "asset": "bibliotheque:supporter_bloc_bleu",
+      "position": [
+        -0.36,
+        46.88,
+        2.75
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp3",
+      "asset": "bibliotheque:supporter_bloc_jaune",
+      "position": [
+        1.5,
+        46.88,
+        2.75
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp4",
+      "asset": "bibliotheque:supporter_bloc_noir",
+      "position": [
+        3.36,
+        46.88,
+        2.75
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp5",
+      "asset": "bibliotheque:supporter_bloc_rouge",
+      "position": [
+        5.22,
+        46.88,
+        2.75
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp6",
+      "asset": "bibliotheque:supporter_bloc_bleu",
+      "position": [
+        -3.46,
+        42.68,
+        1.1
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp7",
+      "asset": "bibliotheque:supporter_bloc_jaune",
+      "position": [
+        -1.6,
+        42.68,
+        1.1
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp8",
+      "asset": "bibliotheque:supporter_bloc_noir",
+      "position": [
+        0.26,
+        42.68,
+        1.1
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp9",
+      "asset": "bibliotheque:supporter_bloc_rouge",
+      "position": [
+        2.12,
+        42.68,
+        1.1
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sp10",
+      "asset": "bibliotheque:supporter_bloc_bleu",
+      "position": [
+        3.98,
+        42.68,
+        1.1
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sg1",
+      "asset": "bibliotheque:supporter_bloc_rouge",
+      "position": [
+        -9.3,
+        44.08,
+        1.65
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sg2",
+      "asset": "bibliotheque:supporter_bloc_bleu",
+      "position": [
+        -7.4,
+        44.08,
+        1.65
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sg3",
+      "asset": "bibliotheque:supporter_bloc_jaune",
+      "position": [
+        -5.6,
+        44.08,
+        1.65
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sg4",
+      "asset": "bibliotheque:supporter_bloc_noir",
+      "position": [
+        -8.35,
+        45.48,
+        2.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sg5",
+      "asset": "bibliotheque:supporter_bloc_rouge",
+      "position": [
+        -6.5,
+        45.48,
+        2.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    },
+    {
+      "id": "sg6",
+      "asset": "bibliotheque:supporter_bloc_bleu",
+      "position": [
+        -4.7,
+        45.48,
+        2.2
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "role": "personnage",
+      "visible_au_debut": false
+    }
+  ],
+  "habillage": {
+    "textes_3d": [
+      {
+        "id": "nom_tom",
+        "texte": "COACH TOM",
+        "parent": "tag_tom",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_1",
+        "texte": "@yacinosoficiel",
+        "parent": "tag_1",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.156,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_2",
+        "texte": "@Clepija",
+        "parent": "tag_2",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_3",
+        "texte": "@n.toussaint52",
+        "parent": "tag_3",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.167,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_4",
+        "texte": "@Tew016",
+        "parent": "tag_4",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_5",
+        "texte": "@kenzocrouchandeu",
+        "parent": "tag_5",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.137,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_6",
+        "texte": "@Yascoute",
+        "parent": "tag_6",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_7",
+        "texte": "@mane_oprv",
+        "parent": "tag_7",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_8",
+        "texte": "@Kento",
+        "parent": "tag_8",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_9",
+        "texte": "@amau.ry85",
+        "parent": "tag_9",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_10",
+        "texte": "@emre862977",
+        "parent": "tag_10",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp1",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp1",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp2",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp2",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp3",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp3",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp4",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp4",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp5",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp5",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp6",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp6",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp7",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp7",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp8",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp8",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp9",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp9",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_sp10",
+        "texte": "@ton-pseudo",
+        "parent": "tag_sp10",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.18,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "txt_likes",
+        "texte": "1 LIKE",
+        "parent": "carte_likes",
+        "position": [
+          0,
+          -0.07,
+          0.48
+        ],
+        "taille": 0.3,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "prix_likes",
+        "texte": "10 PIÈCES",
+        "parent": "carte_likes",
+        "position": [
+          0,
+          -0.07,
+          0.14
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "eau"
+      }
+    ],
+    "hud": [
+      {
+        "type": "badge",
+        "texte": "JOUR *3*",
+        "beat": "b01",
+        "debut": 0,
+        "jusqu_au_beat": "b15",
+        "position": "haut_droite"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 1270,
+        "jusqu_au_beat": "b02",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b03",
+        "mot": "pièces",
+        "valeur": 1270,
+        "vers": 2160,
+        "jusqu_au_beat": "b06",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b07",
+        "mot": "réparées",
+        "valeur": 2160,
+        "vers": 1660,
+        "jusqu_au_beat": "b08",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "piece",
+        "beat": "b09",
+        "mot": "tribune",
+        "valeur": 1660,
+        "vers": 0,
+        "jusqu_au_beat": "b15",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 39,
+        "jusqu_au_beat": "b01",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b02",
+        "mot": "abonnés",
+        "valeur": 39,
+        "vers": 76,
+        "jusqu_au_beat": "b15",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "gain",
+        "texte": "+37",
+        "icone": "habitant",
+        "beat": "b02",
+        "mot": "abonnés",
+        "position": [
+          0.5,
+          0.55
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+890",
+        "icone": "piece",
+        "beat": "b03",
+        "mot": "pièces",
+        "position": [
+          0.5,
+          0.55
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "-500",
+        "icone": "piece",
+        "beat": "b07",
+        "mot": "réparées",
+        "position": [
+          0.5,
+          0.55
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "-1660",
+        "icone": "piece",
+        "beat": "b09",
+        "mot": "tribune",
+        "position": [
+          0.5,
+          0.55
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+10",
+        "icone": "piece",
+        "beat": "b12",
+        "mot": "dix",
+        "position": [
+          0.5,
+          0.55
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b10",
+        "debut": 1.0,
+        "position": [
+          0.3,
+          0.5
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b10",
+        "debut": 1.3,
+        "position": [
+          0.7,
+          0.5
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b10",
+        "debut": 1.6,
+        "position": [
+          0.35,
+          0.58
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b10",
+        "debut": 1.9,
+        "position": [
+          0.65,
+          0.58
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b10",
+        "debut": 2.15,
+        "position": [
+          0.5,
+          0.48
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b11",
+        "debut": 0.0,
+        "position": [
+          0.3,
+          0.5
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b11",
+        "debut": 0.25,
+        "position": [
+          0.7,
+          0.5
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b11",
+        "debut": 0.5,
+        "position": [
+          0.35,
+          0.58
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b11",
+        "debut": 0.75,
+        "position": [
+          0.65,
+          0.58
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b11",
+        "debut": 1.0,
+        "position": [
+          0.5,
+          0.48
+        ]
+      }
+    ]
+  },
+  "beats": [
+    {
+      "id": "b01",
+      "voix": "Jour trois pour aider Kevin à réaliser son rêve !",
+      "texte_ecran": "JOUR *3* | LE RÊVE DE *KEVIN*",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_k",
+        "distance": 3.6,
+        "hauteur": 0.9,
+        "focale": 28
+      },
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b01.wav",
+        "duree_s": 2.81,
+        "mots": [
+          {
+            "mot": "Jour",
+            "debut": 0.0,
+            "fin": 0.179
+          },
+          {
+            "mot": "trois",
+            "debut": 0.179,
+            "fin": 0.766
+          },
+          {
+            "mot": "pour",
+            "debut": 0.766,
+            "fin": 0.904
+          },
+          {
+            "mot": "aider",
+            "debut": 0.904,
+            "fin": 1.089
+          },
+          {
+            "mot": "Kevin",
+            "debut": 1.089,
+            "fin": 1.852
+          },
+          {
+            "mot": "à",
+            "debut": 1.852,
+            "fin": 1.897
+          },
+          {
+            "mot": "réaliser",
+            "debut": 1.897,
+            "fin": 2.263
+          },
+          {
+            "mot": "son",
+            "debut": 2.263,
+            "fin": 2.439
+          },
+          {
+            "mot": "rêve",
+            "debut": 2.439,
+            "fin": 2.78
+          }
+        ]
+      },
+      "duree_s": 2.96
+    },
+    {
+      "id": "b02",
+      "voix": "On fait le point : vous êtes soixante-seize abonnés...",
+      "texte_ecran": "LE POINT : *76* ABONNÉS",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_k",
+        "distance": 4.2,
+        "hauteur": 0.7
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_h0",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_p",
+          "duree_s": 0.05,
+          "debut": 0
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b02.wav",
+        "duree_s": 2.49,
+        "mots": [
+          {
+            "mot": "On",
+            "debut": 0.0,
+            "fin": 0.102
+          },
+          {
+            "mot": "fait",
+            "debut": 0.102,
+            "fin": 0.224
+          },
+          {
+            "mot": "le",
+            "debut": 0.224,
+            "fin": 0.275
+          },
+          {
+            "mot": "point",
+            "debut": 0.275,
+            "fin": 0.63
+          },
+          {
+            "mot": "vous",
+            "debut": 0.63,
+            "fin": 1.075
+          },
+          {
+            "mot": "êtes",
+            "debut": 1.075,
+            "fin": 1.231
+          },
+          {
+            "mot": "soixante-seize",
+            "debut": 1.231,
+            "fin": 2.094
+          },
+          {
+            "mot": "abonnés...",
+            "debut": 2.094,
+            "fin": 2.46
+          }
+        ]
+      },
+      "duree_s": 2.64
+    },
+    {
+      "id": "b03",
+      "voix": "et quatre-vingt-neuf nouveaux likes, soit huit cent quatre-vingt-dix pièces !",
+      "texte_ecran": "*89* LIKES = *890* PIÈCES",
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_equipe",
+        "distance": 12,
+        "hauteur": 4
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_p",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_h1",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab1_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab1_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab2_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab2_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab3_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab3_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab4_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab4_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab5_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab5_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab6_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab6_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab7_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab7_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab8_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab8_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab9_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab9_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab10_d",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab10_a",
+          "duree_s": 0.05,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_1",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_2",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_3",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_4",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_5",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_6",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_7",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_8",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_9",
+          "duree_s": 0.1,
+          "mot": "likes"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_10",
+          "duree_s": 0.1,
+          "mot": "likes"
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b03.wav",
+        "duree_s": 3.02,
+        "mots": [
+          {
+            "mot": "et",
+            "debut": 0.0,
+            "fin": 0.058
+          },
+          {
+            "mot": "quatre-vingt-neuf",
+            "debut": 0.058,
+            "fin": 0.76
+          },
+          {
+            "mot": "nouveaux",
+            "debut": 0.76,
+            "fin": 0.932
+          },
+          {
+            "mot": "likes,",
+            "debut": 0.932,
+            "fin": 1.222
+          },
+          {
+            "mot": "soit",
+            "debut": 1.222,
+            "fin": 1.454
+          },
+          {
+            "mot": "huit",
+            "debut": 1.454,
+            "fin": 1.589
+          },
+          {
+            "mot": "cent",
+            "debut": 1.589,
+            "fin": 1.686
+          },
+          {
+            "mot": "quatre-vingt-dix",
+            "debut": 1.686,
+            "fin": 2.729
+          },
+          {
+            "mot": "pièces",
+            "debut": 2.729,
+            "fin": 3.0
+          }
+        ]
+      },
+      "duree_s": 3.17
+    },
+    {
+      "id": "b04",
+      "voix": "Et le club a enfin son entraîneur : bienvenue, coach Tom !",
+      "texte_ecran": "#NOUVEAU *COACH*",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_abri",
+        "distance": 7,
+        "hauteur": 1.5
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_h1",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_i",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab1_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab1_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -4.25,
+              0.0,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab1_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_1",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -4.25,
+              -0.05,
+              2.15
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab2_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab2_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -3.4,
+              1.1,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab2_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_2",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -3.4,
+              1.05,
+              2.75
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab3_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab3_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -2.55,
+              0.0,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab3_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_3",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -2.55,
+              -0.05,
+              2.15
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab4_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab4_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -1.7,
+              1.1,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab4_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_4",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -1.7,
+              1.05,
+              2.75
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab5_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab5_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -0.85,
+              0.0,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab5_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_5",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -0.85,
+              -0.05,
+              2.15
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab6_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab6_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              0.85,
+              0.0,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab6_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_6",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              0.85,
+              -0.05,
+              2.15
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab7_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab7_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              1.7,
+              1.1,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab7_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_7",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              1.7,
+              1.05,
+              2.75
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab8_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab8_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              2.55,
+              0.0,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab8_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_8",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              2.55,
+              -0.05,
+              2.15
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab9_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab9_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              3.4,
+              1.1,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab9_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_9",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              3.4,
+              1.05,
+              2.75
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab10_a",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ab10_s",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              4.25,
+              0.0,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab10_i",
+          "duree_s": 0.05,
+          "debut": 0.02
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_10",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              4.25,
+              -0.05,
+              2.15
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tom_arr",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_tom",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "tom_arr",
+          "duree_s": 2.0,
+          "params": {
+            "vers": [
+              -4,
+              -22.0,
+              0
+            ]
+          },
+          "debut": 0.05
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_tom",
+          "duree_s": 2.0,
+          "params": {
+            "vers": [
+              -4,
+              -22.05,
+              2.15
+            ]
+          },
+          "debut": 0.05
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b04.wav",
+        "duree_s": 3.34,
+        "mots": [
+          {
+            "mot": "Et",
+            "debut": 0.0,
+            "fin": 0.12
+          },
+          {
+            "mot": "le",
+            "debut": 0.12,
+            "fin": 0.24
+          },
+          {
+            "mot": "club",
+            "debut": 0.24,
+            "fin": 0.46
+          },
+          {
+            "mot": "a",
+            "debut": 0.46,
+            "fin": 0.7
+          },
+          {
+            "mot": "enfin",
+            "debut": 0.7,
+            "fin": 1.04
+          },
+          {
+            "mot": "son",
+            "debut": 1.04,
+            "fin": 1.22
+          },
+          {
+            "mot": "entraîneur",
+            "debut": 1.22,
+            "fin": 2.06
+          },
+          {
+            "mot": "bienvenue,",
+            "debut": 2.06,
+            "fin": 2.56
+          },
+          {
+            "mot": "coach",
+            "debut": 2.56,
+            "fin": 2.86
+          },
+          {
+            "mot": "Tom",
+            "debut": 2.86,
+            "fin": 3.32
+          }
+        ]
+      },
+      "duree_s": 3.49
+    },
+    {
+      "id": "b05",
+      "voix": "C'est lui qui a choisi le nom du club...",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_b05",
+        "distance": 12,
+        "hauteur": 1.6
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "tom_arr",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tom_i",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_tom",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -1.7,
+              -1.75,
+              2.15
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "blason",
+          "duree_s": 0.05,
+          "mot": "a"
+        },
+        {
+          "type": "deplacer",
+          "cible": "blason",
+          "duree_s": 0.8,
+          "params": {
+            "vers": [
+              0,
+              0.5,
+              6.2
+            ]
+          },
+          "mot": "a"
+        },
+        {
+          "type": "tourner",
+          "cible": "blason",
+          "duree_s": 0.8,
+          "params": {
+            "degres": 720
+          },
+          "mot": "a"
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b05.wav",
+        "duree_s": 2.97,
+        "mots": [
+          {
+            "mot": "C'est",
+            "debut": 0.0,
+            "fin": 0.18
+          },
+          {
+            "mot": "lui",
+            "debut": 0.18,
+            "fin": 0.34
+          },
+          {
+            "mot": "qui",
+            "debut": 0.34,
+            "fin": 1.04
+          },
+          {
+            "mot": "a",
+            "debut": 1.04,
+            "fin": 1.14
+          },
+          {
+            "mot": "choisi",
+            "debut": 1.14,
+            "fin": 1.46
+          },
+          {
+            "mot": "le",
+            "debut": 1.46,
+            "fin": 2.24
+          },
+          {
+            "mot": "nom",
+            "debut": 2.24,
+            "fin": 2.44
+          },
+          {
+            "mot": "du",
+            "debut": 2.44,
+            "fin": 2.56
+          },
+          {
+            "mot": "club...",
+            "debut": 2.56,
+            "fin": 2.94
+          }
+        ]
+      },
+      "duree_s": 3.12
+    },
+    {
+      "id": "b06",
+      "voix": "Voici le FC Élite !",
+      "texte_ecran": "*FC ÉLITE*",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_blason",
+        "distance": 14,
+        "hauteur": 4.2
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "ab1_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab1_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab2_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab2_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab3_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab3_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab4_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab4_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab5_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab5_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab6_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab6_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab7_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab7_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab8_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab8_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab9_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab9_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab10_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab10_s",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "kevin_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_j",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "disparaitre",
+          "cible": "tom_i",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tom_j",
+          "duree_s": 0.05,
+          "mot": "Voici"
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b06.wav",
+        "duree_s": 1.26,
+        "mots": [
+          {
+            "mot": "Voici",
+            "debut": 0.0,
+            "fin": 0.28
+          },
+          {
+            "mot": "le",
+            "debut": 0.28,
+            "fin": 0.38
+          },
+          {
+            "mot": "FC",
+            "debut": 0.38,
+            "fin": 0.64
+          },
+          {
+            "mot": "Élite",
+            "debut": 0.64,
+            "fin": 1.24
+          }
+        ]
+      },
+      "duree_s": 1.41
+    },
+    {
+      "id": "b07",
+      "voix": "Vous avez voté : les cages sont réparées, avec de vrais filets !",
+      "texte_ecran": "#CAGES *RÉPARÉES*",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "rep_filet",
+        "distance": 6.5,
+        "hauteur": 0.2
+      },
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b07.wav",
+        "duree_s": 3.39,
+        "mots": [
+          {
+            "mot": "Vous",
+            "debut": 0.0,
+            "fin": 0.12
+          },
+          {
+            "mot": "avez",
+            "debut": 0.12,
+            "fin": 0.32
+          },
+          {
+            "mot": "voté",
+            "debut": 0.32,
+            "fin": 1.1
+          },
+          {
+            "mot": "les",
+            "debut": 1.1,
+            "fin": 1.24
+          },
+          {
+            "mot": "cages",
+            "debut": 1.24,
+            "fin": 1.44
+          },
+          {
+            "mot": "sont",
+            "debut": 1.44,
+            "fin": 1.66
+          },
+          {
+            "mot": "réparées,",
+            "debut": 1.66,
+            "fin": 2.1
+          },
+          {
+            "mot": "avec",
+            "debut": 2.1,
+            "fin": 2.54
+          },
+          {
+            "mot": "de",
+            "debut": 2.54,
+            "fin": 2.74
+          },
+          {
+            "mot": "vrais",
+            "debut": 2.74,
+            "fin": 2.96
+          },
+          {
+            "mot": "filets",
+            "debut": 2.96,
+            "fin": 3.36
+          }
+        ]
+      },
+      "duree_s": 3.54
+    },
+    {
+      "id": "b08",
+      "voix": "Fini d'aller chercher le ballon très, très loin !",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_but",
+        "distance": 5,
+        "hauteur": 1,
+        "azimut": 0
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_j",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_f",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ballon",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              48.4,
+              -0.6,
+              0
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "ballon",
+          "duree_s": 0.4,
+          "params": {
+            "vers": [
+              53.7,
+              -0.7,
+              0.8
+            ]
+          },
+          "mot": "ballon"
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b08.wav",
+        "duree_s": 2.59,
+        "mots": [
+          {
+            "mot": "Fini",
+            "debut": 0.0,
+            "fin": 0.197
+          },
+          {
+            "mot": "d'aller",
+            "debut": 0.197,
+            "fin": 0.408
+          },
+          {
+            "mot": "chercher",
+            "debut": 0.408,
+            "fin": 0.588
+          },
+          {
+            "mot": "le",
+            "debut": 0.588,
+            "fin": 0.768
+          },
+          {
+            "mot": "ballon",
+            "debut": 0.768,
+            "fin": 1.351
+          },
+          {
+            "mot": "très,",
+            "debut": 1.351,
+            "fin": 1.948
+          },
+          {
+            "mot": "très",
+            "debut": 1.948,
+            "fin": 2.233
+          },
+          {
+            "mot": "loin",
+            "debut": 2.233,
+            "fin": 2.56
+          }
+        ]
+      },
+      "duree_s": 2.74
+    },
+    {
+      "id": "b09",
+      "voix": "Et grâce à vous, les abonnés se sont réunis pour réparer la tribune !",
+      "texte_ecran": "#TRIBUNE *RÉPARÉE*",
+      "plan": {
+        "camera": "survol",
+        "cible": "rep_breche",
+        "distance": 18,
+        "hauteur": 7
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_f",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_j",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sg1",
+          "duree_s": 0.05,
+          "debut": 2.06
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sg2",
+          "duree_s": 0.05,
+          "debut": 2.21
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sg3",
+          "duree_s": 0.05,
+          "debut": 2.36
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sg4",
+          "duree_s": 0.05,
+          "debut": 2.51
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sg5",
+          "duree_s": 0.05,
+          "debut": 2.66
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sg6",
+          "duree_s": 0.05,
+          "debut": 2.81
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b09.wav",
+        "duree_s": 4.02,
+        "mots": [
+          {
+            "mot": "Et",
+            "debut": 0.0,
+            "fin": 0.14
+          },
+          {
+            "mot": "grâce",
+            "debut": 0.14,
+            "fin": 0.34
+          },
+          {
+            "mot": "à",
+            "debut": 0.34,
+            "fin": 0.52
+          },
+          {
+            "mot": "vous,",
+            "debut": 0.52,
+            "fin": 1.08
+          },
+          {
+            "mot": "les",
+            "debut": 1.08,
+            "fin": 1.18
+          },
+          {
+            "mot": "abonnés",
+            "debut": 1.18,
+            "fin": 1.58
+          },
+          {
+            "mot": "se",
+            "debut": 1.58,
+            "fin": 1.86
+          },
+          {
+            "mot": "sont",
+            "debut": 1.86,
+            "fin": 2.06
+          },
+          {
+            "mot": "réunis",
+            "debut": 2.06,
+            "fin": 2.5
+          },
+          {
+            "mot": "pour",
+            "debut": 2.5,
+            "fin": 2.92
+          },
+          {
+            "mot": "réparer",
+            "debut": 2.92,
+            "fin": 3.34
+          },
+          {
+            "mot": "la",
+            "debut": 3.34,
+            "fin": 3.46
+          },
+          {
+            "mot": "tribune",
+            "debut": 3.46,
+            "fin": 4.0
+          }
+        ]
+      },
+      "duree_s": 4.17
+    },
+    {
+      "id": "b10",
+      "voix": "Dès le prochain épisode, chaque abonné sera supporter officiel...",
+      "texte_ecran": "*SUPPORTER OFFICIEL* AU JOUR *4*",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_tribune",
+        "distance": 13,
+        "hauteur": 4
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "sp1",
+          "duree_s": 0.05,
+          "debut": 1.0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp1",
+          "duree_s": 0.05,
+          "debut": 1.0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sp2",
+          "duree_s": 0.05,
+          "debut": 1.3
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp2",
+          "duree_s": 0.05,
+          "debut": 1.3
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sp3",
+          "duree_s": 0.05,
+          "debut": 1.6
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp3",
+          "duree_s": 0.05,
+          "debut": 1.6
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sp4",
+          "duree_s": 0.05,
+          "debut": 1.9
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp4",
+          "duree_s": 0.05,
+          "debut": 1.9
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sp5",
+          "duree_s": 0.05,
+          "debut": 2.15
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp5",
+          "duree_s": 0.05,
+          "debut": 2.15
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b10.wav",
+        "duree_s": 3.09,
+        "mots": [
+          {
+            "mot": "Dès",
+            "debut": 0.0,
+            "fin": 0.216
+          },
+          {
+            "mot": "le",
+            "debut": 0.216,
+            "fin": 0.334
+          },
+          {
+            "mot": "prochain",
+            "debut": 0.334,
+            "fin": 0.534
+          },
+          {
+            "mot": "épisode,",
+            "debut": 0.534,
+            "fin": 1.221
+          },
+          {
+            "mot": "chaque",
+            "debut": 1.221,
+            "fin": 1.48
+          },
+          {
+            "mot": "abonné",
+            "debut": 1.48,
+            "fin": 1.806
+          },
+          {
+            "mot": "sera",
+            "debut": 1.806,
+            "fin": 1.989
+          },
+          {
+            "mot": "supporter",
+            "debut": 1.989,
+            "fin": 2.491
+          },
+          {
+            "mot": "officiel...",
+            "debut": 2.491,
+            "fin": 3.06
+          }
+        ]
+      },
+      "duree_s": 3.24
+    },
+    {
+      "id": "b11",
+      "voix": "avec son pseudo au-dessus de sa place !",
+      "texte_ecran": "TON *PSEUDO* DANS LA TRIBUNE",
+      "plan": {
+        "camera": "travelling_lateral",
+        "cible": "rep_rang1",
+        "distance": 4,
+        "hauteur": 1
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "sp6",
+          "duree_s": 0.05,
+          "debut": 0.0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp6",
+          "duree_s": 0.05,
+          "debut": 0.0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sp7",
+          "duree_s": 0.05,
+          "debut": 0.25
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp7",
+          "duree_s": 0.05,
+          "debut": 0.25
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sp8",
+          "duree_s": 0.05,
+          "debut": 0.5
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp8",
+          "duree_s": 0.05,
+          "debut": 0.5
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sp9",
+          "duree_s": 0.05,
+          "debut": 0.75
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp9",
+          "duree_s": 0.05,
+          "debut": 0.75
+        },
+        {
+          "type": "apparaitre",
+          "cible": "sp10",
+          "duree_s": 0.05,
+          "debut": 1.0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_sp10",
+          "duree_s": 0.05,
+          "debut": 1.0
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b11.wav",
+        "duree_s": 2.02,
+        "mots": [
+          {
+            "mot": "avec",
+            "debut": 0.0,
+            "fin": 0.18
+          },
+          {
+            "mot": "son",
+            "debut": 0.18,
+            "fin": 0.36
+          },
+          {
+            "mot": "pseudo",
+            "debut": 0.36,
+            "fin": 0.66
+          },
+          {
+            "mot": "au-dessus",
+            "debut": 0.66,
+            "fin": 1.3
+          },
+          {
+            "mot": "de",
+            "debut": 1.3,
+            "fin": 1.44
+          },
+          {
+            "mot": "sa",
+            "debut": 1.44,
+            "fin": 1.58
+          },
+          {
+            "mot": "place",
+            "debut": 1.58,
+            "fin": 2.0
+          }
+        ]
+      },
+      "duree_s": 2.17
+    },
+    {
+      "id": "b12",
+      "voix": "Chaque like rapporte toujours dix pièces.",
+      "texte_ecran": "1 LIKE = *10* PIÈCES",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "fin",
+        "distance": 8.4,
+        "hauteur": 2.2
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "carte_likes",
+          "duree_s": 0.05,
+          "debut": 0.05
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tas",
+          "duree_s": 0.3,
+          "mot": "rapporte"
+        },
+        {
+          "type": "deplacer",
+          "cible": "tas",
+          "duree_s": 0.6,
+          "params": {
+            "vers": [
+              -25,
+              -0.4,
+              0.9
+            ]
+          },
+          "mot": "rapporte"
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b12.wav",
+        "duree_s": 2.11,
+        "mots": [
+          {
+            "mot": "Chaque",
+            "debut": 0.0,
+            "fin": 0.32
+          },
+          {
+            "mot": "like",
+            "debut": 0.32,
+            "fin": 0.5
+          },
+          {
+            "mot": "rapporte",
+            "debut": 0.5,
+            "fin": 0.96
+          },
+          {
+            "mot": "toujours",
+            "debut": 0.96,
+            "fin": 1.3
+          },
+          {
+            "mot": "dix",
+            "debut": 1.3,
+            "fin": 1.58
+          },
+          {
+            "mot": "pièces.",
+            "debut": 1.58,
+            "fin": 2.08
+          }
+        ]
+      },
+      "duree_s": 2.26
+    },
+    {
+      "id": "b13",
+      "voix": "Et le commentaire le plus liké décide de ce qu'on construit !",
+      "texte_ecran": ">TON COMMENTAIRE = *CONSTRUCTION* ↓",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "visee_kt",
+        "distance": 5.5,
+        "hauteur": 0.8
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_j",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_m",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "tom_j",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tom_m",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_tom",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              1.0,
+              -1.05,
+              2.7
+            ]
+          },
+          "debut": 0
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b13.wav",
+        "duree_s": 3.46,
+        "mots": [
+          {
+            "mot": "Et",
+            "debut": 0.0,
+            "fin": 0.1
+          },
+          {
+            "mot": "le",
+            "debut": 0.1,
+            "fin": 0.2
+          },
+          {
+            "mot": "commentaire",
+            "debut": 0.2,
+            "fin": 1.08
+          },
+          {
+            "mot": "le",
+            "debut": 1.08,
+            "fin": 1.22
+          },
+          {
+            "mot": "plus",
+            "debut": 1.22,
+            "fin": 1.38
+          },
+          {
+            "mot": "liké",
+            "debut": 1.38,
+            "fin": 2.26
+          },
+          {
+            "mot": "décide",
+            "debut": 2.26,
+            "fin": 2.58
+          },
+          {
+            "mot": "de",
+            "debut": 2.58,
+            "fin": 2.72
+          },
+          {
+            "mot": "ce",
+            "debut": 2.72,
+            "fin": 2.84
+          },
+          {
+            "mot": "qu'on",
+            "debut": 2.84,
+            "fin": 2.98
+          },
+          {
+            "mot": "construit",
+            "debut": 2.98,
+            "fin": 3.44
+          }
+        ]
+      },
+      "duree_s": 3.96
+    },
+    {
+      "id": "b14",
+      "voix": "Alors, qu'est-ce qu'on construit pour le FC Élite ? Dis-le en commentaire !",
+      "texte_ecran": "ON CONSTRUIT *QUOI* ? ↓",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "visee_nord",
+        "distance": 30,
+        "hauteur": 15,
+        "azimut": 90
+      },
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b14.wav",
+        "duree_s": 3.42,
+        "mots": [
+          {
+            "mot": "Alors,",
+            "debut": 0.0,
+            "fin": 0.2
+          },
+          {
+            "mot": "qu'est-ce",
+            "debut": 0.2,
+            "fin": 0.58
+          },
+          {
+            "mot": "qu'on",
+            "debut": 0.58,
+            "fin": 0.68
+          },
+          {
+            "mot": "construit",
+            "debut": 0.68,
+            "fin": 1.06
+          },
+          {
+            "mot": "pour",
+            "debut": 1.06,
+            "fin": 1.22
+          },
+          {
+            "mot": "le",
+            "debut": 1.22,
+            "fin": 1.32
+          },
+          {
+            "mot": "FC",
+            "debut": 1.32,
+            "fin": 1.64
+          },
+          {
+            "mot": "Élite",
+            "debut": 1.64,
+            "fin": 2.34
+          },
+          {
+            "mot": "Dis-le",
+            "debut": 2.34,
+            "fin": 2.68
+          },
+          {
+            "mot": "en",
+            "debut": 2.68,
+            "fin": 2.84
+          },
+          {
+            "mot": "commentaire",
+            "debut": 2.84,
+            "fin": 3.4
+          }
+        ]
+      },
+      "duree_s": 3.57
+    },
+    {
+      "id": "b15",
+      "voix": "Rendez-vous au jour quatre !",
+      "texte_ecran": "RENDEZ-VOUS AU JOUR *4*",
+      "plan": {
+        "camera": "revelation",
+        "cible": "visee_ligne",
+        "distance": 18,
+        "hauteur": 5
+      },
+      "actions": [
+        {
+          "type": "disparaitre",
+          "cible": "kevin_m",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "kevin_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "tom_m",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tom_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_tom",
+          "duree_s": 0.05,
+          "params": {
+            "vers": [
+              -1.7,
+              -1.75,
+              2.15
+            ]
+          },
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab1_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab1_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab2_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab2_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab3_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab3_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab4_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab4_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab5_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab5_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab6_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab6_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab7_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab7_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab8_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab8_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab9_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab9_w",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "disparaitre",
+          "cible": "ab10_s",
+          "duree_s": 0.05,
+          "debut": 0
+        },
+        {
+          "type": "apparaitre",
+          "cible": "ab10_w",
+          "duree_s": 0.05,
+          "debut": 0
+        }
+      ],
+      "voix_audio": {
+        "fichier": "renders/jour-3/voix_finale/b15.wav",
+        "duree_s": 1.195,
+        "mots": [
+          {
+            "mot": "Rendez-vous",
+            "debut": 0.0,
+            "fin": 0.423
+          },
+          {
+            "mot": "au",
+            "debut": 0.423,
+            "fin": 0.462
+          },
+          {
+            "mot": "jour",
+            "debut": 0.462,
+            "fin": 0.625
+          },
+          {
+            "mot": "quatre",
+            "debut": 0.625,
+            "fin": 1.18
+          }
+        ]
+      },
+      "duree_s": 1.795
+    }
+  ]
+}

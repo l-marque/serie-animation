@@ -1,0 +1,302 @@
+{
+  "version": "1.0",
+  "mots_par_minute": 180,
+  "_note": "prod-directeur-voix, 2026-11-19. Même voix que jour-2 : Qwen3-TTS Base (Qwen/Qwen3-TTS-12Hz-1.7B-Base) en copie de voix (ICL) depuis renders/jour-1/essais_voix/qwen/reference_jeune_narrateur.wav (texte de référence : « Il rêve de devenir pro ! Rendez-vous au jour deux, pour voir la suite ! »). Le mode copie de voix n'accepte pas de consigne de jeu : consigne et emotion servent à la relecture ; le ton vient de la référence et du choix des prises (repère : jour-2 b01_p2). Aucune retouche audio : seuls le retrait du silence autour de la voix (queue gardée jusqu'à -50 dB), la pause et la normalisation du volume. Le champ texte reprend mot pour mot la section 4 du brief engine/docs/pilotes/2026-11-19-jour-3-brief.md (la fiche jour-3.json n'existe pas encore). texte_synthese, s'il existe : mêmes mots, seule la ponctuation donnée au modèle change. b06 et b15 (4 et 5 mots) : débit non visé par phrase.",
+  "beats": {
+    "b01": {
+      "texte": "Jour trois pour aider Kevin à réaliser son rêve !",
+      "intention": "accroche : « Jour trois ! » quasi crié, puis l'enjeu, énergique",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 190,
+      "consigne": "« JOUR TROIS ! » quasi crié, plein d'énergie ; puis énergique, appuie sur « rêve ».",
+      "pause_apres_s": 0.12,
+      "decoupage": {
+        "b01a": {
+          "texte": "Jour trois !",
+          "texte_synthese": "JOUR TROIS !",
+          "prise": "renders/jour-3/essais_voix/qwen/candidats/b01a_maj_p95.wav",
+          "pause_apres_s": 0.08,
+          "intention": "cri d'ouverture, plein d'énergie",
+          "mesure": {
+            "debut_s": 0.0,
+            "duree_s": 0.6,
+            "mots_par_minute": 200,
+            "similarite_whisper": 1.0,
+            "transcription": "Jour trois"
+          }
+        },
+        "b01b": {
+          "texte": "pour aider Kevin à réaliser son rêve !",
+          "texte_synthese": "pour aider Kevin, à réaliser son rêve !",
+          "prise": "renders/jour-3/essais_voix/qwen/candidats/b01b_ponct_p67.wav",
+          "pause_apres_s": 0.12,
+          "intention": "l'enjeu, énergique, appui sur « rêve »",
+          "mots_par_minute": 190,
+          "mesure": {
+            "debut_s": 0.68,
+            "duree_s": 2.1,
+            "mots_par_minute": 200,
+            "similarite_whisper": 1.0,
+            "transcription": "pour aider Kévin à réaliser son rêve."
+          }
+        }
+      },
+      "alternatives": {
+        "b01a": [
+          "renders/jour-3/essais_voix/qwen/candidats/b01a_majx3_p93.wav (« JOUR TROIS !!! », la plus criée à la mesure)",
+          "renders/jour-3/essais_voix/qwen/candidats/b01a_maj_p98.wav",
+          "renders/jour-3/essais_voix/qwen/candidats/b01a_majx3_p53.wav"
+        ],
+        "b01b": [
+          "renders/jour-3/essais_voix/qwen/candidats/b01b_ponct_p87.wav",
+          "renders/jour-3/essais_voix/qwen/candidats/b01b_ponct_p84.wav",
+          "renders/jour-3/essais_voix/qwen/candidats/b01b_ponct_p64.wav",
+          "renders/jour-3/essais_voix/qwen/candidats/b01b_p57.wav (sans virgule, 246 mots/min)"
+        ],
+        "b01_ancienne": {
+          "texte_synthese": "Jour trois, pour aider Kevin, à réaliser son rêve !",
+          "prise": "renders/jour-3/essais_voix/qwen/candidats/b01_ponct_p17.wav",
+          "mesure": {
+            "debut_s": 0.0,
+            "duree_s": 2.76,
+            "mots_par_minute": 196,
+            "similarite_whisper": 1.0,
+            "transcription": "Jour trois pour aider Kévin à réaliser son rêve."
+          },
+          "remarque": "prise d'un seul tenant d'avant la consigne du 2026-11-19 ; assemblage correspondant : renders/jour-3/essais_voix/jour-3_voix_qwen_ancienne_b01.wav"
+        }
+      },
+      "mesure": {
+        "debut_s": 0.0,
+        "duree_s": 2.78,
+        "mots_par_minute": 194
+      },
+      "remarque": "Consigne de Guillaume (2026-11-19) : b01 dit en deux phrases complètes (méthode iles-jour-1), chacune entière selon Whisper, sans retouche. Le texte de la fiche ne change pas : seules la casse et la ponctuation données au modèle changent. Écoute des candidats : renders/jour-3/essais_voix/ecoute_b01/."
+    },
+    "b02": {
+      "texte": "On fait le point : vous êtes soixante-seize abonnés...",
+      "intention": "on fait les comptes, annonce suspendue",
+      "emotion": "complice",
+      "mots_par_minute": 175,
+      "consigne": "Complice, on fait le point ; la voix reste en l'air sur « abonnés », la phrase continue.",
+      "pause_apres_s": 0.1,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b02_p2.wav",
+      "mesure": {
+        "debut_s": 2.9,
+        "duree_s": 2.46,
+        "mots_par_minute": 195,
+        "similarite_whisper": 1.0,
+        "transcription": "On fait le point. Vous êtes soixante-seize abonnés."
+      }
+    },
+    "b03": {
+      "texte": "et quatre-vingt-neuf nouveaux likes, soit huit cent quatre-vingt-dix pièces !",
+      "intention": "suite de b02, montée jusqu'au gain",
+      "emotion": "enthousiaste",
+      "consigne": "La voix monte tout au long de la phrase et appuie fort sur « pièces ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b03_p4.wav",
+      "mesure": {
+        "debut_s": 5.46,
+        "duree_s": 2.99,
+        "mots_par_minute": 181,
+        "similarite_whisper": 1.0,
+        "transcription": "et quatre-vingt-neuf nouveaux likes, soit huit cent quatre-vingt-dix pièces."
+      }
+    },
+    "b04": {
+      "texte": "Et le club a enfin son entraîneur : bienvenue, coach Tom !",
+      "intention": "fierté, arrivée du coach",
+      "emotion": "joyeux",
+      "consigne": "Fier et chaleureux, comme on présente quelqu'un ; appuie sur « Tom ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b04_p1.wav",
+      "mesure": {
+        "debut_s": 8.6,
+        "duree_s": 3.31,
+        "mots_par_minute": 181,
+        "similarite_whisper": 1.0,
+        "transcription": "Et le club a enfin son entraîneur. Bienvenue Coach Tom."
+      }
+    },
+    "b05": {
+      "texte": "C'est lui qui a choisi le nom du club...",
+      "intention": "suspense avant la révélation, roulement de tambour",
+      "emotion": "mysterieux",
+      "mots_par_minute": 165,
+      "expressivite_min": 4.0,
+      "consigne": "Plus bas et plus lent, mystérieux ; ralentit sur « nom du club », la voix reste en l'air.",
+      "pause_apres_s": 0.15,
+      "texte_synthese": "C'est lui... qui a choisi... le nom du club...",
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b05_ponct_p10.wav",
+      "mesure": {
+        "debut_s": 12.06,
+        "duree_s": 2.94,
+        "mots_par_minute": 184,
+        "similarite_whisper": 1.0,
+        "transcription": "C'est lui qui a choisi le nom du club."
+      }
+    },
+    "b06": {
+      "texte": "Voici le FC Élite !",
+      "intention": "révélation, explosion de joie",
+      "emotion": "enthousiaste",
+      "consigne": "Explosion de joie, la voix monte sur « Élite » ; « FC » dit lettre par lettre : « èf-cé ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b06_p3.wav",
+      "mesure": {
+        "debut_s": 15.15,
+        "duree_s": 1.23,
+        "mots_par_minute": 195,
+        "similarite_whisper": 1.0,
+        "transcription": "Voici le FC Elite."
+      },
+      "remarque": "Whisper entend « FC » (sigle) dans b06 et b14 : prononciation « èf-cé » probable, à confirmer à l'écoute."
+    },
+    "b07": {
+      "texte": "Vous avez voté : les cages sont réparées, avec de vrais filets !",
+      "intention": "bonne nouvelle, le vote est respecté",
+      "emotion": "joyeux",
+      "consigne": "Content, appuie sur « filets ».",
+      "pause_apres_s": 0.12,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b07_p2.wav",
+      "mesure": {
+        "debut_s": 16.53,
+        "duree_s": 3.36,
+        "mots_par_minute": 196,
+        "similarite_whisper": 1.0,
+        "transcription": "Vous avez voté. Les cages sont réparées avec de vrais filets."
+      }
+    },
+    "b08": {
+      "texte": "Fini d'aller chercher le ballon très, très loin !",
+      "intention": "gag du jour 2 rappelé, clin d'œil",
+      "emotion": "complice",
+      "consigne": "Amusé, on étire « très, très loin » avec un sourire.",
+      "pause_apres_s": 0.15,
+      "texte_synthese": "Fini d'aller chercher le ballon... très, très loin !",
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b08_ponct_p13.wav",
+      "mesure": {
+        "debut_s": 20.01,
+        "duree_s": 2.56,
+        "mots_par_minute": 188,
+        "similarite_whisper": 0.987,
+        "transcription": "Finis d'aller chercher le ballon. Très, très loin."
+      }
+    },
+    "b09": {
+      "texte": "Et grâce à vous, les abonnés se sont réunis pour réparer la tribune !",
+      "intention": "relance, élan collectif",
+      "emotion": "determine",
+      "mots_par_minute": 185,
+      "consigne": "Élan, reconnaissant envers les abonnés ; appuie sur « tribune ».",
+      "pause_apres_s": 0.15,
+      "texte_synthese": "Et grâce à vous, les abonnés, se sont réunis, pour réparer la tribune !",
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b09_ponct_p17.wav",
+      "mesure": {
+        "debut_s": 22.72,
+        "duree_s": 3.99,
+        "mots_par_minute": 195,
+        "similarite_whisper": 1.0,
+        "transcription": "Et grâce à vous, les abonnés se sont réunis pour réparer la tribune."
+      }
+    },
+    "b10": {
+      "texte": "Dès le prochain épisode, chaque abonné sera supporter officiel...",
+      "intention": "annonce de la nouveauté, suspendue",
+      "emotion": "conteur",
+      "consigne": "Annonce importante, appuie sur « supporter officiel », la voix reste en l'air.",
+      "pause_apres_s": 0.1,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b10_p4.wav",
+      "mesure": {
+        "debut_s": 26.86,
+        "duree_s": 3.06,
+        "mots_par_minute": 176,
+        "similarite_whisper": 0.99,
+        "transcription": "Dès le prochain épisode, chaque abonné sera supporté officiel."
+      }
+    },
+    "b11": {
+      "texte": "avec son pseudo au-dessus de sa place !",
+      "intention": "promesse personnelle à chaque abonné",
+      "emotion": "complice",
+      "consigne": "Complice, comme une promesse faite à un ami ; appuie sur « pseudo ».",
+      "pause_apres_s": 0.15,
+      "texte_synthese": "avec son pseudo, au-dessus de sa place !",
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b11_ponct_p16.wav",
+      "mesure": {
+        "debut_s": 30.02,
+        "duree_s": 1.99,
+        "mots_par_minute": 211,
+        "similarite_whisper": 1.0,
+        "transcription": "avec son pseudo au-dessus de sa place."
+      }
+    },
+    "b12": {
+      "texte": "Chaque like rapporte toujours dix pièces.",
+      "intention": "rappel de la règle, posé",
+      "emotion": "neutre",
+      "expressivite_min": 4.0,
+      "consigne": "Rappel simple et posé, appuie sur « dix ».",
+      "pause_apres_s": 0.12,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b12_p2.wav",
+      "mesure": {
+        "debut_s": 32.16,
+        "duree_s": 2.08,
+        "mots_par_minute": 173,
+        "similarite_whisper": 1.0,
+        "transcription": "Chaque like rapporte toujours dix pièces."
+      }
+    },
+    "b13": {
+      "texte": "Et le commentaire le plus liké décide de ce qu'on construit !",
+      "intention": "promesse, le pouvoir à l'abonné",
+      "emotion": "complice",
+      "consigne": "Promesse, appuie sur « commentaire » et « construit ».",
+      "pause_apres_s": 0.5,
+      "texte_synthese": "Et le commentaire, le plus liké, décide de ce qu'on construit !",
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b13_ponct_p16.wav",
+      "mesure": {
+        "debut_s": 34.36,
+        "duree_s": 3.43,
+        "mots_par_minute": 192,
+        "similarite_whisper": 1.0,
+        "transcription": "et le commentaire, le plus liké, décide de ce qu'on construit."
+      }
+    },
+    "b14": {
+      "texte": "Alors, qu'est-ce qu'on construit pour le FC Élite ? Dis-le en commentaire !",
+      "intention": "question puis appel à l'action, seule vraie pause avant",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 190,
+      "consigne": "Question qui monte sur « Élite ? », puis appel direct et énergique sur « Dis-le en commentaire ».",
+      "pause_apres_s": 0.15,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b14_p11.wav",
+      "mesure": {
+        "debut_s": 38.29,
+        "duree_s": 3.39,
+        "mots_par_minute": 195,
+        "similarite_whisper": 1.0,
+        "transcription": "Alors qu'est-ce qu'on construit pour le FC Elite? Dis-le en commentaire."
+      }
+    },
+    "b15": {
+      "texte": "Rendez-vous au jour quatre !",
+      "intention": "au revoir, rendez-vous",
+      "emotion": "joyeux",
+      "consigne": "Joyeux, voix qui monte sur « quatre », comme à la fin des jours 1 et 2.",
+      "pause_apres_s": 0.6,
+      "prise": "renders/jour-3/essais_voix/qwen/candidats/b15_p7.wav",
+      "mesure": {
+        "debut_s": 41.83,
+        "duree_s": 1.2,
+        "mots_par_minute": 200,
+        "similarite_whisper": 1.0,
+        "transcription": "Rendez-vous au jour quatre."
+      },
+      "remarque": "0,6 s de silence à ajouter après la phrase au montage pour que la fin de la vidéo ne la rogne pas (non inclus dans le fichier assemblé)."
+    }
+  },
+  "_etat": "2026-11-19 : b01 refaite en deux prises (b01a « JOUR TROIS ! », b01b), b02 à b15 inchangées (mêmes prises, même gain de normalisation 1.047, décalées de +0,02 s). 16 segments vérifiés par Whisper small dans le fichier assemblé (similarité 0,987 à 1,0). Fichier assemblé : renders/jour-3/essais_voix/jour-3_voix_qwen.wav, 43.03 s, voix dès 0 s, parole 40.69 s, 190 mots/min en parole. Non écouté par un humain : à valider par Guillaume.",
+  "fichier_complet": "renders/jour-3/essais_voix/jour-3_voix_qwen.wav"
+}

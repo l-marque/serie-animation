@@ -1,0 +1,39 @@
+{
+  "version": "1.0",
+  "ambiance": {
+    "son": "ambiance_village",
+    "volume": 0.18
+  },
+  "sons": [
+    {
+      "son": "confirmation",
+      "beat": "b04",
+      "mot": "bienvenue",
+      "volume": 0.25
+    },
+    {
+      "son": "bonus",
+      "beat": "b06",
+      "mot": "Élite",
+      "volume": 0.3
+    },
+    {
+      "son": "frappe_ballon",
+      "beat": "b08",
+      "mot": "ballon",
+      "volume": 0.45
+    },
+    {
+      "son": "carte",
+      "beat": "b12",
+      "debut": 0.05,
+      "volume": 0.28
+    },
+    {
+      "son": "jingle_victoire",
+      "beat": "b15",
+      "mot": "jour",
+      "volume": 0.22
+    }
+  ]
+}
