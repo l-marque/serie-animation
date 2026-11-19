@@ -59,6 +59,16 @@ Volume intégré : **−14,1 à −14,7 LUFS** pour toutes les références ; jo
 - **Chiffres concrets à l'écran** (« 1 000 € », « 13 334 habitants », « 5 039 € − 2 500 € travaux »).
 - **Bannière d'événement** (« FLASH SPÉCIAL », « CHANTIER », « NOUVEL HABITANT ») au moment d'un événement.
 
+## Neuvième référence (ajoutée par Guillaume le 2026-11-19, 29 s, compte `leclubdesabonnes`)
+
+Observations (images lues le 2026-11-19, non copiées) :
+- **Accroche** : dès la première image, un énorme titre en deux lignes (« 1 ABONNÉ = 1 SUPPORTER », mot clé en jaune), une pastille de notification « +1 abonné » et un compteur d'abonnés qui défile, sur un plan bas de la tribune ; la caméra avance et les supporters apparaissent un par un.
+- **Supporters** : figurines minuscules, très simples (corps en blocs, quasi sans visage), en deux ou trois couleurs du club, qui apparaissent avec une bulle jaune « +1 » ; la tribune se remplit au rythme du compteur.
+- **Caisse** : piles de pièces géantes qui grossissent derrière un compteur énorme (« 23 460 € »), avec une pastille permanente « 1 abonné = 15 € ».
+- **Avant / Après** : un curseur blanc balaie l'écran entre l'état avant et l'état après (terrain), très lisible.
+- **Plans rapides** (environ 2 s) sur des lieux différents pendant que les sous-titres (2 à 3 mots, mot clé en couleur) changent plus vite que les images.
+Idées retenues pour jour-3 : supporters simples qui apparaissent un par un avec « +1 » et « @ton-pseudo » (b10-b11), curseur avant/après sur la tribune (b09) et les cages (b07), pile de pièces qui grossit puis se vide (b03, b09), titre géant dès b01, pastille permanente « 1 LIKE = 10 PIÈCES ».
+
 ## Ce que ça change pour nos agents
 
 - `prod-directeur-voix` : débit 180 mots par minute (réglage de Guillaume, dans la norme des références) ; expressivité visée ≥ 4,8 demi-tons par phrase ; pauses par défaut 0,1 à 0,2 s ; voix qui démarre à 0 s ; voix jusqu'à la fin.

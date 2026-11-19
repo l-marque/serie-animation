@@ -48,14 +48,14 @@ def _decouper_mots(texte: str) -> list[str]:
     return [m for m in re.split(r"\s+", texte.strip()) if m]
 
 
-def _mots_estimes(texte: str, duree_parole: float) -> list[dict[str, Any]]:
+def _mots_estimes(texte: str, duree_parole: float, avance: float = AVANCE_VOIX_S) -> list[dict[str, Any]]:
     """Répartit la durée de parole entre les mots, au prorata de leur longueur."""
     mots = _decouper_mots(texte)
     if not mots:
         return []
     poids = [max(len(normaliser_mot(m)), 1) + 1 for m in mots]  # +1 : l'espace / la micro-pause
     total = sum(poids)
-    t = AVANCE_VOIX_S
+    t = avance
     sortie = []
     for mot, p in zip(mots, poids):
         d = duree_parole * p / total
@@ -64,8 +64,10 @@ def _mots_estimes(texte: str, duree_parole: float) -> list[dict[str, Any]]:
     return sortie
 
 
-def _duree_et_mots(beat: dict[str, Any]) -> tuple[float, list[dict[str, Any]], str]:
-    """Renvoie (durée du beat, mots horodatés relatifs au beat, origine du timing)."""
+def _duree_et_mots(beat: dict[str, Any], avance: float = AVANCE_VOIX_S) -> tuple[float, list[dict[str, Any]], str]:
+    """Renvoie (durée du beat, mots horodatés relatifs au beat, origine du timing).
+    `avance` : silence avant la première syllabe (AVANCE_VOIX_S, ou `avance_voix_s` du pack de DA)."""
+    AVANCE_VOIX_S = avance  # noqa: N806 (masque la constante du module dans cette fonction)
     texte = beat.get("voix", "").strip()
     audio = beat.get("voix_audio")
     if audio:
@@ -75,7 +77,7 @@ def _duree_et_mots(beat: dict[str, Any]) -> tuple[float, list[dict[str, Any]], s
             mots = [{"mot": m["mot"], "debut": round(m["debut"] + AVANCE_VOIX_S, 3),
                      "fin": round(m["fin"] + AVANCE_VOIX_S, 3)} for m in audio["mots"]]
         else:
-            mots = _mots_estimes(texte, audio["duree_s"])
+            mots = _mots_estimes(texte, audio["duree_s"], avance)
         duree = beat.get("duree_s", AVANCE_VOIX_S + audio["duree_s"] + MARGE_FIN_S)
         if duree < AVANCE_VOIX_S + audio["duree_s"]:
             raise TimelineInvalide(f"beat {beat['id']} : duree_s ({duree} s) plus courte que la voix "
@@ -85,7 +87,7 @@ def _duree_et_mots(beat: dict[str, Any]) -> tuple[float, list[dict[str, Any]], s
         parole = len(texte) / CARACTERES_PAR_SECONDE
         duree = beat.get("duree_s", max(DUREE_MIN_S, AVANCE_VOIX_S + parole + MARGE_FIN_S))
         parole_effective = max(0.3, min(parole, duree - AVANCE_VOIX_S - 0.1))
-        return duree, _mots_estimes(texte, parole_effective), "estimation_texte"
+        return duree, _mots_estimes(texte, parole_effective, avance), "estimation_texte"
     return beat.get("duree_s", DUREE_BEAT_MUET_S), [], "muet"
 
 
@@ -140,8 +142,12 @@ def construire_timeline(fiche: Fiche, mode: str = "animatique") -> dict[str, Any
     fps = d["format"]["fps"]
     t = 0.0
     beats_sortie = []
+    try:
+        avance = float(charger_pack(d["pack_da"]).get("avance_voix_s", AVANCE_VOIX_S))
+    except Exception:  # pack illisible : signalé par ailleurs, on garde la valeur par défaut
+        avance = AVANCE_VOIX_S
     for b in d["beats"]:
-        duree, mots_rel, origine = _duree_et_mots(b)
+        duree, mots_rel, origine = _duree_et_mots(b, avance)
         debut, fin = t, t + duree
         actions = []
         for a in b["actions"]:
@@ -173,6 +179,7 @@ def construire_timeline(fiche: Fiche, mode: str = "animatique") -> dict[str, Any
             "frame_fin": frame_fin,
             "voix": b.get("voix", ""),
             "voix_fichier": (b.get("voix_audio") or {}).get("fichier"),
+            "avance_voix_s": avance,
             "origine_timing": origine,
             "mots": [{"mot": m["mot"], "debut": round(debut + m["debut"], 3), "fin": round(debut + m["fin"], 3)}
                      for m in mots_rel],

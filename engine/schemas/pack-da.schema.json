@@ -241,6 +241,17 @@
       "minimum": -5,
       "maximum": 5
     },
+    "avance_voix_s": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "Facultatif : silence avant la première syllabe de chaque beat (défaut 0,15 s). Plus petit = voix plus liée d'un plan à l'autre."
+    },
+    "look_vue": {
+      "type": "string",
+      "description": "Facultatif : look de la transformation de vue (ex. « Punchy » pour AgX : plus de contraste et de saturation).",
+      "enum": ["None", "Punchy", "Base Contrast", "Medium High Contrast", "High Contrast", "Medium Low Contrast", "Low Contrast", "Very High Contrast", "Very Low Contrast", "Greyscale"]
+    },
     "monde": {
       "type": "object",
       "required": [

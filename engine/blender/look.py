@@ -208,6 +208,12 @@ def monde_et_lumiere(scene: bpy.types.Scene, pack: dict) -> None:
     scene.collection.objects.link(soleil)
     scene.view_settings.view_transform = pack.get("transformation_vue", "Standard")
     scene.view_settings.exposure = pack.get("exposition", 0.0)
+    if pack.get("look_vue"):   # facultatif : look de la transformation (ex. AgX « Punchy », plus saturé)
+        nom = pack["look_vue"]
+        try:
+            scene.view_settings.look = nom
+        except TypeError:
+            scene.view_settings.look = f"{scene.view_settings.view_transform} - {nom}"
 
 
 def moteur(scene: bpy.types.Scene, pack: dict, mode: str, forcer: str | None = None) -> str:

@@ -124,6 +124,16 @@ def icone(nom: str, taille: int) -> Image.Image:
         d.ellipse([e // 2, e // 2, s - e // 2, s - e // 2], fill=BLEU, outline=NUIT, width=e)
         d.ellipse([s * 0.36, s * 0.24, s * 0.64, s * 0.52], fill=BLANC)
         d.chord([s * 0.22, s * 0.55, s * 0.78, s * 1.05], 180, 360, fill=BLANC)
+    elif nom == "brique":
+        # brique rouge orangé vue de face, deux joints clairs (série « Le Village sur la Tortue »)
+        x0, y0, x1, y1 = s * 0.04, s * 0.2, s * 0.96, s * 0.8
+        d.rounded_rectangle([x0, y0, x1, y1], radius=s // 10, fill=(214, 84, 40), outline=(120, 40, 18), width=e)
+        joint = (255, 214, 170)
+        ym = (y0 + y1) / 2
+        d.line([(x0 + e, ym), (x1 - e, ym)], fill=joint, width=max(3, e * 3 // 4))
+        d.line([(s * 0.5, y0 + e), (s * 0.5, ym)], fill=joint, width=max(3, e * 3 // 4))
+        d.line([(s * 0.28, ym), (s * 0.28, y1 - e)], fill=joint, width=max(3, e * 3 // 4))
+        d.line([(s * 0.72, ym), (s * 0.72, y1 - e)], fill=joint, width=max(3, e * 3 // 4))
     else:
         raise HudInvalide(f"icône inconnue : {nom}")
     return im.resize((taille, taille), Image.LANCZOS)

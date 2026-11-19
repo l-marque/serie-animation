@@ -164,7 +164,7 @@ def commande_ffmpeg(timeline: dict[str, Any], dossier: Path, largeur: int, haute
             if not chemin.is_file():
                 raise MontageErreur(f"fichier de voix introuvable pour le beat {b['id']} : {chemin}")
             cmd += ["-i", str(chemin)]
-            ms = int(round((b["debut_s"] + AVANCE_VOIX_S) * 1000))
+            ms = int(round((b["debut_s"] + b.get("avance_voix_s", AVANCE_VOIX_S)) * 1000))
             filtres.append(f"[{index}:a]aresample=48000,adelay={ms}|{ms}[a{index}]")
             entrees_audio.append(f"[a{index}]")
             index += 1

@@ -62,6 +62,16 @@ PERSONNAGES = {
            "violet": ((0.45, 0.07, 0.9), (0.08, 0.06, 0.12), (0.45, 0.07, 0.02)),     # violet, cheveux roux
            "orange": ((1.0, 0.3, 0.0), (0.03, 0.33, 0.35), (0.05, 0.035, 0.025)),     # orange, pantalon sarcelle
        }.items()},
+    # Coach Tom (jour-3, @tomaspastreserieux) : l'entraîneur du FC Élite. Survêtement anthracite à doubles bandes
+    # blanches (manches longues, pantalon), col jaune, casquette noire à visière jaune (couleurs du club : noir,
+    # jaune, rouge), sifflet argent au bout d'un cordon rouge, moustache, petit ventre de coach, 1,80 m.
+    # Animation en plus : Whistle (il porte le sifflet à la bouche et souffle trois coups).
+    "tom_bloc": dict(hauteur=1.8, tshirt=(0.05, 0.055, 0.065), bas=(0.05, 0.055, 0.065), short=False,
+                     chaussures=(0.95, 0.95, 0.95), semelle=(0.2, 0.2, 0.2), chaussettes=None,
+                     cheveux=(0.11, 0.085, 0.07), coiffure="casquette", humeur="sourire",
+                     survetement=dict(bandes=(0.82, 0.82, 0.8), col=(0.85, 0.42, 0.0)),
+                     casquette=dict(calotte=(0.012, 0.012, 0.016), visiere=(0.85, 0.42, 0.0)),
+                     moustache=True, ventre=True, sifflet=dict(metal=(0.75, 0.76, 0.8), cordon=(0.6, 0.02, 0.02))),
 }
 
 
@@ -84,6 +94,15 @@ def construire(asset_id: str, p: dict):
     if rond:
         for mat in m.values():
             mat.node_tree.nodes["Principled BSDF"].inputs["Roughness"].default_value = rug
+    if p.get("survetement"):
+        m["Bandes"] = plastique("Bandes", p["survetement"]["bandes"], 0.5)
+        m["Col"] = plastique("Col", p["survetement"]["col"], 0.45)
+    if p.get("casquette"):
+        m["Calotte"] = plastique("Calotte", p["casquette"]["calotte"], 0.6)
+        m["Visiere"] = plastique("Visiere", p["casquette"]["visiere"], 0.4)
+    if p.get("sifflet"):
+        m["Sifflet"] = f.materiau("Sifflet", p["sifflet"]["metal"], rugosite=0.25, metal=0.9)
+        m["Cordon"] = plastique("Cordon", p["sifflet"]["cordon"], 0.7)
     if p.get("chaussettes"):
         m["Chaussettes"] = plastique("Chaussettes", p["chaussettes"])
     if p.get("piece"):
@@ -108,6 +127,11 @@ def construire(asset_id: str, p: dict):
             bloc(f"jambe_{cote}", os_, (x, 0, 0.85 * u), (0.82 * u, 0.82 * u, 0.9 * u), "Peau")
         else:
             bloc(f"pantalon_{cote}", os_, (x, 0, 1.1 * u), (0.98 * u, 1.0 * u, 1.8 * u), "Bas")
+            if p.get("survetement"):                           # doubles bandes blanches sur le côté extérieur
+                sx = -1 if cote == "R" else 1
+                for dy in (-0.12 * u, 0.12 * u):
+                    bloc(f"bande_jambe_{cote}_{dy:.2f}", os_, (x + sx * 0.5 * u, dy, 1.15 * u),
+                         (0.03 * u, 0.12 * u, 1.66 * u), "Bandes", biseau=0.0)
         if p.get("chaussettes"):
             h = 0.22 * u if (p.get("chaussette_tombee") and cote == "L") else 0.42 * u
             bloc(f"chaussette_{cote}", os_, (x, 0, 0.32 * u + h / 2), (0.86 * u, 0.86 * u, h), "Chaussettes")
@@ -116,7 +140,16 @@ def construire(asset_id: str, p: dict):
 
     # Tronc 2u × 1u × 2u, pivot au bassin.
     large = 1.12 if asset_id.startswith("kevin") else 1.0     # t-shirt trop grand
-    bloc("tronc", "Torso", (0, 0, 3.0 * u), (2.0 * u * large, 1.0 * u * large, 2.0 * u), "Tshirt")
+    if p.get("ventre"):                                        # petit ventre de coach : tronc plus profond devant
+        bloc("tronc", "Torso", (0, -0.1 * u, 3.0 * u), (2.0 * u, 1.2 * u, 2.0 * u), "Tshirt")
+        bloc("ventre", "Torso", (0, -0.62 * u, 2.62 * u), (1.6 * u, 0.2 * u, 1.0 * u), "Tshirt", biseau=0.1 * u)
+    else:
+        bloc("tronc", "Torso", (0, 0, 3.0 * u), (2.0 * u * large, 1.0 * u * large, 2.0 * u), "Tshirt")
+    if p.get("survetement"):                                   # fermeture éclair et col montant jaune
+        yv = -0.71 * u if p.get("ventre") else -0.51 * u
+        bloc("zip", "Torso", (0, yv, 3.45 * u), (0.06 * u, 0.03 * u, 1.1 * u), "Bandes", biseau=0.0)
+        bloc("zip_bas", "Torso", (0, yv - 0.02 * u, 2.6 * u), (0.06 * u, 0.03 * u, 0.98 * u), "Bandes", biseau=0.0)
+        bloc("col", "Torso", (0, -0.1 * u, 4.02 * u), (1.0 * u, 1.0 * u, 0.2 * u), "Col", biseau=0.05 * u)
     bloc("ceinture", "Torso", (0, 0, 2.08 * u), (2.0 * u, 1.0 * u, 0.16 * u), "Bas", biseau=0.03 * u)
     if p.get("piece"):                                         # pièce cousue sur le ventre
         bloc("piece", "Torso", (0.45 * u, -0.56 * u * large, 2.6 * u), (0.42 * u, 0.04 * u, 0.36 * u), "Piece",
@@ -126,7 +159,14 @@ def construire(asset_id: str, p: dict):
     for cote, x in (("R", -1.5 * u), ("L", 1.5 * u)):
         os_ = f"Arm.{cote}"
         bloc(f"manche_{cote}", os_, (x * (large if large > 1 else 1), 0, 3.55 * u), (0.98 * u * large, 1.0 * u * large, 0.9 * u), "Tshirt")
-        bloc(f"bras_{cote}", os_, (x, 0, 2.65 * u), (0.82 * u, 0.82 * u, 1.1 * u), "Peau")
+        if p.get("survetement"):                               # manches longues à doubles bandes
+            bloc(f"bras_{cote}", os_, (x, 0, 2.62 * u), (0.9 * u, 0.9 * u, 1.16 * u), "Tshirt")
+            sx = -1 if cote == "R" else 1
+            for dy in (-0.12 * u, 0.12 * u):
+                bloc(f"bande_bras_{cote}_{dy:.2f}", os_, (x + sx * 0.5 * u, dy, 3.05 * u),
+                     (0.03 * u, 0.12 * u, 1.9 * u), "Bandes", biseau=0.0)
+        else:
+            bloc(f"bras_{cote}", os_, (x, 0, 2.65 * u), (0.82 * u, 0.82 * u, 1.1 * u), "Peau")
         if rond:                                               # main douce, presque une bille
             bloc(f"main_{cote}", os_, (x, 0, 1.95 * u), (0.84 * u, 0.84 * u, 0.5 * u), "Peau", biseau=0.24 * u)
         else:
@@ -174,9 +214,26 @@ def construire(asset_id: str, p: dict):
                  biseau=0.0, rot=(0, math.radians(-20 * s), 0))
         bloc("bouche_m", "Head", (0, yf, zt - 0.31 * u), (0.12 * u, 0.04 * u, 0.05 * u), "Bouche", biseau=0.0)
 
+    if p.get("moustache"):                                      # moustache épaisse, bouts relevés
+        bloc("moustache", "Head", (0, yf - 0.02 * u, zt - 0.17 * u), (0.42 * u, 0.06 * u, 0.12 * u), "Cheveux",
+             biseau=0.03 * u)
+        for s in (-1, 1):
+            bloc(f"moustache_{s}", "Head", (s * 0.25 * u, yf - 0.02 * u, zt - 0.15 * u), (0.16 * u, 0.06 * u, 0.09 * u),
+                 "Cheveux", biseau=0.02 * u, rot=(0, math.radians(-25 * s), 0))
+
     # Cheveux.
     zh = zt + 0.59 * u
-    if p["coiffure"] == "courte":
+    if p["coiffure"] == "casquette":                            # casquette : calotte, visière, bouton ; nuque et pattes
+        bloc("nuque", "Head", (0, 0.58 * u, zt + 0.1 * u), (1.34 * u, 0.2 * u, 0.7 * u), "Cheveux", biseau=0.08 * u)
+        for s in (-1, 1):
+            bloc(f"patte_{s}", "Head", (s * 0.66 * u, -0.1 * u, zt + 0.12 * u), (0.06 * u, 0.3 * u, 0.4 * u), "Cheveux",
+                 biseau=0.02 * u)
+        bloc("calotte", "Head", (0, 0.02 * u, zh + 0.02 * u), (1.4 * u, 1.3 * u, 0.42 * u), "Calotte", biseau=0.16 * u)
+        bloc("bandeau", "Head", (0, 0.02 * u, zh - 0.14 * u), (1.42 * u, 1.32 * u, 0.12 * u), "Calotte", biseau=0.04 * u)
+        bloc("visiere", "Head", (0, -0.9 * u, zh - 0.17 * u), (1.12 * u, 0.62 * u, 0.07 * u), "Visiere",
+             biseau=0.03 * u, rot=(math.radians(9), 0, 0))
+        bloc("bouton", "Head", (0, 0.02 * u, zh + 0.26 * u), (0.18 * u, 0.18 * u, 0.07 * u), "Visiere", biseau=0.03 * u)
+    elif p["coiffure"] == "courte":
         bloc("cheveux", "Head", (0, 0.04 * u, zh - 0.02 * u), (1.36 * u, 1.24 * u, 0.26 * u), "Cheveux", biseau=0.1 * u)
         bloc("frange", "Head", (0, -0.5 * u, zh - 0.14 * u), (1.3 * u, 0.28 * u, 0.22 * u), "Cheveux", biseau=0.08 * u)
         bloc("nuque", "Head", (0, 0.58 * u, zt + 0.15 * u), (1.34 * u, 0.2 * u, 0.85 * u), "Cheveux", biseau=0.08 * u)
@@ -195,6 +252,17 @@ def construire(asset_id: str, p: dict):
 
     if rond:
         u = u0
+    if p.get("sifflet"):                                        # sifflet (os « Sifflet ») au bout d'un cordon
+        ys = -0.84 * u if p.get("ventre") else -0.62 * u
+        bloc("sifflet", "Sifflet", (0, ys, 3.5 * u), (0.26 * u, 0.2 * u, 0.17 * u), "Sifflet", biseau=0.05 * u)
+        bloc("sifflet_bec", "Sifflet", (0, ys + 0.15 * u, 3.52 * u), (0.11 * u, 0.16 * u, 0.08 * u), "Sifflet",
+             biseau=0.02 * u)
+        bloc("sifflet_anneau", "Sifflet", (0, ys, 3.62 * u), (0.08 * u, 0.04 * u, 0.08 * u), "Cordon", biseau=0.0)
+        for s in (-1, 1):                                       # cordon : du cou au sifflet, poids mêlés Torso/Sifflet
+            o = f.tube_courbe(f"cordon_{s}", [(s * 0.34 * u, -0.25 * u, 4.1 * u), (s * 0.3 * u, ys + 0.12 * u, 4.06 * u),
+                                              (s * 0.2 * u, ys - 0.02 * u, 3.85 * u), (s * 0.04 * u, ys, 3.64 * u)],
+                              0.025 * u, m["Cordon"], cotes=6)
+            parties.append((o, ("melange", 3.64 * u, 4.0 * u)))
     # Squelette : Root, Torso, Head, Arm.L/R, Leg.L/R.
     arm_d = bpy.data.armatures.new("Squelette")
     arm = bpy.data.objects.new("Armature", arm_d)
@@ -216,22 +284,33 @@ def construire(asset_id: str, p: dict):
     for cote, x in (("R", -1.5 * u), ("L", 1.5 * u)):
         os_edit(f"Arm.{cote}", (x, 0, 3.75 * u), (x, 0, 2.0 * u), "Torso")
         os_edit(f"Leg.{cote}", (x / 3, 0, 2.0 * u), (x / 3, 0, 0.0), "Root")
+    if p.get("sifflet"):
+        ys = -0.84 * u if p.get("ventre") else -0.62 * u
+        os_edit("Sifflet", (0, ys, 3.5 * u), (0, ys, 3.8 * u), "Torso")
     bpy.ops.object.mode_set(mode="OBJECT")
 
     # Maillage unique, membres rigides (poids 1 sur un seul os).
     for o, os_ in parties:
+        if isinstance(os_, tuple):                              # cordon : Sifflet en bas, Torso en haut
+            _, z_bas, z_haut = os_
+            gs, gt = o.vertex_groups.new(name="Sifflet"), o.vertex_groups.new(name="Torso")
+            for v in o.data.vertices:
+                t = min(1.0, max(0.0, (v.co.z - z_bas) / (z_haut - z_bas)))
+                gs.add([v.index], 1.0 - t, "REPLACE")
+                gt.add([v.index], t, "REPLACE")
+            continue
         g = o.vertex_groups.new(name=os_)
         g.add(list(range(len(o.data.vertices))), 1.0, "REPLACE")
     corps = f.fusionner([o for o, _ in parties], asset_id)
     corps.parent = arm
     mod = corps.modifiers.new("Squelette", "ARMATURE")
     mod.object = arm
-    animer(arm, u)
+    animer(arm, u, p)
     return arm, corps
 
 
 # ----- animations --------------------------------------------------------------------------------
-def animer(arm, u):
+def animer(arm, u, p=None):
     pb = arm.pose.bones
     for b in pb:
         b.rotation_mode = "XYZ"
@@ -333,6 +412,19 @@ def animer(arm, u):
         return {"Arm.R": (a, 0, 30), "Arm.L": (0, 0, -3), "Head": (12, 0, -10), "Torso": (4, 0, -3)}
     action("Point_Down", {0: montre(28), 6: montre(40), 12: montre(28), 18: montre(40), 24: montre(28)}, 24)
 
+    if p and p.get("sifflet"):
+        # Whistle (jour-3, coach Tom) : la main droite monte le sifflet à la bouche (os Sifflet déplacé de 0,84u vers
+        # le haut, tenu par-dessous), trois coups de sifflet (le buste se gonfle ; la tête ne bouge pas par
+        # rapport au buste, le sifflet reste à la bouche), puis il le relâche. Coups de sifflet aux images 9, 14
+        # et 19 (24 i/s, action lue image pour image par le moteur).
+        bouche = (0, 0.84 * u, 0.05 * u)
+        main = (111, -40, 21)           # main sous le sifflet (le sifflet reste visible)
+
+        def souffle(d):
+            return {"Arm.R": main, "Sifflet:loc": bouche, "Arm.L": (0, 0, -12), "Torso": (-3 - d, 0, 0),
+                    "Root:loc": (0, 0.02 * u * d, 0)}
+        action("Whistle", {0: {}, 6: souffle(0), 9: souffle(2), 11: souffle(0), 14: souffle(2), 16: souffle(0),
+                           19: souffle(3), 24: souffle(0), 30: {}}, 30)
     arm.animation_data.action = bpy.data.actions["Idle"]
 
 

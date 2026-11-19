@@ -111,7 +111,8 @@
               "icone": {
                 "enum": [
                   "piece",
-                  "habitant"
+                  "habitant",
+                  "brique"
                 ],
                 "default": "piece"
               },
@@ -188,7 +189,8 @@
               "icone": {
                 "enum": [
                   "piece",
-                  "habitant"
+                  "habitant",
+                  "brique"
                 ],
                 "default": "piece"
               },

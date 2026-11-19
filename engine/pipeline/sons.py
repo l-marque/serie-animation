@@ -106,12 +106,37 @@ def _alarme() -> list[float]:
     return sortie
 
 
+def _ronflement() -> list[float]:
+    """Ronflement de tortue géante (2,6 s) : inspiration grave et rauque (bruit modulé à 28 Hz, voix
+    vers 70 Hz), puis expiration sifflée plus douce. Pour un personnage qui dort."""
+    rng = random.Random("ronflement")
+    n, sortie, y, phase = int(2.6 * FREQUENCE), [], 0.0, 0.0
+    for i in range(n):
+        t = i / FREQUENCE
+        if t < 1.3:                                   # inspiration rauque
+            env = math.sin(math.pi * t / 1.3) ** 1.5
+            phase += 2 * math.pi * (62 + 14 * t) / FREQUENCE
+            rauque = 0.5 + 0.5 * math.sin(2 * math.pi * 28 * t)
+            y += 0.08 * (rng.uniform(-1, 1) - y)
+            s = env * (0.55 * math.sin(phase) * rauque + 1.6 * y * rauque)
+        else:                                         # expiration sifflée
+            u = (t - 1.3) / 1.3
+            env = 0.5 * math.sin(math.pi * u) ** 2
+            y += 0.25 * (rng.uniform(-1, 1) - y)
+            s = env * y * 0.9
+        sortie.append(0.8 * s)
+    return sortie
+
+
 def ambiance(nom: str, duree_s: float) -> Path:
     """Fichier d'ambiance synthétisée (mis en cache par nom et durée arrondie à la seconde).
-    « alarme » est un effet ponctuel de durée fixe (2,4 s)."""
+    « alarme » (2,4 s) et « ronflement » (2,6 s) sont des effets ponctuels de durée fixe."""
     if nom == "alarme":
         chemin = CACHE / "effet_alarme.wav"
         return chemin if chemin.is_file() else _ecrire_wav(chemin, _alarme())
+    if nom == "ronflement":
+        chemin = CACHE / "effet_ronflement.wav"
+        return chemin if chemin.is_file() else _ecrire_wav(chemin, _ronflement())
     duree = int(math.ceil(duree_s)) + 1
     chemin = CACHE / f"ambiance_{nom}_{duree}s.wav"
     if chemin.is_file():
