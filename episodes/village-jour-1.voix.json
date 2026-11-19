@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "mots_par_minute": 180,
+  "_note": "prod-directeur-voix (Claude de Guillaume), 2026-11-19. Même voix que iles-jour-1 et jour-3 : Qwen3-TTS Base (Qwen/Qwen3-TTS-12Hz-1.7B-Base) en copie de voix depuis renders/jour-1/essais_voix/qwen/reference_jeune_narrateur.wav. Accroche : b01 « Jour un ! » quasi crié (texte_synthese en majuscules), méthode iles-jour-1 ; ensuite ton du jour-2, 180 mots par minute. Aucune retouche audio : retrait du silence autour de la voix, pause, normalisation du volume.",
+  "beats": {
+    "b01": {"texte": "Jour un !", "texte_synthese": "JOUR UN !", "intention": "cri d'accroche, plein d'entrain", "mots_par_minute": 190, "pause_apres_s": 0.08},
+    "b02": {"texte": "Ce village est construit sur le dos d'une tortue géante !", "intention": "révélation, émerveillé et rapide, appuie sur « tortue géante »", "mots_par_minute": 190, "pause_apres_s": 0.08},
+    "b03": {"texte": "Et quand elle se réveillera, elle partira vers cette montagne...", "intention": "mystère, la voix baisse un peu sur « montagne »", "pause_apres_s": 0.08},
+    "b04": {"texte": "que personne n'a jamais vue de près !", "intention": "mystère, puis élan", "pause_apres_s": 0.08},
+    "b05": {"texte": "Pour l'instant, le village de Carapace n'a qu'un seul habitant...", "intention": "constat amusé", "pause_apres_s": 0.08},
+    "b06": {"texte": "Il en faut cent pour réveiller la tortue.", "intention": "enjeu, appuie sur « cent »", "pause_apres_s": 0.08},
+    "b07": {"texte": "Chut... elle dort encore.", "intention": "chuchoté, complice", "pause_apres_s": 0.12},
+    "b08": {"texte": "Et c'est vous qui allez la réveiller !", "intention": "énergique, s'adresse au spectateur", "pause_apres_s": 0.08},
+    "b09": {"texte": "Chaque abonné devient un habitant, avec son pseudo.", "intention": "règle claire, enjouée", "pause_apres_s": 0.08},
+    "b10": {"texte": "Chaque like rapporte une brique.", "intention": "règle claire", "pause_apres_s": 0.08},
+    "b11": {"texte": "Avec les briques, on construit des maisons, des tours, un puits...", "intention": "énumération rythmée", "pause_apres_s": 0.08},
+    "b12": {"texte": "et le commentaire le plus liké décide de ce qu'on construit !", "intention": "règle, élan", "pause_apres_s": 0.08},
+    "b13": {"texte": "Le jour où elle se réveillera, tout le village partira avec elle !", "intention": "pic d'émotion, épique", "mots_par_minute": 185, "pause_apres_s": 0.08},
+    "b14": {"texte": "Alors, on construit quoi en premier ? Dis-le en commentaire !", "intention": "appel à l'action énergique", "mots_par_minute": 195, "pause_apres_s": 0.08},
+    "b15": {"texte": "Rendez-vous demain pour le jour deux !", "intention": "conclusion enjouée", "pause_apres_s": 0.0}
+  }
+}

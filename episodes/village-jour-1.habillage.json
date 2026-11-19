@@ -1,0 +1,113 @@
+{
+  "version": "1.0",
+  "ambiance": {
+    "son": "ambiance_village",
+    "volume": 0.16
+  },
+  "sons": [
+    {
+      "son": "revelation_riser",
+      "beat": "b02",
+      "debut": 0.0,
+      "volume": 0.3
+    },
+    {
+      "son": "ronflement_geant",
+      "beat": "b02",
+      "mot": "géante",
+      "volume": 0.3
+    },
+    {
+      "son": "mystere_scintille",
+      "beat": "b03",
+      "mot": "montagne",
+      "volume": 0.3
+    },
+    {
+      "son": "ronflement_geant",
+      "beat": "b07",
+      "debut": 0.0,
+      "volume": 0.5
+    },
+    {
+      "son": "pas_geant",
+      "beat": "b13",
+      "mot": "village",
+      "volume": 0.45
+    },
+    {
+      "son": "pas_geant",
+      "beat": "b13",
+      "mot": "avec",
+      "volume": 0.45
+    },
+    {
+      "son": "bulle",
+      "beat": "b09",
+      "mot": "habitant",
+      "volume": 0.3
+    },
+    {
+      "son": "confirmation",
+      "beat": "b13",
+      "mot": "réveillera",
+      "volume": 0.25
+    },
+    {
+      "son": "jingle_victoire",
+      "beat": "b15",
+      "mot": "jour",
+      "volume": 0.22
+    }
+  ],
+  "hud": [
+    {
+      "type": "badge",
+      "texte": "JOUR *1*",
+      "beat": "b01",
+      "debut": 0,
+      "jusqu_au_beat": "b15",
+      "position": "haut_droite"
+    },
+    {
+      "type": "compteur",
+      "icone": "habitant",
+      "beat": "b01",
+      "debut": 0,
+      "valeur": 1,
+      "jusqu_au_beat": "b15",
+      "position": "haut_gauche"
+    },
+    {
+      "type": "compteur",
+      "icone": "brique",
+      "beat": "b10",
+      "mot": "brique",
+      "valeur": 0,
+      "jusqu_au_beat": "b15",
+      "position": "haut_gauche"
+    },
+    {
+      "type": "gain",
+      "texte": "+1",
+      "icone": "habitant",
+      "beat": "b09",
+      "mot": "habitant",
+      "position": [
+        0.5,
+        0.55
+      ]
+    },
+    {
+      "type": "gain",
+      "texte": "+1",
+      "icone": "brique",
+      "beat": "b10",
+      "mot": "brique",
+      "position": [
+        0.5,
+        0.55
+      ]
+    }
+  ]
+}
