@@ -1,0 +1,189 @@
+{
+  "nom": "desert_hamster",
+  "description": "Pack « 10 000 serpents contre 1 hamster » (hamster-jour-0), version désert, révision 1.2 (2026-11-19, correction des tests : sable ocre jaune, ciel violet-rouge profond, soleil orangé moins rouge, exposition +0.05, monde 1.2) ; révision 1.1 (mise en garde : trop sombre = on ne voit plus personne). La peur vient des couleurs (rouge, violet), du contre-jour et des yeux rouges, pas du noir. Sable ocre moyen bien éclairé, ciel rouge-magenta lumineux sans noir (couleur unie, intensité monde 1.8), soleil rouge orangé bas derrière la foule (nord +y) pour le contre-jour, exposition +0.5. Hamster chaud, émission 0.5 : l'élément le plus lisible. Serpents sombres mais pas noirs. Non disponibles (briques maintenance) : lumière de contour dédiée, brume d'horizon, vignettage, bloom ; yeux rouges émissifs à demander à prod-modeleur.",
+  "version": "1.2",
+  "moteur": {
+    "final": "BLENDER_EEVEE",
+    "animatique": "BLENDER_EEVEE",
+    "secours": "CYCLES"
+  },
+  "cycles": {
+    "echantillons_final": 64,
+    "echantillons_animatique": 8
+  },
+  "eevee": {
+    "echantillons_final": 64,
+    "echantillons_animatique": 16
+  },
+  "transformation_vue": "AgX",
+  "exposition": 0.05,
+  "monde": {
+    "couleur": [
+      0.42,
+      0.04,
+      0.24
+    ],
+    "intensite": 1.2,
+    "hdri": ""
+  },
+  "soleil": {
+    "rotation_deg": [
+      84,
+      0,
+      180
+    ],
+    "energie": 6.0,
+    "couleur": [
+      1.0,
+      0.5,
+      0.16
+    ]
+  },
+  "ombrage_plat": false,
+  "contours": {
+    "actif": false,
+    "epaisseur": 0.025,
+    "couleur": [
+      0.05,
+      0.04,
+      0.08
+    ],
+    "sur_assets_textures": false
+  },
+  "materiaux": {
+    "sol": {
+      "couleur": [
+        0.55,
+        0.38,
+        0.14
+      ],
+      "rugosite": 0.95
+    },
+    "batiment": {
+      "couleur": [
+        0.3,
+        0.1,
+        0.04
+      ],
+      "rugosite": 0.8
+    },
+    "toit": {
+      "couleur": [
+        0.102,
+        0.01,
+        0.016
+      ],
+      "rugosite": 0.7
+    },
+    "vegetation": {
+      "couleur": [
+        0.068,
+        0.042,
+        0.01
+      ],
+      "rugosite": 0.9
+    },
+    "roche": {
+      "couleur": [
+        0.147,
+        0.068,
+        0.058
+      ],
+      "rugosite": 0.9
+    },
+    "personnage": {
+      "couleur": [
+        0.95,
+        0.62,
+        0.4
+      ],
+      "rugosite": 0.45,
+      "emission": 0.5
+    },
+    "accessoire": {
+      "couleur": [
+        0.147,
+        0.048,
+        0.013
+      ],
+      "rugosite": 0.6
+    },
+    "accent": {
+      "couleur": [
+        1.0,
+        0.12,
+        0.01
+      ],
+      "rugosite": 0.4
+    },
+    "eau": {
+      "couleur": [
+        0.01,
+        0.05,
+        0.07
+      ],
+      "rugosite": 0.08
+    },
+    "blanc": {
+      "couleur": [
+        0.4,
+        0.35,
+        0.3
+      ],
+      "rugosite": 0.5
+    },
+    "tissu": {
+      "couleur": [
+        0.023,
+        0.009,
+        0.03
+      ],
+      "rugosite": 0.7
+    },
+    "pierre": {
+      "couleur": [
+        0.254,
+        0.144,
+        0.102
+      ],
+      "rugosite": 0.92
+    }
+  },
+  "texte_ecran": {
+    "police": "Arial",
+    "couleur": "&H00FFFFFF",
+    "contour": "&H00141018",
+    "taille_relative": 0.05,
+    "cadre": {
+      "fond": "&H00FFFFFF",
+      "bordure": "&H00008CFF",
+      "texte": "&H00281812",
+      "marge_px": 22,
+      "bordure_px": 10,
+      "pop": true
+    }
+  },
+  "sous_titres": {
+    "police": "Arial Black",
+    "couleur": "&H00FFFFFF",
+    "contour": "&H00141018",
+    "taille_relative": 0.046
+  },
+  "inspiration": "Ciel de tempête de sable rouge et violet, contre-jour rasant (ambiance seulement) + personnages en blocs arrondis : hamster chaud au premier plan sur sable clair, foule de serpents noirs à l'horizon.",
+  "voix_off": {
+    "moteur": "qwen",
+    "vitesse": 1.0,
+    "qwen": {
+      "modele": "Qwen/Qwen3-TTS-12Hz-1.7B-CustomVoice",
+      "locuteur": "dylan",
+      "langue": "French",
+      "consigne": "Narrateur de Reel en français, énergique et captivant : ton vivant, intonations très marquées, la voix monte et descend, appuie les mots importants, enchaîne les phrases sans traîner.",
+      "essais": 6,
+      "seuil_transcription": 0.9,
+      "mots_par_minute": 180,
+      "graine": 7,
+      "expressivite_min": 4.8
+    }
+  },
+  "look_vue": "Medium High Contrast"
+}

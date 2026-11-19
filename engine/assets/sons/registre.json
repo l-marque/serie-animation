@@ -14,6 +14,11 @@
         "digital-audio",
         "music-jingles"
       ]
+    },
+    "freesound": {
+      "licence": "CC0 ou CC-BY selon le son (voir licences.csv)",
+      "auteur": "contributeurs de freesound.org",
+      "telechargement": "python -m engine.pipeline.sources_sons telecharger <id> --nom <nom>"
     }
   },
   "sons": {
@@ -324,6 +329,108 @@
       "volume": 0.35,
       "categorie": "action",
       "description": "sirène d'alerte (synthétisée), pour une accroche d'urgence"
+    },
+    "ronflement": {
+      "fichiers": [
+        "synth:ronflement"
+      ],
+      "volume": 0.4,
+      "categorie": "action",
+      "description": "ronflement grave d'un géant endormi (synthétisé), 2,6 s"
+    },
+    "ronflement_geant": {
+      "fichiers": [
+        "engine/assets/sons/freesound/ronflement_geant/471927.ogg"
+      ],
+      "volume": 0.5,
+      "categorie": "action",
+      "description": "ronflement d'un grand monstre endormi (Freesound, CC0)",
+      "source": "freesound"
+    },
+    "pas_geant": {
+      "fichiers": [
+        "engine/assets/sons/freesound/pas_geant/721601.ogg"
+      ],
+      "volume": 0.5,
+      "categorie": "action",
+      "description": "pas lourd d'un géant, sol qui tremble (Freesound, CC0)",
+      "source": "freesound"
+    },
+    "revelation_riser": {
+      "fichiers": [
+        "engine/assets/sons/freesound/revelation_riser/754771.ogg"
+      ],
+      "volume": 0.35,
+      "categorie": "action",
+      "description": "montée puis impact, pour une révélation (Freesound, CC0)",
+      "source": "freesound"
+    },
+    "mystere_scintille": {
+      "fichiers": [
+        "engine/assets/sons/freesound/mystere_scintille/844398.ogg"
+      ],
+      "volume": 0.35,
+      "categorie": "action",
+      "description": "scintillement mystérieux, lumière magique (Freesound, CC0)",
+      "source": "freesound"
+    },
+    "serpent_siffle": {
+      "fichiers": [
+        "engine/assets/sons/freesound/serpent_siffle/540162.ogg",
+        "engine/assets/sons/freesound/serpent_siffle/553374.ogg",
+        "engine/assets/sons/freesound/serpent_siffle/706977.ogg"
+      ],
+      "volume": 0.55,
+      "categorie": "ambiance",
+      "description": "sifflement de serpent, proche (menace)",
+      "source": "freesound"
+    },
+    "hamster_couine": {
+      "fichiers": [
+        "engine/assets/sons/freesound/hamster_couine/815243.ogg"
+      ],
+      "volume": 0.6,
+      "categorie": "action",
+      "description": "couinement de hamster (peur, mignon)",
+      "source": "freesound"
+    },
+    "whoosh_coup": {
+      "fichiers": [
+        "engine/assets/sons/freesound/whoosh_coup/434874.ogg"
+      ],
+      "volume": 0.7,
+      "categorie": "action",
+      "description": "whoosh rapide qui finit sur un coup (recul de caméra, révélation)",
+      "source": "freesound"
+    },
+    "montee_impact": {
+      "fichiers": [
+        "engine/assets/sons/freesound/montee_impact/754771.ogg"
+      ],
+      "volume": 0.6,
+      "categorie": "action",
+      "description": "montée de tension qui finit sur un impact grave",
+      "source": "freesound"
+    },
+    "boom_grave": {
+      "fichiers": [
+        "engine/assets/sons/freesound/boom_grave/755054.ogg"
+      ],
+      "volume": 0.75,
+      "categorie": "action",
+      "description": "coup grave de cinéma (badge, révélation)",
+      "source": "freesound"
+    },
+    "pop_recrue": {
+      "fichiers": [
+        "engine/assets/sons/freesound/pop_recrue/776016.ogg",
+        "engine/assets/sons/freesound/pop_recrue/789790.ogg",
+        "engine/assets/sons/freesound/pop_recrue/789792.ogg"
+      ],
+      "volume": 0.5,
+      "categorie": "action",
+      "description": "pop court (apparition d'une recrue)",
+      "source": "freesound"
     }
   }
 }

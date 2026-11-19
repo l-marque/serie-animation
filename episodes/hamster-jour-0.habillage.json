@@ -1,0 +1,99 @@
+{
+  "version": "1.0",
+  "ambiance": {
+    "son": "ambiance_vent",
+    "volume": 0.1
+  },
+  "sons": [
+    {
+      "son": "serpent_siffle",
+      "beat": "b01",
+      "debut": 0,
+      "volume": 0.22
+    },
+    {
+      "son": "hamster_couine",
+      "beat": "b01",
+      "debut": 0.1,
+      "volume": 0.12
+    },
+    {
+      "son": "montee_impact",
+      "beat": "b01",
+      "debut": 0.6,
+      "volume": 0.2
+    },
+    {
+      "son": "whoosh_coup",
+      "beat": "b01",
+      "debut": 1.0,
+      "volume": 0.15
+    },
+    {
+      "son": "boom_grave",
+      "beat": "b02",
+      "mot": "sept",
+      "volume": 0.3
+    },
+    {
+      "son": "serpent_siffle",
+      "beat": "b03",
+      "mot": "faim",
+      "volume": 0.2
+    },
+    {
+      "son": "pop_recrue",
+      "beat": "b05b",
+      "mot": "ajoute",
+      "volume": 0.2
+    },
+    {
+      "son": "pop_recrue",
+      "beat": "b05b",
+      "mot": "soldat",
+      "volume": 0.2
+    },
+    {
+      "son": "pop_recrue",
+      "beat": "b05b",
+      "mot": "son",
+      "volume": 0.2
+    },
+    {
+      "son": "pop_recrue",
+      "beat": "b05b",
+      "mot": "avec",
+      "volume": 0.2
+    },
+    {
+      "son": "pop_recrue",
+      "beat": "b07",
+      "mot": "tagues",
+      "volume": 0.2
+    },
+    {
+      "son": "pop_recrue",
+      "beat": "b08",
+      "mot": "Deux",
+      "volume": 0.2
+    },
+    {
+      "son": "pas_geant",
+      "beat": "b09a",
+      "mot": "Trois",
+      "volume": 0.25
+    },
+    {
+      "son": "boom_grave",
+      "beat": "b11",
+      "debut": 0.2,
+      "volume": 0.28
+    },
+    {
+      "son": "boom_grave",
+      "beat": "b11",
+      "mot": "dix",
+      "volume": 0.28
+    }
+  ]
+}

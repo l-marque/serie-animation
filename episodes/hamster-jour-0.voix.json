@@ -1,0 +1,145 @@
+{
+  "version": "1.0",
+  "mots_par_minute": 180,
+  "_note": "prod-directeur-voix (Claude de Guillaume), 2026-11-19. Même voix que jour-2, iles-jour-1, jour-3 et village-jour-1 : Qwen3-TTS Base (Qwen/Qwen3-TTS-12Hz-1.7B-Base) en copie de voix depuis renders/jour-1/essais_voix/qwen/reference_jeune_narrateur.wav (texte de référence : « Il rêve de devenir pro ! Rendez-vous au jour deux, pour voir la suite ! »). Le mode copie de voix n'accepte pas de consigne de jeu : consigne et emotion servent à la relecture ; le ton vient de la référence, de la ponctuation donnée au modèle et du choix des prises. Accroche b01 avec entrain (méthode iles-jour-1 : texte_synthese en majuscules pour pousser le cri, environ 190 mots par minute), puis ton du jour-2 à 180 mots par minute. Les phrases coupées en deux beats (b04a/b04b, b05a/b05b, b09a/b09b, b12a/b12b) sont synthétisées EN UNE SEULE PRISE (champ synthese_commune) puis coupées au creux d'énergie entre les deux moitiés : intonation continue, aucune pause ajoutée entre les moitiés. Aucune retouche audio : retrait du silence autour de la voix (queue gardée jusqu'à -50 dB), coupe des phrases doubles, pause, normalisation du volume. Texte de chaque beat identique à la fiche episodes/hamster-jour-0.json (brief engine/docs/pilotes/2026-11-19-hamster-brief.md, section 3).",
+  "beats": {
+    "b01": {
+      "texte": "Dix mille serpents veulent manger ce hamster !",
+      "texte_synthese": "DIX MILLE SERPENTS veulent manger ce hamster !",
+      "intention": "accroche, alarme : choc dès la première syllabe",
+      "emotion": "surpris",
+      "mots_par_minute": 190,
+      "consigne": "Presque crié, urgent et choqué : attaque franche sur « Dix mille serpents », appuie sur « manger », la voix monte sur « hamster ».",
+      "pause_apres_s": 0.1
+    },
+    "b02": {
+      "texte": "Dans sept jours, ils attaquent.",
+      "intention": "menace, le compte à rebours tombe",
+      "emotion": "determine",
+      "consigne": "Grave et tendu, appuie sur « sept jours », la voix tombe sur « attaquent ».",
+      "pause_apres_s": 0.12
+    },
+    "b03": {
+      "texte": "Ils ont faim, et ils ne laissent rien derrière eux.",
+      "intention": "menace sourde, inquiétant",
+      "emotion": "mysterieux",
+      "mots_par_minute": 175,
+      "expressivite_min": 4.0,
+      "consigne": "Inquiétant, un peu plus bas : appuie sur « faim » puis sur « rien ».",
+      "pause_apres_s": 0.12
+    },
+    "b04a": {
+      "texte": "Pour l'instant, le hamster est tout seul...",
+      "intention": "creux : attendri, la voix reste en l'air sur « seul... »",
+      "emotion": "triste",
+      "mots_par_minute": 175,
+      "consigne": "Attendri, presque désolé pour lui ; la voix reste suspendue sur « tout seul... », la phrase continue.",
+      "synthese_commune": "b04",
+      "pause_apres_s": 0.0
+    },
+    "b04b": {
+      "texte": "mais tu peux changer ça.",
+      "intention": "relance : on s'adresse au spectateur, complice",
+      "emotion": "complice",
+      "consigne": "Remonte d'un coup, complice, appuie sur « tu » et « changer ».",
+      "synthese_commune": "b04",
+      "pause_apres_s": 0.12
+    },
+    "b05a": {
+      "texte": "Chaque commentaire sous cette vidéo",
+      "intention": "règle du jeu, première moitié, la voix reste en l'air",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 185,
+      "consigne": "Clair et vif, appuie sur « commentaire », la phrase continue sans s'arrêter.",
+      "synthese_commune": "b05",
+      "pause_apres_s": 0.0
+    },
+    "b05b": {
+      "texte": "ajoute un soldat à son armée, avec ton pseudo dessus.",
+      "intention": "règle du jeu, seconde moitié, promesse au spectateur",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 185,
+      "consigne": "Enthousiaste, appuie sur « soldat » puis sur « ton pseudo ».",
+      "synthese_commune": "b05",
+      "pause_apres_s": 0.12
+    },
+    "b06": {
+      "texte": "Tu commentes : tu es soldat.",
+      "intention": "palier 1 de l'escalade, simple et direct",
+      "emotion": "complice",
+      "consigne": "Complice et rythmé, appuie sur « soldat ».",
+      "pause_apres_s": 0.1
+    },
+    "b07": {
+      "texte": "Tu tagues un ami : tu es archer.",
+      "intention": "palier 2, un cran au-dessus",
+      "emotion": "enthousiaste",
+      "consigne": "Un cran plus haut que b06, appuie sur « archer ».",
+      "pause_apres_s": 0.1
+    },
+    "b08": {
+      "texte": "Deux amis : tu pilotes une boule blindée.",
+      "intention": "palier 3, ça devient drôle",
+      "emotion": "enthousiaste",
+      "consigne": "Amusé, la voix monte, appuie sur « boule blindée ».",
+      "pause_apres_s": 0.1
+    },
+    "b09a": {
+      "texte": "Trois amis : tu deviens un cochon d'Inde géant,",
+      "intention": "sommet de l'escalade, émerveillé",
+      "emotion": "joyeux",
+      "mots_par_minute": 185,
+      "consigne": "Le sommet : émerveillé et joyeux, appuie sur « géant », la phrase continue.",
+      "synthese_commune": "b09",
+      "pause_apres_s": 0.0
+    },
+    "b09b": {
+      "texte": "trois fois plus gros !",
+      "intention": "chute amusante, on en rajoute",
+      "emotion": "joyeux",
+      "mots_par_minute": 185,
+      "consigne": "En rajoute avec un grand sourire, appuie sur « trois fois ».",
+      "synthese_commune": "b09",
+      "pause_apres_s": 0.15
+    },
+    "b10": {
+      "texte": "Soldats, archers, boules blindées, cochons d'Inde...",
+      "intention": "récapitulatif qui monte, la voix reste en l'air",
+      "emotion": "enthousiaste",
+      "consigne": "Énumération rythmée qui monte, la voix reste en l'air sur « cochons d'Inde... ».",
+      "pause_apres_s": 0.12
+    },
+    "b11": {
+      "texte": "Est-ce que ça suffira contre dix mille serpents ?",
+      "intention": "doute, suspense : la menace revient",
+      "emotion": "mysterieux",
+      "mots_par_minute": 170,
+      "consigne": "Plus bas, inquiet, appuie sur « dix mille serpents », la voix monte sur la question.",
+      "pause_apres_s": 0.2
+    },
+    "b12a": {
+      "texte": "La bataille commence dans sept jours.",
+      "intention": "rendez-vous, décidé",
+      "emotion": "determine",
+      "mots_par_minute": 190,
+      "consigne": "Décidé, appuie sur « sept jours », enchaîne directement sur l'appel.",
+      "synthese_commune": "b12",
+      "pause_apres_s": 0.0
+    },
+    "b12b": {
+      "texte": "Abonne-toi pour ne pas la rater !",
+      "intention": "appel à l'action, énergique",
+      "emotion": "enthousiaste",
+      "mots_par_minute": 190,
+      "consigne": "Appel direct et énergique, appuie sur « Abonne-toi ».",
+      "synthese_commune": "b12",
+      "pause_apres_s": 0.0
+    }
+  },
+  "syntheses_communes": {
+    "b04": {"beats": ["b04a", "b04b"], "texte": "Pour l'instant, le hamster est tout seul... mais tu peux changer ça."},
+    "b05": {"beats": ["b05a", "b05b"], "texte": "Chaque commentaire sous cette vidéo ajoute un soldat à son armée, avec ton pseudo dessus."},
+    "b09": {"beats": ["b09a", "b09b"], "texte": "Trois amis : tu deviens un cochon d'Inde géant, trois fois plus gros !"},
+    "b12": {"beats": ["b12a", "b12b"], "texte": "La bataille commence dans sept jours. Abonne-toi pour ne pas la rater !"}
+  }
+}

@@ -41,3 +41,5 @@ engine/assets/textures/
 
 # Sons téléchargés (Kenney, CC0) : retéléchargeables avec python -m engine.pipeline.sons telecharger
 engine/assets/sons/kenney/
+# Sons Freesound téléchargés : retéléchargeables avec python -m engine.pipeline.sources_sons telecharger
+engine/assets/sons/freesound/

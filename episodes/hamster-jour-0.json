@@ -1,0 +1,824 @@
+{
+  "version": "1.1",
+  "episode_id": "hamster-jour-0",
+  "titre": "10 000 serpents contre 1 hamster : lancement (J-7)",
+  "format": {
+    "resolution": [
+      1080,
+      1920
+    ],
+    "fps": 30
+  },
+  "pack_da": "desert_hamster",
+  "serie": {
+    "id": "serie_hamster",
+    "continuite": false
+  },
+  "decor": {
+    "kit": "primitifs",
+    "sol": false
+  },
+  "elements": [
+    {
+      "id": "pre",
+      "asset": "bibliotheque:desert_hamster",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "foule",
+      "asset": "bibliotheque:foule_serpents",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "chef",
+      "asset": "bibliotheque:serpent_chef_bloc",
+      "position": [
+        -3,
+        7,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_armee",
+      "asset": "primitif:repere",
+      "position": [
+        0,
+        -1.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "rep_boule",
+      "asset": "primitif:repere",
+      "position": [
+        3,
+        -1,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "tag_s1",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -2.2,
+        -1.05,
+        1.3
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_s2",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        2.2,
+        -1.05,
+        1.3
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_s3",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -3.8,
+        0.5499999999999999,
+        1.3
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_s4",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        3.8,
+        0.5499999999999999,
+        1.3
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_a1",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -1.2,
+        -2.65,
+        1.3
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_bo",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        3,
+        2.45,
+        1.9
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "tag_ci",
+      "asset": "bibliotheque:etiquette_pseudo",
+      "position": [
+        -5.5,
+        1.45,
+        3.1
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    }
+  ],
+  "personnages": [
+    {
+      "id": "hamster",
+      "asset": "bibliotheque:hamster_bloc",
+      "position": [
+        0,
+        0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1
+    },
+    {
+      "id": "s1",
+      "asset": "bibliotheque:hamster_soldat_bloc",
+      "position": [
+        -2.2,
+        -1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "s2",
+      "asset": "bibliotheque:hamster_soldat_bloc",
+      "position": [
+        2.2,
+        -1.0,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "s3",
+      "asset": "bibliotheque:hamster_soldat_bloc",
+      "position": [
+        -3.8,
+        0.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "s4",
+      "asset": "bibliotheque:hamster_soldat_bloc",
+      "position": [
+        3.8,
+        0.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "a1",
+      "asset": "bibliotheque:hamster_archer_bloc",
+      "position": [
+        -1.2,
+        -2.6,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "bo",
+      "asset": "bibliotheque:hamster_boule_bloc",
+      "position": [
+        3,
+        2.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    },
+    {
+      "id": "ci",
+      "asset": "bibliotheque:cochon_inde_bloc",
+      "position": [
+        -5.5,
+        1.5,
+        0
+      ],
+      "rotation_z": 0,
+      "echelle": 1,
+      "visible_au_debut": false
+    }
+  ],
+  "habillage": {
+    "textes_3d": [
+      {
+        "id": "pseudo_s1",
+        "texte": "@ton_pseudo",
+        "parent": "tag_s1",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.16,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_s2",
+        "texte": "@ton_pseudo",
+        "parent": "tag_s2",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.16,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_s3",
+        "texte": "@ton_pseudo",
+        "parent": "tag_s3",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.16,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_s4",
+        "texte": "@ton_pseudo",
+        "parent": "tag_s4",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.16,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_a1",
+        "texte": "@ton_pseudo",
+        "parent": "tag_a1",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.16,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_bo",
+        "texte": "@ton_pseudo",
+        "parent": "tag_bo",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.2,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      },
+      {
+        "id": "pseudo_ci",
+        "texte": "@ton_pseudo",
+        "parent": "tag_ci",
+        "position": [
+          0,
+          -0.03,
+          0.21
+        ],
+        "taille": 0.3,
+        "epaisseur": 0.01,
+        "role": "tissu"
+      }
+    ],
+    "hud": [
+      {
+        "type": "badge",
+        "texte": "J-7",
+        "beat": "b01",
+        "debut": 0,
+        "jusqu_au_beat": "b12b",
+        "position": "haut_centre"
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 10000,
+        "jusqu_au_beat": "b12b",
+        "position": "haut_gauche"
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b01",
+        "debut": 0,
+        "valeur": 1,
+        "jusqu_au_beat": "b05a",
+        "position": "haut_droite"
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b05b",
+        "debut": 0,
+        "valeur": 1,
+        "jusqu_au_beat": "b06",
+        "position": "haut_droite",
+        "vers": 5
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b07",
+        "debut": 0,
+        "valeur": 5,
+        "jusqu_au_beat": "b07",
+        "position": "haut_droite",
+        "vers": 6
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b08",
+        "debut": 0,
+        "valeur": 6,
+        "jusqu_au_beat": "b08",
+        "position": "haut_droite",
+        "vers": 7
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b09a",
+        "debut": 0,
+        "valeur": 7,
+        "jusqu_au_beat": "b09b",
+        "position": "haut_droite",
+        "vers": 8
+      },
+      {
+        "type": "compteur",
+        "icone": "habitant",
+        "beat": "b10",
+        "debut": 0,
+        "valeur": 8,
+        "jusqu_au_beat": "b12b",
+        "position": "haut_droite"
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b05b",
+        "mot": "ajoute",
+        "position": [
+          0.8,
+          0.2
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b05b",
+        "mot": "soldat",
+        "position": [
+          0.8,
+          0.2
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b05b",
+        "mot": "son",
+        "position": [
+          0.8,
+          0.2
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b05b",
+        "mot": "avec",
+        "position": [
+          0.8,
+          0.2
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b07",
+        "mot": "tagues",
+        "position": [
+          0.8,
+          0.2
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b08",
+        "mot": "Deux",
+        "position": [
+          0.8,
+          0.2
+        ]
+      },
+      {
+        "type": "gain",
+        "texte": "+1",
+        "icone": "habitant",
+        "beat": "b09a",
+        "mot": "Trois",
+        "position": [
+          0.8,
+          0.2
+        ]
+      }
+    ]
+  },
+  "beats": [
+    {
+      "id": "b01",
+      "voix": "Dix mille serpents veulent manger ce hamster !",
+      "plan": {
+        "camera": "revelation",
+        "cible": "hamster",
+        "distance": 7,
+        "hauteur": 5,
+        "focale": 20
+      },
+      "texte_ecran": "10 000 SERPENTS | VS *1 HAMSTER*"
+    },
+    {
+      "id": "b02",
+      "voix": "Dans sept jours, ils attaquent.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "hamster",
+        "distance": 3.2,
+        "hauteur": 1.0,
+        "focale": 28
+      },
+      "texte_ecran": "DANS *7* JOURS",
+      "actions": [
+        {
+          "type": "cycle",
+          "cible": "hamster",
+          "params": {
+            "nom": "osciller",
+            "amplitude": 0.6
+          },
+          "debut": 0.0,
+          "duree_s": 1.8
+        }
+      ]
+    },
+    {
+      "id": "b03",
+      "voix": "Ils ont faim, et ils ne laissent rien derrière eux.",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "chef",
+        "distance": 5,
+        "hauteur": 1.6,
+        "focale": 28
+      }
+    },
+    {
+      "id": "b04a",
+      "voix": "Pour l'instant, le hamster est tout seul...",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "hamster",
+        "distance": 14,
+        "hauteur": 5,
+        "focale": 20
+      }
+    },
+    {
+      "id": "b04b",
+      "voix": "mais tu peux changer ça.",
+      "plan": {
+        "camera": "survol",
+        "cible": "hamster",
+        "distance": 4.5,
+        "hauteur": 1.2,
+        "focale": 26
+      }
+    },
+    {
+      "id": "b05a",
+      "voix": "Chaque commentaire sous cette vidéo",
+      "plan": {
+        "camera": "orbite",
+        "cible": "hamster",
+        "distance": 6,
+        "hauteur": 1.5,
+        "focale": 24
+      }
+    },
+    {
+      "id": "b05b",
+      "voix": "ajoute un soldat à son armée, avec ton pseudo dessus.",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "hamster",
+        "distance": 10,
+        "hauteur": 3,
+        "focale": 22
+      },
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "s1",
+          "duree_s": 0.4,
+          "mot": "ajoute"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_s1",
+          "duree_s": 0.4,
+          "mot": "ajoute"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "s2",
+          "duree_s": 0.4,
+          "mot": "soldat"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_s2",
+          "duree_s": 0.4,
+          "mot": "soldat"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "s3",
+          "duree_s": 0.4,
+          "mot": "son"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_s3",
+          "duree_s": 0.4,
+          "mot": "son"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "s4",
+          "duree_s": 0.4,
+          "mot": "avec"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_s4",
+          "duree_s": 0.4,
+          "mot": "avec"
+        }
+      ]
+    },
+    {
+      "id": "b06",
+      "voix": "Tu commentes : tu es soldat.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "s1",
+        "distance": 4,
+        "hauteur": 1.0,
+        "focale": 28
+      },
+      "texte_ecran": "SOLDAT"
+    },
+    {
+      "id": "b07",
+      "voix": "Tu tagues un ami : tu es archer.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "a1",
+        "distance": 4.5,
+        "hauteur": 1.0,
+        "focale": 28
+      },
+      "texte_ecran": "ARCHER | *1 AMI* TAGUÉ",
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "a1",
+          "duree_s": 0.4,
+          "mot": "tagues"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_a1",
+          "duree_s": 0.4,
+          "mot": "tagues"
+        }
+      ]
+    },
+    {
+      "id": "b08",
+      "voix": "Deux amis : tu pilotes une boule blindée.",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "rep_boule",
+        "distance": 8,
+        "hauteur": 1.2,
+        "focale": 24
+      },
+      "texte_ecran": "BOULE BLINDÉE | *2 AMIS*",
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "bo",
+          "duree_s": 0.3,
+          "mot": "Deux"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_bo",
+          "duree_s": 0.3,
+          "mot": "Deux"
+        },
+        {
+          "type": "deplacer",
+          "cible": "bo",
+          "mot": "amis",
+          "duree_s": 1.4,
+          "params": {
+            "vers": [
+              3,
+              -3.5,
+              0
+            ]
+          }
+        },
+        {
+          "type": "deplacer",
+          "cible": "tag_bo",
+          "mot": "amis",
+          "duree_s": 1.4,
+          "params": {
+            "vers": [
+              3,
+              -3.55,
+              1.9
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "b09a",
+      "voix": "Trois amis : tu deviens un cochon d'Inde géant,",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "ci",
+        "distance": 6,
+        "hauteur": 0.5,
+        "focale": 24
+      },
+      "texte_ecran": "COCHON D'INDE GÉANT | *3 AMIS*",
+      "actions": [
+        {
+          "type": "apparaitre",
+          "cible": "ci",
+          "duree_s": 0.5,
+          "mot": "Trois"
+        },
+        {
+          "type": "apparaitre",
+          "cible": "tag_ci",
+          "duree_s": 0.5,
+          "mot": "Trois"
+        }
+      ]
+    },
+    {
+      "id": "b09b",
+      "voix": "trois fois plus gros !",
+      "plan": {
+        "camera": "revelation",
+        "cible": "ci",
+        "distance": 9,
+        "hauteur": 0.8,
+        "focale": 24
+      }
+    },
+    {
+      "id": "b10",
+      "voix": "Soldats, archers, boules blindées, cochons d'Inde...",
+      "plan": {
+        "camera": "orbite",
+        "cible": "rep_armee",
+        "distance": 14,
+        "hauteur": 3,
+        "focale": 22
+      }
+    },
+    {
+      "id": "b11",
+      "voix": "Est-ce que ça suffira contre dix mille serpents ?",
+      "plan": {
+        "camera": "revelation",
+        "cible": "hamster",
+        "distance": 22,
+        "hauteur": 9,
+        "focale": 18
+      }
+    },
+    {
+      "id": "b12a",
+      "voix": "La bataille commence dans sept jours.",
+      "plan": {
+        "camera": "dolly_avant",
+        "cible": "hamster",
+        "distance": 11,
+        "hauteur": 4,
+        "focale": 20
+      },
+      "texte_ecran": "ABONNE-TOI POUR LA BATAILLE"
+    },
+    {
+      "id": "b12b",
+      "voix": "Abonne-toi pour ne pas la rater !",
+      "plan": {
+        "camera": "plan_fixe",
+        "cible": "hamster",
+        "distance": 3.15,
+        "hauteur": 1.25,
+        "focale": 20
+      },
+      "texte_ecran": "ABONNE-TOI POUR LA BATAILLE"
+    }
+  ]
+}
